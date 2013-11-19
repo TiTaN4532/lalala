@@ -1,0 +1,25 @@
+la_net_admin_masters:
+    pattern:  /masters
+    defaults: { _controller: LaNetAdminBundle:Master:list }
+
+la_net_admin_reset_password:
+    pattern:  /reset/{id}
+    defaults: { _controller: LaNetAdminBundle:Master:reset }
+    
+la_net_admin_masters_ajax:
+    pattern:  /ajax/masters
+    defaults: { _controller: LaNetAdminBundle:Master:listAjax }
+    options:
+        expose: true
+        
+la_net_admin_masters_change_password:
+    pattern:  /changepassword/{id}
+    defaults: { _controller: LaNetBundle:Master:changePassword }
+
+la_net_admin_masters_deleteAccount:
+  pattern: /admin_delete/{id}
+  defaults:
+    _controller: LaNetAdminBundle:Master:deleteAccount
+  options:
+      expose: true
+

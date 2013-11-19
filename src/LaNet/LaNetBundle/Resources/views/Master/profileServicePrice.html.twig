@@ -1,0 +1,29 @@
+{% extends "LaNetLaNetBundle:Master:layoutMaster.html.twig" %}
+
+        
+{% block stylesheets %}
+  {{ parent() }}
+  <script src="{{ asset('bundles/lanetlanet/js/mastersServicePrice.js') }}"></script>
+{% endblock %}
+      
+{% block masterContent %}
+<h1>Услуги и цены:</h1>
+
+<form action="{{ path('la_net_la_net_profile_service_price') }}" {{ form_enctype(form) }} method="POST">
+        <div class="row errors">
+            {{ form_errors(form.services) }}
+
+        </div>
+        
+        <ul class="serveces" style="list-style-type: none;" data-prototype="{{ form_widget(form.services.vars.prototype)|e }}">
+         {% for service in form.services %}
+           <li>
+              {{ form_widget(service) }}
+           </li>
+         {% endfor %}
+       </ul>
+  {{ form_widget(form.services) }}
+        {{ form_rest(form) }}
+        
+</form>
+{% endblock %}

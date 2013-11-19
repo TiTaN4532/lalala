@@ -1,0 +1,3 @@
+la_net_la_net_news_list:
+    pattern:  /news
+    defaults: { _controller: LaNetLaNetBundle:News:newsList }

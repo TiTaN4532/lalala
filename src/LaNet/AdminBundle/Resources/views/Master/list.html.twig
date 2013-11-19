@@ -1,0 +1,28 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block stylesheets  %}
+  {{ parent() }}
+  <script src="{{ asset('bundles/lanetadmin/js/masters.js')}}"></script>
+{% endblock %}
+  
+{% block content %}
+
+    <h1>Мастера:</h1>
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="flash-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <div id="users-nav">
+        <span><a href="" class="users-filter active-link" data="">#</a></span>
+        <span><a href="" class="users-filter" data="">0-9</a></span>
+        {% for letter in 'a'..'z' %}
+            <span><a href="" class="users-filter" data="{{letter}}">{{letter|upper}}</a></span>
+        {% endfor %}
+    </div>
+    <div style="margin-top: 30px;" id="users-list">
+        {{ render(controller('LaNetAdminBundle:Master:listAjax')) }}
+    </div>
+{% endblock content %}

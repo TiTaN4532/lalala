@@ -1,0 +1,7 @@
+parameters:
+#    la_net_admin.example.class: LaNet\AdminBundle\Example
+
+services:
+#    la_net_admin.example:
+#        class: %la_net_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

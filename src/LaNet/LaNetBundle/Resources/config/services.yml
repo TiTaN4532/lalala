@@ -1,0 +1,14 @@
+parameters:
+#    la_net_la_net.example.class: LaNet\LaNetBundle\Example
+
+services:
+    before_controller.listener:
+        class: LaNet\LaNetBundle\EventListener\BeforeControllerListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController}
+
+    user_create.listener:
+        class: LaNet\LaNetBundle\EventListener\UserListener
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_listener, event:prePersist}

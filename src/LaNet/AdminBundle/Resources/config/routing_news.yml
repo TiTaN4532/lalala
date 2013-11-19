@@ -1,0 +1,29 @@
+la_net_admin_news_posts:
+    pattern:  /news_posts
+    defaults: { _controller: LaNetAdminBundle:News:postsList }
+    options:
+        expose: true
+    
+la_net_admin_news_post_add:
+    pattern:  /news_posts/create
+    defaults: { _controller: LaNetAdminBundle:News:edit }
+    options:
+        expose: true
+        
+la_net_admin_news_post_edit:
+    pattern:  /news_posts/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:News:edit }
+    options:
+        expose: true
+
+la_net_admin_news_post_delete:
+    pattern:  /ajax/news_posts/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:News:delete }
+    options:
+        expose: true   
+
+la_net_admin_news_post_remove_image:
+    pattern:  /ajax/news_posts/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:News:removeImage }
+    options:
+        expose: true

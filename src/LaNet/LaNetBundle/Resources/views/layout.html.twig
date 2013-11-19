@@ -1,0 +1,45 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="banner-row">
+
+    </div>
+    <div class="main-row">
+      <div class="wrapper">
+        <div class="main-nav">
+          <ul>
+            <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
+            <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
+            <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
+            <li><a href="">Косметика</a></li>
+            <li><a href="">Консультации</a></li>
+            <li><a href="">Обучение</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="main-row">
+      <div class="wrapper">
+        <div class="row">
+          <div class="col col_5_of_6 tablet_2_of_3 mobile_1_of_1">
+            {% block content %}
+              <h2>Новости:</h2>
+              {% for post in news %}
+              <div class="row">
+                <div class="col col_1_of_3">{{ post.updated | date("F jS Y")}}</div>
+                <div class="col col_1_of_3"><img src="{{ asset(post.getWebPath)}}" style="width:100%;"></img></div>
+                <div class="col col_1_of_3">{{ post.title}}</div>
+              </div>
+              <hr />
+              {% else %}
+                Пока нет новостей
+              {% endfor %}
+            {% endblock %}
+          </div>
+          <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
+            asasdasd
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

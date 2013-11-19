@@ -1,0 +1,15 @@
+la_net_la_net_homepage:
+    pattern:  /
+    defaults: { _controller: LaNetLaNetBundle:Main:index }
+    
+la_net_la_net_access_denied:
+    pattern:  /access_denied
+    defaults: { _controller: LaNetLaNetBundle:Main:accessDenied }
+    
+SproutBack_Master_routes:
+  resource: "routing_master.yml"
+  prefix: /
+  
+SproutBack_News_routes:
+  resource: "routing_news.yml"
+  prefix: /

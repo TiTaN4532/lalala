@@ -1,0 +1,116 @@
+<?php
+
+namespace LaNet\LaNetBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="master_service_price")
+ */
+class MasterCategoryServicePrice
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+   /**
+     * @ORM\ManyToOne(targetEntity="MasterCategoryService", inversedBy="masters")
+     * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
+     */
+    private $services;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Master", inversedBy="services")
+     * @ORM\JoinColumn(name="master_id", referencedColumnName="id")
+     */
+    private $masters;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $price;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     * @return MasterCategoryServicePrice
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set services
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategoryService $services
+     * @return MasterCategoryServicePrice
+     */
+    public function setServices(\LaNet\LaNetBundle\Entity\MasterCategoryService $services = null)
+    {
+        $this->services = $services;
+    
+        return $this;
+    }
+
+    /**
+     * Get services
+     *
+     * @return \LaNet\LaNetBundle\Entity\MasterCategoryService 
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
+
+    /**
+     * Set masters
+     *
+     * @param \LaNet\LaNetBundle\Entity\Master $masters
+     * @return MasterCategoryServicePrice
+     */
+    public function setMasters(\LaNet\LaNetBundle\Entity\Master $masters = null)
+    {
+        $this->masters = $masters;
+    
+        return $this;
+    }
+
+    /**
+     * Get masters
+     *
+     * @return \LaNet\LaNetBundle\Entity\Master 
+     */
+    public function getMasters()
+    {
+        return $this->masters;
+    }
+}

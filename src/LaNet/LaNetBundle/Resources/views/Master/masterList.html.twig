@@ -1,0 +1,17 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+      
+{% block content %}
+<h1>Список мастеров</h1>
+
+{% for master in masters %}
+  <div class="clear">
+    <div style="float: left; width: 120px;"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div style="float: left;"><a href="{{ path('la_net_la_net_master_id', {'id': master.id }) }}">{{ master.firstName }}</a></div>
+  </div>
+{% else %}
+  Мастеров нет
+{% endfor %}
+{% endblock %}

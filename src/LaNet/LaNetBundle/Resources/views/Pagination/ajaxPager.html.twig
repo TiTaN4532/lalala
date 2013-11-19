@@ -1,0 +1,52 @@
+{% if pageCount > 1 %}
+<div class="pagination">
+    {% if first is defined and current != first %}
+        <span class="first">
+            <a href="javascript:void(0)" onclick="javascript:loadUpdates({{ first }})">&lt;&lt;</a>
+        </span>
+    {% endif %}
+
+    {% if previous is defined %}
+        <span class="previous">
+            <a href="javascript:void(0)" onclick="javascript:loadUpdates({{ previous }})">&lt;</a>
+        </span>
+    {% endif %}
+
+    {% for page in pagesInRange %}
+        {% if page != current %}
+            <span class="page">
+                <a href="javascript:void(0)" onclick="javascript:loadUpdates({{ page }})">{{ page }}</a>
+            </span>
+        {% else %}
+            <span class="current">{{ page }}</span>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if next is defined %}
+        <span class="next">
+            <a href="javascript:void(0)" onclick="javascript:loadUpdates({{ next }})">&gt;</a>
+        </span>
+    {% endif %}
+
+    {% if last is defined and current != last %}
+        <span class="last">
+            <a href="javascript:void(0)" onclick="javascript:loadUpdates({{ last }})">&gt;&gt;</a>
+        </span>
+    {% endif %}
+</div>
+<script type="text/javascript">
+    function loadUpdates(page)
+    {
+        $.ajax({
+            url: '{{ path(route, query) }}',
+            type: 'GET',
+            data: {'page': page},
+            dataType: 'html',
+            success: function(data){
+                $('#{{ divId }}').html(data);
+            }
+        });
+    }
+</script>
+{% endif %}

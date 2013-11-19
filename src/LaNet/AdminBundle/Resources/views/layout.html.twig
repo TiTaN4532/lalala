@@ -1,0 +1,40 @@
+{% extends "::base.html.twig" %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+      <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+      <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+      
+      <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+  {% endblock %}
+
+{% block body %}
+<div class="main-row">
+  <div class="wrapper">
+    <div class="row">
+      <h1>Main admin page</h1>
+      <div class="col col_1_of_5 tablet_1_of_3 mobile_1_of_2">
+          <ul id="menu">
+              <li><a href="{{ path('la_net_admin_homepage') }}" {% if menuPoint == 'details' %} class="ui-state-focus"{% endif %}>Details</a></li>
+              <li><a href="{{ path('la_net_admin_news_posts') }}" {% if menuPoint == 'news_posts' %} class="ui-state-focus"{% endif %}>Новости</a></li>
+              <li><a href="{{ path('la_net_admin_news_posts') }}">Master`s Category</a></li>
+              <li><a href="{{ path('la_net_admin_masters') }}" {% if menuPoint == 'masters' %} class="ui-state-focus"{% endif %}>Мастера</a></li>
+          </ul>
+      </div>
+      <div class="col col_4_of_5 tablet_2_of_3 mobile_1_of_2">
+          {% block content %}
+          {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+ <script type="text/javascript">
+   
+  $(document).ready(function() {
+{#    $( "#menu" ).menu();#}
+  });
+
+ </script>
+{% endblock %}

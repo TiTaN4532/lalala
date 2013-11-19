@@ -1,0 +1,17 @@
+{% for master in masters %}
+    <div class="user-item">
+
+        <div class="image col col_1_of_6 tablet_1_of_3 mobile_1_of_1"><img src="{{ asset(master.getWebPath) | imagine_filter('my_profile_thumb_medium') }}"></div>
+        <div class="col col_2_of_6 tablet_1_of_3 mobile_1_of_1">
+            <span>{{ master.fullname }}</span><br />
+            {% if master.location %}<span><span class="icon-location"></span>{{ master.location }}</span>{% endif %}
+        </div>
+
+        <div class="col col_3_of_6 tablet_1_of_3 mobile_1_of_1">
+            <a href="" class="button">Поменять пароль</a>
+            <a href="{{ path('la_net_admin_profiles_deleteAccount', {'id': master.id} ) }}" class="lightbox button">Удалить</a>
+            <a href="{{ path('la_net_admin_profiles_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>
+        </div>
+    </div>
+{% endfor %}
+{{ knp_pagination_render(masters) }}

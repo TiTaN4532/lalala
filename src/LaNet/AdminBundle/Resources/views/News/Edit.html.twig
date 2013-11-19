@@ -1,0 +1,64 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+ 
+{% block stylesheets %}
+      {{ parent() }}
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+  {% endblock %}
+      
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div class="float-left">
+          <img id="{{id}}_image" style="width:400px;" src="{% if image_url is empty %}{{ asset('dev/16x9.gif') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+        
+{% block content %}
+  <h2>{% if news_post.getId %}Обновить "{{ news_post.title }}"{% else %}Создать новость{% endif %} news post</h2>
+  <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
+      <div id="image">
+      {{ form_label(form.file) }}
+      {% if news_post.image %}<div><img src="{{ asset(news_post.getWebPath) | imagine_filter('my_mentor_thumb_large') }}" /> <a href="" class="remove-image">Remove</a></div>{% endif %}
+      <div>  
+        {{ form_widget(form.file) }}
+      </div>
+    </div>
+    {{ form_row(form.title) }}
+    {{ form_row(form.post) }}
+    <div>
+      <button id="cancel-news-post-btn">Назад</button>
+    {{ form_widget(form.save_draft) }}
+    {{ form_widget(form.add_post) }}
+    </div>
+    {{ form_rest(form) }}
+  </form>
+  <script>
+      $(document).ready(function(){
+          $('#cancel-news-post-btn').click(function() {
+               window.location = Routing.generate('la_net_admin_news_posts');
+            });
+        {% if news_post.id %}
+        $('.remove-image').click(function() {
+        event.preventDefault();
+          var el = $(this);
+          $.ajax({
+              url         : Routing.generate('la_net_admin_news_post_remove_image', {'id': {{ news_post.id }}}),
+              success     : function(data) {
+                if(data) { 
+                  el.prev('img').remove();
+                  el.remove(); } }
+          })
+      })
+      {% endif %}
+        });
+  </script>
+{% endblock %}

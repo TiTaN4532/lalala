@@ -1,0 +1,56 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+{% endblock %}
+      
+{% block content %}
+<div class="master-id">
+  <div>
+    <div class="col col_1_of_2">{{ master.firstname }} {{ master.lastname }}</div>
+    <div class="col col_1_of_2">Парикмахер</div>
+  </div>
+  <div class="col col_1_of_3">
+    <a href="{{ asset(master.getWebPath) }}" class="fancybox" title="Sample title"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></a>
+  </div>
+  <div class="col col_2_of_3">
+    <div class="clear">
+      <div class="col col_1_of_3">Опыт работы:</div>
+      <div class="col col_2_of_3"></div>
+    </div>
+    <div class="clear">
+      <div class="col col_1_of_3">Профиль мастера:</div>
+      <div class="col col_2_of_3">фыв</div>
+    </div>
+    <div class="clear">
+      <div class="col col_1_of_3">Использует косметику:</div>
+      <div class="col col_2_of_3">фыв</div>
+    </div>
+    <div class="clear">
+      <div class="col col_1_of_3">Работает в:</div>
+      <div class="col col_2_of_3">фыв</div>
+    </div>
+    <div class="clear">
+      <div class="col col_1_of_3">Адресс:</div>
+      <div class="col col_2_of_3">фыв</div>
+    </div>
+    <div class="clear">
+      <div class="col col_1_of_3">Телефон:</div>
+      <div class="col col_2_of_3">фыв</div>
+    </div>
+  </div>
+  <div class="gallery">
+    
+  </div>
+</div>
+  <script>
+    $(document).ready(function() {
+	$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
+  </script>
+{% endblock %}

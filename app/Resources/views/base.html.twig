@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% block stylesheets %}
+     <script src="{{ asset('js/jquery-1.10.1.min.js') }}"></script>
+      <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+      <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+      <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    {% endblock %}
+  </head>
+  <body>
+    <header class="header-row">
+      <div class="wrapper">
+        <div class="site-logo">
+          <h1>LA NET</h1>
+        </div>
+        <div class="login-form">
+          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                      {{  app.user.username }} |
+                      <a href="{{ path('fos_user_security_logout') }}">
+                          Logout
+                      </a>
+          {% else  %}
+              {% render controller("FOSUserBundle:Security:login") %}
+          {% endif %}
+        </div>
+      </div>
+    </header>
+    <hr />
+    {% block body %}{% endblock %}
+    <hr style="clear:both;"/>
+    <footer>
+      <div class="wrapper">la net</div>
+    </footer>
+
+  </body>
 </html>

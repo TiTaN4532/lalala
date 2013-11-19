@@ -1,0 +1,58 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h3>Новости</h3>
+  <button id="add-news-post-btn">Добавить новость</button>
+    {% for flashMessage in app.session.flashbag.get('notice_news_posts') %}
+        <div class="flash-notice" style="color:green;">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+  {% if pagination.count %}
+        <table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                    <th>Удалить новость</th>
+                    <th>Редактировать новость</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in pagination %}
+                    <tr>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.isdraft ? 'Draft' : 'Published' }}</td>
+                        <td>{{ post.created|date("l j-F-y g:ia") }}</td>
+                        <td><a href="{{ path('la_net_admin_news_post_delete', {'id': post.id}) }}" class="delete-post">Удалить</a></td>
+                        <td><a href="{{ path('la_net_admin_news_post_edit', {'id': post.id}) }}">Редактировать</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            На данный момент нет новостей.
+        </div>
+    {% endif %}
+    {{ knp_pagination_render(pagination) }}
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#add-news-post-btn').click(function() {
+              window.location = Routing.generate('la_net_admin_news_post_add')
+          });
+          $('.delete-post').click(function() {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                  if(data.success) 
+                    element.parent().parent().remove();
+            }
+            });
+          });
+      });
+  </script>
+{% endblock %}
