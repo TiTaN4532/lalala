@@ -31,7 +31,7 @@ class MasterCategoryService
     protected $name;
     
     /**
-     * @ORM\OneToMany(targetEntity="MasterCategoryServicePrice", mappedBy="services")
+     * @ORM\OneToMany(targetEntity="Master", mappedBy="services")
      */
     protected $masters;
     /**

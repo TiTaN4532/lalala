@@ -6,22 +6,22 @@
 {% endblock %}
   
 {% block content %}
-
+    <a href="{{ path('la_net_admin_masters') }}"> < Назад</a>
     <h1>Мастера:</h1>
-    {% for type, messages in app.session.flashbag.all() %}
-        {% for message in messages %}
-            <div class="flash-{{ type }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    <div id="users-nav">
-        <span><a href="" class="users-filter active-link" data="">#</a></span>
-        <span><a href="" class="users-filter" data="">0-9</a></span>
-        {% for letter in 'a'..'z' %}
-            <span><a href="" class="users-filter" data="{{letter}}">{{letter|upper}}</a></span>
+    <div class="results">
+        {% for flashMessage in app.session.flashbag.get('notice_master') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
         {% endfor %}
     </div>
+    {#<div id="users-nav">
+        <span><a href="" class="users-filter active-link" data="">#</a></span>
+        <span><a href="" class="users-filter" data="">0-9</a></span>
+        {% for letter in 'а'..'я' %}
+            <span><a href="" class="users-filter" data="{{letter}}">{{letter|upper}}</a></span>
+        {% endfor %}
+    </div>#}
     <div style="margin-top: 30px;" id="users-list">
         {{ render(controller('LaNetAdminBundle:Master:listAjax')) }}
     </div>

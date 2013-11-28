@@ -16,6 +16,9 @@ function addServiceForm(collectionHolder, $newLinkLi) {
     var $newFormLi = $('<li></li>').append(newForm);
     $newLinkLi.before($newFormLi);
     addServiceFormDeleteLink($newFormLi);
+    
+    $(collectionHolder).children('li').eq(-2).children().children().eq(1).addClass('hidden')
+    initField();
 }
 
 function addServiceFormDeleteLink($tagFormLi) {
@@ -30,7 +33,27 @@ function addServiceFormDeleteLink($tagFormLi) {
 }
 
 
+function hideShowInput (el) {
+  var input = $(el).parent().next().children('input.new-service');
+  if ($(el).val() == 'elseService') {
+      input.parent().removeClass('hidden');
+      input.prop('disabled', false);
+    } else {
+      input.parent().addClass('hidden');
+      input.prop('disabled', true);
+    }
+}
+
+function initField() {
+    $('select.service-list').change(function() {
+    hideShowInput(this);
+  });
+}
+
 $(document).ready(function(){
+  
+  $('input.new-service').parent().addClass('hidden');
+  initField()
   
   var collectionServiceHolder = $('ul.serveces');
     // setup an "add a tag" link
@@ -50,7 +73,7 @@ $(document).ready(function(){
     $addServiceLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
-
+        
         // add a new tag form (see next code block)
         addServiceForm(collectionServiceHolder, $newServiceLinkLi);
     });

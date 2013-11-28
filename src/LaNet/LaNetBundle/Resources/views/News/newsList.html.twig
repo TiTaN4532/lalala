@@ -1,5 +1,15 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
 
 {% block content %}
-<h1>News</h1>
+<h2>Новости:</h2>
+              {% for post in news %}
+              <div class="row">
+                <div class="col col_1_of_3">{{ post.updated | date("F jS Y")}}</div>
+                <div class="col col_1_of_3"><img src="{{ asset(post.getWebPath)}}" style="width:100%;"></img></div>
+                <div class="col col_1_of_3">{{ post.title}}</div>
+              </div>
+              <hr />
+              {% else %}
+                Пока нет новостей
+              {% endfor %}
 {% endblock %}

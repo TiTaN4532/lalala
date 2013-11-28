@@ -44,7 +44,10 @@ class NewsController extends BaseController
               $newsPost->setIsDraft(1);
           }
           $this->manager->persist($newsPost);
-
+          $this->get('session')->getFlashBag()->add(
+                'notice_news',
+                'Ваши изменения были сохранены'
+            );
           if(!$newsPost->getId()) {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_news_post_edit', array( 'id' => $newsPost->getId())));
