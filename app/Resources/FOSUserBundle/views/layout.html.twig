@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-    </head>
-    <body>
-
-        {% for key, messages in app.session.flashbag.all() %}
-          {% for message in messages %}
-            <div class="{{ key }}">
-                {{ message|trans({}, 'FOSUserBundle') }}
-            </div>
-          {% endfor %}
-        {% endfor %}
-
-        <div>
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% block stylesheets %}
+      <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    {% endblock %}
+  </head>
+  <body>
+    <header class="header-row">
+      <div class="wrapper">
+        <div class="site-logo">
+          <h1>LALOOK</h1>
         </div>
-    </body>
+      </div>
+    </header>
+    <hr />
+    <div class="main-row">
+      <div class="wrapper">
+        <div class="col col_1_of_2">
+        {% block fos_user_content %}{% endblock %}  
+        </div>
+        <div class="clear"></div>
+  </div>
+</div>
+    <hr style="clear:both;"/>
+    <footer>
+      <div class="wrapper">la net</div>
+    </footer>
+
+  </body>
 </html>

@@ -3,10 +3,11 @@
 namespace LaNet\LaNetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\MasterRepository")
  * @ORM\Table(name="master")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -20,42 +21,52 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable = true)
      */
     protected $firstName;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable = true)
      */
     protected $lastName;
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable = true)
      */
     protected $adress;
     
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable = true)
      */
     protected $phone;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable = true)
      */
     protected $saloon;
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable = true)
      */
     protected $type;
     
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable = true)
      */
     protected $image;
     
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="master", orphanRemoval=true)
+     * @ORM\Column(type="integer")
+     */
+    protected $experience;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $usedCosmetics;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
      */
     protected $portfolio;
     
@@ -66,7 +77,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $category;
     
     /**
-     * @ORM\OneToMany(targetEntity="MasterCategoryServicePrice", mappedBy="masters")
+     * @ORM\OneToMany(targetEntity="MasterCategoryServicePrice", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
      */
     protected $services;
     
@@ -208,6 +219,29 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     {
         return $this->saloon;
     }
+    
+     /**
+     * Set experience
+     *
+     * @param string $experience
+     * @return Master
+     */
+    public function setExperience($value)
+    {
+        $this->experience = $value;
+    
+        return $this;
+    }
+
+    /**
+     * Get experience
+     *
+     * @return integer 
+     */
+    public function getExperience()
+    {
+        return $this->experience;
+    }
 
     /**
      * Set type
@@ -263,6 +297,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function addPortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
     {
+        $portfolio->setMaster($this);
         $this->portfolio[] = $portfolio;
     
         return $this;
@@ -319,6 +354,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function addService(\LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $services)
     {
+        $services->setMaster($this);
         $this->services[] = $services;
     
         return $this;
@@ -365,5 +401,64 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getUser()
     {
         return $this->user;
+    }
+    
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/images/master';
+    }
+        
+ 
+     /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate() 
+     */
+    public function prePersist()
+    {
+      if (null !== $this->file) {
+         // do whatever you want to generate a unique name
+        $this->image = time().'.'.$this->file->guessExtension();
+      }
+    }
+     
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    { 
+       if (null === $this->file) {
+            return;
+       }
+       if(is_object($this->file))
+       {  
+          // if there is an error when moving the file, an exception will
+          // be automatically thrown by move(). This will properly prevent
+          // the entity from being persisted to the database on error
+          $this->file->move($this->getUploadRootDir(), $this->image);
+
+          // check if we have an old image
+          if (isset($this->temp)) {
+              // delete the old image
+              if(file_exists($this->getUploadRootDir().'/'.$this->temp))
+                 unlink($this->getUploadRootDir().'/'.$this->temp);
+              // clear the temp image path
+              $this->temp = null;
+          }
+          $this->file = null;
+       }
+    }
+    
+     /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            if(file_exists($file))
+                unlink($file);
+        }
     }
 }

@@ -10,6 +10,10 @@ la_net_la_net_profile:
     pattern:  /profile
     defaults: { _controller: LaNetLaNetBundle:Master:profile }
 
+la_net_la_net_profile_work:
+    pattern:  /profile/work
+    defaults: { _controller: LaNetLaNetBundle:Master:profileWork }
+
 la_net_la_net_profile_portfolio:
     pattern:  /profile/portfolio
     defaults: { _controller: LaNetLaNetBundle:Master:profilePortfolio }

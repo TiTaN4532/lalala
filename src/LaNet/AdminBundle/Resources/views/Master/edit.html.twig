@@ -1,0 +1,26 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+  
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div class="float-left">
+          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('dev/16x9.gif') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Загрузить</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+        
+{% block content %}
+    <a href="{{ path('la_net_admin_masters_list') }}"> < Назад к списку</a>
+    <form action="" {{ form_enctype(form) }} method="POST">
+      {{ form_widget(form) }}
+    </form>
+{% endblock content %}

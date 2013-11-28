@@ -7,7 +7,7 @@
         <div class="float-left">
           <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('dev/16x9.gif') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
         </div>
-        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Загрузить</a>
         <input type="file" {{ block('widget_attributes') }} style="display:none"/>
         <script type="text/javascript">
             $("#{{id}}").change(function(){
@@ -23,7 +23,8 @@
 {% endblock %}
       
 {% block masterContent %}
-<h1>Profile</h1>
+  {{ parent() }}
+<h1>Основная информация</h1>
 
 <form action="{{ path('la_net_la_net_profile') }}" {{ form_enctype(form) }} method="POST">
         <div class="row errors">

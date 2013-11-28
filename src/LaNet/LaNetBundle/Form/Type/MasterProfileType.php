@@ -15,11 +15,10 @@ class MasterProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', 'text', array('required' => false, 'label' => 'Имя:'))
-            ->add('lastName', 'text', array('required' => false, 'label' => 'Фамилия:'))
-            ->add('adress', 'text', array('required' => false, 'label' => 'Адресс:'))
-            ->add('phone', 'text', array('required' => false, 'label' => 'Номер телефона:'))
-            ->add('saloon', 'text', array('required' => false, 'label' => 'Салон:'))
+            ->add('firstName', 'text', array('label' => 'Имя:'))
+            ->add('lastName', 'text', array('label' => 'Фамилия:'))
+            ->add('adress', 'text', array('label' => 'Адресс:'))
+            ->add('phone', 'text', array('label' => 'Номер телефона:'))
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Image:", 'image_path' => 'webPath'))
 //            ->add('specialties', 'entity', array(
 //                  'by_reference' => false,

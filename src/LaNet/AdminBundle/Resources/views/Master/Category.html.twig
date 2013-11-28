@@ -1,0 +1,32 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block stylesheets  %}
+  {{ parent() }}
+  <script src="{{ asset('bundles/lanetadmin/js/masters.js')}}"></script>
+{% endblock %}
+  
+{% block content %}
+  <a href="{{ path('la_net_admin_masters') }}"> < Назад</a>
+  <div id="master-category-wrapper">
+    <div class="col col_1_of_2">
+      <div class="result creating"></div>
+      <form action="{{ path('la_net_admin_new_master_category') }}" method="post" {{ form_enctype(form) }} name="master_category">
+          {{ form_widget(form) }}
+          <p>
+              <button type="submit">Добавить</button>
+          </p>
+      </form>
+    </div>
+    <div class="col col_1_of_2">
+      <div class="result removing"></div>
+      <ul id="category-list">
+      {% for category in categories %}
+        <li>{{ category.name }} (<a href="{{ path ('la_net_back_admin_delete_master_category', { 'id': category.id })}}" class="remove-master-category">Удалить</a>)</li>
+      {% endfor %}
+      </ul>
+    </div>
+    <div class="clear"></div>
+  </div>
+  
+    
+{% endblock content %}

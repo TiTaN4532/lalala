@@ -56,6 +56,16 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $image;
     
     /**
+     * @ORM\Column(type="integer", nullable = true)
+     */
+    protected $experience;
+    
+    /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    protected $usedCosmetics;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Image", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
      */
     protected $portfolio;
@@ -208,6 +218,29 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getSaloon()
     {
         return $this->saloon;
+    }
+    
+     /**
+     * Set experience
+     *
+     * @param string $experience
+     * @return Master
+     */
+    public function setExperience($value)
+    {
+        $this->experience = $value;
+    
+        return $this;
+    }
+
+    /**
+     * Get experience
+     *
+     * @return integer 
+     */
+    public function getExperience()
+    {
+        return $this->experience;
     }
 
     /**
@@ -427,5 +460,28 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
             if(file_exists($file))
                 unlink($file);
         }
+    }
+
+    /**
+     * Set usedCosmetics
+     *
+     * @param string $usedCosmetics
+     * @return Master
+     */
+    public function setUsedCosmetics($usedCosmetics)
+    {
+        $this->usedCosmetics = $usedCosmetics;
+    
+        return $this;
+    }
+
+    /**
+     * Get usedCosmetics
+     *
+     * @return string 
+     */
+    public function getUsedCosmetics()
+    {
+        return $this->usedCosmetics;
     }
 }

@@ -1,0 +1,15 @@
+la_net_admin_masters_categories_list:
+    pattern:  /masters/category
+    defaults: { _controller: LaNetAdminBundle:MasterCategory:list }
+
+la_net_admin_new_master_category:
+    pattern:  /ajax/new_master_category
+    defaults: { _controller: LaNetAdminBundle:MasterCategory:newCategory }
+    
+la_net_back_admin_delete_master_category:
+    pattern:  /ajax/delete_master_category/{id}
+    defaults: { _controller: LaNetAdminBundle:MasterCategory:DeleteCategory }
+    options:
+        expose: true
+    requirements:
+      id: \d+

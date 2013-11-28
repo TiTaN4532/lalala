@@ -25,13 +25,7 @@
 {% block content %}
   <h2>{% if news_post.getId %}Обновить "{{ news_post.title }}"{% else %}Создать новость{% endif %} news post</h2>
   <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
-      <div id="image">
-      {{ form_label(form.file) }}
-      {% if news_post.image %}<div><img src="{{ asset(news_post.getWebPath) | imagine_filter('my_mentor_thumb_large') }}" /> <a href="" class="remove-image">Remove</a></div>{% endif %}
-      <div>  
         {{ form_widget(form.file) }}
-      </div>
-    </div>
     {{ form_row(form.title) }}
     {{ form_row(form.post) }}
     <div>
@@ -47,7 +41,7 @@
                window.location = Routing.generate('la_net_admin_news_posts');
             });
         {% if news_post.id %}
-        $('.remove-image').click(function() {
+        $('.remove-image').click(function(event) {
         event.preventDefault();
           var el = $(this);
           $.ajax({

@@ -5,8 +5,6 @@ app/logs
 app/bootstrap.php.cache
 web/bundles/
 vendor/
-web/js/
-web/css/
 !web/js/vendor/
 bin/
 logs/

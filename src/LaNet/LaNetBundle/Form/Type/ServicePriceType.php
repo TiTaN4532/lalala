@@ -21,6 +21,7 @@ class ServicePriceType extends AbstractType
   {
     $master = $this->master;
     $builder -> add('services', 'entity', array(
+                              'attr' => array('class' => 'service-list'),
                               'label' => 'Услуга:',
                               'class' => 'LaNet\LaNetBundle\Entity\MasterCategoryService',
 //                              'choices' => $this->master->getCategory()->getServices(),
@@ -40,6 +41,9 @@ class ServicePriceType extends AbstractType
                               'expanded' => false,
                               'empty_value' => 'None'
                             )) 
+             ->add('newservice', 'text', array('mapped' => false,
+                                               'attr' => array('class' => 'new-service', 'disabled' => 'desabled'),
+                                               'label' => 'Новая услуга:'))
              -> add('price', 'integer', array('label' => 'Цена:'));
   }
 

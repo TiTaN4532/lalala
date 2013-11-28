@@ -5,9 +5,19 @@ namespace LaNet\AdminBundle\Controller;
 use LaNet\AdminBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 
+use LaNet\LaNetBundle\Entity as LaEntity;
+use LaNet\AdminBundle\Form\Type as LaForm;
+
 class MasterController extends BaseController
 {
-    public function listAction(Request $request)
+  
+  public function mainAction(Request $request)
+  {
+    return $this->render('LaNetAdminBundle:Master:main.html.twig', array('menuPoint' => 'masters'));
+  }
+
+  
+  public function listAction(Request $request)
     {
         $usersFilter = array("#" => "", "0-9" => "", "A" => "a", "B" => "b", "C" => "c", "D" => "d", "E" => "e", "F" => "f", "G" => "g", "H" => "h",
                              "I" => "i", "J" => "j", "K" => "k", "L" => "l", "M" => "m", "N" => "n", "O" => "o", "P" => "p", "Q" => "q",
@@ -32,4 +42,15 @@ class MasterController extends BaseController
 
         return $this->render('LaNetAdminBundle:Master:listAjax.html.twig', array('masters' => $paginator));
     }
+    
+    public function editAction(Request $request, $id)
+    {
+        $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
+        
+        $form = $this->createForm(new LaForm\MasterType(), $master);
+
+        return $this->render('LaNetAdminBundle:Master:edit.html.twig', array('menuPoint' => 'masters', 'form' => $form->createView()));
+    }
+    
+    
 }

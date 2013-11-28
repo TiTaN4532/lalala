@@ -48,6 +48,6 @@ class MasterServiceType extends AbstractType
      */
     public function getName()
     {
-        return 'lanet_prifile_service_price';
+        return 'lanet_profile_service_price';
     }
 }

@@ -13,12 +13,12 @@
     <div class="col col_1_of_2">Парикмахер</div>
   </div>
   <div class="col col_1_of_3">
-    <a href="{{ asset(master.getWebPath) }}" class="fancybox" title="Sample title"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></a>
+    <a href="{{ asset(master.getWebPath) }}" class="fancybox" title="Sample title"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" title="Шляпа" /></a>
   </div>
   <div class="col col_2_of_3">
     <div class="clear">
       <div class="col col_1_of_3">Опыт работы:</div>
-      <div class="col col_2_of_3"></div>
+      <div class="col col_2_of_3">{{ master.experience }} лет</div>
     </div>
     <div class="clear">
       <div class="col col_1_of_3">Профиль мастера:</div>
@@ -26,24 +26,46 @@
     </div>
     <div class="clear">
       <div class="col col_1_of_3">Использует косметику:</div>
-      <div class="col col_2_of_3">фыв</div>
+      <div class="col col_2_of_3">{{ master.usedCosmetics }}</div>
     </div>
     <div class="clear">
       <div class="col col_1_of_3">Работает в:</div>
-      <div class="col col_2_of_3">фыв</div>
+      <div class="col col_2_of_3">{{ master.saloon }}</div>
     </div>
     <div class="clear">
       <div class="col col_1_of_3">Адресс:</div>
-      <div class="col col_2_of_3">фыв</div>
+      <div class="col col_2_of_3">{{ master.adress }}</div>
     </div>
     <div class="clear">
       <div class="col col_1_of_3">Телефон:</div>
-      <div class="col col_2_of_3">фыв</div>
+      <div class="col col_2_of_3">{{ master.phone }}</div>
     </div>
   </div>
+  {% if master.portfolio is not empty %}
+  <hr class="clear" />
   <div class="gallery">
-    
+    <h2>Фотогалерея:</h2>
+      {% for image in master.portfolio%}
+    <div class="col col_1_of_6">
+      <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></a>
+    </div>
+      {% endfor %}
   </div>
+  {% endif %}
+  {% if master.services is not empty %}
+    <hr class="clear" />
+    <div>
+      <h2>Услуги</h2>
+      
+        <table>
+          <tr><th>Предлагает следующие услуги:</th><th>Цена:</th></tr>
+          {% for service in master.services %}
+            <tr><td>{{ service.services.name }}</td><td>{{ service.price }}</td></tr>
+          {% endfor %}
+        </table>
+      
+    </div>
+  {% endif %}
 </div>
   <script>
     $(document).ready(function() {

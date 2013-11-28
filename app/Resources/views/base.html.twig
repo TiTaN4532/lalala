@@ -15,16 +15,17 @@
     <header class="header-row">
       <div class="wrapper">
         <div class="site-logo">
-          <h1>LA NET</h1>
+          <h1>LALOOK</h1>
         </div>
         <div class="login-form">
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                       {{  app.user.username }} |
                       <a href="{{ path('fos_user_security_logout') }}">
-                          Logout
-                      </a>
+                          Выйти
+                      </a> |
+                      <a href="{{ path('la_net_la_net_profile') }}">Профиль</a>
           {% else  %}
-              {% render controller("FOSUserBundle:Security:login") %}
+              {% render controller("LaNetLaNetBundle:Main:customLoginForm") %}
           {% endif %}
         </div>
       </div>
