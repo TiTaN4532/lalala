@@ -62,7 +62,28 @@ function callbackNewPartnerType(response)
   }
 }
 
+function hideShowInput () {
+  if ($('select.category-list').val() == 'elseCategory') {
+      $('input.new-category').parent().removeClass('hidden');
+      $('input.new-category').prop('disabled', false);
+    } else {
+      $('input.new-category').parent().addClass('hidden');
+      $('input.new-category').prop('disabled', true);
+    }
+}
+
+
 $(document).ready(function(){
+  
+    $('a.remove-master').click(function() {
+      var link = $(this);
+      $.ajax({
+        url: Routing.generate('la_net_admin_ajax_delete_master', {'id':link.attr('data')}),
+        success     : function(data) {
+                link.parents('.user-item').remove();
+             }
+        });
+    });
    $('.users-filter').click(function(event){
       event.preventDefault();
       var link = $(this);
@@ -92,5 +113,10 @@ $(document).ready(function(){
   });
   bindRemoveAction('partner-type');
   
-  
+  hideShowInput();
+  $('select.category-list').change(function() {
+    hideShowInput();
+  });
 });
+
+

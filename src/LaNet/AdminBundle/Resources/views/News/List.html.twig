@@ -3,11 +3,11 @@
 {% block content %}
   <h3>Новости</h3>
   <button id="add-news-post-btn">Добавить новость</button>
-    {% for flashMessage in app.session.flashbag.get('notice_news_posts') %}
-        <div class="flash-notice" style="color:green;">
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('notice_news') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
   {% if pagination.count %}
         <table class="projects-table">
             <thead>

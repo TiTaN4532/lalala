@@ -8,13 +8,13 @@
 {% block content %}
     <a href="{{ path('la_net_admin_masters') }}"> < Назад</a>
     <h1>Мастера:</h1>
-    {% for type, messages in app.session.flashbag.all() %}
-        {% for message in messages %}
-            <div class="flash-{{ type }}">
-                {{ message }}
-            </div>
+    <div class="results">
+        {% for flashMessage in app.session.flashbag.get('notice_master') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
         {% endfor %}
-    {% endfor %}
+    </div>
     {#<div id="users-nav">
         <span><a href="" class="users-filter active-link" data="">#</a></span>
         <span><a href="" class="users-filter" data="">0-9</a></span>

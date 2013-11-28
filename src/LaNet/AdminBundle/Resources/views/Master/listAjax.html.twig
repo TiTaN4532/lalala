@@ -1,6 +1,6 @@
 {% for master in masters %}
     <div class="user-item">
-
+        
         <div class="image col col_1_of_6 tablet_1_of_3 mobile_1_of_1"><img src="{{ asset(master.getWebPath) | imagine_filter('my_master_thumb_medium') }}"></div>
         <div class="col col_2_of_6 tablet_1_of_3 mobile_1_of_1">
             Мастер: <br />
@@ -8,7 +8,7 @@
         </div>
 
         <div class="col col_3_of_6 tablet_1_of_3 mobile_1_of_1">
-            <a href="{{ path('la_net_admin_masters_deleteAccount', {'id': master.id} ) }}" class="lightbox button">Удалить</a>
+            <a href="javascript:void(0)" class="remove-master button" data="{{ master.id }}">Удалить</a>
             <a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>
         </div>
     </div>

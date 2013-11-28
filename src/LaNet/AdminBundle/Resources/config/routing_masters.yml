@@ -19,6 +19,12 @@ la_net_admin_masters_ajax:
     defaults: { _controller: LaNetAdminBundle:Master:listAjax }
     options:
         expose: true
+
+la_net_admin_ajax_delete_master:
+    pattern:  /ajax/delete_master/{id}
+    defaults: { _controller: LaNetAdminBundle:Master:delete }
+    options:
+        expose: true
         
 la_net_admin_masters_change_password:
     pattern:  /changepassword/{id}

@@ -25,12 +25,13 @@ class MasterType extends AbstractType
                   'expanded' => false,
                   'empty_value' => 'None'
                 ))   
-            ->add('newcategory', 'text', array('mapped' => false,
-                                               'attr' => array('class' => 'new-category'),
-                                               'label' => 'Новая категория:'))
+//            ->add('newcategory', 'text', array('mapped' => false,
+//                                               'attr' => array('class' => 'new-category'),
+//                                               'label' => 'Новая категория:'))
             ->add('saloon', 'text', array('label' => 'Салон:'))
             ->add('experience', 'integer', array('label' => 'Опыт работы:'))
-            ->add('usedcosmetics', 'text', array('label' => 'Использует косметику:'));
+            ->add('usedcosmetics', 'text', array('label' => 'Использует косметику:'))
+            ->add('save', 'submit', array('label' => 'Сохранить'));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)

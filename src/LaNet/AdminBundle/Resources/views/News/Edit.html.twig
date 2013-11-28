@@ -21,7 +21,7 @@
         </script>
     {% endspaceless %}
 {% endblock %}
-        
+  
 {% block content %}
   <h2>{% if news_post.getId %}Обновить "{{ news_post.title }}"{% else %}Создать новость{% endif %} news post</h2>
   <form action="" method="post" {{ form_enctype(form) }} class="frm-project">

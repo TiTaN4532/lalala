@@ -17,7 +17,10 @@
         </script>
     {% endspaceless %}
 {% endblock %}
-        
+ {% block stylesheets %}
+  {{ parent() }}
+  <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+{% endblock %}        
 {% block content %}
     <a href="{{ path('la_net_admin_masters_list') }}"> < Назад к списку</a>
     <form action="" {{ form_enctype(form) }} method="POST">

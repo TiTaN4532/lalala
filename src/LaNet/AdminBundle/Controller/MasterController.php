@@ -4,6 +4,7 @@ namespace LaNet\AdminBundle\Controller;
 
 use LaNet\AdminBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use LaNet\LaNetBundle\Entity as LaEntity;
 use LaNet\AdminBundle\Form\Type as LaForm;
@@ -49,7 +50,35 @@ class MasterController extends BaseController
         
         $form = $this->createForm(new LaForm\MasterType(), $master);
 
+        if ('POST' == $request->getMethod()) {
+
+          $form->bind($request);
+
+          if ($form->isValid()) {
+            
+            $this->manager->persist($master);
+            $this->get('session')->getFlashBag()->add(
+                'notice_master',
+                'Ваши изменения были сохранены'
+            );
+            $this->manager->flush();
+            return $this->redirect($this->generateUrl('la_net_admin_masters_list'));
+          }
+        }
+
         return $this->render('LaNetAdminBundle:Master:edit.html.twig', array('menuPoint' => 'masters', 'form' => $form->createView()));
+    }
+    
+    public function deleteAction(Request $request, $id)
+    {
+        $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
+        
+        $this->manager->remove($master->getUser());
+        $this->manager->remove($master);
+        
+        $this->manager->flush();
+
+        return new JsonResponse(1);
     }
     
     
