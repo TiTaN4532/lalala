@@ -1,0 +1,54 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h3>Брeнды</h3>
+  <button id="add-brand-btn">Добавить брeнд</button>
+        {% for flashMessage in app.session.flashbag.get('notice_brand') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+  {% if pagination.count %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Удалить бренд</th>
+                    <th>Редактировать бренд</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for brand in pagination %}
+                    <tr>
+                        <td>{{ brand.name }}</td>
+                        <td><a href="{{ path('la_net_admin_brand_delete', {'id': brand.id}) }}" class="delete-brand">Удалить</a></td>
+                        <td><a href="{{ path('la_net_admin_brand_edit', {'id': brand.id}) }}">Редактировать</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            На данный момент нет брeндов.
+        </div>
+    {% endif %}
+    {{ knp_pagination_render(pagination) }}
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#add-brand-btn').click(function() {
+              window.location = Routing.generate('la_net_admin_brand_create')
+          });
+          $('.delete-brand').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                  if(data.success) 
+                    element.parent().parent().remove();
+            }
+            });
+          });
+      });
+  </script>
+{% endblock %}

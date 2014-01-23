@@ -1,0 +1,3 @@
+la_net_la_net_product_list:
+    pattern:  /products
+    defaults: { _controller: LaNetLaNetBundle:Product:list }

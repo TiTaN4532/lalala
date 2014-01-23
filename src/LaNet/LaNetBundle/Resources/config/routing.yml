@@ -13,3 +13,7 @@ SproutBack_Master_routes:
 SproutBack_News_routes:
   resource: "routing_news.yml"
   prefix: /
+  
+SproutBack_Product_routes:
+  resource: "routing_product.yml"
+  prefix: /

@@ -1,0 +1,50 @@
+<?php
+namespace LaNet\LaNetBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="product")
+ */
+class Product extends \LaNet\LaNetBundle\Model\UploadImages
+{
+  /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
+    
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $description;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $image;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="ProductCategory", inversedBy="product")
+     */
+    protected $category;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Brand", inversedBy="product")
+     */
+    protected $brand;
+        
+  
+}

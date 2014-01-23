@@ -1,0 +1,15 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block content %}
+<h2>Товары:</h2>
+              {% for product in products %}
+              <div class="row">
+                <div class="col col_1_of_3"><img src="{{ asset(product.getWebPath)}}" style="width:100%;" /></div>
+                <div class="col col_1_of_3">{{ product.name }}</div>
+                <div class="col col_1_of_3">{{ product.description}}</div>
+              </div>
+              <hr />
+              {% else %}
+                Пока нет товаров
+              {% endfor %}
+{% endblock %}
