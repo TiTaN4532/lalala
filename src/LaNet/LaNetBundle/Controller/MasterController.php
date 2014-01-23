@@ -116,7 +116,6 @@ class MasterController extends BaseController
           if(!empty($newServices))
           {
             foreach($newServices as $key => $value) {
-              print_r($value);
               if(isset($value['newservice'])) {
                 $service = new LaEntity\MasterCategoryService();
                 $servicePrice = new LaEntity\MasterCategoryServicePrice();

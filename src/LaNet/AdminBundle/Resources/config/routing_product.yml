@@ -1,0 +1,27 @@
+la_net_admin_product_list:
+    pattern:  /product
+    defaults: { _controller: LaNetAdminBundle:Product:list }
+    options:
+        expose: true
+    
+la_net_admin_product_create:
+    pattern:  /product/create
+    defaults: { _controller: LaNetAdminBundle:Product:edit }
+    options:
+        expose: true
+    
+la_net_admin_product_edit:
+    pattern:  /product/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Product:edit }
+    
+la_net_admin_product_delete:
+    pattern:  /ajax/product/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:Product:delete }
+    options:
+        expose: true
+ 
+la_net_admin_news_product_image:
+    pattern:  /ajax/product/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:Product:removeImage }
+    options:
+        expose: true

@@ -1,0 +1,175 @@
+<?php
+namespace LaNet\LaNetBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="product_category")
+ */
+class ProductCategory
+{
+  /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     */
+    protected $product;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="ProductCategory", mappedBy="parent",cascade={"persist"}, orphanRemoval=true)
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ProductCategory", inversedBy="children",cascade={"persist"})
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+    
+
+    public function __construct() {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    
+  
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ProductCategory
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add product
+     *
+     * @param \LaNet\LaNetBundle\Entity\Product $product
+     * @return ProductCategory
+     */
+    public function addProduct(\LaNet\LaNetBundle\Entity\Product $product)
+    {
+        $this->product[] = $product;
+    
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \LaNet\LaNetBundle\Entity\Product $product
+     */
+    public function removeProduct(\LaNet\LaNetBundle\Entity\Product $product)
+    {
+        $this->product->removeElement($product);
+    }
+
+    /**
+     * Get product
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategory $children
+     * @return ProductCategory
+     */
+    public function addChild(\LaNet\LaNetBundle\Entity\ProductCategory $children)
+    {
+        $this->children[] = $children;
+        $children->setParent($this);
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategory $children
+     */
+    public function removeChild(\LaNet\LaNetBundle\Entity\ProductCategory $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategory $parent
+     * @return ProductCategory
+     */
+    public function setParent(\LaNet\LaNetBundle\Entity\ProductCategory $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \LaNet\LaNetBundle\Entity\ProductCategory 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+}

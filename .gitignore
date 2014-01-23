@@ -18,4 +18,8 @@ web/uploads/images/news/*
 web/uploads/cache/*
 web/uploads/images/portfolio/*
 !default.gif
+web/uploads/images/product/*
+!default.jpg
+web/uploads/images/brands/*
+!default.jpg
 !.htaccess

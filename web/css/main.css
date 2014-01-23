@@ -883,3 +883,12 @@ li {
 .flash-notice.success{
   color: green;
 }
+
+ul#left-menu li {
+  border-bottom: 1px #7FFF00 solid;
+}
+ul li a.active {
+  padding: 5px;
+  color: white;
+  background-color: #008000;
+}

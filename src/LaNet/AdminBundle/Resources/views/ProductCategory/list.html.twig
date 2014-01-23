@@ -1,0 +1,37 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+ 
+{% block stylesheets %}
+      {{ parent() }}
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/productCategory.js') }}"></script>
+  {% endblock %}
+ 
+      
+{% block content %}
+  <h2>Список категорий</h2>
+      <a href="{{ path('la_net_admin_product_category_create') }}">Добавить категорию</a>
+      <ul>
+        {% for category in categories %}
+            <li>
+              <a href="{{ path('la_net_admin_product_category_edit', {'id': category.id}) }}">{{ category.name }}</a><a class="float-right delete-category" href="{{ path('la_net_admin_product_category_delete', {'id' : category.id })}}">Удалить</a>
+              <hr />
+            </li>
+        {% endfor %}
+    </ul>
+
+      <script>
+         $(document).ready(function() {
+            $('.delete-category').click(function(event) {
+              event.preventDefault();
+              var element = $(this);
+              $.ajax({
+                  url         : element.attr('href'),
+                  success     : function(data) {
+                    if(data.success) 
+                      element.parent().remove();
+              }
+              });
+            })
+         })
+      </script>
+{% endblock %}

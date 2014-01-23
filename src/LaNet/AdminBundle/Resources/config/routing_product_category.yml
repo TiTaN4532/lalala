@@ -1,0 +1,19 @@
+la_net_admin_product_category_list:
+    pattern:  /product_category
+    defaults: { _controller: LaNetAdminBundle:ProductCategory:list }
+
+la_net_admin_product_category_create:
+    pattern:  /product_category/create
+    defaults: { _controller: LaNetAdminBundle:ProductCategory:edit }
+    
+la_net_admin_product_category_edit:
+    pattern:  /product_category/{id}
+    defaults: { _controller: LaNetAdminBundle:ProductCategory:edit }
+
+la_net_admin_product_category_delete:
+    pattern:  /ajax/product_category/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:ProductCategory:delete }
+    options:
+        expose: true
+    
+
