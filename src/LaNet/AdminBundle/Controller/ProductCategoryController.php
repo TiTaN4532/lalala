@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use LaNet\LaNetBundle\Entity as LaEntity;
 use LaNet\AdminBundle\Form\Type as LaForm;
+use Symfony\Component\Form\FormError;
 
 class ProductCategoryController extends BaseController
 {
@@ -33,10 +34,8 @@ class ProductCategoryController extends BaseController
         $form = $this->createForm(new LaForm\ProductCategoryType(), $category);
         
         if ('POST' == $request->getMethod()) {
-//          print_r($_POST);
-//          exit();
-          $form->bind($request);
           
+          $form->bind($request);
           
           if ($form->isValid()) {
             $this->manager->persist($category);
@@ -44,7 +43,12 @@ class ProductCategoryController extends BaseController
 //                  'notice_news',
 //                  'Ваши изменения были сохранены'
 //              );
+            try{
               $this->manager->flush();
+            }
+             catch (\Exception $e) {
+                $form->addError(new FormError("Probably there are products related to some of deleted categories"));
+            }
 //              return $this->redirect($this->generateUrl('la_net_admin_product_category_list'));
           }
         }

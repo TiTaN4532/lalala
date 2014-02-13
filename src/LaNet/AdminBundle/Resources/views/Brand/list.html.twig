@@ -46,6 +46,8 @@
                 success     : function(data) {
                   if(data.success) 
                     element.parent().parent().remove();
+                  else 
+                    alert('Probably there are products related to this brand');
             }
             });
           });

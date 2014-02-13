@@ -1,5 +1,16 @@
 {% extends "LaNetAdminBundle::layout.html.twig" %}
- 
+
+{% import _self as macros %}
+
+{% macro childCategories(product_category, categories) %}
+    <select id="product_category" class="select-category" {% if product_category.children is empty %} name="category" {% endif %} required="required">
+        <option value="">Выберите категорию</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}" {% if category == product_category %} selected="selected" {% endif %}>{{ category.name }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}
+
 {% block stylesheets %}
       {{ parent() }}
       <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
@@ -10,7 +21,7 @@
 {% block image_upload_widget %}
     {% spaceless %}
         <div class="float-left">
-          <img id="{{id}}_image" style="width:400px;" src="{% if image_url is empty %}{{ asset('dev/16x9.gif') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+          <img id="{{id}}_image" style="width:150px;" src="{% if image_url is empty %}{{ asset('dev/16x9.gif') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
         </div>
         <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
         <input type="file" {{ block('widget_attributes') }} style="display:none"/>
@@ -22,6 +33,8 @@
     {% endspaceless %}
 {% endblock %}
   
+
+    
 {% block content %}
   <h2>{% if product.getId %}Обновить "{{ product.name }}"{% else %}Создать{% endif %} товар</h2>
   <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
@@ -29,7 +42,27 @@
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
     {{ form_row(form.brand) }}
-    {{ form_row(form.category) }}
+    <div id="categories">
+        <label for="product_category" class="required">Категории</label>
+        {% if categoryTree is empty %}
+          <select id="product_category" name="category" class="select-category" required="required">
+            <option value="" selected="selected">Выберите категорию</option>
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+        {% else %}
+          {% set previous = false %}
+            {% for product_category in categoryTree %}
+              {% if not previous %}
+                {{ macros.childCategories(product_category, categories) }}
+              {% else %}
+                {{ macros.childCategories(product_category, previous.children) }}
+              {% endif %}
+              {% set previous = product_category %}
+            {% endfor %}
+        {% endif %}
+    </div>
     <div>
       <button id="cancel-product-btn">Назад</button>
     {{ form_widget(form.save) }}
@@ -38,22 +71,46 @@
   </form>
   <script>
       $(document).ready(function(){
+          $(document).on('change', '.select-category', function() { 
+            var element = $(this);
+            $('.select-category').attr('name','').attr('id', '');
+            element.nextAll('select').remove();
+            $.ajax({
+              url: Routing.generate('la_net_admin_ajax_select_category', {'id' : element.val()}),
+              success: function(msg) {
+                  if(msg.has_children){
+                    var select = $('<select></select>');
+                    select.addClass('select-category');
+                    select.attr('required', 'required')
+                    
+                    var options = '<option value="" selected="selected">Выберите категорию</option>';
+                    for(var key in msg.data) {
+                      options+= '<option value="' + msg.data[key].id + '">' + msg.data[key].name + '</option>';
+                    }
+                    select.append(options);
+                    element.after(select);
+                  }
+                  else
+                    element.attr('name', 'category').attr('id', 'product_category')
+              }
+            });
+          })
           $('#cancel-product-btn').click(function() {
                window.location = Routing.generate('la_net_admin_product_list');
             });
         {% if product.id %}
-        $('.remove-image').click(function(event) {
-        event.preventDefault();
-          var el = $(this);
-          $.ajax({
-              url         : Routing.generate('la_net_admin_product_remove_image', {'id': {{ product.id }}}),
-              success     : function(data) {
-                if(data) { 
-                  el.prev('img').remove();
-                  el.remove(); } }
-          })
-      })
-      {% endif %}
+          $('.remove-image').click(function(event) {
+          event.preventDefault();
+            var el = $(this);
+            $.ajax({
+                url         : Routing.generate('la_net_admin_product_remove_image', {'id': {{ product.id }}}),
+                success     : function(data) {
+                  if(data) { 
+                    el.prev('img').remove();
+                    el.remove(); } }
+            })
+        })
+        {% endif %}
         });
   </script>
 {% endblock %}

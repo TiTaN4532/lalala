@@ -29,6 +29,8 @@
                   success     : function(data) {
                     if(data.success) 
                       element.parent().remove();
+                    else 
+                      alert('Probably there are products related to this category');
               }
               });
             })

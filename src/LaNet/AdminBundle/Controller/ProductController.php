@@ -25,22 +25,31 @@ class ProductController extends BaseController
     {
 
       $productRepo = $this->manager->getRepository('LaNetLaNetBundle:Product');
+      $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('parent' => null));
+      $categoryTree = array();
       if (is_null($id)) {
         $product = new LaEntity\Product();
+        
       } else {
         $product = $productRepo->find($id);
         if (!$product) {
           throw $this->createNotFoundException('News post not found!');
         }
+        
+        $categoryTree[] = $parentCategory = $product->getCategory();
+        while($parentCategory->getParent() != null) {
+          $categoryTree[] = $parentCategory = $parentCategory->getParent();
+        }
+        $categoryTree = array_reverse($categoryTree);
       }
       $form = $this->createForm(new LaForm\ProductType(), $product);
 
       if ('POST' == $request->getMethod()) {
 
         $form->bind($request);
-
         if ($form->isValid()) {
-         
+          $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($request->get('category'));
+          $product->setCategory($category);
           $this->manager->persist($product);
           $this->get('session')->getFlashBag()->add(
                 'notice_product',
@@ -49,9 +58,12 @@ class ProductController extends BaseController
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_product_list'));
         }
+        else {
+          print_r($form->getErrorsAsString());
+        }
       }
 
-        return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('menuPoint' => 'product', 'product' => $product, 'form' => $form->createView()));
+        return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('menuPoint' => 'product', 'product' => $product, 'categoryTree' => $categoryTree, 'categories' => $categories, 'form' => $form->createView()));
     }
 
     public function deleteAction(Request $request, $id)
@@ -74,4 +86,24 @@ class ProductController extends BaseController
       $this->manager->flush();
       return new JsonResponse( 1 );
     }
+    
+    public function ajaxSelectCategoryAction(Request $request, $id) 
+    {
+      $response = array();
+      $data = array();
+      $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($id);
+      if($category->getChildren()->count()) {
+          $response['has_children'] = 1;
+          foreach($category->getChildren() as $value) {
+            $data[] = array('id' => $value->getId(), 'name' => $value->getName());
+          }
+          $response['data'] = $data;
+      }
+      else {
+          $response['has_children'] = 0;
+      }
+      return new JsonResponse( $response );
+    }
+    
+    
 }

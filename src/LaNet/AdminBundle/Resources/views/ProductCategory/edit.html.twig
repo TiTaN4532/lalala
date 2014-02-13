@@ -27,6 +27,7 @@
 {% block content %}
   <h2>Список категорий</h2>
   <form action="" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form)}}
                {{ _self.recursiveCategory(form) }}
     {{ form_row(form.save) }}
     {{ form_row(form._token) }}
