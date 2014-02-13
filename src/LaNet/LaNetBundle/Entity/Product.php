@@ -33,7 +33,7 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     protected $description;
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable = true)
      */
     protected $image;
     

@@ -65,9 +65,6 @@ $(document).ready(function() {
     
     findChildrenLists(collectionCategoryHolder);
     
-    // setup an "add a tag" link
-    var $addCategoryLink = $('<a href="#" class="add_tag_link">Добавить</a>');
-    
 //    var collectionSubCategoriesHolders = $('ul.sub-categories');
 //    var prototype = collectionCategoryHolder.data('prototype');
 //    var newPrototype = prototype.replace(/__name__"/g, index + '_children___name__"');
@@ -79,14 +76,15 @@ $(document).ready(function() {
 //    collectionSubCategoriesHolders.each(function() {
 //      $(this).data('prototype', newPrototype);
 //    });
-    var $newCategoryLinkLi = $('<li></li>').append($addCategoryLink);
+    var newCategoryLinkLi = '<li><a href="#" class="add_tag_link">Добавить</a></li>';
     
     collectionCategoryHolder.find('li').each(function() {
         addCategoryFormDeleteLink($(this));
     });
     // add the "add a tag" anchor and li to the tags ul
-    $('ul.sub-categories').append($newCategoryLinkLi)
-    collectionCategoryHolder.append($newCategoryLinkLi);
+    
+    $('ul.sub-categories').append(newCategoryLinkLi)
+    collectionCategoryHolder.append(newCategoryLinkLi);
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)

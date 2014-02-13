@@ -5,6 +5,7 @@ namespace LaNet\AdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 
 class ProductType extends AbstractType
@@ -14,13 +15,12 @@ class ProductType extends AbstractType
     $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
              -> add('name', 'text', array('label' => 'Название:'))
              -> add('description', 'textarea', array('label' => 'Описание:'))
-             -> add('category', 'entity', array(
-                        'class' => 'LaNetLaNetBundle:ProductCategory',
-                        'property' => 'name',
-                    ))
              -> add('brand', 'entity', array(
+                        'label' => 'Брэнд',
                         'class' => 'LaNetLaNetBundle:Brand',
                         'property' => 'name',
+                        'empty_value' => 'Выберите брэнд',
+                        'empty_data'  => null
                     ))
              -> add('save', 'submit', array('label' => 'Сохранить'));
   }

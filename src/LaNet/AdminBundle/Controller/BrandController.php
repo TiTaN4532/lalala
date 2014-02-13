@@ -59,10 +59,13 @@ class BrandController extends BaseController
       $brand = $this->manager->getRepository("LaNetLaNetBundle:Brand")->findOneById($id);
       if (!$brand)
         return new JsonResponse( 1 );
-
-      $this->manager->remove($brand);
-      $this->manager->flush();
-      $response['success'] = true;
+      if($brand->getProduct()->isEmpty()) {
+        $this->manager->remove($brand);
+        $this->manager->flush();
+        $response['success'] = true;
+      } else {
+        $response['success'] = false;
+      }
       return new JsonResponse( $response );
     }
 

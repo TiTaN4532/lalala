@@ -25,3 +25,9 @@ la_net_admin_news_product_image:
     defaults: { _controller: LaNetAdminBundle:Product:removeImage }
     options:
         expose: true
+        
+la_net_admin_ajax_select_category:
+    pattern:  /ajax/product/select_category/{id}
+    defaults: { _controller: LaNetAdminBundle:Product:ajaxSelectCategory }
+    options:
+        expose: true
