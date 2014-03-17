@@ -31,7 +31,8 @@ function addCategoryFormDeleteLink($tagFormLi) {
         e.preventDefault();
 
         // remove the li for the tag form
-        $tagFormLi.remove();
+        if(confirm("Уверены что хотите удалить?")) 
+            $tagFormLi.remove();
     });
 }
 
@@ -90,6 +91,18 @@ $(document).ready(function() {
     // index when inserting a new item (e.g. 2)
 //    collectionCategoryHolder.data('index', collectionCategoryHolder.find(':input').length);
 
+  $(document).on('click','.toggle-category',function(event) {
+        event.preventDefault();
+        var element = $(this);
+        element.parent().next().toggle();
+        if(element.hasClass('open')) {
+            element.removeClass('open').addClass('close');
+            element.html('-');
+        } else {
+            element.removeClass('close').addClass('open');
+            element.html('+');
+        }
+    });
     $(document).on('click', '.add_tag_link', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
