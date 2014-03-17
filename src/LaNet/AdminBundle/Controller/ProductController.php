@@ -13,7 +13,7 @@ class ProductController extends BaseController
     public function ListAction(Request $request)
     {
         $products = $this->manager->getRepository('LaNetLaNetBundle:Product')
-                ->findAll();
+                ->findBy(array(), array('id' => 'DESC'));
         $pagination = $this->paginator->paginate(
             $products, $this->getRequest()->query->get('page', 1), 12
         );
@@ -29,7 +29,15 @@ class ProductController extends BaseController
       $categoryTree = array();
       if (is_null($id)) {
         $product = new LaEntity\Product();
-        
+        if($this->session->has('product_category')) {
+          $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($this->session->get('product_category'));
+          $product->setCategory($category);
+          $categoryTree[] = $parentCategory = $product->getCategory();
+            while($parentCategory->getParent() != null) {
+              $categoryTree[] = $parentCategory = $parentCategory->getParent();
+            }
+            $categoryTree = array_reverse($categoryTree);
+        }
       } else {
         $product = $productRepo->find($id);
         if (!$product) {
@@ -51,7 +59,8 @@ class ProductController extends BaseController
           $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($request->get('category'));
           $product->setCategory($category);
           $this->manager->persist($product);
-          $this->get('session')->getFlashBag()->add(
+          $this->session->set('product_category', $category->getId());
+          $this->session->getFlashBag()->add(
                 'notice_product',
                 'Ваши изменения были сохранены'
             );
@@ -63,7 +72,11 @@ class ProductController extends BaseController
         }
       }
 
-        return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('menuPoint' => 'product', 'product' => $product, 'categoryTree' => $categoryTree, 'categories' => $categories, 'form' => $form->createView()));
+        return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('menuPoint' => 'product',
+                                                                              'product' => $product, 
+                                                                              'categoryTree' => $categoryTree, 
+                                                                              'categories' => $categories, 
+                                                                              'form' => $form->createView()));
     }
 
     public function deleteAction(Request $request, $id)
