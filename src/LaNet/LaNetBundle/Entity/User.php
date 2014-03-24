@@ -5,6 +5,7 @@ namespace  LaNet\LaNetBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use LaNet\LaNetBundle\Entity as LaEntity;
 
 
 /**
@@ -24,11 +25,33 @@ class User extends BaseUser
      * @ORM\OneToOne(targetEntity="Master", mappedBy="user", orphanRemoval=true)
      */
     private $masterInfo;
-
+    
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\OneToOne(targetEntity="Consumer", mappedBy="user", orphanRemoval=true)
      */
-    protected $is_master;
+    private $consumerInfo;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Salon", mappedBy="user", orphanRemoval=true)
+     */
+    private $salonInfo;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Agancy", mappedBy="user", orphanRemoval=true)
+     */
+    private $agancyInfo;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Shop", mappedBy="user", orphanRemoval=true)
+     */
+    private $shopInfo;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="SchoolCenter", mappedBy="user", orphanRemoval=true)
+     */
+    private $schoolCenterInfo;
+
+
     
     public function __construct()
     {
@@ -46,49 +69,39 @@ class User extends BaseUser
         return $this->id;
     }
 
-    /**
-     * Set masterInfo
-     *
-     * @param \LaNet\LaNetBundle\Entity\Master $masterInfo
-     * @return User
-     */
-    public function setMasterInfo(\LaNet\LaNetBundle\Entity\Master $masterInfo = null)
+    public function setUserInfo($userInfo)
     {
-        $this->masterInfo = $masterInfo;
-    
+        if ($userInfo instanceof LaEntity\Master) {
+            $this->masterInfo = $userInfo;
+        } elseif ($userInfo instanceof LaEntity\Consumer) {
+            $this->consumerInfo = $userInfo;
+        } elseif ($userInfo instanceof LaEntity\Salon) {
+            $this->salonInfo = $userInfo;
+        } elseif ($userInfo instanceof LaEntity\Agancy) {
+            $this->agancyInfo = $userInfo;
+        } elseif ($userInfo instanceof LaEntity\Shop) {
+            $this->shopInfo = $userInfo;
+        } elseif ($userInfo instanceof LaEntity\SchoolCenter) {
+            $this->schoolCenterInfo = $userInfo;
+        }
+        
         return $this;
     }
 
-    /**
-     * Get masterInfo
-     *
-     * @return \LaNet\LaNetBundle\Entity\Master 
-     */
-    public function getMasterInfo()
-    {
-        return $this->masterInfo;
-    }
 
-    /**
-     * Set is_master
-     *
-     * @param boolean $isMaster
-     * @return User
-     */
-    public function setIsMaster($isMaster)
-    {
-        $this->is_master = $isMaster;
-    
-        return $this;
-    }
-
-    /**
-     * Get is_master
-     *
-     * @return boolean 
-     */
-    public function getIsMaster()
-    {
-        return $this->is_master;
+    public function getUserInfo() {
+        if ($this->hasRole('ROLE_MASTER')) {
+            return $this->masterInfo;
+        } elseif ($this->hasRole('ROLE_CONSUMER')) {
+            return $this->consumerInfo;
+        } elseif ($this->hasRole('ROLE_SALON')) {
+            return $this->salonInfo;
+        } elseif ($this->hasRole('ROLE_AGANCY')) {
+            return $this->agancyInfo;
+        } elseif ($this->hasRole('ROLE_SHOP')) {
+            return $this->shopInfo;
+        } elseif ($this->hasRole('ROLE_SCHOOL_CENTER')) {
+            return $this->schoolCenterInfo;
+        }
     }
 }

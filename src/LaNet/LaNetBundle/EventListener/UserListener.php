@@ -28,10 +28,8 @@ class UserListener
            {
                $master=new Master();
                $master->setUser($entity);
-               $entity->setMasterInfo($master);
                $entityManager->persist($master);
                $entity->addRole('ROLE_MASTER');
-               $entity->setIsMaster(1);
            }
            
         }
