@@ -30,6 +30,12 @@ class SchoolCenter extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $image;
     
+     /**
+     * @ORM\ManyToOne(targetEntity="SchoolCenterCategory", inversedBy="schoolCenter")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    protected $category;
+    
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="consumerInfo")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -52,9 +58,9 @@ class SchoolCenter extends \LaNet\LaNetBundle\Model\UploadImages
      * @param string $nmae
      * @return Salon
      */
-    public function setName($nmae)
+    public function setName($name)
     {
-        $this->nmae = $nmae;
+        $this->name = $name;
     
         return $this;
     }
@@ -64,9 +70,9 @@ class SchoolCenter extends \LaNet\LaNetBundle\Model\UploadImages
      *
      * @return string 
      */
-    public function getNmae()
+    public function getName()
     {
-        return $this->nmae;
+        return $this->name;
     }
 
     /**
@@ -172,5 +178,29 @@ class SchoolCenter extends \LaNet\LaNetBundle\Model\UploadImages
             if(file_exists($file))
                 unlink($file);
         }
+    }
+
+
+    /**
+     * Set category
+     *
+     * @param \LaNet\LaNetBundle\Entity\SchoolCenterCategory $category
+     * @return SchoolCenter
+     */
+    public function setCategory(\LaNet\LaNetBundle\Entity\SchoolCenterCategory $category = null)
+    {
+        $this->category = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \LaNet\LaNetBundle\Entity\SchoolCenterCategory 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

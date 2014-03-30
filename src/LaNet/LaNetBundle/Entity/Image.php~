@@ -96,21 +96,18 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/images/mentors';
+        return 'uploads/images/portfolio';
     }
         
- 
-     /**
+    /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate() 
      */
     public function prePersist()
     {
-      foreach ($this->specialties as $value)
-        $value->addMentor($this);
       if (null !== $this->file) {
-         // do whatever you want to generate a unique name
-        $this->image = time().'.'.$this->file->guessExtension();
+        $fileName = $this->file->getClientOriginalName();
+       $this->image = substr($fileName, 0, strrpos($fileName, '.')).'_'.time().'_'.mt_rand().'.'.$this->file->guessExtension();
       }
     }
      
@@ -133,7 +130,8 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
           // check if we have an old image
           if (isset($this->temp)) {
               // delete the old image
-              unlink($this->getUploadRootDir().'/'.$this->temp);
+              if(file_exists($this->getUploadRootDir().'/'.$this->temp))
+                 unlink($this->getUploadRootDir().'/'.$this->temp);
               // clear the temp image path
               $this->temp = null;
           }
@@ -147,7 +145,31 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     public function removeUpload()
     {
         if ($file = $this->getAbsolutePath()) {
-            unlink($file);
+            if(file_exists($file))
+                unlink($file);
         }
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Image
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

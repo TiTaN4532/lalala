@@ -1,0 +1,39 @@
+la_net_admin_consumers:
+    pattern:  /consumers
+    defaults: { _controller: LaNetAdminBundle:Consumer:main }
+    
+la_net_admin_consumers_list:
+    pattern:  /consumers/list
+    defaults: { _controller: LaNetAdminBundle:Consumer:list }
+    
+la_net_admin_consumers_edit_profile:
+    pattern: /consumers/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Consumer:edit }
+
+la_net_admin_reset_password:
+    pattern:  /reset/{id}
+    defaults: { _controller: LaNetAdminBundle:Consumer:reset }
+    
+la_net_admin_consumers_ajax:
+    pattern:  /ajax/consumers
+    defaults: { _controller: LaNetAdminBundle:Consumer:listAjax }
+    options:
+        expose: true
+
+la_net_admin_ajax_delete_consumer:
+    pattern:  /ajax/delete_consumer/{id}
+    defaults: { _controller: LaNetAdminBundle:Consumer:delete }
+    options:
+        expose: true
+        
+la_net_admin_consumers_change_password:
+    pattern:  /changepassword/{id}
+    defaults: { _controller: LaNetBundle:Consumer:changePassword }
+
+la_net_admin_consumers_deleteAccount:
+  pattern: /admin_delete/{id}
+  defaults:
+    _controller: LaNetAdminBundle:Consumer:deleteAccount
+  options:
+      expose: true
+

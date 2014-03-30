@@ -17,18 +17,25 @@ class MasterProfileType extends AbstractType
         $builder
             ->add('firstName', 'text', array('label' => 'Имя:'))
             ->add('lastName', 'text', array('label' => 'Фамилия:'))
-            ->add('adress', 'text', array('label' => 'Адресс:'))
             ->add('phone', 'text', array('label' => 'Номер телефона:'))
-            ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Image:", 'image_path' => 'webPath'))
-//            ->add('specialties', 'entity', array(
-//                  'by_reference' => false,
-//                  'class' => 'SproutBack\SproutBackBundle\Entity\Specialty',
-//                  'property'     => 'name',
-//                  'multiple'     => true,
-//                  'expanded' => true,
-//                  'attr'      => array('class' => 'speciality-list')
-//                )) 
-            ->add('save', 'submit', array('label' => 'Сохранить'))
+            ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('m' => 'Муж', 'f' => 'Жен'),
+                                            'required'  => false,
+            ))  
+            ->add('serviceType', 'choice', array('label' => 'Тип обслуживания:', 
+                                                 'choices'   => array('1' => 'Выезд на дом', '2' => 'Салон', '3' => 'Салон/Выезд на дом', '4' => 'консультации'),
+                                                 'required'  => false,
+            ))
+            ->add('birthday', 'birthday', array('label' => 'Дата рождения:', 'empty_value' => 'Не выбрано', 'format' => 'yyyyMdd','years' => range(1950, date('Y')), 'attr' => array('class' => 'width-auto')))    
+            ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
+            ->add('category', 'entity', array(
+                  'attr' => array('class' => 'category-list'),
+                  'label' => 'Профиль мастера:',
+                  'class' => 'LaNet\LaNetBundle\Entity\MasterCategory',
+                  'property'     => 'name',
+                  'multiple'     => false,
+                  'expanded' => false,
+                  'empty_value' => 'None'
+                ))  
             ;
     }
     

@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MasterRepository extends EntityRepository
 {
-
     public function findLikeName($like)
     {
       if($like)

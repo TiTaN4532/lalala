@@ -20,7 +20,12 @@
           <ul id="left-menu">
              {# <li><a href="{{ path('la_net_admin_homepage') }}" {% if menuPoint == 'details' %}{% endif %}>Details</a></li>#}
               <li><a href="{{ path('la_net_admin_news_posts') }}" {% if menuPoint == 'news_posts' %} class="active"{% endif %}>Новости</a></li>
-              <li><a href="{{ path('la_net_admin_masters') }}"{% if menuPoint == 'master' %} class="active"{% endif %}>Мастера</a></li>
+              <li><a href="{{ path('la_net_admin_consumers') }}"{% if menuPoint == 'consumers' %} class="active"{% endif %}>Потребители</a></li>
+              <li><a href="{{ path('la_net_admin_masters') }}"{% if menuPoint == 'masters' %} class="active"{% endif %}>Мастера</a></li>
+              {#<li><a href="{{ path('la_net_admin_agancy') }}"{% if menuPoint == 'agancy' %} class="active"{% endif %}>Представительства</a></li>
+              <li><a href="{{ path('la_net_admin_salons') }}"{% if menuPoint == 'salons' %} class="active"{% endif %}>Салоны</a></li>
+              <li><a href="{{ path('la_net_admin_shops') }}"{% if menuPoint == 'shops' %} class="active"{% endif %}>Магазины</a></li>
+              <li><a href="{{ path('la_net_admin_school_centers') }}"{% if menuPoint == 'school_centers' %} class="active"{% endif %}>Учебные центры</a></li>#}
               <li><a href="{{ path('la_net_admin_brand_list') }}"{% if menuPoint == 'brand' %} class="active"{% endif %}>Брeнды</a></li>
               <li><a href="{{ path('la_net_admin_product_category_list') }}"{% if menuPoint == 'product_category' %} class="active"{% endif %}>Категории товаров</a></li>
               <li><a href="{{ path('la_net_admin_product_list') }}"{% if menuPoint == 'product' %} class="active"{% endif %}>Товары</a></li>
