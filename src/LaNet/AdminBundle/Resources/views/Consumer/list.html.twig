@@ -1,0 +1,44 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block stylesheets  %}
+  {{ parent() }}
+  <script src="{{ asset('bundles/lanetadmin/js/consumers.js')}}"></script>
+{% endblock %}
+  
+{% block content %}
+    <a href="{{ path('la_net_admin_consumers') }}"> < Назад</a>
+    <h1>Потребители:</h1>
+    <div class="results">
+        {% for flashMessage in app.session.flashbag.get('notice_Consumer') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+    </div>
+    {#<div id="users-nav">
+        <span><a href="" class="users-filter active-link" data="">#</a></span>
+        <span><a href="" class="users-filter" data="">0-9</a></span>
+        {% for letter in 'а'..'я' %}
+            <span><a href="" class="users-filter" data="{{letter}}">{{letter|upper}}</a></span>
+        {% endfor %}
+    </div>#}
+    <div style="margin-top: 30px;" id="users-list">
+        {{ render(controller('LaNetAdminBundle:Consumer:listAjax')) }}
+    </div>
+    
+    <script>
+      $(document).ready(function(){
+  
+        $('a.remove-consumer').click(function() {
+          var link = $(this);
+          $.ajax({
+            url: Routing.generate('la_net_admin_ajax_delete_consumer', {'id':link.attr('data')}),
+            success     : function(data) {
+                    link.parents('.user-item').remove();
+                 }
+            });
+        });
+      });
+    </script>
+{% endblock content %}
+    

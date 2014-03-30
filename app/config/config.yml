@@ -75,6 +75,9 @@ fos_user:
     db_driver: orm 
     firewall_name: main
     user_class: LaNet\LaNetBundle\Entity\User
+    registration:
+        form:
+            type: la_user_registration
     
 liip_imagine:
     cache_prefix:         /uploads/cache

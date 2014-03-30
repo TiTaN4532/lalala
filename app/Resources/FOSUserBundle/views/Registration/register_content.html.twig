@@ -1,0 +1,46 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if not app.request.get('type') %}
+  <ul>
+    <li><a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a></li>
+    <li><a href="{{ path('fos_user_registration_register', {'type': 'specialist'}) }}">Специалист</a></li>
+    <li><a href="{{ path('fos_user_registration_register', {'type': 'salon'}) }}">Салон</a></li>
+    <li><a href="{{ path('fos_user_registration_register', {'type': 'agancy'}) }}">Представительство</a></li>
+    <li><a href="{{ path('fos_user_registration_register', {'type': 'shop'}) }}">Магазин</a></li>
+    <li><a href="{{ path('fos_user_registration_register', {'type': 'school_center'}) }}">Учебный центр</a></li>
+  </ul>
+{% else %}
+  <form action="" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    {{ form_errors(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword) }}
+    {% if app.request.get('type') == 'specialist' %}
+        {{ form_row(form.userInfo.firstName) }}
+        {{ form_row(form.userInfo.lastName) }}
+        {{ form_row(form.userInfo.gender) }}
+        {{ form_row(form.userInfo.birthday) }}
+        {{ form_row(form.userInfo.serviceType) }}
+        {{ form_row(form.userInfo.category) }}
+    {% elseif app.request.get('type') == 'consumer' %}   
+        {{ form_row(form.userInfo.firstName) }}
+        {{ form_row(form.userInfo.lastName) }}
+        {{ form_row(form.userInfo.gender) }}
+        {{ form_row(form.userInfo.birthday) }}
+    {% elseif app.request.get('type') == 'salon' %}   
+        {{ form_row(form.userInfo.name) }}
+        {{ form_row(form.userInfo.category) }}
+    {% elseif app.request.get('type') == 'agancy' %}   
+        {{ form_row(form.userInfo.name) }}
+        {{ form_row(form.userInfo.category) }}
+    {% elseif app.request.get('type') == 'shop' %}   
+        {{ form_row(form.userInfo.name) }}
+    {% elseif app.request.get('type') == 'school_center' %}   
+        {{ form_row(form.userInfo.name) }}
+        {{ form_row(form.userInfo.category) }}
+    {% endif %}
+        {{ form_row(form._token) }}
+    <div>
+        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>
+  </form>
+{% endif %}

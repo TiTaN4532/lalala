@@ -19,22 +19,20 @@ class UserListener
     
     public function prePersist(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
-        if ($entity instanceof User)
-        {
-           $value=$this->container->get('request')->attributes->all();
-           if(preg_match('/fos_user_registration_register/',$value['_route']))
-           {
-               $master=new Master();
-               $master->setUser($entity);
-               $entity->setMasterInfo($master);
-               $entityManager->persist($master);
-               $entity->addRole('ROLE_MASTER');
-               $entity->setIsMaster(1);
-           }
-           
-        }
+//        $entity = $args->getEntity();
+//        $entityManager = $args->getEntityManager();
+//        if ($entity instanceof User)
+//        {
+//           $value=$this->container->get('request')->attributes->all();
+//           if(preg_match('/fos_user_registration_register/',$value['_route']))
+//           {
+//               $master=new Master();
+//               $master->setUser($entity);
+//               $entityManager->persist($master);
+//               $entity->addRole('ROLE_MASTER');
+//           }
+//           
+//        }
     }
 }
 ?>

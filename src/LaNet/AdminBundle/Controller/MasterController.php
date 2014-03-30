@@ -30,8 +30,12 @@ class MasterController extends BaseController
     {
         $page = $request->query->get('page', 1);
         $filter = $request->get('filter') ? $request->get('filter') : '';
-        
-        $result = $this->manager->getRepository("LaNetLaNetBundle:Master")->findLikeName($filter);
+
+        $query = $this->manager->getRepository("LaNetLaNetBundle:User")->createQueryBuilder('u')
+                ->select('u')
+                ->where("u.roles LIKE '%ROLE_SPECIALIST%'");
+
+        $result = $query->getQuery();
         
         $paginator = $this->paginator->paginate($result, $page, 10);
         $paginator->setTemplate('LaNetLaNetBundle:Pagination:ajaxPager.html.twig');
@@ -71,10 +75,9 @@ class MasterController extends BaseController
     
     public function deleteAction(Request $request, $id)
     {
-        $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
-        
-        $this->manager->remove($master->getUser());
-        $this->manager->remove($master);
+        $user = $this->manager->getRepository('LaNetLaNetBundle:User')->find($id);
+
+        $this->manager->remove($user);
         
         $this->manager->flush();
 

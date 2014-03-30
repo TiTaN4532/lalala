@@ -12,3 +12,15 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: doctrine.event_listener, event:prePersist}
+            
+    la_user.registration.form.type:
+        class: LaNet\LaNetBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%, '@service_container']
+        tags:
+            - { name: form.type, alias: la_user_registration }
+
+    la_net.reg_init:
+        class: LaNet\LaNetBundle\EventListener\AutoRoleAssignmentListener
+        arguments: ['@service_container']
+        tags:
+            - { name: kernel.event_subscriber }

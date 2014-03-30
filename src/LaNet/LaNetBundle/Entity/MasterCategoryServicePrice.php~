@@ -3,6 +3,9 @@
 namespace LaNet\LaNetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 
 /**
@@ -19,7 +22,7 @@ class MasterCategoryServicePrice
     protected $id;
 
    /**
-     * @ORM\ManyToOne(targetEntity="MasterCategoryService", inversedBy="masters")
+     * @ORM\ManyToOne(targetEntity="MasterCategoryService", inversedBy="masters", cascade={"persist"})
      * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
      */
     private $services;
@@ -28,13 +31,22 @@ class MasterCategoryServicePrice
      * @ORM\ManyToOne(targetEntity="Master", inversedBy="services")
      * @ORM\JoinColumn(name="master_id", referencedColumnName="id")
      */
-    private $masters;
+    private $master;
     
     /**
      * @ORM\Column(type="integer")
      */
     protected $price;
 
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+
+        $metadata->addConstraint(new UniqueEntity(array(
+            'fields'    => array('services', 'master'),
+            'message'   => 'This speciality is already exist.',
+        )));
+    }
+    
     /**
      * Get id
      *
@@ -92,14 +104,14 @@ class MasterCategoryServicePrice
     }
 
     /**
-     * Set masters
+     * Set master
      *
-     * @param \LaNet\LaNetBundle\Entity\Master $masters
+     * @param \LaNet\LaNetBundle\Entity\Master $master
      * @return MasterCategoryServicePrice
      */
-    public function setMasters(\LaNet\LaNetBundle\Entity\Master $masters = null)
+    public function setMaster(\LaNet\LaNetBundle\Entity\Master $master = null)
     {
-        $this->masters = $masters;
+        $this->master = $master;
     
         return $this;
     }
@@ -109,8 +121,8 @@ class MasterCategoryServicePrice
      *
      * @return \LaNet\LaNetBundle\Entity\Master 
      */
-    public function getMasters()
+    public function getMaster()
     {
-        return $this->masters;
+        return $this->master;
     }
 }

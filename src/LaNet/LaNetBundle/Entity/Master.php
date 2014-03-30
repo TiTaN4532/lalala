@@ -39,16 +39,21 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="string", length=50, nullable = true)
      */
     protected $phone;
-
-    /**
-     * @ORM\Column(type="string", nullable = true)
-     */
-    protected $saloon;
     
     /**
-     * @ORM\Column(type="string", nullable = true)
+     * @ORM\Column(type="string")
      */
-    protected $type;
+    protected $gender;
+    
+    /**
+     * @ORM\Column(type="integer", length = 1)
+     */
+    protected $serviceType;
+    
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $birthday;
     
     /**
      * @ORM\Column(type="string", length=50, nullable = true)
@@ -483,5 +488,74 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getUsedCosmetics()
     {
         return $this->usedCosmetics;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     * @return Master
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string 
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set serviceType
+     *
+     * @param integer $serviceType
+     * @return Master
+     */
+    public function setServiceType($serviceType)
+    {
+        $this->serviceType = $serviceType;
+    
+        return $this;
+    }
+
+    /**
+     * Get serviceType
+     *
+     * @return integer 
+     */
+    public function getServiceType()
+    {
+        return $this->serviceType;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     * @return Master
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+    
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime 
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
     }
 }

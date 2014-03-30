@@ -53,4 +53,5 @@ class MainController extends BaseController
             'csrf_token' => $csrfToken,
         ));
     }
+   
 }

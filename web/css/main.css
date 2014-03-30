@@ -891,3 +891,7 @@ ul li a.active {
   color: white;
   background-color: #008000;
 }
+
+.width-auto select{
+  width: auto;
+}

@@ -172,4 +172,27 @@ class ProductCategory
     {
         return $this->parent;
     }
+
+    /**
+     * Add children
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategory $children
+     * @return ProductCategory
+     */
+    public function addChildren(\LaNet\LaNetBundle\Entity\ProductCategory $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategory $children
+     */
+    public function removeChildren(\LaNet\LaNetBundle\Entity\ProductCategory $children)
+    {
+        $this->children->removeElement($children);
+    }
 }
