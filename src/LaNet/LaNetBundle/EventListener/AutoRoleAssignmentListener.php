@@ -20,7 +20,7 @@ class AutoRoleAssignmentListener implements EventSubscriberInterface
     
     public static function getSubscribedEvents()
     {
-      return [ FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess', FOSUserEvents::REGISTRATION_INITIALIZE => 'onRegistrationInitialise' ];
+      return array(FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess', FOSUserEvents::REGISTRATION_INITIALIZE => 'onRegistrationInitialise' );
     }
 
     public function onRegistrationSuccess( FormEvent $event )
