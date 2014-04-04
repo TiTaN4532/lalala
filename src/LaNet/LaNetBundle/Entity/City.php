@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * City
  *
- * @ORM\Table()
+ * @ORM\Table(name = "city")
  * @ORM\Entity
  */
 class City
@@ -26,11 +26,16 @@ class City
      */
     protected $name;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="Country", inversedBy="region")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     /**
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="city")
      */
-    private $country;
+    private $region;
+    
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Salon", mappedBy="city")
+     */
+    private $salon;
 
     /**
      * Get id
@@ -86,5 +91,28 @@ class City
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Set region
+     *
+     * @param \LaNet\LaNetBundle\Entity\Region $region
+     * @return City
+     */
+    public function setRegion(\LaNet\LaNetBundle\Entity\Region $region = null)
+    {
+        $this->region = $region;
+    
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return \LaNet\LaNetBundle\Entity\Region 
+     */
+    public function getRegion()
+    {
+        return $this->region;
     }
 }

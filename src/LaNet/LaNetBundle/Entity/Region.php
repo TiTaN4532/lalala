@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Region
  *
- * @ORM\Table()
+ * @ORM\Table(name = "region")
  * @ORM\Entity
  */
 class Region
@@ -31,6 +31,11 @@ class Region
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      */
     private $country;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="City", mappedBy="region")
+     */
+    private $city;
 
 
     /**
@@ -87,5 +92,45 @@ class Region
     public function getCountry()
     {
         return $this->country;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->city = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add city
+     *
+     * @param \LaNet\LaNetBundle\Entity\City $city
+     * @return Region
+     */
+    public function addCity(\LaNet\LaNetBundle\Entity\City $city)
+    {
+        $this->city[] = $city;
+    
+        return $this;
+    }
+
+    /**
+     * Remove city
+     *
+     * @param \LaNet\LaNetBundle\Entity\City $city
+     */
+    public function removeCity(\LaNet\LaNetBundle\Entity\City $city)
+    {
+        $this->city->removeElement($city);
+    }
+
+    /**
+     * Get city
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }

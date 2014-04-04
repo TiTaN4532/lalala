@@ -25,7 +25,12 @@ class Country
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Region", mappedBy="country")
+     */
+    private $region;
+    
     /**
      * Get id
      *
@@ -57,5 +62,45 @@ class Country
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->region = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add region
+     *
+     * @param \LaNet\LaNetBundle\Entity\Region $region
+     * @return Country
+     */
+    public function addRegion(\LaNet\LaNetBundle\Entity\Region $region)
+    {
+        $this->region[] = $region;
+    
+        return $this;
+    }
+
+    /**
+     * Remove region
+     *
+     * @param \LaNet\LaNetBundle\Entity\Region $region
+     */
+    public function removeRegion(\LaNet\LaNetBundle\Entity\Region $region)
+    {
+        $this->region->removeElement($region);
+    }
+
+    /**
+     * Get region
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRegion()
+    {
+        return $this->region;
     }
 }
