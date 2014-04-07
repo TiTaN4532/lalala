@@ -10,9 +10,10 @@
     
         <div>{{ form_label(category.name) }}</div>
         <div><a class="toggle-category open" href="">+</a>{{ form_widget(category.name) }}</div>
+        <div>{{ form_widget(category.descriptionItem) }}</div>
         
-           <div style="display:none;"> 
-             <ul {% if not category.parent %} class="categories" data-prototype='<div id="product_category_children___name__"><div><label for="product_category_children___name___name" class="required">Название</label></div><div class="input-wrapper"><a class="toggle-category open" href="">+</a><input type="text" class="half " id="product_category_children___name___name" name="product_category[children][__name__][name]" required="required" /></div><div style="display:none;" id="product_category_children___name___children"><ul class="sub-categories"><li><a href="#" class="add_tag_link">Добавить</a></li></ul></div></div></div>'{% else %} class="sub-categories"{% endif %}>
+           <div class="children-category"> 
+             <ul {% if not category.parent %} class="categories" data-prototype='<div id="product_category_children___name__"><div><label for="product_category_children___name___name" class="required">Название</label></div><div class="input-wrapper"><a class="toggle-category open" href="">+</a><input type="text" class="half " id="product_category_children___name___name" name="product_category[children][__name__][name]" required="required" /></div><div class="children-category" id="product_category_children___name___children"><ul class="sub-categories"><li><a href="#" class="add_tag_link">Добавить</a></li></ul></div></div></div>'{% else %} class="sub-categories"{% endif %}>
                 {% if category.children|length %}
                   {% for child in category.children %}
                       <li>{{ _self.recursiveCategory(child) }}</li>

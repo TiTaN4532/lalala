@@ -43,6 +43,11 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     protected $category;
     
     /**
+     * @ORM\ManyToOne(targetEntity="MasterCategory", inversedBy="product")
+     */
+    protected $masterCategory;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Brand", inversedBy="product")
      */
     protected $brand;
@@ -231,5 +236,28 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
             if(file_exists($file))
                 unlink($file);
         }
+    }
+
+    /**
+     * Set masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     * @return Product
+     */
+    public function setMasterCategory(\LaNet\LaNetBundle\Entity\MasterCategory $masterCategory = null)
+    {
+        $this->masterCategory = $masterCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get masterCategory
+     *
+     * @return \LaNet\LaNetBundle\Entity\MasterCategory 
+     */
+    public function getMasterCategory()
+    {
+        return $this->masterCategory;
     }
 }

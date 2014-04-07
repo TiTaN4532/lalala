@@ -26,6 +26,10 @@ class ProductCategory
      */
     protected $name;
     
+    /**
+     * @ORM\OneToMany(targetEntity="ProductCategoryDescriptionItem", mappedBy="category", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $descriptionItem;
     
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
@@ -194,5 +198,39 @@ class ProductCategory
     public function removeChildren(\LaNet\LaNetBundle\Entity\ProductCategory $children)
     {
         $this->children->removeElement($children);
+    }
+
+   
+    /**
+     * Add descriptionItem
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategoryDescriptionItem $descriptionItem
+     * @return ProductCategory
+     */
+    public function addDescriptionItem(\LaNet\LaNetBundle\Entity\ProductCategoryDescriptionItem $descriptionItem)
+    {
+        $this->descriptionItem[] = $descriptionItem;
+    
+        return $this;
+    }
+
+    /**
+     * Remove descriptionItem
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategoryDescriptionItem $descriptionItem
+     */
+    public function removeDescriptionItem(\LaNet\LaNetBundle\Entity\ProductCategoryDescriptionItem $descriptionItem)
+    {
+        $this->descriptionItem->removeElement($descriptionItem);
+    }
+
+    /**
+     * Get descriptionItem
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDescriptionItem()
+    {
+        return $this->descriptionItem;
     }
 }

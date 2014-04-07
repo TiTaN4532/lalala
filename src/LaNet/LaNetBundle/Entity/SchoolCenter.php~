@@ -180,4 +180,27 @@ class SchoolCenter extends \LaNet\LaNetBundle\Model\UploadImages
         }
     }
 
+
+    /**
+     * Set category
+     *
+     * @param \LaNet\LaNetBundle\Entity\SchoolCenterCategory $category
+     * @return SchoolCenter
+     */
+    public function setCategory(\LaNet\LaNetBundle\Entity\SchoolCenterCategory $category = null)
+    {
+        $this->category = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \LaNet\LaNetBundle\Entity\SchoolCenterCategory 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
 }

@@ -23,3 +23,7 @@
 .toggle-category {
   padding-right: 20px;
 }
+
+.children-category {
+  display: none;
+}

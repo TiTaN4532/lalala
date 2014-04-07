@@ -94,7 +94,7 @@ $(document).ready(function() {
   $(document).on('click','.toggle-category',function(event) {
         event.preventDefault();
         var element = $(this);
-        element.parent().next().toggle();
+        element.parent().nextAll('div[class="children-category"]').toggle();
         if(element.hasClass('open')) {
             element.removeClass('open').addClass('close');
             element.html('-');
