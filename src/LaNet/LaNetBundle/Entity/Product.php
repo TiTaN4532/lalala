@@ -63,7 +63,7 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     protected $brand;
     
     /**
-     * @ORM\OneToMany(targetEntity="ProductCategoryDescriptionName", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="ProductCategoryDescriptionName", mappedBy="product", orphanRemoval=true)
      */
     protected $descriptionName;
         
