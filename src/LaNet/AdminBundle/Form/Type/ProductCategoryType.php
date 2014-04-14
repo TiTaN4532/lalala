@@ -16,6 +16,12 @@ class ProductCategoryType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'Название', 'attr' => array('class' => 'half')))
+            ->add('descriptionItem','collection', array(
+                             'by_reference' => false,
+                             'type' => new \LaNet\AdminBundle\Form\Type\ProductCategoryDescrItemType(),
+                             'allow_add'    => true,
+                             'allow_delete'    => true,
+                  ))
             ->add('children', 'collection', array(
                              'by_reference' => false,
                              'type'         => new ProductCategoryType(),

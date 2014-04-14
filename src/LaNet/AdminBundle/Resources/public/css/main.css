@@ -23,3 +23,11 @@
 .toggle-category {
   padding-right: 20px;
 }
+
+.toggle-desc {
+  padding-left: 20px;
+}
+
+.children-category, div.category-desc{
+  display: none;
+}

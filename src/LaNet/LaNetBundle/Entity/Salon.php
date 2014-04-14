@@ -41,6 +41,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+
     
     /**
      * Get id

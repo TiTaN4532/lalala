@@ -76,4 +76,37 @@ class SchoolCenterCategory
         return $this->name;
     }
 
+
+    /**
+     * Add schoolCenter
+     *
+     * @param \LaNet\LaNetBundle\Entity\SchoolCenter $schoolCenter
+     * @return SchoolCenterCategory
+     */
+    public function addSchoolCenter(\LaNet\LaNetBundle\Entity\SchoolCenter $schoolCenter)
+    {
+        $this->schoolCenter[] = $schoolCenter;
+    
+        return $this;
+    }
+
+    /**
+     * Remove schoolCenter
+     *
+     * @param \LaNet\LaNetBundle\Entity\SchoolCenter $schoolCenter
+     */
+    public function removeSchoolCenter(\LaNet\LaNetBundle\Entity\SchoolCenter $schoolCenter)
+    {
+        $this->schoolCenter->removeElement($schoolCenter);
+    }
+
+    /**
+     * Get schoolCenter
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchoolCenter()
+    {
+        return $this->schoolCenter;
+    }
 }

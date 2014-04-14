@@ -26,6 +26,10 @@ class ProductCategory
      */
     protected $name;
     
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $description;
     
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="category")

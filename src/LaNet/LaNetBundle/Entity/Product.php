@@ -33,6 +33,16 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     protected $description;
     
     /**
+     * @ORM\Column(type="text")
+     */
+    protected $contraindications;
+    
+     /**
+     * @ORM\Column(type="text")
+     */
+    protected $application;
+    
+    /**
      * @ORM\Column(type="string", nullable = true)
      */
     protected $image;
@@ -43,9 +53,19 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     protected $category;
     
     /**
+     * @ORM\ManyToOne(targetEntity="MasterCategory", inversedBy="product")
+     */
+    protected $masterCategory;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Brand", inversedBy="product")
      */
     protected $brand;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="ProductCategoryDescriptionName", mappedBy="product")
+     */
+    protected $descriptionName;
         
   
 
@@ -231,5 +251,124 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
             if(file_exists($file))
                 unlink($file);
         }
+    }
+
+    /**
+     * Set masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     * @return Product
+     */
+    public function setMasterCategory(\LaNet\LaNetBundle\Entity\MasterCategory $masterCategory = null)
+    {
+        $this->masterCategory = $masterCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get masterCategory
+     *
+     * @return \LaNet\LaNetBundle\Entity\MasterCategory 
+     */
+    public function getMasterCategory()
+    {
+        return $this->masterCategory;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->descriptionName = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add descriptionName
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategoryDescriptionName $descriptionName
+     * @return Product
+     */
+    public function addDescriptionName(\LaNet\LaNetBundle\Entity\ProductCategoryDescriptionName $descriptionName)
+    {
+        $this->descriptionName[] = $descriptionName;
+    
+        return $this;
+    }
+    
+    public function hasDescriptionItem(\LaNet\LaNetBundle\Entity\ProductCategoryDescriptionItem $descriptionItem)
+    {
+        foreach ($this->descriptionName as $value) {
+            if($value->getDescriptionItem() == $descriptionItem)
+                return $value;
+        }
+        return false;
+    }
+
+    /**
+     * Remove descriptionName
+     *
+     * @param \LaNet\LaNetBundle\Entity\ProductCategoryDescriptionName $descriptionName
+     */
+    public function removeDescriptionName(\LaNet\LaNetBundle\Entity\ProductCategoryDescriptionName $descriptionName)
+    {
+        $this->descriptionName->removeElement($descriptionName);
+    }
+
+    /**
+     * Get descriptionName
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDescriptionName()
+    {
+        return $this->descriptionName;
+    }
+
+    /**
+     * Set contraindications
+     *
+     * @param string $contraindications
+     * @return Product
+     */
+    public function setContraindications($contraindications)
+    {
+        $this->contraindications = $contraindications;
+    
+        return $this;
+    }
+
+    /**
+     * Get contraindications
+     *
+     * @return string 
+     */
+    public function getContraindications()
+    {
+        return $this->contraindications;
+    }
+
+
+    /**
+     * Set application
+     *
+     * @param string $application
+     * @return Product
+     */
+    public function setApplication($application)
+    {
+        $this->application = $application;
+    
+        return $this;
+    }
+
+    /**
+     * Get application
+     *
+     * @return string 
+     */
+    public function getApplication()
+    {
+        return $this->application;
     }
 }

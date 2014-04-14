@@ -43,6 +43,11 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     protected $category;
     
     /**
+     * @ORM\ManyToOne(targetEntity="MasterCategory", inversedBy="product")
+     */
+    protected $masterCategory;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Brand", inversedBy="product")
      */
     protected $brand;

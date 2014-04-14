@@ -37,6 +37,11 @@ class MasterCategory
      */
     protected $name;
     
+     /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="masterCategory")
+     */
+    protected $product;
+    
    
     /**
      * Constructor

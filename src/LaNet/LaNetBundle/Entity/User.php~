@@ -9,6 +9,7 @@ use LaNet\LaNetBundle\Entity as LaEntity;
 
 
 /**
+ * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\UserRepository")
  * @ORM\Entity
  * @ORM\Table(name="user")
  */

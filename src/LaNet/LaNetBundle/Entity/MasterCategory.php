@@ -37,6 +37,11 @@ class MasterCategory
      */
     protected $name;
     
+     /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="masterCategory")
+     */
+    protected $product;
+    
    
     /**
      * Constructor
@@ -152,5 +157,38 @@ class MasterCategory
     public function getServices()
     {
         return $this->services;
+    }
+
+    /**
+     * Add product
+     *
+     * @param \LaNet\LaNetBundle\Entity\Product $product
+     * @return MasterCategory
+     */
+    public function addProduct(\LaNet\LaNetBundle\Entity\Product $product)
+    {
+        $this->product[] = $product;
+    
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \LaNet\LaNetBundle\Entity\Product $product
+     */
+    public function removeProduct(\LaNet\LaNetBundle\Entity\Product $product)
+    {
+        $this->product->removeElement($product);
+    }
+
+    /**
+     * Get product
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }

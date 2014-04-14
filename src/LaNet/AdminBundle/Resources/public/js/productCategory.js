@@ -17,9 +17,33 @@ function addCategoryForm(collectionHolder, element) {
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<li></li>').append(newForm);
+    console.log($newFormLi);
     $newLinkLi.before($newFormLi);
     addCategoryFormDeleteLink($newFormLi);
 }
+
+function addItemForm(collectionHolder, element) {
+  
+    var prototype = collectionHolder.data('prototype');
+    var newLinkLi = element.parent();
+
+    var index;
+    if(collectionHolder.data('index') == undefined)
+      collectionHolder.data('index',0); 
+    index = collectionHolder.data('index');
+    
+    var newForm = prototype.replace(/__descr-name__/g, '__name__').replace(/__name__/g, index);
+    collectionHolder.data('index', index + 1);
+    
+    var newFormLi = $('<li></li>').append(newForm);
+    
+    
+    newLinkLi.before(newFormLi);
+    
+    addCategoryFormDeleteLink(newFormLi);
+    
+}
+
 
 function addCategoryFormDeleteLink($tagFormLi) {
     var $removeFormA = $('<a href="#">Удалить</a>');
@@ -59,8 +83,31 @@ function findChildrenLists(collection) {
   });
 }
 
+
+
+
 $(document).ready(function() {
   
+    var addItemLink = $('<a href="#" class="add_item_link">Добавить описание</a>');
+    var newLinkLi = $('<li></li>').append(addItemLink);
+
+    var collectionItemHolder = $('ul.category-desc');
+
+    collectionItemHolder.append(newLinkLi);
+    
+    collectionItemHolder.eq(0).find('li').each(function() {
+            addCategoryFormDeleteLink($(this));
+        });
+    collectionItemHolder.each(function() {
+       
+        $(this).data('index', $(this).find(':input').length);
+    });
+
+     $(document).on('click', '.add_item_link', function(event) {
+        event.preventDefault();
+        addItemForm($(this).parents('ul.category-desc').eq(0), $(this));
+    });
+    
     var collectionCategoryHolder = $('ul.categories');
     
     
@@ -77,7 +124,7 @@ $(document).ready(function() {
 //    collectionSubCategoriesHolders.each(function() {
 //      $(this).data('prototype', newPrototype);
 //    });
-    var newCategoryLinkLi = '<li><a href="#" class="add_tag_link">Добавить</a></li>';
+    var newCategoryLinkLi = '<li><a href="#" class="add_tag_link">Добавить категорию</a></li>';
     
     collectionCategoryHolder.find('li').each(function() {
         addCategoryFormDeleteLink($(this));
@@ -94,13 +141,25 @@ $(document).ready(function() {
   $(document).on('click','.toggle-category',function(event) {
         event.preventDefault();
         var element = $(this);
-        element.parent().next().toggle();
+        element.parent().nextAll('div[class="children-category"]').toggle();
         if(element.hasClass('open')) {
             element.removeClass('open').addClass('close');
             element.html('-');
         } else {
             element.removeClass('close').addClass('open');
             element.html('+');
+        }
+    });
+    $(document).on('click','.toggle-desc',function(event) {
+        event.preventDefault();
+        var element = $(this);
+        element.parent().nextAll('div[class="category-desc"]').toggle();
+        if(element.hasClass('open')) {
+            element.removeClass('open').addClass('close');
+            element.html('Cкрыть описние');
+        } else {
+            element.removeClass('close').addClass('open');
+            element.html('Показать описание');
         }
     });
     $(document).on('click', '.add_tag_link', function(e) {

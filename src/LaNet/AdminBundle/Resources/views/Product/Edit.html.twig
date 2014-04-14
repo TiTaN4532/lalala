@@ -41,7 +41,10 @@
         {{ form_widget(form.file) }}
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
+    {{ form_row(form.contraindications) }}
+    {{ form_row(form.application) }}
     {{ form_row(form.brand) }}
+    {{ form_row(form.masterCategory) }}
     <div id="categories">
         <label for="product_category" class="required">Категории</label>
         {% if categoryTree is empty %}
@@ -60,7 +63,16 @@
                 {{ macros.childCategories(product_category, previous.children) }}
               {% endif %}
               {% set previous = product_category %}
+              
             {% endfor %}
+            {% if previous.descriptionItem.count > 0 %}
+              <div class="category-descr">
+                  {% for item in previous.descriptionItem %}
+
+                    <div>{{ item.name }}: <input name="descr-items[{{ item.id }}]" {% if product.hasDescriptionItem(item) %} value="{{ product.hasDescriptionItem(item).name }}" {% endif %}></div>
+                  {% endfor %}
+              </div>
+            {% endif %}
         {% endif %}
     </div>
     <div>
@@ -75,6 +87,7 @@
             var element = $(this);
             $('.select-category').attr('name','').attr('id', '');
             element.nextAll('select').remove();
+            element.nextAll('.category-descr').remove();
             $.ajax({
               url: Routing.generate('la_net_admin_ajax_select_category', {'id' : element.val()}),
               success: function(msg) {
@@ -90,8 +103,17 @@
                     select.append(options);
                     element.after(select);
                   }
-                  else
+                  else {
                     element.attr('name', 'category').attr('id', 'product_category')
+                    if(msg.has_description) {
+                      var descriptions = $('<div></div>');
+                      descriptions.addClass('category-descr');
+                      for(var key in msg.items) {
+                        descriptions.append('<div>' + msg.items[key].name + ': <input name="descr-items[' + msg.items[key].id + ']" /></div>');
+                      }
+                      element.after(descriptions);
+                    }
+                  }
               }
             });
           })

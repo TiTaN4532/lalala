@@ -57,6 +57,23 @@ class ProductController extends BaseController
         $form->bind($request);
         if ($form->isValid()) {
           $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($request->get('category'));
+          if($request->request->has('descr-items'))
+          {
+              foreach($request->get('descr-items') as $key => $value) {
+                  $item = $this->manager->getRepository('LaNetLaNetBundle:ProductCategoryDescriptionItem')->find($key);
+                  if($itemName = $product->hasDescriptionItem($item)) {
+                      $itemName->setName($value);
+                      $this->manager->persist($itemName);
+                  } else {
+                      $itemName = new LaEntity\ProductCategoryDescriptionName();
+                      $itemName->setName($value);
+                      $itemName->setDescriptionItem($item);
+                      $itemName->setProduct($product);
+                      $this->manager->persist($itemName);
+                      $product->addDescriptionName($itemName);
+                  } 
+              }
+          }
           $product->setCategory($category);
           $this->manager->persist($product);
           $this->session->set('product_category', $category->getId());
@@ -104,6 +121,7 @@ class ProductController extends BaseController
     {
       $response = array();
       $data = array();
+      $descrItems = array();
       $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($id);
       if($category->getChildren()->count()) {
           $response['has_children'] = 1;
@@ -114,6 +132,15 @@ class ProductController extends BaseController
       }
       else {
           $response['has_children'] = 0;
+      }
+      if($category->getDescriptionItem()->count()) {
+          $response['has_description'] = 1;
+          foreach($category->getDescriptionItem() as $value) {
+            $descrItems[] = array('id' => $value->getId(), 'name' => $value->getName());
+          }
+          $response['items'] = $descrItems;
+      } else {
+          $response['has_description'] = 0;
       }
       return new JsonResponse( $response );
     }
