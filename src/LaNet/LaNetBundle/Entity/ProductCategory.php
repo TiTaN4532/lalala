@@ -210,7 +210,7 @@ class ProductCategory
     public function addDescriptionItem(\LaNet\LaNetBundle\Entity\ProductCategoryDescriptionItem $descriptionItem)
     {
         $this->descriptionItem[] = $descriptionItem;
-    
+        $descriptionItem->setCategory($this);
         return $this;
     }
 

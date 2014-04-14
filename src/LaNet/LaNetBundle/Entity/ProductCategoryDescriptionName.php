@@ -31,6 +31,11 @@ class ProductCategoryDescriptionName
      * @ORM\ManyToOne(targetEntity="ProductCategoryDescriptionItem", inversedBy="descriptionName")
      */
     private $descriptionItem;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="descriptionName")
+     */
+    private $product;
 
     
   
@@ -89,5 +94,28 @@ class ProductCategoryDescriptionName
     public function getDescriptionItem()
     {
         return $this->descriptionItem;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \LaNet\LaNetBundle\Entity\Product $product
+     * @return ProductCategoryDescriptionName
+     */
+    public function setProduct(\LaNet\LaNetBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+    
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \LaNet\LaNetBundle\Entity\Product 
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }

@@ -41,11 +41,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="City", inversedBy="salon")
-     */
-    protected $city;
+
     
     /**
      * Get id

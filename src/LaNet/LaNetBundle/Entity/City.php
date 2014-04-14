@@ -32,10 +32,6 @@ class City
     private $region;
     
     
-    /**
-     * @ORM\OneToOne(targetEntity="Salon", mappedBy="city")
-     */
-    private $salon;
 
     /**
      * Get id
