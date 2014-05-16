@@ -30,7 +30,11 @@ class City
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="city")
      */
     private $region;
-    
+        
+    /**
+     * @ORM\OneToMany(targetEntity="Location", mappedBy="city")
+     */
+    private $location;
     
 
     /**
@@ -110,5 +114,68 @@ class City
     public function getRegion()
     {
         return $this->region;
+    }
+
+    /**
+     * Set consumerInfo
+     *
+     * @param \LaNet\LaNetBundle\Entity\Consumer $consumerInfo
+     * @return City
+     */
+    public function setConsumerInfo(\LaNet\LaNetBundle\Entity\Consumer $consumerInfo = null)
+    {
+        $this->consumerInfo = $consumerInfo;
+    
+        return $this;
+    }
+
+    /**
+     * Get consumerInfo
+     *
+     * @return \LaNet\LaNetBundle\Entity\Consumer 
+     */
+    public function getConsumerInfo()
+    {
+        return $this->consumerInfo;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->location = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add location
+     *
+     * @param \LaNet\LaNetBundle\Entity\Location $location
+     * @return City
+     */
+    public function addLocation(\LaNet\LaNetBundle\Entity\Location $location)
+    {
+        $this->location[] = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Remove location
+     *
+     * @param \LaNet\LaNetBundle\Entity\Location $location
+     */
+    public function removeLocation(\LaNet\LaNetBundle\Entity\Location $location)
+    {
+        $this->location->removeElement($location);
+    }
+
+    /**
+     * Get location
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }

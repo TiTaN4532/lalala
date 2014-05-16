@@ -21,11 +21,17 @@
         {{ form_row(form.userInfo.birthday) }}
         {{ form_row(form.userInfo.serviceType) }}
         {{ form_row(form.userInfo.category) }}
+        {{ form_row(form.userInfo.location.country) }}
+        {{ form_row(form.userInfo.location.district) }}
+        {{ form_row(form.userInfo.location.station) }}
+        {{ form_row(form.userInfo.location.street) }}
+        {{ form_row(form.userInfo.location.building) }}
     {% elseif app.request.get('type') == 'consumer' %}   
         {{ form_row(form.userInfo.firstName) }}
         {{ form_row(form.userInfo.lastName) }}
         {{ form_row(form.userInfo.gender) }}
         {{ form_row(form.userInfo.birthday) }}
+        {{ form_row(form.userInfo.location.country) }}
     {% elseif app.request.get('type') == 'salon' %}   
         {{ form_row(form.userInfo.name) }}
         {{ form_row(form.userInfo.category) }}

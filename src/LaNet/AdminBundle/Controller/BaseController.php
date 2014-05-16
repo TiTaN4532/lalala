@@ -28,5 +28,15 @@ abstract class BaseController extends Controller implements InitializableControl
         $this->user=$this->get('security.context')->getToken()->getUser();
     }
     
+    public function cityAction($city = null)
+    {
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')
+                ->findAll();
+        $pagination = $this->paginator->paginate(
+            $brands, $this->getRequest()->query->get('page', 1), 1000
+        );
+
+        return $this->render('LaNetAdminBundle::city.html.twig', array('countries' => 'brand', 'pagination' => $pagination));
+    }
 }
 ?>

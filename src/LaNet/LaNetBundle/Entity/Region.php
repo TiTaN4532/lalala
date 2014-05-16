@@ -37,6 +37,10 @@ class Region
      */
     private $city;
 
+     /**
+     * @ORM\OneToMany(targetEntity="Location", mappedBy="region")
+     */
+    private $location;
 
     /**
      * Get id
@@ -132,5 +136,38 @@ class Region
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Add location
+     *
+     * @param \LaNet\LaNetBundle\Entity\Location $location
+     * @return Region
+     */
+    public function addLocation(\LaNet\LaNetBundle\Entity\Location $location)
+    {
+        $this->location[] = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Remove location
+     *
+     * @param \LaNet\LaNetBundle\Entity\Location $location
+     */
+    public function removeLocation(\LaNet\LaNetBundle\Entity\Location $location)
+    {
+        $this->location->removeElement($location);
+    }
+
+    /**
+     * Get location
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }

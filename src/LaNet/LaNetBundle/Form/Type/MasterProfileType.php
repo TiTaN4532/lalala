@@ -36,6 +36,11 @@ class MasterProfileType extends AbstractType
                   'expanded' => false,
                   'empty_value' => 'None'
                 ))  
+            ->add('location', new LocationType(), array(
+                                                    'by_reference' => false,
+                                                    'label' => 'Адрес:'
+                                                  ))  
+            
             ;
     }
     

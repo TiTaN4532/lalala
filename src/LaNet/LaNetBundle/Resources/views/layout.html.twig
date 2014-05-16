@@ -1,45 +1,75 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<div class="banner-row">
-
-    </div>
-    <div class="main-row">
-      <div class="wrapper">
-        <div class="main-nav">
-          <ul>
-            <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
-            <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
-            <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
-            <li><a href="{{ path('la_net_la_net_product_list') }}">Косметика</a></li>
-            <li><a href="">Консультации</a></li>
-            <li><a href="">Обучение</a></li>
-          </ul>
+<div class="wrapper">
+ 
+    <h1>ПОРТАЛ ИНДУСТРИИ КРАСОТЫ И ЗДОРОВЬЯ</h1>
+    <section>
+        <ul>
+            <li><a href="" id="brand">Бренд</a></li>
+            <li><a href="">Салоны</a></li>
+            <li><a href="">Обучающие центры</a></li>
+            <li><a href="" id="lorem">Lorem Ipsum</a></li>
+        </ul>
+        <div id="slide"><a href=""><img src="{{ asset('images/max.jpg') }}" width="679" height="311" /></a></div>
+    </section>
+    <div class="row">
+        <div class="col col_2_of_3">
+                <div class="menu">
+                    <div class="sectionName">
+                    <h2>Мастера и салоны</h2>
+                    </div>
+                    <div class="sectionLine"></div>
+                    <ul>
+                        <li><a href="" class="firstLi">Парикмахер</a></li>
+                        <li><a href="" class="secondLi">Визажист<br />Наращивание ресниц</a></li>
+                        <li><a href="" class="thirdLi">Депиляция<br />Косметолог</a></li>
+                        <li><a href="" class="fourthLi">Маникюр<br />Наращивание ногтей</a></li>
+                        <li><a href="" class="fifthLi">Массажист</a></li>
+                        <li><a href="" class="sixthLi">Пирсинг<br />Татуаж</a></li>
+                        </ul>
+                </div>
+                <div class="menu">
+                    <div class="sectionName">
+                    <h2>Косметика и препараты</h2>
+                    </div>
+                    <div class="sectionLine"></div>
+                    <ul>
+                        <li><a href="" class="firstLi">Для волос</a></li>
+                        <li><a href="" class="secondLi">Декоративная<br />косметика</a></li>
+                        <li><a href="" class="thirdLi">Для лица</a></li>
+                        <li><a href="" class="fourthLi">Для рук<br />(маникюр)</a></li>
+                        <li><a href="" class="fifthLi">Для тела</a></li>
+                        <li><a href="" class="sixthLi">Для ног</a></li>
+                    </ul>
+                 </div>
+                 <div class="menu">
+                    <div class="sectionName">
+                    <h2>Инструмент и оборудование</h2>
+                    </div>
+                    <div class="sectionLine"></div>
+                    <ul>
+                        <li><a href="" class="firstLi">Парикмахер</a></li>
+                        <li><a href="" class="secondLi">Визажист</a></li>
+                        <li><a href="" class="thirdLi">Косметолог</a></li>
+                        <li><a href="" class="fourthLi">Маникюр</a></li>
+                        <li><a href="" class="fifthLi">Массажист</a></li>
+                        <li><a href="" class="sixthLi">Пирсинг<br />Татуаж</a></li>
+                    </ul>
+                 </div>
         </div>
-      </div>
-    </div>
-    <div class="main-row">
-      <div class="wrapper">
-        <div class="row">
-          <div class="col col_5_of_6 tablet_2_of_3 mobile_1_of_1">
-            {% block content %}
-              <h2>Новости:</h2>
-              {% for post in news %}
-              <div class="row">
-                <div class="col col_1_of_3">{{ post.updated | date("F jS Y")}}</div>
-                <div class="col col_1_of_3"><img src="{{ asset(post.getWebPath)}}" style="width:100%;"></img></div>
-                <div class="col col_1_of_3">{{ post.title}}</div>
-              </div>
-              <hr />
-              {% else %}
-                Пока нет новостей
-              {% endfor %}
-            {% endblock %}
-          </div>
-          <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
-            asasdasd
-          </div>
+        <div class="col col_1_of_3">
+            <div id="reklama">
+                <h2>Реклама</h2>
+            </div>
+            <div class="sectionLineReklama"></div>
+            <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
+            <a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
+            <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
+            <a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
+            <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
         </div>
-      </div>
     </div>
+    </div>
+  </div>
 {% endblock %}

@@ -76,6 +76,11 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $portfolio;
     
     /**
+     * @ORM\OneToOne(targetEntity="Location", mappedBy="masterInfo", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $location;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="MasterCategory", inversedBy="master")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
@@ -557,5 +562,29 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getBirthday()
     {
         return $this->birthday;
+    }
+
+
+    /**
+     * Set location
+     *
+     * @param \LaNet\LaNetBundle\Entity\Location $location
+     * @return Master
+     */
+    public function setLocation(\LaNet\LaNetBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \LaNet\LaNetBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }

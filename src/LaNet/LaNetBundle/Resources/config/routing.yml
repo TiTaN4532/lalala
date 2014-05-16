@@ -17,3 +17,7 @@ SproutBack_News_routes:
 SproutBack_Product_routes:
   resource: "routing_product.yml"
   prefix: /
+  
+SproutBack_Location_routes:
+  resource: "routing_location.yml"
+  prefix: /

@@ -7,13 +7,13 @@
             <form action="{{ path("fos_user_security_check") }}" method="post">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-              <div class="clear">
+              <div >
                      Логин: <input class="half float-right"  type="text" id="username" name="_username" required="required" />
                   </div>
-                  <div class="clear">
+                  <div>
                      Пароль: <input class="half float-right" type="password" id="password" name="_password" required="required" />
                   </div>
-                  <div class="clear">
+            <div >
                      <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                      <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
                      <a href="{{ path("fos_user_registration_register") }}">Зарегистрироваться</a>

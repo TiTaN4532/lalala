@@ -51,6 +51,11 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
     protected $image;
     
     /**
+     * @ORM\OneToOne(targetEntity="Location", mappedBy="consumerInfo", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $location;
+    
+    /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="consumerInfo")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -284,5 +289,28 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
     public function getBirthday()
     {
         return $this->birthday;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \LaNet\LaNetBundle\Entity\Location $location
+     * @return Consumer
+     */
+    public function setLocation(\LaNet\LaNetBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \LaNet\LaNetBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }
