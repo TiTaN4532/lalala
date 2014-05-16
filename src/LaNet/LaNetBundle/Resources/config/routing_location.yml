@@ -1,0 +1,11 @@
+la_net_lanet_location_regions:
+    pattern:  /ajax/get_regions/{id}
+    defaults: { _controller: LaNetLaNetBundle:Location:getRegions }
+    options:
+        expose: true
+
+la_net_lanet_location_cities:
+    pattern:  /ajax/get_cities/{id}
+    defaults: { _controller: LaNetLaNetBundle:Location:getCities }
+    options:
+        expose: true

@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use LaNet\LaNetBundle\Form\Type\LocationType;
+
 class ConsumerType extends AbstractType
 {
         /**
@@ -22,6 +24,10 @@ class ConsumerType extends AbstractType
                                             'required'  => false,
             ))  
             ->add('birthday', 'birthday', array('label' => 'Дата рождения:', 'empty_value' => 'Не выбрано', 'format' => 'yyyyMdd','years' => range(1950, date('Y')), 'attr' => array('class' => 'width-auto')))    
+            ->add('location', new LocationType(true), array(
+                                                    'by_reference' => false,
+                                                    'label' => 'Адрес:'
+                                                  ))  
             ;
 
     }
