@@ -4,6 +4,7 @@ namespace LaNet\LaNetBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 
 class LocationType extends AbstractType
@@ -64,6 +65,11 @@ class LocationType extends AbstractType
                   'label' => 'Страна:',
                   'class' => 'LaNet\LaNetBundle\Entity\Country',
                   'property'     => 'name',
+                  'query_builder' => function (EntityRepository $repository)
+                     {
+                         return $repository->createQueryBuilder('s')
+                                ->where('s.id = 9908');
+                     },
                   'multiple'     => false,
                   'expanded' => false,
                   'empty_value' => 'Выберите страну'
