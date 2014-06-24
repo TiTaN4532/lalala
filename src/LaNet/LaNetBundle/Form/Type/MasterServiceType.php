@@ -25,7 +25,7 @@ class MasterServiceType extends AbstractType
             ->add('services', 'collection', array(
                               'label' => 'Список услуг:',
                              'by_reference' => false,
-                             'type'         => new ServicePriceType($this->master),
+                             'type'         => new ServiceType(),
                              'allow_add'    => true,
                              'allow_delete'    => true,
                   ))
@@ -48,6 +48,6 @@ class MasterServiceType extends AbstractType
      */
     public function getName()
     {
-        return 'lanet_profile_service_price';
+        return 'lanet_master_profile_service_price';
     }
 }

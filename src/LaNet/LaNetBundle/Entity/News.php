@@ -37,6 +37,11 @@ class News extends \LaNet\LaNetBundle\Model\UploadImages
     protected $post;
     
     /**
+     * @ORM\Column(type="string")
+     */
+    protected $description;
+    
+    /**
      * @ORM\Column(type="boolean", nullable = true)
      */
     protected $is_draft;
@@ -283,5 +288,28 @@ class News extends \LaNet\LaNetBundle\Model\UploadImages
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return News
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

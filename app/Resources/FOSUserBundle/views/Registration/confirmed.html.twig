@@ -4,7 +4,7 @@
 
 {% block fos_user_content %}
     <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
-    <a href="{{ path('la_net_la_net_homepage') }}" class="button">На Главную</a><a href="{{ path('la_net_la_net_profile') }}" class="button">Редактировать Профиль</a>
+    <a href="{{ path('la_net_la_net_homepage') }}" class="button">На Главную</a><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}" class="button">Редактировать Профиль</a>
     {% if app.session is not empty %}
         {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
         {% if targetUrl is not empty %}<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>{% endif %}

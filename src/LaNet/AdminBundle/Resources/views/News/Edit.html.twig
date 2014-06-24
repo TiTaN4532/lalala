@@ -27,6 +27,7 @@
   <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
         {{ form_widget(form.file) }}
     {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
     {{ form_row(form.post) }}
     <div>
       <button id="cancel-news-post-btn">Назад</button>

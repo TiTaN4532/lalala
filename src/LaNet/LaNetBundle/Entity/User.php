@@ -53,6 +53,35 @@ class User extends BaseUser
     private $schoolCenterInfo;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $phone;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Mail", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $mail;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $showPhone;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $showMail;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $termsConditions;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $newsNotify;
     
     public function __construct()
     {
@@ -113,7 +142,7 @@ class User extends BaseUser
 
 
     public function getUserInfo() {
-        if ($this->hasRole('ROLE_MASTER')) {
+        if ($this->hasRole('ROLE_SPECIALIST')) {
             return $this->masterInfo;
         } elseif ($this->hasRole('ROLE_CONSUMER')) {
             return $this->consumerInfo;
@@ -160,7 +189,6 @@ class User extends BaseUser
     public function setConsumerInfo(\LaNet\LaNetBundle\Entity\Consumer $consumerInfo = null)
     {
         $this->consumerInfo = $consumerInfo;
-    
         return $this;
     }
 
@@ -264,5 +292,165 @@ class User extends BaseUser
     public function getSchoolCenterInfo()
     {
         return $this->schoolCenterInfo;
+    }
+
+    /**
+     * Add phone
+     *
+     * @param \LaNet\LaNetBundle\Entity\Phone $phone
+     * @return User
+     */
+    public function addPhone(\LaNet\LaNetBundle\Entity\Phone $phone)
+    {
+        $phone->setUser($this);
+        $this->phone[] = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     *
+     * @param \LaNet\LaNetBundle\Entity\Phone $phone
+     */
+    public function removePhone(\LaNet\LaNetBundle\Entity\Phone $phone)
+    {
+        
+        $this->phone->removeElement($phone);
+    }
+
+    /**
+     * Get phone
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Add mail
+     *
+     * @param \LaNet\LaNetBundle\Entity\Mail $mail
+     * @return User
+     */
+    public function addMail(\LaNet\LaNetBundle\Entity\Mail $mail)
+    {
+        $this->mail[] = $mail;
+    
+        return $this;
+    }
+
+    /**
+     * Remove mail
+     *
+     * @param \LaNet\LaNetBundle\Entity\Mail $mail
+     */
+    public function removeMail(\LaNet\LaNetBundle\Entity\Mail $mail)
+    {
+        $this->mail->removeElement($mail);
+    }
+
+    /**
+     * Get mail
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Set showPhone
+     *
+     * @param boolean $showPhone
+     * @return User
+     */
+    public function setShowPhone($showPhone)
+    {
+        $this->showPhone = $showPhone;
+    
+        return $this;
+    }
+
+    /**
+     * Get showPhone
+     *
+     * @return boolean 
+     */
+    public function getShowPhone()
+    {
+        return $this->showPhone;
+    }
+
+    /**
+     * Set showMail
+     *
+     * @param boolean $showMail
+     * @return User
+     */
+    public function setShowMail($showMail)
+    {
+        $this->showMail = $showMail;
+    
+        return $this;
+    }
+
+    /**
+     * Get showMail
+     *
+     * @return boolean 
+     */
+    public function getShowMail()
+    {
+        return $this->showMail;
+    }
+
+    /**
+     * Set termsConditions
+     *
+     * @param boolean $termsConditions
+     * @return User
+     */
+    public function setTermsConditions($termsConditions)
+    {
+        $this->termsConditions = $termsConditions;
+    
+        return $this;
+    }
+
+    /**
+     * Get termsConditions
+     *
+     * @return boolean 
+     */
+    public function getTermsConditions()
+    {
+        return $this->termsConditions;
+    }
+
+    /**
+     * Set newsNotify
+     *
+     * @param boolean $newsNotify
+     * @return User
+     */
+    public function setNewsNotify($newsNotify)
+    {
+        $this->newsNotify = $newsNotify;
+    
+        return $this;
+    }
+
+    /**
+     * Get newsNotify
+     *
+     * @return boolean 
+     */
+    public function getNewsNotify()
+    {
+        return $this->newsNotify;
     }
 }

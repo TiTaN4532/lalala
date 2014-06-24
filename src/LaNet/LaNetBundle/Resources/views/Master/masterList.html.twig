@@ -1,17 +1,54 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
-{% block stylesheets %}
-  {{ parent() }}
-{% endblock %}
-      
+
+{% block slider %}
+{% endblock %}      
+
 {% block content %}
 <h1>Список мастеров</h1>
+<div> Найти по имени мастера:<form action=""><input type="text" name="name" class="half" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input type="submit" value="Найти"></form></div>
+<div> <form action="">
+        <select name="category" style="width:auto">
+          <option value="0">Выберите специальность</option>
+          {% for item in masterCategory %}
+            <option value="{{ item.id }}" {% if app.request.query.get('category') == item.id  %} selected="selected"{% endif %}>{{ item.name }}</option>
+          {% endfor %}
+        </select>
+        <select name="service-type" style="width:auto">
+          <option value="0">Тип обслуживания</option>
+            <option value="home" {% if app.request.query.get('service-type') == 'home' %} selected="selected"{% endif %}>Дом</option>
+            <option value="salon" {% if app.request.query.get('service-type') == 'salon' %} selected="selected"{% endif %}>Салон</option>
+            <option value="salon-home" {% if app.request.query.get('service-type') == 'salon-home' %} selected="selected"{% endif %}>Дом/Салон</option>
+            <option value="consult" {% if app.request.query.get('service-type') == 'consult' %} selected="selected"{% endif %}>Консультации</option>
+        </select>
+        <input type="submit" value="Фльтровать">
+      </form>
+</div>
 
 {% for master in masters %}
-  <div class="clear">
-    <div style="float: left; width: 120px;"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
-    <div style="float: left;"><a href="{{ path('la_net_la_net_master_id', {'id': master.id }) }}">{{ master.firstName }}</a></div>
+  <div class="row clear">
+    <div class="col col_1_of_3"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div class="col col_2_of_3">
+      <p>{{ master.firstName }} {{ master.firstName }}</p>
+      <p>{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      <p>Обслуживание: {% for item in master.serviceType %}
+                            {% if item == 'salon' %}
+                              Салон
+                            {% elseif item == 'salon-home' %}
+                              Салон/выезд на дом
+                            {% elseif item == 'home' %}
+                              Дом
+                            {% elseif item == 'consult' %}
+                              Консультации
+                            {% endif %}
+                         {% if not loop.last %}, {% endif %}
+                      {% endfor %}</p>
+      <a href="{{ path('la_net_la_net_master_id', {'id': master.id }) }}" class="blue-link">Подробнее >></a>
+    </div>
   </div>
 {% else %}
   Мастеров нет
 {% endfor %}
+  <div class="row clear pagination">
+  {{ knp_pagination_render(masters) }}
+  </div>
 {% endblock %}

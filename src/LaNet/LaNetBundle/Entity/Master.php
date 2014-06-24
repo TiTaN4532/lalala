@@ -34,19 +34,14 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="string", nullable = true)
      */
     protected $adress;
-    
-    /**
-     * @ORM\Column(type="string", length=50, nullable = true)
-     */
-    protected $phone;
-    
+     
     /**
      * @ORM\Column(type="string")
      */
     protected $gender;
     
     /**
-     * @ORM\Column(type="integer", length = 1)
+     * @ORM\Column(type="array")
      */
     protected $serviceType;
     
@@ -54,6 +49,11 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="date")
      */
     protected $birthday;
+    
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $startWork;
     
     /**
      * @ORM\Column(type="string", length=50, nullable = true)
@@ -71,6 +71,21 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $usedCosmetics;
     
     /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    protected $education;
+    
+    /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    protected $competitions;
+    
+    /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    protected $hobby;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Image", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
      */
     protected $portfolio;
@@ -81,13 +96,18 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $location;
     
     /**
-     * @ORM\ManyToOne(targetEntity="MasterCategory", inversedBy="master")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="MasterCategory", inversedBy="master")
+     * @ORM\JoinTable(name="masters_categories")
      */
     protected $category;
     
     /**
-     * @ORM\OneToMany(targetEntity="MasterCategoryServicePrice", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="MasterWorkShcedule", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $schedule;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="MasterService", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
      */
     protected $services;
     
@@ -96,14 +116,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->portfolio = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
     
     /**
      * Get id
@@ -182,29 +195,6 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getAdress()
     {
         return $this->adress;
-    }
-
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     * @return Master
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    
-        return $this;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string 
-     */
-    public function getPhone()
-    {
-        return $this->phone;
     }
 
     /**
@@ -333,63 +323,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->portfolio;
     }
 
-    /**
-     * Set category
-     *
-     * @param \LaNet\LaNetBundle\Entity\MasterCategory $category
-     * @return Master
-     */
-    public function setCategory(\LaNet\LaNetBundle\Entity\MasterCategory $category = null)
-    {
-        $this->category = $category;
     
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \LaNet\LaNetBundle\Entity\MasterCategory 
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Add services
-     *
-     * @param \LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $services
-     * @return Master
-     */
-    public function addService(\LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $services)
-    {
-        $services->setMaster($this);
-        $this->services[] = $services;
-    
-        return $this;
-    }
-
-    /**
-     * Remove services
-     *
-     * @param \LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $services
-     */
-    public function removeService(\LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $services)
-    {
-        $this->services->removeElement($services);
-    }
-
-    /**
-     * Get services
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getServices()
-    {
-        return $this->services;
-    }
-
     /**
      * Set user
      *
@@ -573,6 +507,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function setLocation(\LaNet\LaNetBundle\Entity\Location $location = null)
     {
+        $location->setMasterInfo($this);
         $this->location = $location;
     
         return $this;
@@ -586,5 +521,208 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getLocation()
     {
         return $this->location;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $category
+     * @return Master
+     */
+    public function addCategory(\LaNet\LaNetBundle\Entity\MasterCategory $category)
+    {
+        $this->category[] = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $category
+     */
+    public function removeCategory(\LaNet\LaNetBundle\Entity\MasterCategory $category)
+    {
+        $this->category->removeElement($category);
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set startWork
+     *
+     * @param \DateTime $startWork
+     * @return Master
+     */
+    public function setStartWork($startWork)
+    {
+        $this->startWork = $startWork;
+    
+        return $this;
+    }
+
+    /**
+     * Get startWork
+     *
+     * @return \DateTime 
+     */
+    public function getStartWork()
+    {
+        return $this->startWork;
+    }
+
+    /**
+     * Set education
+     *
+     * @param string $education
+     * @return Master
+     */
+    public function setEducation($education)
+    {
+        $this->education = $education;
+    
+        return $this;
+    }
+
+    /**
+     * Get education
+     *
+     * @return string 
+     */
+    public function getEducation()
+    {
+        return $this->education;
+    }
+
+    /**
+     * Set competitions
+     *
+     * @param string $competitions
+     * @return Master
+     */
+    public function setCompetitions($competitions)
+    {
+        $this->competitions = $competitions;
+    
+        return $this;
+    }
+
+    /**
+     * Get competitions
+     *
+     * @return string 
+     */
+    public function getCompetitions()
+    {
+        return $this->competitions;
+    }
+
+    /**
+     * Set hobby
+     *
+     * @param string $hobby
+     * @return Master
+     */
+    public function setHobby($hobby)
+    {
+        $this->hobby = $hobby;
+    
+        return $this;
+    }
+
+    /**
+     * Get hobby
+     *
+     * @return string 
+     */
+    public function getHobby()
+    {
+        return $this->hobby;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->portfolio = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->category = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->schedule = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add schedule
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterWorkShcedule $schedule
+     * @return Master
+     */
+    public function addSchedule(\LaNet\LaNetBundle\Entity\MasterWorkShcedule $schedule)
+    {
+        $this->schedule[] = $schedule;
+    
+        return $this;
+    }
+
+    /**
+     * Remove schedule
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterWorkShcedule $schedule
+     */
+    public function removeSchedule(\LaNet\LaNetBundle\Entity\MasterWorkShcedule $schedule)
+    {
+        $this->schedule->removeElement($schedule);
+    }
+
+    /**
+     * Get schedule
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchedule()
+    {
+        return $this->schedule;
+    }
+
+    /**
+     * Add services
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterService $services
+     * @return Master
+     */
+    public function addService(\LaNet\LaNetBundle\Entity\MasterService $services)
+    {
+        $services->setMaster($this);
+        $this->services[] = $services;
+    
+        return $this;
+    }
+
+    /**
+     * Remove services
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterService $services
+     */
+    public function removeService(\LaNet\LaNetBundle\Entity\MasterService $services)
+    {
+        $this->services->removeElement($services);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getServices()
+    {
+        return $this->services;
     }
 }

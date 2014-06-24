@@ -14,33 +14,16 @@ class MasterProfileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('firstName', 'text', array('label' => 'Имя:'))
-            ->add('lastName', 'text', array('label' => 'Фамилия:'))
-            ->add('phone', 'text', array('label' => 'Номер телефона:'))
-            ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('m' => 'Муж', 'f' => 'Жен'),
-                                            'required'  => false,
-            ))  
-            ->add('serviceType', 'choice', array('label' => 'Тип обслуживания:', 
-                                                 'choices'   => array('1' => 'Выезд на дом', '2' => 'Салон', '3' => 'Салон/Выезд на дом', '4' => 'консультации'),
-                                                 'required'  => false,
-            ))
-            ->add('birthday', 'birthday', array('label' => 'Дата рождения:', 'empty_value' => 'Не выбрано', 'format' => 'yyyyMdd','years' => range(1950, date('Y')), 'attr' => array('class' => 'width-auto')))    
-            ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
-            ->add('category', 'entity', array(
-                  'attr' => array('class' => 'category-list'),
-                  'label' => 'Профиль мастера:',
-                  'class' => 'LaNet\LaNetBundle\Entity\MasterCategory',
-                  'property'     => 'name',
-                  'multiple'     => false,
-                  'expanded' => false,
-                  'empty_value' => 'None'
-                ))  
-            ->add('location', new LocationType(), array(
+        $builder->add('userInfo', new MasterType('profile'), array('label' => ' '))
+                ->add('showMail', 'checkbox', array('label' => 'Отображать адрес электронной почты на сайте', 'required' => false))
+                ->add('showPhone', 'checkbox', array('label' => 'Отображать номер телефона на сайте', 'required' => false))
+                ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
+                ->add('save', 'submit', array('label' => 'Сохранить'))
+                ->add('phone', 'collection', array( 'type'         => new PhoneType(),
+                                                    'allow_add'    => true,
+                                                    'allow_delete'    => true,
                                                     'by_reference' => false,
-                                                    'label' => 'Адрес:'
-                                                  ))  
-            
+                    ));
             ;
     }
     
@@ -50,7 +33,7 @@ class MasterProfileType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LaNet\LaNetBundle\Entity\Master'
+            'data_class' => 'LaNet\LaNetBundle\Entity\User'
         ));
     }
 
@@ -59,6 +42,6 @@ class MasterProfileType extends AbstractType
      */
     public function getName()
     {
-        return 'lanet_prifile';
+        return 'lanet_master_profile';
     }
 }

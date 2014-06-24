@@ -1,0 +1,27 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+
+{% block stylesheets %}
+  {{ parent() }}
+  <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+  <script src="{{ asset('bundles/lanetlanet/js/phone_collection.js') }}"></script>
+  <script src="{{ asset('bundles/lanetlanet/js/country_city.js') }}"></script>
+{% endblock %}
+  
+{% block slider %}
+{% endblock %}
+
+  
+{% block content %}
+  <div class="row">
+    <div class="col col_1_of_1">
+      <ul class="profile-nav list-style-none">
+        {% block menu %}
+
+        {% endblock %}
+      </ul>
+    </div>
+  </div>
+  {% block profile_content %}
+  {% endblock %}
+{% endblock %}
