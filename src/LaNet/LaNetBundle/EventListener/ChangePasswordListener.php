@@ -22,9 +22,9 @@ class ChangePasswordListener implements EventSubscriberInterface {
     }
 
     public static function getSubscribedEvents() {
-        return [
+        return array(
             FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'onChangePasswordSuccess',
-        ];
+        );
     }
 
     public function onChangePasswordSuccess(FormEvent $event) {
