@@ -6,6 +6,7 @@ use LaNet\LaNetBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
+use LaNet\LaNetBundle\Form\Type as LaForm;
 
 class MainController extends BaseController
 {
@@ -52,6 +53,17 @@ class MainController extends BaseController
             'error'         => $error,
             'csrf_token' => $csrfToken,
         ));
+    }
+    
+    public function contactAction() {
+        $form = $this->createForm(new LaForm\ContactType());
+        return $this->render('LaNetLaNetBundle::contact.html.twig',
+			array('form' => $form->createView())
+		);
+    }
+    
+    public function aboutAction() {
+        return $this->render('LaNetLaNetBundle::about.html.twig');
     }
    
 }

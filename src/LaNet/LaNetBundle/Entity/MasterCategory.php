@@ -22,8 +22,8 @@ class MasterCategory
      */
     protected $id;
 
-   /**
-     * @ORM\OneToMany(targetEntity="Master", mappedBy="category")
+    /**
+     * @ORM\ManyToMany(targetEntity="Master", mappedBy="category")
      */
     private $master;
     
@@ -93,39 +93,7 @@ class MasterCategory
         return $this->name;
     }
 
-    /**
-     * Add master
-     *
-     * @param \LaNet\LaNetBundle\Entity\Master $master
-     * @return MasterCategory
-     */
-    public function addMaster(\LaNet\LaNetBundle\Entity\Master $master)
-    {
-        $this->master[] = $master;
     
-        return $this;
-    }
-
-    /**
-     * Remove master
-     *
-     * @param \LaNet\LaNetBundle\Entity\Master $master
-     */
-    public function removeMaster(\LaNet\LaNetBundle\Entity\Master $master)
-    {
-        $this->master->removeElement($master);
-    }
-
-    /**
-     * Get master
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMaster()
-    {
-        return $this->master;
-    }
-
     /**
      * Add services
      *
@@ -190,5 +158,38 @@ class MasterCategory
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Add master
+     *
+     * @param \LaNet\LaNetBundle\Entity\Master $master
+     * @return MasterCategory
+     */
+    public function addMaster(\LaNet\LaNetBundle\Entity\Master $master)
+    {
+        $this->master[] = $master;
+    
+        return $this;
+    }
+
+    /**
+     * Remove master
+     *
+     * @param \LaNet\LaNetBundle\Entity\Master $master
+     */
+    public function removeMaster(\LaNet\LaNetBundle\Entity\Master $master)
+    {
+        $this->master->removeElement($master);
+    }
+
+    /**
+     * Get master
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMaster()
+    {
+        return $this->master;
     }
 }

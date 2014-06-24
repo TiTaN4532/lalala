@@ -1,46 +1,26 @@
-{% extends "LaNetLaNetBundle:Master:layoutMaster.html.twig" %}
-  
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
 
-{% form_theme form _self %}
 
-{% block choice_widget_collapsed %}
-{% spaceless %}
-    {% if required and empty_value is none and not empty_value_in_choices %}
-        {% set required = false %}
-    {% endif %}
-    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
-        {% if empty_value is not none %}
-            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
-        {% endif %}
-        {% if preferred_choices|length > 0 %}
-            {% set options = preferred_choices %}
-            {{ block('choice_widget_options') }}
-            {% if choices|length > 0 and separator is not none %}
-                <option disabled="disabled">{{ separator }}</option>
-            {% endif %}
-        {% endif %}
-        {% set options = choices %}
-        {{ block('choice_widget_options') }}
-        <option value="elseCategory">Другое</option>
-    </select>
-{% endspaceless %}
-{% endblock choice_widget_collapsed %}
-   
-{% block stylesheets %}
-  {{ parent() }}
-  <script src="{{ asset('bundles/lanetlanet/js/mastersWork.js') }}"></script>
+{% block menu %}
+  {% include "LaNetLaNetBundle:Master:menu.html.twig" %}
 {% endblock %}
-  
-{% block masterContent %}
-  {{ parent() }}
-<h1>Работа</h1>
+        
+      
+{% block profile_content %}
+<h1>График работы</h1>
 
-<form action="{{ path('la_net_la_net_profile_work') }}" {{ form_enctype(form) }} method="POST">
+<form action="" method="POST">
         <div class="row errors">
-            {{ form_errors(form) }}
-            
+          
         </div>
-        {{ form_widget(form) }}
+        {% for item in masterShcedule %}
+          <div class="row">
+            <div class="col col_1_of_3"><input type="checkbox" name="shcedule[{{ item.shcedule.name }}]" value="1" {% if item.shcedule.name in checkedShcedule|keys %} checked="checked"{% endif %}/> {{ item.shcedule.nameRus }}</div>
+            <div class="col col_2_of_3">{% if item.shcedule.name != 'record' %}c <input type="text" class="quarter" name="start[{{ item.shcedule.name }}]" {% if item.shcedule.name in checkedShcedule|keys %} value="{{ checkedShcedule[item.shcedule.name]['start'] }}"{% endif %}/> 
+              до <input type="text" class="quarter" name="end[{{ item.shcedule.name }}]" {% if item.shcedule.name in checkedShcedule|keys %} value="{{ checkedShcedule[item.shcedule.name]['end'] }}"{% endif %}/>{% endif %}</div>
+            </div>
+        {% endfor %}
+        <input type="submit" name="save" value="Сохранить">
         
 </form>
 {% endblock %}

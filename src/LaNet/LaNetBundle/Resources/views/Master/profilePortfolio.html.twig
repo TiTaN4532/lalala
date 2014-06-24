@@ -1,4 +1,10 @@
-{% extends "LaNetLaNetBundle:Master:layoutMaster.html.twig" %}
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
+
+
+{% block menu %}
+  {% include "LaNetLaNetBundle:Master:menu.html.twig" %}
+{% endblock %}
+        
 
 {% form_theme form _self %}
 
@@ -23,8 +29,7 @@
   <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
 {% endblock %}
       
-{% block masterContent %}
-  {{ parent() }}
+{% block profile_content %}
 <h1>Портфолио</h1>
 
 <form action="{{ path('la_net_la_net_profile_portfolio') }}" {{ form_enctype(form) }} method="POST">

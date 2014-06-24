@@ -1,0 +1,9 @@
+{% if is_granted('ROLE_CONSUMER') %}
+  {{ path('la_net_la_net_consumer_profile') }}
+{% elseif is_granted('ROLE_SPECIALIST') %}
+  {{ path('la_net_la_net_master_profile') }}
+{% elseif is_granted('ROLE_SALON') %}
+{% elseif is_granted('ROLE_AGANCY') %}
+{% elseif is_granted('ROLE_SHOP') %}
+{% elseif is_granted('ROLE_SCHOOL_CENTER') %}
+{% endif %}

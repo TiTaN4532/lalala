@@ -10,9 +10,9 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="master_service_price")
+ * @ORM\Table(name="new_master_service")
  */
-class MasterCategoryServicePrice
+class MasterService
 {
     /**
      * @ORM\Id
@@ -20,12 +20,6 @@ class MasterCategoryServicePrice
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-   /**
-     * @ORM\ManyToOne(targetEntity="MasterCategoryService", inversedBy="masters", cascade={"persist"})
-     * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
-     */
-    private $services;
     
     /**
      * @ORM\ManyToOne(targetEntity="Master", inversedBy="services")
@@ -34,18 +28,19 @@ class MasterCategoryServicePrice
     private $master;
     
     /**
+     * @ORM\Column(type="string")
+     */
+    protected $name;
+    
+    /**
      * @ORM\Column(type="integer")
      */
-    protected $price;
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-
-        $metadata->addConstraint(new UniqueEntity(array(
-            'fields'    => array('services', 'master'),
-            'message'   => 'This speciality is already exist.',
-        )));
-    }
+    protected $startPrice;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $endPrice;
     
     /**
      * Get id
@@ -57,57 +52,58 @@ class MasterCategoryServicePrice
         return $this->id;
     }
 
+
     /**
-     * Set price
+     * Set startPrice
      *
-     * @param integer $price
-     * @return MasterCategoryServicePrice
+     * @param integer $startPrice
+     * @return MasterService
      */
-    public function setPrice($price)
+    public function setStartPrice($startPrice)
     {
-        $this->price = $price;
+        $this->startPrice = $startPrice;
     
         return $this;
     }
 
     /**
-     * Get price
+     * Get startPrice
      *
      * @return integer 
      */
-    public function getPrice()
+    public function getStartPrice()
     {
-        return $this->price;
+        return $this->startPrice;
     }
 
     /**
-     * Set services
+     * Set endPrice
      *
-     * @param \LaNet\LaNetBundle\Entity\MasterCategoryService $services
-     * @return MasterCategoryServicePrice
+     * @param integer $endPrice
+     * @return MasterService
      */
-    public function setServices(\LaNet\LaNetBundle\Entity\MasterCategoryService $services = null)
+    public function setEndPrice($endPrice)
     {
-        $this->services = $services;
+        $this->endPrice = $endPrice;
     
         return $this;
     }
 
     /**
-     * Get services
+     * Get endPrice
      *
-     * @return \LaNet\LaNetBundle\Entity\MasterCategoryService 
+     * @return integer 
      */
-    public function getServices()
+    public function getEndPrice()
     {
-        return $this->services;
+        return $this->endPrice;
     }
 
     /**
      * Set master
      *
      * @param \LaNet\LaNetBundle\Entity\Master $master
-     * @return MasterCategoryServicePrice
+     * @return MasterService
      */
     public function setMaster(\LaNet\LaNetBundle\Entity\Master $master = null)
     {
@@ -117,12 +113,35 @@ class MasterCategoryServicePrice
     }
 
     /**
-     * Get masters
+     * Get master
      *
      * @return \LaNet\LaNetBundle\Entity\Master 
      */
     public function getMaster()
     {
         return $this->master;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return MasterService
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

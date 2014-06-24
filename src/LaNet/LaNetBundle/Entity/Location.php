@@ -271,7 +271,6 @@ class Location
      */
     public function setMasterInfo(\LaNet\LaNetBundle\Entity\Master $masterInfo = null)
     {
-        $masterInfo->addLocation($this);
         $this->masterInfo = $masterInfo;
     
         return $this;

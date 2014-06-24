@@ -2,61 +2,80 @@
 
 {% block body %}
 <div class="wrapper">
- 
-    <h1>ПОРТАЛ ИНДУСТРИИ КРАСОТЫ И ЗДОРОВЬЯ</h1>
-    <section>
-        <ul>
-            <li><a href="" id="brand">Бренд</a></li>
-            <li><a href="">Салоны</a></li>
-            <li><a href="">Обучающие центры</a></li>
-            <li><a href="" id="lorem">Lorem Ipsum</a></li>
-        </ul>
-        <div id="slide"><a href=""><img src="{{ asset('images/max.jpg') }}" width="679" height="311" /></a></div>
-    </section>
+  
+    <h1 id="main">ПОРТАЛ ИНДУСТРИИ КРАСОТЫ И ЗДОРОВЬЯ</h1>
+    {% block slider %}
+      {#<section>
+          <ul>
+              <li><a href="" id="brand">Бренд</a></li>
+              <li><a href="">Салоны</a></li>
+              <li><a href="">Обучающие центры</a></li>
+              <li><a href="" id="lorem">Lorem Ipsum</a></li>
+          </ul>
+          <div id="slide"><a href=""><img src="images/max.jpg" width="679" height="311" /></a></div>
+      </section>#}
+    {% endblock %}
+    
     <div class="row">
-        <div class="col col_2_of_3">
-                <div class="menu">
-                    <div class="sectionName">
-                    <h2>Мастера и салоны</h2>
-                    </div>
-                    <div class="sectionLine"></div>
-                    <ul>
-                        <li><a href="" class="firstLi">Парикмахер</a></li>
-                        <li><a href="" class="secondLi">Визажист<br />Наращивание ресниц</a></li>
-                        <li><a href="" class="thirdLi">Депиляция<br />Косметолог</a></li>
-                        <li><a href="" class="fourthLi">Маникюр<br />Наращивание ногтей</a></li>
-                        <li><a href="" class="fifthLi">Массажист</a></li>
-                        <li><a href="" class="sixthLi">Пирсинг<br />Татуаж</a></li>
-                        </ul>
-                </div>
-                <div class="menu">
-                    <div class="sectionName">
-                    <h2>Косметика и препараты</h2>
-                    </div>
-                    <div class="sectionLine"></div>
-                    <ul>
-                        <li><a href="" class="firstLi">Для волос</a></li>
-                        <li><a href="" class="secondLi">Декоративная<br />косметика</a></li>
-                        <li><a href="" class="thirdLi">Для лица</a></li>
-                        <li><a href="" class="fourthLi">Для рук<br />(маникюр)</a></li>
-                        <li><a href="" class="fifthLi">Для тела</a></li>
-                        <li><a href="" class="sixthLi">Для ног</a></li>
-                    </ul>
-                 </div>
-                 <div class="menu">
-                    <div class="sectionName">
-                    <h2>Инструмент и оборудование</h2>
-                    </div>
-                    <div class="sectionLine"></div>
-                    <ul>
-                        <li><a href="" class="firstLi">Парикмахер</a></li>
-                        <li><a href="" class="secondLi">Визажист</a></li>
-                        <li><a href="" class="thirdLi">Косметолог</a></li>
-                        <li><a href="" class="fourthLi">Маникюр</a></li>
-                        <li><a href="" class="fifthLi">Массажист</a></li>
-                        <li><a href="" class="sixthLi">Пирсинг<br />Татуаж</a></li>
-                    </ul>
-                 </div>
+          <div class="col col_2_of_3">
+            {% block content %}
+                  <div class="menu">
+                      <div class="sectionName">
+                      <h2>Мастера и салоны</h2>
+                      </div>
+                      <div class="sectionLine"></div>
+                      <ul>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 3 }) }}" class="firstLi">Парикмахер</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 8 }) }}" class="secondLi">Наращивание волос</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 4 }) }}" class="thirdLi">Косметолог</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 9 }) }}" class="fourthLi">Маникюр / Педикюр<br/>Наращивание ногтей</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 5 }) }}" class="fifthLi">Массажист</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 10 }) }}" class="sixthLi">Пирсинг</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 6 }) }}" class="sevenLi">Наращивание ресниц</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 11 }) }}" class="eightLi">Визажист</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 7 }) }}" class="nineLi">Тату / Татуаж</a></li>
+                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 12 }) }}" class="tenLi">Депиляция</a></li>
+                          </ul>
+                  </div>
+                  <div class="menu">
+                      <div class="sectionName">
+                      <h2>Косметика и препараты</h2>
+                      </div>
+                      <div class="sectionLine"></div>
+                      <ul id="kosmetika">
+                          <li><a href="" class="firstLi">Для парикмахера</a></li>
+                          <li><a href="" class="secondLi">Для наращивания<br />волос</a></li>
+                          <li><a href="" class="thirdLi">Для косметолога</a></li>
+                          <li><a href="" class="fourthLi">Для маникюра /<br />педикюра /<br />наращивания ногтей</a></li>
+                          <li><a href="" class="fifthLi">Для массажиста</a></li>
+                          <li><a href="" class="sixthLi">Для депиляции</a></li>
+                          <li><a href="" class="sevenLi">Для тату /<br />татуажа</a></li>
+                          <li><a href="" class="eightLi">Для наращивания <br />ресниц</a></li>
+                          <li><a href="" class="nineLi">Для визажиста</a></li>
+                          <li><a href="" class="tenLi">Для пирсинга</a></li>
+                      </ul>
+                   </div>
+                   <div class="menu">
+                      <div class="sectionName">
+                      <h2>Инструмент и оборудование</h2>
+                      </div>
+                      <div class="sectionLine"></div>
+                      <ul id="instr">
+                          <li><a href="" class="firstLi">Для парикмахера</a></li>
+                          <li><a href="" class="secondLi">Для визажиста</a></li>
+                          <li><a href="" class="thirdLi">Для косметолога</a></li>
+                          <li><a href="" class="fourthLi">Для маникюра /<br />педикюра /<br />наращивания ресниц</a></li>
+                          <li><a href="" class="fifthLi">Для массажиста</a></li>
+                          <li><a href="" class="sixthLi">Для тату /<br />татуажа</a></li>
+                          <li><a href="" class="sevenLi">Для депиляции</a></li>
+                          <li><a href="" class="eightLi">Для пирсинга</a></li>
+                          <li><a href="" class="nineLi">Для наращивания<br />волос</a></li>
+                          <li><a href="" class="tenLi">Для наращивания<br />ресниц</a></li>
+                      </ul>
+                   </div>
+            {% endblock content %}
+          </div>
+        
         </div>
         <div class="col col_1_of_3">
             <div id="reklama">
@@ -65,11 +84,9 @@
             <div class="sectionLineReklama"></div>
             <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
             <a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
-            <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
+            <a href=""><img src="{{ asset('images/reklama1.jpg')}}" height="176" width="331" class="reklama" /></a>
             <a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
             <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
         </div>
-    </div>
-    </div>
-  </div>
+</div>
 {% endblock %}

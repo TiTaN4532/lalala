@@ -1,11 +1,11 @@
-{% extends "LaNetLaNetBundle:Master:layoutMaster.html.twig" %}
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
 
 {% form_theme form _self %}
 
 {% block image_upload_widget %}
     {% spaceless %}
         <div class="float-left">
-          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('dev/16x9.gif') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.jpg') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
         </div>
         <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Загрузить</a>
         <input type="file" {{ block('widget_attributes') }} style="display:none"/>
@@ -17,22 +17,52 @@
     {% endspaceless %}
 {% endblock %}
         
-{% block stylesheets %}
-  {{ parent() }}
-  <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+{% block menu %}
+  {% include "LaNetLaNetBundle:Master:menu.html.twig" %}
 {% endblock %}
+        
       
-{% block masterContent %}
-  {{ parent() }}
+{% block profile_content %}
 <h1>Основная информация</h1>
 
-<form action="{{ path('la_net_la_net_profile') }}" {{ form_enctype(form) }} method="POST">
+<form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
         <div class="row errors">
-            {{ form_errors(form.file) }}
+            {{ form_errors(form) }}
             
         </div>
-        {{ form_widget(form.file) }}
-        {{ form_rest(form) }}
+        {{ form_widget(form.userInfo.file) }}
+        {{ form_row(form.userInfo.firstName) }}
+        {{ form_row(form.userInfo.lastName) }}
+        <div class="row">
+          <div class="col col_1_of_4">{{ form_row(form.userInfo.gender) }}</div>
+          <div class="col col_3_of_4">{{ form_row(form.userInfo.birthday) }}</div>
+        </div>
+        {{ form_row(form.userInfo.serviceType) }}
+        {{ form_row(form.userInfo.category) }}
+        {{ form_row(form.userInfo.location.country) }}
+        {{ form_row(form.userInfo.location.region) }}
+        {{ form_row(form.userInfo.location.city) }}
+        {{ form_row(form.userInfo.location.district) }}
+        {{ form_row(form.userInfo.location.station) }}
+        {{ form_row(form.userInfo.location.street) }}
+        {{ form_row(form.userInfo.location.building) }}
+        {{ form_row(form.userInfo.startWork) }}
+        {{ form_row(form.userInfo.competitions) }}
+        {{ form_row(form.userInfo.education) }}
+        {{ form_row(form.userInfo.usedCosmetics) }}
+        {{ form_row(form.userInfo.hobby) }}
+        <label>Телефон:</label>
+        <ul class="phone list-style-none" data-prototype="{{ form_widget(form.phone.vars.prototype)|e }}">
+            {% for item in form.phone %}
+                <li>{{ form_widget(item.name) }}</li>
+            {% endfor %}
+        </ul>
+        <div>{{ form_widget(form.showPhone) }}{{ form_label(form.showPhone) }}</div>
+        <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div>
+        <div>{{ form_widget(form.newsNotify) }}{{ form_label(form.newsNotify) }}</div>
+        
+        {{ form_row(form.save) }}
+        {{ form_row(form._token) }}
         
 </form>
 {% endblock %}

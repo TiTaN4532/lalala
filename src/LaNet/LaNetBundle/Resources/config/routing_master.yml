@@ -6,18 +6,22 @@ la_net_la_net_master_id:
     pattern:  /master/{id}
     defaults: { _controller: LaNetLaNetBundle:Master:masterId }
     
-la_net_la_net_profile:
-    pattern:  /profile
+la_net_la_net_master_profile:
+    pattern:  /master/profile
     defaults: { _controller: LaNetLaNetBundle:Master:profile }
 
-la_net_la_net_profile_work:
-    pattern:  /profile/work
+la_net_la_net_master_change_pass:
+    pattern:  /master/change_password
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+
+la_net_la_net_master_profile_work:
+    pattern:  /master/profile/work
     defaults: { _controller: LaNetLaNetBundle:Master:profileWork }
 
-la_net_la_net_profile_portfolio:
-    pattern:  /profile/portfolio
+la_net_la_net_master_profile_portfolio:
+    pattern:  /master/profile/portfolio
     defaults: { _controller: LaNetLaNetBundle:Master:profilePortfolio }
     
-la_net_la_net_profile_service_price:
-    pattern:  /profile/service_price
+la_net_la_net_master_profile_service_price:
+    pattern:  /master/profile/service_price
     defaults: { _controller: LaNetLaNetBundle:Master:profileServicePrice }

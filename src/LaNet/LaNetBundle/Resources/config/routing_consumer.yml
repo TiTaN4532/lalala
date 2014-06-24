@@ -1,0 +1,26 @@
+la_net_la_net_consumer_list:
+    pattern:  /club
+    defaults: { _controller: LaNetLaNetBundle:Consumer:list }
+
+la_net_la_net_master_id:
+    pattern:  /master/{id}
+    defaults: { _controller: LaNetLaNetBundle:Master:masterId }
+    
+la_net_la_net_consumer_profile:
+    pattern:  /consumer/profile
+    defaults: { _controller: LaNetLaNetBundle:Consumer:profile }
+la_net_la_net_consumer_change_pass:
+    pattern:  /consumer/change_password
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+
+la_net_la_net_profile_work:
+    pattern:  /profile/work
+    defaults: { _controller: LaNetLaNetBundle:Master:profileWork }
+
+la_net_la_net_profile_portfolio:
+    pattern:  /profile/portfolio
+    defaults: { _controller: LaNetLaNetBundle:Master:profilePortfolio }
+    
+la_net_la_net_profile_service_price:
+    pattern:  /profile/service_price
+    defaults: { _controller: LaNetLaNetBundle:Master:profileServicePrice }

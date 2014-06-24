@@ -2,22 +2,38 @@ la_net_la_net_homepage:
     pattern:  /
     defaults: { _controller: LaNetLaNetBundle:Main:index }
     
+la_net_la_net_contact:
+    pattern:  /contact
+    defaults: { _controller: LaNetLaNetBundle:Main:contact }
+    
+la_net_la_net_about:
+    pattern:  /about
+    defaults: { _controller: LaNetLaNetBundle:Main:about }
+    
+la_net_la_net_homepage:
+    pattern:  /
+    defaults: { _controller: LaNetLaNetBundle:Main:index }
+    
 la_net_la_net_access_denied:
     pattern:  /access_denied
     defaults: { _controller: LaNetLaNetBundle:Main:accessDenied }
     
-SproutBack_Master_routes:
+la_net_la_net_Master_routes:
   resource: "routing_master.yml"
   prefix: /
   
-SproutBack_News_routes:
+la_net_la_net_consumer_routes:
+  resource: "routing_consumer.yml"
+  prefix: /
+  
+la_net_la_net_News_routes:
   resource: "routing_news.yml"
   prefix: /
   
-SproutBack_Product_routes:
+la_net_la_net_Product_routes:
   resource: "routing_product.yml"
   prefix: /
   
-SproutBack_Location_routes:
+la_net_la_net_Location_routes:
   resource: "routing_location.yml"
   prefix: /
