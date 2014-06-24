@@ -68,7 +68,7 @@
     </div>
   </div>
   <div class="row clear">
-    <div class="col col_1_of_3">Место работы:</div>
+    <div class="col col_1_of_3">График работы:</div>
     <div class="col col_2_of_3">{% for item in master.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
   </div> 
   <div class="row clear">
