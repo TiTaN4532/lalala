@@ -73,7 +73,7 @@
   </div> 
   <div class="row">
     <div class="col col_1_of_3">Услуги и цены:</div>
-    <div class="col col_2_of_3">{% for item in master.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ endPrice }}</p>{% endfor %}</div>
+    <div class="col col_2_of_3">{% for item in master.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
   </div> 
   
   <div class="clear section">О себе</div>
