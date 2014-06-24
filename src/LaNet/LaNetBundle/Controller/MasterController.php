@@ -56,7 +56,8 @@ class MasterController extends BaseController
             $checked[$value['name']] = array('start' => $value['startTime'], 'end' => $value['endTime']);
         }
         foreach($shcedule as $value) {
-            $masterShcedule[] = (new LaEntity\MasterWorkShcedule())->setMaster($master)->setShcedule($value);
+            $shceduleTemp = new LaEntity\MasterWorkShcedule();
+            $masterShcedule[] = $shceduleTemp->setMaster($master)->setShcedule($value);
         }
         
         if ('POST' == $request->getMethod()) {
