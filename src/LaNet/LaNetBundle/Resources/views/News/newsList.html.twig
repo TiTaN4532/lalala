@@ -1,14 +1,19 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
 
+{% block slider %}
+{% endblock %}
 {% block content %}
 <h2>Новости:</h2>
               {% for post in news %}
               <div class="row">
-                <div class="col col_1_of_3">{{ post.updated | date("F jS Y")}}</div>
-                <div class="col col_1_of_3"><img src="{{ asset(post.getWebPath)}}" style="width:100%;"></img></div>
-                <div class="col col_1_of_3">{{ post.title}}</div>
+                <div class="col col_1_of_2"><img src="{{ asset(post.getWebPath)}}" style="width:100%;" /></div>
+                <div class="col col_1_of_2">
+                  <h3>{{ post.title}}</h3>
+                  <div>{{ post.updated | date("F jS Y")}}</div>
+                  <div>{{ post.description }}</div>
+                  <div><a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}" class="blue-link">Подробнее >></a></div>
+                </div>
               </div>
-              <hr />
               {% else %}
                 Пока нет новостей
               {% endfor %}

@@ -1,50 +1,44 @@
-{% extends "LaNetLaNetBundle:Master:layoutMaster.html.twig" %}
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
 
-    
-{% form_theme form _self %}
 
-{% block choice_widget_collapsed %}
-{% spaceless %}
-    {% if required and empty_value is none and not empty_value_in_choices %}
-        {% set required = false %}
-    {% endif %}
-    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
-        {% if empty_value is not none %}
-            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
-        {% endif %}
-        {% if preferred_choices|length > 0 %}
-            {% set options = preferred_choices %}
-            {{ block('choice_widget_options') }}
-            {% if choices|length > 0 and separator is not none %}
-                <option disabled="disabled">{{ separator }}</option>
-            {% endif %}
-        {% endif %}
-        {% set options = choices %}
-        {{ block('choice_widget_options') }}
-        <option value="elseService">Другое</option>
-    </select>
-{% endspaceless %}
-{% endblock choice_widget_collapsed %}
+{% block menu %}
+  {% include "LaNetLaNetBundle:Master:menu.html.twig" %}
+{% endblock %}
 
 {% block stylesheets %}
   {{ parent() }}
   <script src="{{ asset('bundles/lanetlanet/js/mastersServicePrice.js') }}"></script>
 {% endblock %}
       
-{% block masterContent %}
-  {{ parent() }}
+{% block profile_content %}
 <h1>Услуги и цены:</h1>
 
-<form action="{{ path('la_net_la_net_profile_service_price') }}" {{ form_enctype(form) }} method="POST">
+<form action="" {{ form_enctype(form) }} method="POST">
         <div class="row errors">
             {{ form_errors(form.services) }}
 
         </div>
-        
-        <ul class="serveces" style="list-style-type: none;" data-prototype="{{ form_widget(form.services.vars.prototype)|e }}">
+       
+        <ul class="serveces" style="list-style-type: none;" data-prototype="
+          {% filter escape %}
+             {{ include('LaNetLaNetBundle:Master:servicePrototype.html.twig', { 'form': form.services.vars.prototype }) }}
+          {% endfilter %}">
          {% for service in form.services %}
            <li>
-              {{ form_widget(service) }}
+              <div class="row">
+                <div class="col col_1_of_3">
+                   {{ form_label(service.name) }}
+                   {{ form_widget(service.name) }}
+                </div>
+                <div class="col col_1_of_3">
+                   {{ form_label(service.startPrice) }}
+                   {{ form_widget(service.startPrice) }}
+                </div>
+                <div class="col col_1_of_3">
+                   {{ form_label(service.endPrice) }}
+                   {{ form_widget(service.endPrice) }}
+                </div>
+             </div>
            </li>
          {% endfor %}
        </ul>

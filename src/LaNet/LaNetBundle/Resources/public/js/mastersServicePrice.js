@@ -17,12 +17,12 @@ function addServiceForm(collectionHolder, $newLinkLi) {
     $newLinkLi.before($newFormLi);
     addServiceFormDeleteLink($newFormLi);
     
-    $(collectionHolder).children('li').eq(-2).children().children().eq(1).addClass('hidden')
-    initField();
+//    $(collectionHolder).children('li').eq(-2).children().children().eq(1).addClass('hidden')
+//    initField();
 }
 
 function addServiceFormDeleteLink($tagFormLi) {
-    var $removeFormA = $('<button>Удлить услугу</button>');
+    var $removeFormA = $('<a href="" class="blue-link">Удлить услугу</a>');
     $tagFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {
@@ -52,12 +52,12 @@ function initField() {
 
 $(document).ready(function(){
   
-  $('input.new-service').parent().addClass('hidden');
-  initField()
+//  $('input.new-service').parent().addClass('hidden');
+//  initField()
   
   var collectionServiceHolder = $('ul.serveces');
     // setup an "add a tag" link
-    var $addServiceLink = $('<button class="add_service_btn">Добавить услугу</button>');
+    var $addServiceLink = $('<a class="blue-link" href="">Добавить услугу</a>');
     var $newServiceLinkLi = $('<li></li>').append($addServiceLink);
     
     collectionServiceHolder.find('li').each(function() {

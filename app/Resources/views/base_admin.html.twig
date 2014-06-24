@@ -22,8 +22,7 @@
                       {{  app.user.username }} |
                       <a href="{{ path('fos_user_security_logout') }}">
                           Выйти
-                      </a> |
-                      <a href="{{ path('la_net_la_net_profile') }}">Профиль</a>
+                      </a> 
           {% else  %}
               {% render controller("LaNetLaNetBundle:Main:customLoginForm") %}
           {% endif %}

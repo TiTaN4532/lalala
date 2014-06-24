@@ -1,12 +1,13 @@
 $(document).ready(function() {
   $(document).on('change', '.country-list', function(e) {
+      var form_name = $(this).parents('form').attr('name');
       var divCounrty = $(this).parent('div');
       $('.region-list').parent('div').remove();
       $('.city-list').parent('div').remove();
       $.ajax({
         url: Routing.generate('la_net_lanet_location_regions', {'id':$(this).val()}),
         success     : function(data) {
-              var regions = $('<select></select>').addClass('region-list').attr('name', 'fos_user_registration_form[userInfo][location][region]').attr('required','required');
+              var regions = $('<select></select>').addClass('region-list').attr('name', form_name + '[userInfo][location][region]').attr('required','required');
               var html = '<option value="0">Выберите область</option>';
               
               for(var i = 0; i < data.length; i++) {
@@ -21,12 +22,13 @@ $(document).ready(function() {
   })
   
   $(document).on('change', '.region-list', function(e) {
+      var form_name = $(this).parents('form').attr('name');
       var divRegion = $(this).parent('div');
       $('.city-list').parent('div').remove();
       $.ajax({
         url: Routing.generate('la_net_lanet_location_cities', {'id':$(this).val()}),
         success     : function(data) {
-              var cities = $('<select></select>').addClass('city-list').attr('name', 'fos_user_registration_form[userInfo][location][city]').attr('required','required');
+              var cities = $('<select></select>').addClass('city-list').attr('name', form_name + '[userInfo][location][city]').attr('required','required');
               var html = '<option value="0">Выберите город</option>';
               
               for(var i = 0; i < data.length; i++) {

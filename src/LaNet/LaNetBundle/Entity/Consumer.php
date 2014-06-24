@@ -31,11 +31,6 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
     protected $lastName;
     
     /**
-     * @ORM\Column(type="string", length=50, nullable = true)
-     */
-    protected $phone;
-    
-    /**
      * @ORM\Column(type="string")
      */
     protected $gender;
@@ -51,7 +46,7 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
     protected $image;
     
     /**
-     * @ORM\OneToOne(targetEntity="Location", mappedBy="consumerInfo", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Location", mappedBy="consumerInfo", cascade={"all"}, orphanRemoval=true)
      */
     protected $location;
     
@@ -117,29 +112,7 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->lastName;
     }
 
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     * @return Master
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
     
-        return $this;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string 
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
     /**
      * Set image
      *
@@ -299,6 +272,7 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function setLocation(\LaNet\LaNetBundle\Entity\Location $location = null)
     {
+        $location->setConsumerInfo($this);
         $this->location = $location;
     
         return $this;

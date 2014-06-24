@@ -1,0 +1,15 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block slider %}
+{% endblock %}
+{% block content %}
+<h1>{{ news.title }}</h1>
+             
+  <div class="row">
+    <div class="col col_1_of_2"><img src="{{ asset(news.getWebPath)}}" style="width:100%;" /></div>
+    <div class="col col_1_of_2">
+      <div>{{ news.post }}</div>
+      <div>{{ news.updated | date("F jS Y")}}</div>
+    </div>
+  </div>
+{% endblock %}

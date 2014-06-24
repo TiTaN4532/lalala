@@ -7,83 +7,73 @@
     {% block stylesheets %}
      <script src="{{ asset('js/jquery-1.10.1.min.js') }}"></script>
       <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
 {#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
       <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     {% endblock %}
   </head>
   <body>
+    <div class="wrap">
     <header>
         <div id="header-row">
-                <div class="wrapper">
+          <div class="wrapper">
+              <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192" /></a></div>
+          <form action="formdata.php" method="POST" name="form" id="form1">
+                  <input type="text" name="region" placeholder="Выбрать регион" id="region"/>
+                   <input type="submit" name="select" value="" id="select"/></form>
+                    <div id="login">
+                      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                              <a href="{{ path('fos_user_security_logout') }}" id="enter" >Выйти</a>
+                              <div id="line2"></div>
+                              <a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}" id="reg">Профиль</a>
+                       {% else  %}
+                           <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
+                           <div id="line2"></div>
+                           <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
+                       {% endif %}
 
-            <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo.png') }}" height="50" width="192" /><br/>luxury at look</a></div>
-        
-        <ul class="soc_group">
-            <li id="f"><a href="" ><img src="{{ asset('images/f.png') }}" height="20" width="10"/></a></li>
-            <li id="in"><a href="" ><img src="{{ asset('images/in.png') }}" height="19" width="21"/></a></li>
-            <li id="tw"><a href="" ><img src="{{ asset('images/tw.png') }}" height="16" width="18"/></a></li>
-            <li id="vk"><a href="" ><img src="{{ asset('images/vk.png') }}" height="17" width="28"/></a></li>
-        </ul>
-        <form action="formdata.php" method="POST" name="form">
-                <input type="text" name="region" placeholder="Выбрать регион" id="region"/>
-                <input type="submit" name="select" value="" id="select"/>
-                
-                         <div id="login">
-                           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                    {{  app.user.username }}
-                                    <div id="line2"></div>
-                                   <a href="{{ path('fos_user_security_logout') }}">
-                                            Выйти
-                                        </a>
-                                   <div id="line2"></div>
-                                   <a href="{{ path('la_net_la_net_profile') }}">Профиль</a>
-                                        
-                            {% else  %}
-                                <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
-                                <div id="line2"></div>
-                                <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
-                            {% endif %}
-                            
-                         </div>
-                 <input type="text" name="search" placeholder="Поиск" id="search"/>
-                  <input type="submit" name="submit" value="" id="submit"/>
-            </form>
-            </div>
+                    </div>
+          <form action="formdata.php" method="POST" name="form" id="form2">
+                   <input type="text" name="search" placeholder="Поиск" id="search"/>
+                    <input type="submit" name="submit" value="" id="submit"/>
+              </form>
+          </div>
         </div>
         <nav>
            <div class="wrapper">
             <ul>
-                <li><a href="">Новости</a></li>
-                <li><a href="">Клуб</a></li>
-                <li><a href="">Косметика</a></li>
+                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
+                <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
+               {# <li><a href="">Косметика</a></li>
                 <li><a href="">Магазаны</a></li>
                 <li><a href="">Обучение</a></li>
                 <li><a href="">Литератур</a></li>
-                <li><a href="">Форум</a></li>
-                <li><a href="">Обратная связь</a></li>
-                <li><a href="">О портале</a></li>
+                <li><a href="">Форум</a></li>#}
+                <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
+                <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
             </ul>
              </div>
         </nav>
-        </div>
         <div id="line"></div>
     </header>
     {% block body %}{% endblock %}
-    <div class="clear"></div>
+    <div class="clear-bottom"></div>
+    </div>
     <footer>
             <div class="footerLine"></div>
        <div class="wrapper">  
         <nav>
             <ul>
-                <li><a href="">Новости</a></li>
-                <li><a href="">Клуб</a></li>
-                <li><a href="">Косметика</a></li>
+                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
+                <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
+               {# <li><a href="">Косметика</a></li>
                 <li><a href="">Магазаны</a></li>
                 <li><a href="">Обучение</a></li>
                 <li><a href="">Литератур</a></li>
-                <li><a href="">Форум</a></li>
-                <li><a href="">Обратная связь</a></li>
+                <li><a href="">Форум</a></li>#}
+                <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
+                <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
             </ul>
         </nav>
         <ul class="soc_group">
