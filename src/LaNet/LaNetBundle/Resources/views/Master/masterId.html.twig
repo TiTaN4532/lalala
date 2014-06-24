@@ -55,11 +55,11 @@
                             {% endfor %}
     </div>
   </div>
-  <div class="row">
+  <div class="row clear">
     <div class="col col_1_of_3">Косметика:</div>
     <div class="col col_2_of_3">{{ master.usedCosmetics }}</div>
   </div>
-  <div class="row">
+  <div class="row clear">
     <div class="col col_1_of_3">Место работы:</div>
     <div class="col col_2_of_3">
       <p>{{ master.location.city.name }}, {{ master.location.region.name }}</p>
@@ -67,25 +67,25 @@
       <p>{{ master.location.street }}, {{ master.location.building }}</p>
     </div>
   </div>
-  <div class="row">
+  <div class="row clear">
     <div class="col col_1_of_3">Место работы:</div>
     <div class="col col_2_of_3">{% for item in master.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
   </div> 
-  <div class="row">
+  <div class="row clear">
     <div class="col col_1_of_3">Услуги и цены:</div>
     <div class="col col_2_of_3">{% for item in master.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
   </div> 
   
   <div class="clear section">О себе</div>
-  <div class="row">
+  <div class="row clear">
     <div class="col col_1_of_3">Образование:</div>
     <div class="col col_2_of_3">{{ master.education }}</div>
   </div> 
-  <div class="row">
+  <div class="row clear">
     <div class="col col_1_of_3">Конкурсы и мероприятия:</div>
     <div class="col col_2_of_3">{{ master.competitions }}</div>
   </div>
-  <div class="row">
+  <div class="row clear">
     <div class="col col_1_of_3">Хобби:</div>
     <div class="col col_2_of_3">{{ master.hobby }}</div>
   </div>
