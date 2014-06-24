@@ -52,6 +52,7 @@ class MasterController extends BaseController
         
         $checkedShcedule = $queryBuilder->getQuery()->getResult();
         
+        $checked = array();
         foreach($checkedShcedule as $value) {
             $checked[$value['name']] = array('start' => $value['startTime'], 'end' => $value['endTime']);
         }
