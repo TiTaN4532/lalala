@@ -28,11 +28,6 @@ class MasterCategory
     private $master;
     
     /**
-     * @ORM\OneToMany(targetEntity="MasterCategoryService", mappedBy="category")
-     */
-    protected $services;
-    
-    /**
      * @ORM\Column(type="string", length=50)
      */
     protected $name;
@@ -49,7 +44,6 @@ class MasterCategory
     public function __construct()
     {
         $this->master = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public static function loadValidatorMetadata(ClassMetadata $metadata)
@@ -94,39 +88,6 @@ class MasterCategory
     }
 
     
-    /**
-     * Add services
-     *
-     * @param \LaNet\LaNetBundle\Entity\MasterCategoryService $services
-     * @return MasterCategory
-     */
-    public function addService(\LaNet\LaNetBundle\Entity\MasterCategoryService $services)
-    {
-        $this->services[] = $services;
-    
-        return $this;
-    }
-
-    /**
-     * Remove services
-     *
-     * @param \LaNet\LaNetBundle\Entity\MasterCategoryService $services
-     */
-    public function removeService(\LaNet\LaNetBundle\Entity\MasterCategoryService $services)
-    {
-        $this->services->removeElement($services);
-    }
-
-    /**
-     * Get services
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getServices()
-    {
-        return $this->services;
-    }
-
     /**
      * Add product
      *
