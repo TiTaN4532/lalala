@@ -3,7 +3,7 @@
           <div style="width:50%;margin:50px auto;">
             <h1 style="text-align:center;">Вход</h1>
             {% if error %}
-                 <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+                 <div class="error" >{{ error|trans({}, 'FOSUserBundle') }}</div>
              {% endif %}
 
              <form action="{{ path("fos_user_security_check") }}" method="post">

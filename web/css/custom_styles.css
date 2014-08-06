@@ -384,3 +384,17 @@ ul.list-style-none li {
 .float-right {
   float:right;
 }
+#about p {
+    margin: 10px 0;
+    text-align: justify;
+}
+#about ul {
+    margin-left: 30px;
+}
+#about ul li {
+    text-align: justify;
+}
+
+.error {
+    color: red;
+}
