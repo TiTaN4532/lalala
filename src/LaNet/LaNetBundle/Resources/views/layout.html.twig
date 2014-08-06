@@ -16,10 +16,11 @@
       </section>#}
     {% endblock %}
     
-    <div class="row">
-          <div class="col col_2_of_3">
-            {% block content %}
-                  <div class="menu">
+     <div class="container">
+          <div class="row-fluid">
+              <div class="span8">
+                  {% block content %}
+                   <div class="menu">
                       <div class="sectionName">
                       <h2>Мастера и салоны</h2>
                       </div>
@@ -37,7 +38,7 @@
                           <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 12 }) }}" class="tenLi">Депиляция</a></li>
                           </ul>
                   </div>
-                  <div class="menu">
+                  {#<div class="menu">
                       <div class="sectionName">
                       <h2>Косметика и препараты</h2>
                       </div>
@@ -72,21 +73,88 @@
                           <li><a href="" class="nineLi">Для наращивания<br />волос</a></li>
                           <li><a href="" class="tenLi">Для наращивания<br />ресниц</a></li>
                       </ul>
-                   </div>
-            {% endblock content %}
-          </div>
-        
-        </div>
-        <div class="col col_1_of_3">
-            <div id="reklama">
-                <h2>Реклама</h2>
-            </div>
-            <div class="sectionLineReklama"></div>
-            <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
-            <a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
-            <a href=""><img src="{{ asset('images/reklama1.jpg')}}" height="176" width="331" class="reklama" /></a>
-            <a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
-            <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
-        </div>
+                   </div>#}
+                  {% endblock %}
+                  <div style="margin: 40px 20px;">
+                  <input id="Service_address" style="width:100%;"/>
+<div id="map" style="width:100%;height:150px;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
+                <script>
+                    function initialize() {
+                        var map_canvas = document.getElementById('map');
+                        var map_options = {
+                            center: new google.maps.LatLng(51.507, 0.127),
+                            zoom: 8
+                        };
+                        var map = new google.maps.Map(map_canvas, map_options);
+
+                        if(navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                var location = new google.maps.LatLng(
+                                    position.coords.latitude,
+                                    position.coords.longitude
+                                );
+
+                                map.setCenter(location);
+                                map.setZoom(17);
+                            });
+                        }
+
+                        var input = document.getElementById('Service_address');
+                        var autocomplete = new google.maps.places.Autocomplete(input);
+                        google.maps.event.addListener(map, 'click', function(event) 
+                            {
+                                $.ajax({
+                                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
+                                    success     : function(data) {
+                                          input.value = (data.results[0].formatted_address);
+                                         }
+        });
+                            });
+                        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                        
+                            var place = autocomplete.getPlace();
+                            if (!place.geometry) {
+                                return;
+                            }
+
+                            var position = place.geometry.location;
+                          {#  document.getElementById('Service_lat').value = position.lat();
+                            document.getElementById('Service_lng').value = position.lng();#}
+
+                            if (place.geometry.viewport) {
+                                map.fitBounds(place.geometry.viewport);
+                            } else {
+                                map.setCenter(position);
+                                map.setZoom(17);
+                            }
+
+                            var marker = new google.maps.Marker({
+                                position: position,
+                                map: map
+                            });
+
+                        });
+                    }
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+                </div>
+              </div>
+          
+                  <div class="span4">
+                      <div id="reklama">
+                        <h2>Реклама</h2>
+                    </div>
+                    <div class="sectionLineReklama"></div>
+                    <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
+                    <a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
+                    <a href=""><img src="{{ asset('images/reklama1.jpg')}}" height="176" width="331" class="reklama" /></a>
+                    <a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
+                    <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
+                  </div>
+
+         </div>
+    </div>
 </div>
+    
 {% endblock %}

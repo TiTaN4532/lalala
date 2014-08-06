@@ -3,8 +3,11 @@
     padding: 0;
 }
 a {
-    text-decoration: none;
+    text-decoration: none!important;
     color: #ffffff;
+}
+p {
+    margin: 0;
 }
 html {
     margin: 0 auto;
@@ -13,34 +16,26 @@ html {
 body {
     position: relative;
     background: #ffffff;
+    padding: 0!important;
 }
-
-
-.wrapper {
-  margin: 0 auto;
-  padding: 0 20px;
-  max-width: 980px;
-}  
+ul {
+    margin: 0;
+}
 header {
-    height: 161px;
-}
-#header-row {
-    height: 105px;
     background-color: #2d93b2;
 }
 #logo {
-    float: left;
-    width:192px ;
-    margin:0 87px 0 10px;
     padding-top: 18px;
 }
+.social {
+    text-align: center;
+}
 .soc_group {
-    float: left;
     margin-top: 23px;
     margin-left: 52px;
     list-style-type: none;
-    width: 145px;
     height: 20px;
+    display: inline-block;
 }
 .soc_group li {
     float: left;
@@ -58,8 +53,11 @@ padding-top: 2px;
 #vk {
 padding-top: 3px;
 }
+form {
+    margin: 0;
+}
 #region {float: left;
-    width: 177px;
+    width: 74%;
     height: 30px;
     background: #ffffff;
     border: 2px solid #3a6b85;
@@ -69,17 +67,19 @@ padding-top: 3px;
     padding-left: 9px;
     margin-bottom: 12px;
 }
-#select {float: left;
+#select {
     margin-left: 11px;
-    width: 45px;
     height: 30px;
     border: 2px solid #ffffff;
     box-sizing: border-box;
     background: url(../images/select.png) 14px 10px no-repeat #2d93b2;
     cursor: pointer;
 }
+#login {
+    padding-top: 23px;
+    height: 30px;
+}
 #enter {   float: left;
-    margin-top: 23px;
     margin-left: 50px;
     color: #ffffff;
     font:14px Comfortaa;
@@ -88,7 +88,6 @@ padding-top: 3px;
 #reg {
     float: left;
     margin-left: 34px;
-    margin-top: 23px;
     color: #ffffff;
     font:14px Comfortaa;
     text-decoration: none;
@@ -96,13 +95,12 @@ padding-top: 3px;
 #line2 {
     float: left;
     margin-left: 34px;
-    margin-top: 23px;
     height: 14px;
     width: 1px;
     background: #ffffff;
 }
 #search {
-    width: 623px;
+    width: 80%;
     height: 31px;
     background: #ffffff;
     border: 2px solid #3a6b85;
@@ -114,7 +112,6 @@ padding-top: 3px;
     float: left;
 }
 #submit {
-    width: 46px;
     height: 31px;
     background: url(../images/search.png) 14px 6px no-repeat #2d93b2;
     border: 2px solid #ffffff;
@@ -123,28 +120,25 @@ padding-top: 3px;
     float: left;
 }
 #form1 {
-    width: 233px;
     float: left;
     margin-top: 17px;
 }
 #form2 {
-    width: 680px;
-    float: left;
+    clear: both;
 }
 nav {
-    height: 51px;
+    min-height: 51px;
     background-color: #6cb55d;
 }
 nav ul {
-    margin-left: 10px;
+    text-align: center;
     padding-top: 14px;
-    height: 14px;
     list-style-type: none;
     font:  14px Comfortaa;
     color: #fffefe;
 }
 nav ul li {
-    float: left;
+    display: inline-block;
     margin-right: 33px;
 }
 #line {
@@ -228,38 +222,6 @@ section ul li a:hover {
     margin-bottom:1px;
     padding-top: 23px;
 }
-.row {
-  margin-left: -3%;
-}
-
-.col {
-  float: left;
-  padding-left: 0%;
-  padding-right: 0%;
-  margin-left: 3%;
-  margin-right: 0;
-}
-.col_1_of_3 {
-  width: 30.33333%;
-  padding-left: 0%;
-  padding-right: 0%;
-  margin-left: 3%;
-  margin-right: 0;
-}
-.col_2_of_3 {
-  width: 63.66667%;
-  padding-left: 0%;
-  padding-right: 0%;
-  margin-left: 3%;
-  margin-right: 0;
-}
-.col_3_of_3 {
-  width: 97%;
-  padding-left: 0%;
-  padding-right: 0%;
-  margin-left: 3%;
-  margin-right: 0%;
-}
 .menu {
     border: 2px solid #c5c5c5;
     margin-top: 20px;
@@ -285,7 +247,7 @@ h2 {
 }
 .menu ul {
     list-style-type: none;
-    height:494px ;
+    min-height:494px ;
 }
 .menu ul li {
     float: left;
@@ -297,68 +259,69 @@ h2 {
     color: #5d5d5d;
     font: 18px Comfortaa; 
     padding-left: 90px;
+    padding-right: 5px;
 }
 .menu .firstLi {
     height: 64px;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/parik.png) 22px 25px no-repeat;
+    background: url(../images/parik.png) 20px 25px no-repeat;
     padding-top: 31px;
 }
 .menu .secondLi {
     height: 60px;
     border-bottom: 1px dashed #a0a0a0;
-    background: url(../images/up_hair.png) 22px 24px no-repeat;
+    background: url(../images/up_hair.png) 20px 24px no-repeat;
     padding-top: 35px;
 }
 .menu .thirdLi {
     height: 63px;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/dep.png) 27px 18px no-repeat;
+    background: url(../images/dep.png) 25px 18px no-repeat;
     padding-top: 37px;
 }
 .menu .fourthLi {
     height: 76px;
     border-bottom: 1px dashed #a0a0a0;
-    background: url(../images/manik3.png) 22px 21px no-repeat;
+    background: url(../images/manik3.png) 20px 21px no-repeat;
     padding-top: 24px;
 }
 .menu .fifthLi {
       height: 62px;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/mass.png) 18px 32px no-repeat;
+    background: url(../images/mass.png) 16px 32px no-repeat;
     padding-top: 37px;
     border-bottom: 1px dashed #a0a0a0;
 }
 .menu .sixthLi {
     height: 62px;
-    background: url(../images/pirs.png) 19px 35px no-repeat;
+    background: url(../images/pirs.png) 17px 35px no-repeat;
     padding-top: 37px;
     border-bottom: 1px dashed #a0a0a0;
 }
 .menu .sevenLi {
     height: 60px;
-    background: url(../images/manik.png) 22px 35px no-repeat;
+    background: url(../images/manik.png) 20px 35px no-repeat;
     padding-top: 40px;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
 }
 .menu .eightLi {
     height: 63px;
-    background: url(../images/viz3.png) 27px 21px no-repeat;
+    background: url(../images/viz3.png) 25px 21px no-repeat;
     padding-top: 37px;
     border-bottom: 1px dashed #a0a0a0;
 }
 .menu .nineLi {
     height: 63px;
-    background: url(../images/tatu.png) 25px 29px no-repeat;
+    background: url(../images/tatu.png) 23px 29px no-repeat;
     padding-top: 35px;
     border-right: 1px dashed #a0a0a0;
 }
 .menu .tenLi {
     height: 61px;
-    background: url(../images/face.png) 30px 26px no-repeat;
+    background: url(../images/face.png) 28px 26px no-repeat;
     padding-top: 37px;
 }
 #reklama {
@@ -376,45 +339,45 @@ h2 {
     height: 63px;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/hair.png) 26px 18px no-repeat;
+    background: url(../images/hair.png) 24px 18px no-repeat;
     padding-top: 32px;
 }
 #kosmetika .secondLi {
     height: 75px;
     border-bottom: 1px dashed #a0a0a0;
     background: none;
-    background: url(../images/upHair.png) 26px 18px no-repeat;
+    background: url(../images/upHair.png) 24px 18px no-repeat;
     padding-top: 20px;
 }
 #kosmetika .thirdLi {
       height: 62px;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/face2.png) 35px 21px no-repeat;
+    background: url(../images/face2.png) 33px 21px no-repeat;
     padding-top: 38px;
 }
 #kosmetika .fourthLi {
     height: 87px;
     border-bottom: 1px dashed #a0a0a0;
-    background: url(../images/manik2.png) 27px 19px no-repeat;
+    background: url(../images/manik2.png) 25px 19px no-repeat;
     padding-top: 13px;
 }
 #kosmetika .fifthLi {
       height: 65px;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/body.png) 24px 24px no-repeat;
+    background: url(../images/body.png) 22px 24px no-repeat;
     padding-top: 36px;
 }
 #kosmetika .sixthLi {
     height: 64px;
-    background: url(../images/foot.png) 29px 19px no-repeat;
+    background: url(../images/foot.png) 27px 19px no-repeat;
     padding-top: 37px;
 }
 #kosmetika .sevenLi {
     height: 75px;
     background: none;
     padding-top: 25px;
-    background: url(../images/forTatoo.png) 29px 19px no-repeat;
+    background: url(../images/forTatoo.png) 27px 19px no-repeat;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
 }
@@ -422,62 +385,62 @@ h2 {
     height: 74px;
     background: none;
     padding-top: 26px;
-    background: url(../images/upResn.png) 29px 19px no-repeat;
+    background: url(../images/upResn.png) 27px 19px no-repeat;
     border-bottom: 1px dashed #a0a0a0;
 }
 #kosmetika .nineLi {
     height: 61px;
-    background: url(../images/decor.png) 21px 32px no-repeat;
+    background: url(../images/decor.png) 19px 32px no-repeat;
     padding-top: 37px;
     border-right: 1px dashed #a0a0a0;
 }
 #kosmetika .tenLi {
     height: 61px;
-    background: url(../images/pirs2.png) 23px 27px no-repeat;
+    background: url(../images/pirs2.png) 21px 27px no-repeat;
     padding-top: 37px;
 }
 #instr .firstLi {
     height: 64px;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/parik.png) 22px 25px no-repeat;
+    background: url(../images/parik.png) 20px 25px no-repeat;
     padding-top: 31px;
 }
 #instr .secondLi {
     height: 63px;
     border-bottom: 1px dashed #a0a0a0;
-    background: url(../images/viz2.png) 26px 14px no-repeat;
+    background: url(../images/viz2.png) 24px 14px no-repeat;
     padding-top: 32px;
 }
 #instr .thirdLi {
       height: 62px;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/kosm.png) 21px 26px no-repeat;
+    background: url(../images/kosm.png) 19px 26px no-repeat;
     padding-top: 38px;
 }
 #instr .fourthLi {
     height: 87px;
     border-bottom: 1px dashed #a0a0a0;
-    background: url(../images/viz.png) 26px 25px no-repeat;
+    background: url(../images/viz.png) 24px 25px no-repeat;
     padding-top: 13px;
 }
 #instr .fifthLi {
       height: 64px;
     border-right: 1px dashed #a0a0a0;
-    background: url(../images/mass.png) 18px 32px no-repeat;
+    background: url(../images/mass.png) 16px 32px no-repeat;
     padding-top: 36px;
 }
 #instr .sixthLi {
     height: 75px;
-    background: url(../images/tatu2.png) 13px 25px no-repeat;
+    background: url(../images/tatu2.png) 11px 25px no-repeat;
     padding-top: 25px;
 }
 #instr .sevenLi {
     height: 63px;
     background: none;
     padding-top: 35px;
-    background: url(../images/forDep.png) 29px 19px no-repeat;
+    background: url(../images/forDep.png) 27px 19px no-repeat;
     border-bottom: 1px dashed #a0a0a0;
     border-right: 1px dashed #a0a0a0;
 }
@@ -486,17 +449,17 @@ h2 {
     background: none;
     padding-top: 35px;
     border-bottom: 1px dashed #a0a0a0;
-    background: url(../images/pirs.png) 19px 37px no-repeat;
+    background: url(../images/pirs.png) 17px 37px no-repeat;
 }
 #instr .nineLi {
     height: 68px;
-    background: url(../images/up_hair2.png) 37px 22px no-repeat;
+    background: url(../images/up_hair2.png) 35px 22px no-repeat;
     padding-top: 32px;
     border-right: 1px dashed #a0a0a0;
 }
 #instr .tenLi {
     height: 73px;
-    background: url(../images/up_res.png) 20px 21px no-repeat;
+    background: url(../images/up_res.png) 18px 21px no-repeat;
     padding-top: 27px;
 }
 .reklama {
@@ -511,7 +474,7 @@ footer {
     position:relative;
     margin-top: -200px;
     background-color: #2690af;
-    height: 200px;
+    min-height: 200px;
 }
 footer .footerLine {
     height: 5px;
@@ -535,11 +498,175 @@ footer > nav ul li {
     margin-right: 33px;
 }
 footer .soc_group{
-    margin: 10px 0 23px 417px;
+    margin: 10px 0 23px;
 }
 footer p {
     clear: both;
     color: #ffffff;
     text-align: center;
     font:  12px Arial;
+}
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 1024px) {
+  .menu .fourthLi {
+height: 90px;
+padding-top: 10px;
+}
+}
+ 
+@media (max-width: 980px) {
+  
+}
+
+@media (max-width: 768px) {
+
+}
+ 
+@media (max-width: 600px) {
+#form1 {
+float: none;
+}
+#login {
+    padding-top: 0;
+}
+#region {
+margin-bottom: 0;
+width: 40%;
+}
+#enter {
+margin-left: 0;
+}
+.menu .fourthLi, #kosmetika .fourthLi, #instr .fourthLi {
+height: 90px;
+padding-top: 10px;
+}
+.menu ul li a {
+font: 16px Comfortaa;
+padding-left: 80px;
+}
+}
+
+@media (max-width: 480px) {  
+#search {
+width: 64%;
+}
+#region {
+width: 64%;
+}
+.menu ul li a {
+font: 13px Comfortaa;
+padding-left: 60px;
+}
+.menu .fourthLi, #kosmetika .fourthLi, #instr .fourthLi {
+height: 80px;
+padding-top: 20px;
+}
+.menu .firstLi {
+    background: url(../images/parik.png) 10px 25px no-repeat;
+}
+.menu .secondLi {
+    background: url(../images/up_hair.png) 15px 24px no-repeat;
+}
+.menu .thirdLi {
+    background: url(../images/dep.png) 15px 18px no-repeat;
+}
+.menu .fourthLi {
+    background: url(../images/manik3.png) 10px 21px no-repeat;
+}
+.menu .fifthLi {
+    background: url(../images/mass.png) 9px 32px no-repeat;
+    padding-left: 67px;
+}
+.menu .sixthLi {
+    background: url(../images/pirs.png) 9px 35px no-repeat;
+    padding-left: 67px;
+}
+.menu .sevenLi {
+    background: url(../images/manik.png) 10px 35px no-repeat;
+    padding-left: 57px;
+}
+.menu .eightLi {
+    background: url(../images/viz3.png) 15px 21px no-repeat;
+}
+.menu .nineLi {
+    background: url(../images/tatu.png) 13px 29px no-repeat;
+    padding-left: 67px;
+}
+}
+.menu .tenLi {
+    background: url(../images/face.png) 18px 26px no-repeat;
+}
+#kosmetika .firstLi {
+    background: url(../images/hair.png) 14px 18px no-repeat;
+}
+#kosmetika .secondLi {
+    background: url(../images/upHair.png) 14px 18px no-repeat;
+}
+#kosmetika .thirdLi {
+    background: url(../images/face2.png) 23px 21px no-repeat;
+}
+#kosmetika .fourthLi {
+    background: url(../images/manik2.png) 15px 19px no-repeat;
+}
+#kosmetika .fifthLi {
+    background: url(../images/body.png) 12px 24px no-repeat;
+}
+#kosmetika .sixthLi {
+    background: url(../images/foot.png) 17px 19px no-repeat;
+}
+#kosmetika .sevenLi {
+    background: url(../images/forTatoo.png) 17px 19px no-repeat;
+}
+#kosmetika .eightLi {
+    background: url(../images/upResn.png) 17px 19px no-repeat;
+}
+#kosmetika .nineLi {
+    background: url(../images/decor.png) 10px 32px no-repeat;
+}
+#kosmetika .tenLi {
+    background: url(../images/pirs2.png) 11px 27px no-repeat;
+}
+#instr .firstLi {
+    background: url(../images/parik.png) 10px 25px no-repeat;
+}
+#instr .secondLi {
+    background: url(../images/viz2.png) 14px 14px no-repeat;
+}
+#instr .thirdLi {
+    background: url(../images/kosm.png) 10px 26px no-repeat;
+}
+#instr .fourthLi {
+    background: url(../images/viz.png) 14px 25px no-repeat;
+}
+#instr .fifthLi {
+    background: url(../images/mass.png) 9px 32px no-repeat;
+}
+#instr .sixthLi {
+    background: url(../images/tatu2.png) 6px 25px no-repeat;
+}
+#instr .sevenLi {
+    background: url(../images/forDep.png) 17px 19px no-repeat;
+}
+#instr .eightLi {
+    background: url(../images/pirs.png) 7px 37px no-repeat;
+}
+#instr .nineLi {
+    background: url(../images/up_hair2.png) 25px 22px no-repeat;
+}
+#instr .tenLi {
+    background: url(../images/up_res.png) 9px 21px no-repeat;
+}
+}
+
+@media (max-width: 320px) {
+  nav ul li {
+float: none;
+}
+.menu ul li a, .tenLi {
+font-size: 11px!important;
+}
 }
