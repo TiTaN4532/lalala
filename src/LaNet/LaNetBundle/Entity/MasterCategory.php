@@ -27,6 +27,11 @@ class MasterCategory
      */
     private $master;
     
+        /**
+     * @ORM\ManyToMany(targetEntity="Salon", mappedBy="category")
+     */
+    private $salon;
+    
     /**
      * @ORM\Column(type="string", length=50)
      */
@@ -152,5 +157,38 @@ class MasterCategory
     public function getMaster()
     {
         return $this->master;
+    }
+
+    /**
+     * Add salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     * @return MasterCategory
+     */
+    public function addSalon(\LaNet\LaNetBundle\Entity\Salon $salon)
+    {
+        $this->salon[] = $salon;
+    
+        return $this;
+    }
+
+    /**
+     * Remove salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     */
+    public function removeSalon(\LaNet\LaNetBundle\Entity\Salon $salon)
+    {
+        $this->salon->removeElement($salon);
+    }
+
+    /**
+     * Get salon
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSalon()
+    {
+        return $this->salon;
     }
 }

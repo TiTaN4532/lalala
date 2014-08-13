@@ -3,15 +3,16 @@
 {% block slider %}
 {% endblock %}
 {% block content %}
-<h2>Новости:</h2>
+ <h1 style="float:left;margin-right: 10px;">Новости</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
               {% for post in news %}
+              {% if not loop.first %} <hr /> {% endif %}
               <div class="row">
-                <div class="col col_1_of_2"><img src="{{ asset(post.getWebPath)}}" style="width:100%;" /></div>
+                <div class="col col_1_of_2"><img src="{{ post.getWebPath | imagine_filter('my_master_thumb_medium')}}" style="width:100%;" /></div>
                 <div class="col col_1_of_2">
                   <h3>{{ post.title}}</h3>
                   <div>{{ post.updated | date("F jS Y")}}</div>
                   <div>{{ post.description }}</div>
-                  <div><a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}" class="blue-link">Подробнее >></a></div>
+                  <div><a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}" class="blue-link">Подробнее</a></div>
                 </div>
               </div>
               {% else %}

@@ -337,6 +337,7 @@ class User extends BaseUser
      */
     public function addMail(\LaNet\LaNetBundle\Entity\Mail $mail)
     {
+        $mail->setUser($this);
         $this->mail[] = $mail;
     
         return $this;

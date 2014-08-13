@@ -4,7 +4,8 @@
 {% endblock %}      
 
 {% block content %}
-<h1>Список мастеров</h1>
+<a href="{{ path('la_net_la_net_master_list') }}" class="tabs active">Поиск мастера</a><a href="{{ path('la_net_la_net_salon_list') }}" class="tabs">Поиск салона</a>
+<hr style="margin:7px 0 20px 0;" />
 <div> Найти по имени мастера:<form action=""><input type="text" name="name" class="half" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input type="submit" value="Найти"></form></div>
 <div> <form action="">
         <select name="category" style="width:auto">
@@ -15,34 +16,77 @@
         </select>
         <select name="service-type" style="width:auto">
           <option value="0">Тип обслуживания</option>
-            <option value="home" {% if app.request.query.get('service-type') == 'home' %} selected="selected"{% endif %}>Дом</option>
-            <option value="salon" {% if app.request.query.get('service-type') == 'salon' %} selected="selected"{% endif %}>Салон</option>
-            <option value="salon-home" {% if app.request.query.get('service-type') == 'salon-home' %} selected="selected"{% endif %}>Дом/Салон</option>
-            <option value="consult" {% if app.request.query.get('service-type') == 'consult' %} selected="selected"{% endif %}>Консультации</option>
+            <option value="home" {% if app.request.query.get('service-type') == 'home' %} selected="selected"{% endif %}>На дому</option>
+            <option value="salon" {% if app.request.query.get('service-type') == 'salon' %} selected="selected"{% endif %}>В салоне</option>
+            <option value="salon-home" {% if app.request.query.get('service-type') == 'salon-home' %} selected="selected"{% endif %}>Выезд на дом</option>
         </select>
         <input type="submit" value="Фльтровать">
       </form>
 </div>
 
+<h2 style="float:left;margin-right: 10px;">Карта</h2><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+<div id="map" style="width:100%;height:250px;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
+                <script>
+                    var map;
+                    function initialize() {
+                        var map_canvas = document.getElementById('map');
+                        var map_options = {
+                            center: new google.maps.LatLng(49.99, 36.230),
+                            zoom: 6
+                        };
+                        map = new google.maps.Map(map_canvas, map_options);
+
+                    }  
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
 {% for master in masters %}
   <div class="row clear">
+      {% if master.location is not empty and master.location.lat is not empty and master.location.lang is not empty %}
+      <script type="text/javascript">
+          google.maps.event.addDomListener(window, 'load', function() {
+              var marker = new google.maps.Marker({
+                position: new google.maps.LatLng({{ master.location.lat }}, {{ master.location.lang }}),
+                map: map,
+                title:"{{ master.firstName }} {{ master.firstName }}" 
+            });
+          });
+          
+              </script>
+      {% endif %}
+    <hr style="margin-left: 3%;" />
     <div class="col col_1_of_3"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
     <div class="col col_2_of_3">
-      <p>{{ master.firstName }} {{ master.firstName }}</p>
-      <p>{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
-      <p>Обслуживание: {% for item in master.serviceType %}
-                            {% if item == 'salon' %}
-                              Салон
-                            {% elseif item == 'salon-home' %}
-                              Салон/выезд на дом
-                            {% elseif item == 'home' %}
-                              Дом
-                            {% elseif item == 'consult' %}
-                              Консультации
-                            {% endif %}
-                         {% if not loop.last %}, {% endif %}
-                      {% endfor %}</p>
-      <a href="{{ path('la_net_la_net_master_id', {'id': master.id }) }}" class="blue-link">Подробнее >></a>
+      <h3>{{ master.firstName }} {{ master.firstName }}</h3>
+      {% if master.category is not empty %}
+        <div class="row">
+          <div class="col col_1_of_3 blue">Специальность:</div>
+          <div class="col col_2_of_3">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+        </div>
+      {% endif %}
+      {% if master.serviceType is not empty %}
+        <div class="row">
+          <div class="col col_1_of_3 blue">Обслуживание:</div>
+          <div class="col col_2_of_3">{% for item in master.serviceType %}
+                              {% if item == 'salon' %}
+                                В салоне
+                              {% elseif item == 'salon-home' %}
+                                Выезд на дом к клиенту
+                              {% elseif item == 'home' %}
+                                На дому
+                              {% endif %}
+                           {% if not loop.last %}, {% endif %}
+                        {% endfor %}</div>
+        </div>
+      {% endif %}
+      {% if master.location is not empty and master.location.locality %}
+        <div class="row">
+          <div class="col col_1_of_3 blue">Адрес:</div>
+          <div class="col col_2_of_3">{{ master.location.locality }} {{ master.location.route }} {{ master.location.streetNumber }}
+          </div>
+        </div>
+      {% endif %}
+      <a style="float:right;" href="{{ path('la_net_la_net_master_id', {'id': master.id }) }}" class="blue-link">Подробнее</a>
     </div>
   </div>
 {% else %}

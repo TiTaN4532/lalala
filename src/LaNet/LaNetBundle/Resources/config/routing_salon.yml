@@ -1,0 +1,29 @@
+la_net_la_net_salon_list:
+    pattern:  /club/salon
+    defaults: { _controller: LaNetLaNetBundle:Salon:list }
+
+la_net_la_net_salon_id:
+    pattern:  /salon/{id}
+    defaults: { _controller: LaNetLaNetBundle:Salon:salonId }
+    requirements:
+        id:  \d+
+    
+la_net_la_net_salon_profile:
+    pattern:  /salon/profile
+    defaults: { _controller: LaNetLaNetBundle:Salon:profile }
+
+la_net_la_net_salon_change_pass:
+    pattern:  /salon/change_password
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+
+la_net_la_net_salon_profile_work:
+    pattern:  /salon/profile/work
+    defaults: { _controller: LaNetLaNetBundle:Salon:profileWork }
+
+la_net_la_net_salon_profile_portfolio:
+    pattern:  /salon/profile/portfolio
+    defaults: { _controller: LaNetLaNetBundle:Salon:profilePortfolio }
+    
+la_net_la_net_salon_profile_service_price:
+    pattern:  /salon/profile/service_price
+    defaults: { _controller: LaNetLaNetBundle:Salon:profileServicePrice }

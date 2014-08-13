@@ -27,15 +27,10 @@ class Region
     protected $name;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Country", inversedBy="region")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     *@ORM\Column(type="string", length=100)
      */
-    private $country;
+    private $country_id;
     
-    /**
-     * @ORM\OneToMany(targetEntity="City", mappedBy="region")
-     */
-    private $city;
 
      /**
      * @ORM\OneToMany(targetEntity="Location", mappedBy="region")

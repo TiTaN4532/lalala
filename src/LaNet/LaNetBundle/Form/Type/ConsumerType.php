@@ -24,7 +24,9 @@ class ConsumerType extends AbstractType
             ))  
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
                 
-            ->add('birthday', 'birthday', array('label' => 'Дата рождения:', 'empty_value' => 'Не выбрано', 'format' => 'yyyyMdd','years' => range(1950, date('Y')), 'attr' => array('class' => 'width-auto')))    
+            ->add('birthday', 'date', array(   'label' => 'Дата рождения:', 
+                                                'input'  => 'timestamp',
+                                                'widget' => 'single_text')) 
             ->add('location', new LocationType(true), array(
                                                     'by_reference' => false,
                                                     'label' => 'Адрес:'

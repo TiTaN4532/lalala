@@ -1,0 +1,52 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
+
+
+{% block menu %}
+  {% include "LaNetLaNetBundle:Salon:menu.html.twig" %}
+{% endblock %}
+        
+
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div>
+          <img id="{{id}}_image" style="width:400px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.jpg') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+        
+{% block stylesheets %}
+  {{ parent() }}
+  <script src="{{ asset('bundles/lanetlanet/js/mastersPortfolio.js') }}"></script>
+  <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+{% endblock %}
+      
+{% block profile_content %}
+<h1>Портфолио</h1>
+
+<form action="" {{ form_enctype(form) }} method="POST">
+        <div class="row errors">
+            {{ form_errors(form.portfolio) }}
+
+        </div>
+        <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
+         {% for image in form.portfolio %}
+           <li>
+              {{ form_widget(image.file) }}
+              {{ form_row(image.description) }}
+           </li>
+         {% endfor %}
+       </ul>
+       {{ form_row(form._token) }}
+       {{ form_row(form.save) }}
+        
+</form>
+{% endblock %}

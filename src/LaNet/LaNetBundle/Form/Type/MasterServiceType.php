@@ -9,12 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class MasterServiceType extends AbstractType
 {
   
-  private $master;
-  
-  public function __construct($master){
-        $this->master = $master;
-    }
-    
         /**
      * @param FormBuilderInterface $builder
      * @param array $options

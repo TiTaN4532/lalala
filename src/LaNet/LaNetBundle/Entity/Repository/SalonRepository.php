@@ -3,6 +3,8 @@
 namespace LaNet\LaNetBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use LaNet\LaNetBundle\Entity;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * SalonRepository
@@ -12,4 +14,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class SalonRepository extends EntityRepository
 {
+    public function findFilteredSalons($peginator = false, $onPage = 1, $region)
+    {
+      $request = Request::createFromGlobals();
+      $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
+      $category = ($request->get('category')) ? " AND c.id = '" . $request->get('category') ."'" : "";
+      $query = $this->_em->createQuery("SELECT m, c  FROM LaNetLaNetBundle:Salon m 
+                                                    LEFT JOIN m.category c     
+                                                    LEFT JOIN m.location l     
+                                                    WHERE l.administrative_area LIKE '%" . trim('.', $region) . "%' AND  (m.name LIKE :like)".$category)
+                          ->setParameters(array('like' => '%'.$searchterm.'%'));
+      if ($peginator) {
+        $page = $request->query->get('page', 1);
+        return $peginator->paginate($query, $page, $onPage);
+      }
+      else {
+        return $query->getResult();
+      }
+    }
 }

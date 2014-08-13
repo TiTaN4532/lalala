@@ -22,6 +22,10 @@ la_net_la_net_Master_routes:
   resource: "routing_master.yml"
   prefix: /
   
+la_net_la_net_Salon_routes:
+  resource: "routing_salon.yml"
+  prefix: /
+  
 la_net_la_net_consumer_routes:
   resource: "routing_consumer.yml"
   prefix: /

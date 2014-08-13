@@ -1,0 +1,13 @@
+<select id="regions" name="regions">
+    <option value="0">Выберите регион</option>
+    {% for item in regions %}
+        <option value="{{ item.name }}" {% if app.session.get('region') == item.name %} selected="selected" {% endif %}>{{ item.name }}</option>
+    {% endfor %}
+</select>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#regions').change(function() {
+            $('#form-regions').submit();
+        })
+    })
+</script>

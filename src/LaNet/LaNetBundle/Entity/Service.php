@@ -10,9 +10,9 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="new_master_service")
+ * @ORM\Table(name="service")
  */
-class MasterService
+class Service
 {
     /**
      * @ORM\Id
@@ -23,9 +23,13 @@ class MasterService
     
     /**
      * @ORM\ManyToOne(targetEntity="Master", inversedBy="services")
-     * @ORM\JoinColumn(name="master_id", referencedColumnName="id")
      */
     private $master;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Salon", inversedBy="services")
+     */
+    private $salon;
     
     /**
      * @ORM\Column(type="string")
@@ -54,10 +58,33 @@ class MasterService
 
 
     /**
+     * Set name
+     *
+     * @param string $name
+     * @return SalonService
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set startPrice
      *
      * @param integer $startPrice
-     * @return MasterService
+     * @return SalonService
      */
     public function setStartPrice($startPrice)
     {
@@ -80,7 +107,7 @@ class MasterService
      * Set endPrice
      *
      * @param integer $endPrice
-     * @return MasterService
+     * @return SalonService
      */
     public function setEndPrice($endPrice)
     {
@@ -100,10 +127,33 @@ class MasterService
     }
 
     /**
+     * Set salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     * @return SalonService
+     */
+    public function setSalon(\LaNet\LaNetBundle\Entity\Salon $salon = null)
+    {
+        $this->salon = $salon;
+    
+        return $this;
+    }
+
+    /**
+     * Get salon
+     *
+     * @return \LaNet\LaNetBundle\Entity\Salon 
+     */
+    public function getSalon()
+    {
+        return $this->salon;
+    }
+
+    /**
      * Set master
      *
      * @param \LaNet\LaNetBundle\Entity\Master $master
-     * @return MasterService
+     * @return Service
      */
     public function setMaster(\LaNet\LaNetBundle\Entity\Master $master = null)
     {
@@ -120,28 +170,5 @@ class MasterService
     public function getMaster()
     {
         return $this->master;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return MasterService
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

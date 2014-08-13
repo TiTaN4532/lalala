@@ -107,7 +107,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $schedule;
     
     /**
-     * @ORM\OneToMany(targetEntity="MasterService", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="master", cascade={"persist"}, orphanRemoval=true)
      */
     protected $services;
     
@@ -475,28 +475,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->serviceType;
     }
 
-    /**
-     * Set birthday
-     *
-     * @param \DateTime $birthday
-     * @return Master
-     */
-    public function setBirthday($birthday)
-    {
-        $this->birthday = $birthday;
     
-        return $this;
-    }
-
-    /**
-     * Get birthday
-     *
-     * @return \DateTime 
-     */
-    public function getBirthday()
-    {
-        return $this->birthday;
-    }
 
 
     /**
@@ -556,29 +535,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->category;
     }
 
-    /**
-     * Set startWork
-     *
-     * @param \DateTime $startWork
-     * @return Master
-     */
-    public function setStartWork($startWork)
-    {
-        $this->startWork = $startWork;
-    
-        return $this;
-    }
-
-    /**
-     * Get startWork
-     *
-     * @return \DateTime 
-     */
-    public function getStartWork()
-    {
-        return $this->startWork;
-    }
-
+  
     /**
      * Set education
      *
@@ -692,13 +649,60 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->schedule;
     }
 
+  
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     * @return Master
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = new \DateTime(date('Y-m-d', $birthday));
+    
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime 
+     */
+    public function getBirthday()
+    {
+        return $this->birthday->getTimestamp();
+    }
+
+    /**
+     * Set startWork
+     *
+     * @param \DateTime $startWork
+     * @return Master
+     */
+    public function setStartWork($startWork)
+    {
+        $this->startWork = new \DateTime(date('Y-m-d', $startWork));
+    
+        return $this;
+    }
+
+    /**
+     * Get startWork
+     *
+     * @return \DateTime 
+     */
+    public function getStartWork()
+    {
+        return $this->startWork->getTimestamp();
+    }
+
     /**
      * Add services
      *
-     * @param \LaNet\LaNetBundle\Entity\MasterService $services
+     * @param \LaNet\LaNetBundle\Entity\Service $services
      * @return Master
      */
-    public function addService(\LaNet\LaNetBundle\Entity\MasterService $services)
+    public function addService(\LaNet\LaNetBundle\Entity\Service $services)
     {
         $services->setMaster($this);
         $this->services[] = $services;
@@ -709,9 +713,9 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     /**
      * Remove services
      *
-     * @param \LaNet\LaNetBundle\Entity\MasterService $services
+     * @param \LaNet\LaNetBundle\Entity\Service $services
      */
-    public function removeService(\LaNet\LaNetBundle\Entity\MasterService $services)
+    public function removeService(\LaNet\LaNetBundle\Entity\Service $services)
     {
         $this->services->removeElement($services);
     }

@@ -1,10 +1,12 @@
 la_net_la_net_master_list:
-    pattern:  /club
+    pattern:  /club/master
     defaults: { _controller: LaNetLaNetBundle:Master:list }
 
 la_net_la_net_master_id:
     pattern:  /master/{id}
     defaults: { _controller: LaNetLaNetBundle:Master:masterId }
+    requirements:
+        id:  \d+
     
 la_net_la_net_master_profile:
     pattern:  /master/profile

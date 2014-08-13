@@ -1,0 +1,78 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block slider %}
+{% endblock %}      
+
+{% block content %}
+<a href="{{ path('la_net_la_net_master_list') }}" class="tabs">Поиск мастера</a><a href="{{ path('la_net_la_net_salon_list') }}" class="tabs active">Поиск салона</a>
+<hr style="margin:7px 0 20px 0;" />
+<div> Найти по имени салона:<form action=""><input type="text" name="name" class="half" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input type="submit" value="Найти"></form></div>
+<div> <form action="">
+        <select name="category" style="width:auto">
+          <option value="0">Выберите специальность</option>
+          {% for item in masterCategory %}
+            <option value="{{ item.id }}" {% if app.request.query.get('category') == item.id  %} selected="selected"{% endif %}>{{ item.name }}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="Фльтровать">
+      </form>
+</div>
+
+<h2 style="float:left;margin-right: 10px;">Карта</h2><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+<div id="map" style="width:100%;height:250px;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
+                <script>
+                    var map;
+                    function initialize() {
+                        var map_canvas = document.getElementById('map');
+                        var map_options = {
+                            center: new google.maps.LatLng(49.99, 36.230),
+                            zoom: 8
+                        };
+                        map = new google.maps.Map(map_canvas, map_options);
+
+                    }  
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+{% for salon in salons %}
+  <div class="row clear">
+      {% if salon.location is not empty and salon.location.lat is not empty and salon.location.lang is not empty %}
+      <script type="text/javascript">
+          google.maps.event.addDomListener(window, 'load', function() {
+              var marker = new google.maps.Marker({
+                position: new google.maps.LatLng({{ salon.location.lat }}, {{ salon.location.lang }}),
+                map: map,
+                title:"{{ salon.name }}" 
+            });
+          });
+          
+              </script>
+      {% endif %}
+    <hr style="margin-left: 3%;" />
+    <div class="col col_1_of_3"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div class="col col_2_of_3">
+      <h3>{{ salon.name }}</h3>
+      {% if salon.category is not empty %}
+        <div class="row">
+          <div class="col col_1_of_3 blue">Специальность:</div>
+          <div class="col col_2_of_3">{% for item in salon.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+        </div>
+      {% endif %}
+      
+      {% if salon.location is not empty and salon.location.locality %}
+        <div class="row">
+          <div class="col col_1_of_3 blue">Адрес:</div>
+          <div class="col col_2_of_3">{{ salon.location.locality }} {{ salon.location.route }} {{ salon.location.streetNumber }}
+          </div>
+        </div>
+      {% endif %}
+      <a style="float:right;" href="{{ path('la_net_la_net_salon_id', {'id': salon.id }) }}" class="blue-link">Подробнее</a>
+    </div>
+  </div>
+{% else %}
+  Салонов нет
+{% endfor %}
+  <div class="row clear pagination">
+  {{ knp_pagination_render(salons) }}
+  </div>
+{% endblock %}
