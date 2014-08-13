@@ -2,7 +2,11 @@
 
 {% block body %}
 <div class="wrapper">
-  
+  {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
     <h1 id="main">ПОРТАЛ ИНДУСТРИИ КРАСОТЫ И ЗДОРОВЬЯ</h1>
     {% block slider %}
       {#<section>

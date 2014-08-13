@@ -28,6 +28,24 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     protected $name;
     
     /**
+     * @Gedmo\Slug(fields={"name"}, updatable=false, separator="-")
+     * @ORM\Column(type="string", length=120, unique=true)
+     */
+    protected $slug;
+    
+     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $country;
+    
+     /**
+     * @ORM\Column(type="string")
+     */
+    protected $link;
+    
+    
+    
+    /**
      * @ORM\Column(type="text")
      */
     protected $description;
@@ -219,5 +237,74 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return Brand
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     * @return Brand
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Brand
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

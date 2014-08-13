@@ -20,7 +20,7 @@ class ContactType extends AbstractType
             ->add('body', 'textarea', array('label' => 'Сообщение:'))
             ->add('company', 'text', array('label' => 'Название компании:', 'required' => false))
             ->add('phone', 'text', array('label' => 'Телефон:'))
-            ->add('mail', 'text', array('label' => 'Email адрес'))
+            ->add('mail', 'email', array('label' => 'Email адрес'))
             ;
 
     }
@@ -40,6 +40,6 @@ class ContactType extends AbstractType
      */
     public function getName()
     {
-        return 'lanet_phone';
+        return 'lanet_contact';
     }
 }

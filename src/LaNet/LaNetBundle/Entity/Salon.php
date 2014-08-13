@@ -24,6 +24,11 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="string", length=100, nullable = true)
      */
     protected $name;
+    
+    /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    protected $link;
 
     /**
      * @ORM\Column(type="string", length=50, nullable = true)
@@ -366,5 +371,28 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
     public function getServices()
     {
         return $this->services;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     * @return Salon
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLink()
+    {
+        return $this->link;
     }
 }

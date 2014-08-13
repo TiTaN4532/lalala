@@ -13,6 +13,8 @@ class BrandType extends AbstractType
   {
     $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
              -> add('name', 'text', array('label' => 'Название:'))
+             -> add('country', 'text', array('label' => 'Страна производитель:'))
+             -> add('link', 'text', array('label' => 'Сайт:'))
              -> add('description', 'textarea', array('label' => 'Описание:'))
              -> add('save', 'submit', array('label' => 'Сохранить'));
   }

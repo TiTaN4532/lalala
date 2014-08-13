@@ -1,0 +1,19 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block slider %}
+{% endblock %}
+{% block content %}
+ <h1 style="float:left;margin-right: 10px;">Брэнды</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
+              {% for item in brands %}
+              {% if not loop.first %} <hr /> {% endif %}
+              <div class="row">
+                <div class="col col_1_of_2"><img src="{{ item.getWebPath | imagine_filter('my_master_thumb_medium')}}" style="width:100%;" /></div>
+                <div class="col col_1_of_2">
+                  <h3>{{ item.name}}</h3>
+                  <div><a href="{{ path('la_net_la_net_brands_id', { 'slug' : item.slug } ) }}" class="blue-link">Подробнее</a></div>
+                </div>
+              </div>
+              {% else %}
+                Пока нет брэндов
+              {% endfor %}
+{% endblock %}
