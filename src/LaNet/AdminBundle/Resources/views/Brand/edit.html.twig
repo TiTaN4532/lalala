@@ -27,6 +27,8 @@
   <form action="" method="post" {{ form_enctype(form) }}>
         {{ form_widget(form.file) }}
     {{ form_row(form.name) }}
+    {{ form_row(form.country) }}
+    {{ form_row(form.link) }}
     {{ form_row(form.description) }}
     <div>
       <button id="cancel-brand-btn">Назад</button>

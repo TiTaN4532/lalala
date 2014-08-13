@@ -165,4 +165,27 @@ class Region
     {
         return $this->location;
     }
+
+    /**
+     * Set country_id
+     *
+     * @param string $countryId
+     * @return Region
+     */
+    public function setCountryId($countryId)
+    {
+        $this->country_id = $countryId;
+    
+        return $this;
+    }
+
+    /**
+     * Get country_id
+     *
+     * @return string 
+     */
+    public function getCountryId()
+    {
+        return $this->country_id;
+    }
 }

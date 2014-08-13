@@ -174,4 +174,27 @@ class City
     {
         return $this->location;
     }
+
+    /**
+     * Set region_id
+     *
+     * @param string $regionId
+     * @return City
+     */
+    public function setRegionId($regionId)
+    {
+        $this->region_id = $regionId;
+    
+        return $this;
+    }
+
+    /**
+     * Get region_id
+     *
+     * @return string 
+     */
+    public function getRegionId()
+    {
+        return $this->region_id;
+    }
 }

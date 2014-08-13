@@ -28,6 +28,7 @@ class MasterType extends AbstractType
         $builder
             ->add('firstName', 'text', array('label' => 'Имя:'))
             ->add('lastName', 'text', array('label' => 'Фамилия:'))
+            ->add('link', 'text', array('label' => 'Сайт:'))
             ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('m' => 'Муж', 'f' => 'Жен'),
                                             'required'  => false,
             ))  

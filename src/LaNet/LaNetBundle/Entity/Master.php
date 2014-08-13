@@ -73,6 +73,11 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     /**
      * @ORM\Column(type="string", nullable = true)
      */
+    protected $link;
+    
+    /**
+     * @ORM\Column(type="string", nullable = true)
+     */
     protected $education;
     
     /**
@@ -728,5 +733,28 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getServices()
     {
         return $this->services;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     * @return Master
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLink()
+    {
+        return $this->link;
     }
 }

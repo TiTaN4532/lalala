@@ -12,7 +12,7 @@
 
  <h1 class='line' style="float:left;margin-right: 10px;">Регистриция</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
 {% if not app.request.get('type') %}
-  <h3 class="clear" style="color: #AAA;">1. Вы регистрируетесь как:</h3>
+  <h5 class="clear" style="color: #AAA;">1. ВЫ РЕГИСТРИРУЕТЕСЬ КАК:</h5>
   <div id="registration">
     <a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a>
     <a href="{{ path('fos_user_registration_register', {'type': 'specialist'}) }}">Специалист</a>
@@ -23,14 +23,14 @@
     
   </div>
 {% else %}
-  <h3 class="clear" style="color: #AAA;">2. Вы регистрируетесь как 
-        {% if app.request.get('type') == 'specialist' %} мастер.
-        {% elseif app.request.get('type') == 'consumer' %} обычный пользователь.
-        {% elseif app.request.get('type') == 'salon' %} салон.
-        {% elseif app.request.get('type') == 'agancy' %} представительство.
-        {% elseif app.request.get('type') == 'shop' %} магазин.
-        {% elseif app.request.get('type') == 'school_center' %} обучающий центр.
-        {% endif %}</h3>
+  <h5 class="clear" style="color: #AAA;">2. ВЫ РЕГИСТРИРУЕТЕСЬ КАК
+        {% if app.request.get('type') == 'specialist' %} МАСТЕР.
+        {% elseif app.request.get('type') == 'consumer' %} ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ.
+        {% elseif app.request.get('type') == 'salon' %} САЛОН.
+        {% elseif app.request.get('type') == 'agancy' %} ПРЕДСТАВИТЕЛЬСТВО.
+        {% elseif app.request.get('type') == 'shop' %} МАГАЗИН.
+        {% elseif app.request.get('type') == 'school_center' %} ОБУЧАЮЩИЙ ЦЕНТР.
+        {% endif %}</h5>
   <div class="col col_1_of_2">
   <form action="" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" name="{{ form.vars.name }}">
     {{ form_errors(form) }}
@@ -39,7 +39,7 @@
     {% if app.request.get('type') == 'specialist' %}
         {{ form_row(form.userInfo.firstName) }}
         {{ form_row(form.userInfo.lastName) }}
-
+        {{ form_row(form.userInfo.link) }}
         {{ form_row(form.userInfo.gender) }}
         {{ form_row(form.userInfo.birthday) }}
         <div style="margin: 10px 0;">
@@ -198,6 +198,7 @@
 
     {% elseif app.request.get('type') == 'salon' %}   
         {{ form_row(form.userInfo.name) }}
+        {{ form_row(form.userInfo.link) }}
         <div style="margin: 10px 0;">
             {{ form_label(form.userInfo.category) }}
             {{ form_widget(form.userInfo.category) }}
