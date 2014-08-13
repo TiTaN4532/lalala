@@ -24,7 +24,12 @@ class Phone
     /**
      * @ORM\Column(type="string", length=100)
      */
-    protected $name;
+    protected $number;
+    
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $operator;
     
      /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="phone")
@@ -85,5 +90,51 @@ class Phone
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set number
+     *
+     * @param string $number
+     * @return Phone
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string 
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set operator
+     *
+     * @param string $operator
+     * @return Phone
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
+    
+        return $this;
+    }
+
+    /**
+     * Get operator
+     *
+     * @return string 
+     */
+    public function getOperator()
+    {
+        return $this->operator;
     }
 }

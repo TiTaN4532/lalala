@@ -32,12 +32,14 @@ class MasterType extends AbstractType
                                             'required'  => false,
             ))  
             ->add('serviceType', 'choice', array('label' => 'Тип обслуживания:', 
-                                                 'choices'   => array('home' => 'Выезд на дом', 'salon' => 'Салон', 'salon-home' => 'Салон/Выезд на дом', 'consult' => 'консультации'),
+                                                 'choices'   => array('home' => 'На дому', 'salon' => 'В салоне', 'salon-home' => 'Выезд на дом к клиенту'),
                                                  'required'  => false,
                                                  'multiple' => true,
                                                  'expanded' => true,
             ))
-            ->add('birthday', 'birthday', array('label' => 'Дата рождения:', 'empty_value' => 'Не выбрано', 'format' => 'yyyyMdd','years' => range(1950, date('Y')), 'attr' => array('class' => 'width-auto')))    
+            ->add('birthday', 'date', array(   'label' => 'Дата рождения:', 
+                                                'input'  => 'timestamp',
+                                                'widget' => 'single_text'))       
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
             ->add('category', 'entity', array(
                   'attr' => array('class' => 'category-list'),
@@ -51,13 +53,15 @@ class MasterType extends AbstractType
                                                     'by_reference' => false,
                                                     'label' => 'Адрес:'
                                                   ))
-            ->add('startWork', 'birthday', array('label' => 'Начало работы:', 'empty_value' => 'Не выбрано', 'format' => 'yyyyMdd','years' => range(1950, date('Y')), 'attr' => array('class' => 'width-auto')))    
+            ->add('startWork', 'date', array(   'label' => 'Начало работы:', 
+                                                'input'  => 'timestamp',
+                                                'widget' => 'single_text'))    
             ;
         if($this->action == 'profile')
-            $builder->add('competitions', 'text', array('label' => 'Конкурсы, мероприятия:'))
-                    ->add('education', 'text', array('label' => 'Образование:'))
-                    ->add('usedCosmetics', 'text', array('label' => 'Используемая косметика:'))
-                    ->add('hobby', 'text', array('label' => 'Хобби:'))
+            $builder->add('competitions', 'text', array('label' => 'Конкурсы, мероприятия:', 'required' => false))
+                    ->add('education', 'text', array('label' => 'Образование:', 'required' => false))
+                    ->add('usedCosmetics', 'text', array('label' => 'Используемая косметика:', 'required' => false))
+                    ->add('hobby', 'text', array('label' => 'Хобби:', 'required' => false))
             ;
     }
     

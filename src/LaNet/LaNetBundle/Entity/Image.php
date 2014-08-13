@@ -25,6 +25,11 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
      */
     private $master;
     
+   /**
+     * @ORM\ManyToOne(targetEntity="Salon", inversedBy="portfolio")
+     */
+    private $salon;
+    
     /**
      * @ORM\Column(type="string", length=50)
      */
@@ -171,5 +176,28 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     * @return Image
+     */
+    public function setSalon(\LaNet\LaNetBundle\Entity\Salon $salon = null)
+    {
+        $this->salon = $salon;
+    
+        return $this;
+    }
+
+    /**
+     * Get salon
+     *
+     * @return \LaNet\LaNetBundle\Entity\Salon 
+     */
+    public function getSalon()
+    {
+        return $this->salon;
     }
 }

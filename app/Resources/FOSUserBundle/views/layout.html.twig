@@ -9,8 +9,10 @@
      <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}">
       <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
       <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-      <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
       
+        <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
+      <script src="{{ asset('bundles/lanetlanet/js/mail_phone_collection.js') }}"></script>
 {#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
       <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
@@ -39,12 +41,12 @@
                      <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
                  {% endif %}
               </div>
-              <div  id="form2">
+              {#<div  id="form2">
                 <form action="http://lalook.net/formdata.php" method="POST" name="form">
                   <input type="text" name="search" placeholder="Поиск" id="search">
                   <input type="submit" name="submit" value="" id="submit">
                 </form>
-              </div>
+              </div>#}
             </div>
           </div>
         </div>

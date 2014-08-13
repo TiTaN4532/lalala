@@ -12,84 +12,99 @@
 {% block content %}
 <div class="master-id">
   <div class="row">
-    <div class="col col_1_of_4"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div class="col col_1_of_4"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
     <div class="col col_3_of_4">
-        <h2>{{ master.firstname }} {{ master.lastname }}</h2>
-        <div class="section">Основная информация</div>
+        <h2 style="color:#578fac;">{{ master.firstname | upper }} {{ master.lastname | upper }}</h2>
+        <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
         <div class="row">
-          <div class="col col_1_of_3">Специальность:</div>
+          <div class="col col_1_of_3 blue">Специальность:</div>
           <div class="col col_2_of_3">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
         </div>
         <div class="row">
-          <div class="col col_1_of_3">Город:</div>
-          <div class="col col_2_of_3">{{ master.location.city.name }} {{ master.location.region.name }}</div>
+          <div class="col col_1_of_3 blue">Город:</div>
+          <div class="col col_2_of_3">{{ master.location.locality }} {{ master.location.administrativearea }}</div>
         </div>
         {% if master.user.showPhone  %}
           <div class="row">
-            <div class="col col_1_of_3">Телефон:</div>
-            <div class="col col_2_of_3">{% for item in master.user.phone %}<p>{{ item.name }}</p>{% endfor %}</div>
+            <div class="col col_1_of_3 blue">Телефон:</div>
+            <div class="col col_2_of_3">{% for item in master.user.phone %}<p>+38 ({{ item.operator }}) - {{ item.number }}</p>{% endfor %}</div>
           </div>
         {% endif %}
         {% if master.user.showMail  %}
           <div class="row">
-            <div class="col col_1_of_3">Email:</div>
-            <div class="col col_2_of_3">{{ master.user.email }}</div>
+            <div class="col col_1_of_3 blue">Email:</div>
+            <div class="col col_2_of_3">{{ master.user.email }}
+            {% for item in master.user.mail %}<p>{{ item.name }}</p>{% endfor %}
+            </div>
           </div>
         {% endif %}
     </div>
   </div>
-  <div class="clear section">Работа</div>
+  <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Работа:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+  <div id="map" style="width:100%;height:150px; margin-bottom: 20px;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
+                <script>
+                    function initialize() {
+                        var map_canvas = document.getElementById('map');
+                        var myLatlng = new google.maps.LatLng(
+                                   {{ master.location.lat }},
+                                   {{ master.location.lang }});
+                        var map_options = {
+                            center:myLatlng,
+                            zoom: 17
+                        };
+                        var map = new google.maps.Map(map_canvas, map_options);
+                        var marker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map
+                        });
+                        
+                    }
+                    
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
   <div class="row">
-    <div class="col col_1_of_3">Тип обслуживания:</div>
+    <div class="col col_1_of_3 blue">Тип обслуживания:</div>
     <div class="col col_2_of_3">{% for item in master.serviceType %}
                                   {% if item == 'salon' %}
-                                    Салон
+                                    В салоне
                                   {% elseif item == 'salon-home' %}
-                                    Салон/выезд на дом
+                                    Выезд на дом к клиенту
                                   {% elseif item == 'home' %}
-                                    Дом
-                                  {% elseif item == 'consult' %}
-                                    Консультации
+                                    На дому
                                   {% endif %}
                                {% if not loop.last %}, {% endif %}
                             {% endfor %}
     </div>
   </div>
   <div class="row clear">
-    <div class="col col_1_of_3">Косметика:</div>
+    <div class="col col_1_of_3 blue">Косметика:</div>
     <div class="col col_2_of_3">{{ master.usedCosmetics }}</div>
   </div>
+
   <div class="row clear">
-    <div class="col col_1_of_3">Место работы:</div>
-    <div class="col col_2_of_3">
-      <p>{{ master.location.city.name }}, {{ master.location.region.name }}</p>
-      <p>{{ master.location.station }}</p>
-      <p>{{ master.location.street }}, {{ master.location.building }}</p>
-    </div>
-  </div>
-  <div class="row clear">
-    <div class="col col_1_of_3">График работы:</div>
+    <div class="col col_1_of_3 blue">График работы:</div>
     <div class="col col_2_of_3">{% for item in master.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
   </div> 
   <div class="row clear">
-    <div class="col col_1_of_3">Услуги и цены:</div>
+    <div class="col col_1_of_3 blue">Услуги и цены:</div>
     <div class="col col_2_of_3">{% for item in master.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
   </div> 
   
-  <div class="clear section">О себе</div>
+<h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">О себе:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
   <div class="row clear">
-    <div class="col col_1_of_3">Образование:</div>
+    <div class="col col_1_of_3 blue">Образование:</div>
     <div class="col col_2_of_3">{{ master.education }}</div>
   </div> 
   <div class="row clear">
-    <div class="col col_1_of_3">Конкурсы и мероприятия:</div>
+    <div class="col col_1_of_3 blue">Конкурсы и мероприятия:</div>
     <div class="col col_2_of_3">{{ master.competitions }}</div>
   </div>
   <div class="row clear">
-    <div class="col col_1_of_3">Хобби:</div>
+    <div class="col col_1_of_3 blue">Хобби:</div>
     <div class="col col_2_of_3">{{ master.hobby }}</div>
   </div>
-  <div class="clear section">Портфолио:</div>
+  <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">Портфолио:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
   <div class="gallery row">
       {% for image in master.portfolio%}
         <div class="col col_1_of_6">

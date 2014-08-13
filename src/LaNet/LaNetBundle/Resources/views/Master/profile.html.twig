@@ -1,21 +1,16 @@
 {% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
 
-{% form_theme form _self %}
+{% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
 
-{% block image_upload_widget %}
-    {% spaceless %}
-        <div class="float-left">
-          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.jpg') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
-        </div>
-        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Загрузить</a>
-        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
-        <script type="text/javascript">
-            $("#{{id}}").change(function(){
-                readURL(this, '{{id}}_image');
-            });
-        </script>
-    {% endspaceless %}
-{% endblock %}
+{% macro phone_prototype(phone) %}
+   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}
+{% endmacro %}
+
+{% macro mail_prototype(mail) %}
+   {{ form_widget(mail.name) }}
+{% endmacro %}
+
+
         
 {% block menu %}
   {% include "LaNetLaNetBundle:Master:menu.html.twig" %}
@@ -28,37 +23,143 @@
 <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
         <div class="row errors">
             {{ form_errors(form) }}
-            
         </div>
-        {{ form_widget(form.userInfo.file) }}
+        <div style="display:table">{{ form_widget(form.userInfo.file) }}</div>
         {{ form_row(form.userInfo.firstName) }}
         {{ form_row(form.userInfo.lastName) }}
-        <div class="row">
-          <div class="col col_1_of_4">{{ form_row(form.userInfo.gender) }}</div>
-          <div class="col col_3_of_4">{{ form_row(form.userInfo.birthday) }}</div>
-        </div>
+        {{ form_row(form.userInfo.gender) }}
+        {{ form_row(form.userInfo.birthday) }}
         {{ form_row(form.userInfo.serviceType) }}
         {{ form_row(form.userInfo.category) }}
-        {{ form_row(form.userInfo.location.country) }}
-        {{ form_row(form.userInfo.location.region) }}
-        {{ form_row(form.userInfo.location.city) }}
-        {{ form_row(form.userInfo.location.district) }}
-        {{ form_row(form.userInfo.location.station) }}
-        {{ form_row(form.userInfo.location.street) }}
-        {{ form_row(form.userInfo.location.building) }}
+        <div class="row">
+            <div class="col col_1_of_1">
+                <label>Место работы:</label>
+                <input type="text" id="Service_address" style="width:100%;"/>
+                <div id="map" style="width:100%;height:150px;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
+                <script>
+                    function initialize() {
+                        var map_canvas = document.getElementById('map');
+                        var myLatlng = new google.maps.LatLng(
+                                    $('#lanet_master_profile_userInfo_location_lat').val(),
+                                    $('#lanet_master_profile_userInfo_location_lang').val());
+                        var map_options = {
+                            center:myLatlng,
+                            zoom: 17
+                        };
+                        var map = new google.maps.Map(map_canvas, map_options);
+                        var marker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map,
+                            title:"Hello World!" 
+                        });
+                        $.ajax({
+                            url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#lanet_master_profile_userInfo_location_lat').val() + "," +  $('#lanet_master_profile_userInfo_location_lang').val() + "&sensor=false&language=ru",
+                            success     : function(data) {
+                                   input.value = (data.results[0].formatted_address);
+                                 }});
+
+                        var input = document.getElementById('Service_address');
+                        var autocomplete = new google.maps.places.Autocomplete(input);
+                        google.maps.event.addListener(map, 'click', function(event) 
+                            {
+                                $.ajax({
+                                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
+                                    success     : function(data) {
+                                          fill_address(data);    
+                                          $('#lanet_master_profile_userInfo_location_lang').val(event.latLng.lng());
+                                          $('#lanet_master_profile_userInfo_location_lat').val(event.latLng.lat());
+                                          input.value = (data.results[0].formatted_address);
+                                         }
+                                });
+                            });
+                        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                        
+                            var place = autocomplete.getPlace();
+                            if (!place.geometry) {
+                                return;
+                            }
+
+                            var position = place.geometry.location;
+                                        
+                            $.ajax({
+                                url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.lat() + "," + position.lng() + "&sensor=false&language=ru",
+                                success     : function(data) {
+                                        
+                                       fill_address(data);               
+                                       $('#lanet_master_profile_userInfo_location_lang').val(position.lng());
+                                       $('#lanet_master_profile_userInfo_location_lat').val(position.lat());
+                                       input.value = (data.results[0].formatted_address);
+                                     }});
+                            if (place.geometry.viewport) {
+                                map.fitBounds(place.geometry.viewport);
+                            } else {
+                                map.setCenter(position);
+                                map.setZoom(17);
+                            }
+
+                            var marker = new google.maps.Marker({
+                                position: position,
+                                map: map
+                            });
+
+                        });
+                    }
+                    function fill_address(data) {
+                        for (var i = 0; i < data.results[0].address_components.length; i++) {
+                            switch(data.results[0].address_components[i].types[0]) {
+                                case "country":
+                                    $('#lanet_master_profile_userInfo_location_country').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "administrative_area_level_1":
+                                    $('#lanet_master_profile_userInfo_location_administrative_area').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "locality":
+                                    $('#lanet_master_profile_userInfo_location_locality').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "sublocality_level_1":
+                                    $('#lanet_master_profile_userInfo_location_sublocality').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "route":
+                                    $('#lanet_master_profile_userInfo_location_route').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "street_number":
+                                    $('#lanet_master_profile_userInfo_location_streetNumber').val(data.results[0].address_components[i].long_name);
+                                    break;
+                            }
+                        }
+                    }
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+                {{ form_widget(form.userInfo.location.country) }}
+                {{ form_widget(form.userInfo.location.administrative_area) }}
+                {{ form_widget(form.userInfo.location.locality) }}
+                {{ form_widget(form.userInfo.location.sublocality) }}
+                {{ form_widget(form.userInfo.location.route) }}
+                {{ form_widget(form.userInfo.location.streetNumber) }}
+                {{ form_widget(form.userInfo.location.lang) }}
+                {{ form_widget(form.userInfo.location.lat) }}
+                </div>
+        </div>
+        <label>Телефон: (+38 0XX XXXXXXX)</label>
+        <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
+            {% for item in form.phone %}
+                <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
+            {% endfor %}
+        </ul>
+        <div>{{ form_widget(form.showPhone) }}{{ form_label(form.showPhone) }}</div>
+        <label>Дополнительный электронный адрес:</label>
+        <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+            {% for item in form.mail %}
+                <li>{{ form_widget(item.name) }}</li>
+            {% endfor %}
+        </ul>
+        <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div> 
         {{ form_row(form.userInfo.startWork) }}
         {{ form_row(form.userInfo.competitions) }}
         {{ form_row(form.userInfo.education) }}
         {{ form_row(form.userInfo.usedCosmetics) }}
         {{ form_row(form.userInfo.hobby) }}
-        <label>Телефон:</label>
-        <ul class="phone list-style-none" data-prototype="{{ form_widget(form.phone.vars.prototype)|e }}">
-            {% for item in form.phone %}
-                <li>{{ form_widget(item.name) }}</li>
-            {% endfor %}
-        </ul>
-        <div>{{ form_widget(form.showPhone) }}{{ form_label(form.showPhone) }}</div>
-        <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div>
         <div>{{ form_widget(form.newsNotify) }}{{ form_label(form.newsNotify) }}</div>
         
         {{ form_row(form.save) }}

@@ -31,16 +31,37 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
     protected $image;
     
     /**
-     * @ORM\ManyToOne(targetEntity="SalonCategory", inversedBy="salons")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="MasterCategory", inversedBy="salon")
+     * @ORM\JoinTable(name="salons_categories")
      */
     protected $category;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Location", mappedBy="salonInfo", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $location;
+
+    
+    /**
+     * @ORM\OneToMany(targetEntity="SalonWorkShcedule", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $schedule;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $portfolio;
     
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="consumerInfo")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $services;
 
     
     /**
@@ -181,19 +202,6 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
         }
     }
 
-     /**
-     * Set category
-     *
-     * @param \LaNet\LaNetBundle\Entity\SalonCategory $category
-     * @return Salon
-     */
-    public function setCategory(\LaNet\LaNetBundle\Entity\SalonCategory $category = null)
-    {
-        $this->category = $category;
-    
-        return $this;
-    }
-
     /**
      * Get category
      *
@@ -202,5 +210,161 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->category = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add category
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $category
+     * @return Salon
+     */
+    public function addCategory(\LaNet\LaNetBundle\Entity\MasterCategory $category)
+    {
+        $this->category[] = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $category
+     */
+    public function removeCategory(\LaNet\LaNetBundle\Entity\MasterCategory $category)
+    {
+        $this->category->removeElement($category);
+    }
+
+    /**
+     * Set location
+     *
+     * @param \LaNet\LaNetBundle\Entity\Location $location
+     * @return Salon
+     */
+    public function setLocation(\LaNet\LaNetBundle\Entity\Location $location = null)
+    {
+        $location->setSalonInfo($this);
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \LaNet\LaNetBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Add schedule
+     *
+     * @param \LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule
+     * @return Salon
+     */
+    public function addSchedule(\LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule)
+    {
+        $this->schedule[] = $schedule;
+    
+        return $this;
+    }
+
+    /**
+     * Remove schedule
+     *
+     * @param \LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule
+     */
+    public function removeSchedule(\LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule)
+    {
+        $this->schedule->removeElement($schedule);
+    }
+
+    /**
+     * Get schedule
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchedule()
+    {
+        return $this->schedule;
+    }
+
+    /**
+     * Add portfolio
+     *
+     * @param \LaNet\LaNetBundle\Entity\Image $portfolio
+     * @return Salon
+     */
+    public function addPortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
+    {
+        $portfolio->setSalon($this);
+        $this->portfolio[] = $portfolio;
+    
+        return $this;
+    }
+
+    /**
+     * Remove portfolio
+     *
+     * @param \LaNet\LaNetBundle\Entity\Image $portfolio
+     */
+    public function removePortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
+    {
+        $this->portfolio->removeElement($portfolio);
+    }
+
+    /**
+     * Get portfolio
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPortfolio()
+    {
+        return $this->portfolio;
+    }
+
+
+    /**
+     * Add services
+     *
+     * @param \LaNet\LaNetBundle\Entity\Service $services
+     * @return Salon
+     */
+    public function addService(\LaNet\LaNetBundle\Entity\Service $services)
+    {
+        $services->setSalon($this);
+        $this->services[] = $services;
+    
+        return $this;
+    }
+
+    /**
+     * Remove services
+     *
+     * @param \LaNet\LaNetBundle\Entity\Service $services
+     */
+    public function removeService(\LaNet\LaNetBundle\Entity\Service $services)
+    {
+        $this->services->removeElement($services);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getServices()
+    {
+        return $this->services;
     }
 }

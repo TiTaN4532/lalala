@@ -1,21 +1,14 @@
 {% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
 
-{% form_theme form _self %}
+{% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
 
-{% block image_upload_widget %}
-    {% spaceless %}
-        <div class="float-left">
-          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.jpg') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
-        </div>
-        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Загрузить</a>
-        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
-        <script type="text/javascript">
-            $("#{{id}}").change(function(){
-                readURL(this, '{{id}}_image');
-            });
-        </script>
-    {% endspaceless %}
-{% endblock %}
+{% macro phone_prototype(phone) %}
+   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}
+{% endmacro %}
+
+{% macro mail_prototype(mail) %}
+   {{ form_widget(mail.name) }}
+{% endmacro %}
         
 {% block menu %}
   {% include "LaNetLaNetBundle:Consumer:menu.html.twig" %}
@@ -28,24 +21,26 @@
         <div class="row errors">
             {{ form_errors(form) }}
         </div>
-        {{ form_widget(form.userInfo.file) }}
+        <div style="display:table">{{ form_widget(form.userInfo.file) }}</div>
         {{ form_row(form.userInfo.firstName) }}
         {{ form_row(form.userInfo.lastName) }}
-        <div class="row">
-          <div class="col col_1_of_4">{{ form_row(form.userInfo.gender) }}</div>
-          <div class="col col_3_of_4">{{ form_row(form.userInfo.birthday) }}</div>
-        </div>
-            {{ form_row(form.userInfo.location.country) }}
-            {{ form_row(form.userInfo.location.region) }}
-            {{ form_row(form.userInfo.location.city) }}
+        {{ form_row(form.userInfo.gender) }}
+        {{ form_row(form.userInfo.birthday) }}
 
-        <label>Телефон:</label>
-        <ul class="phone list-style-none" data-prototype="{{ form_widget(form.phone.vars.prototype)|e }}">
+
+        <label>Телефон: (+38 0XX XXXXXXX)</label>
+        <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
             {% for item in form.phone %}
-                <li>{{ form_widget(item.name) }}</li>
+                <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
             {% endfor %}
         </ul>
         <div>{{ form_widget(form.showPhone) }}{{ form_label(form.showPhone) }}</div>
+        <label>Дополнительный электронный адрес:</label>
+        <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+            {% for item in form.mail %}
+                <li>{{ form_widget(item.name) }}</li>
+            {% endfor %}
+        </ul>
         <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div>
         <div>{{ form_widget(form.newsNotify) }}{{ form_label(form.newsNotify) }}</div>
         {{ form_row(form.save) }}

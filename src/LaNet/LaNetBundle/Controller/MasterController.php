@@ -77,7 +77,7 @@ class MasterController extends BaseController
                 } 
             }
 
-            return $this->redirect($this->generateUrl('la_net_la_net_profile_work'));
+            return $this->redirect($this->generateUrl('la_net_la_net_master_profile_work'));
       }
         return $this->render('LaNetLaNetBundle:Master:profileWork.html.twig', array('masterShcedule' => $masterShcedule, 'checkedShcedule' => $checked));
     }
@@ -100,7 +100,7 @@ class MasterController extends BaseController
             );
           $this->manager->flush();
 
-            return $this->redirect($this->generateUrl('la_net_la_net_profile_portfolio'));
+            return $this->redirect($this->generateUrl('la_net_la_net_master_profile_portfolio'));
         }
       }
         return $this->render('LaNetLaNetBundle:Master:profilePortfolio.html.twig', array('form' => $form->createView()));
@@ -109,7 +109,7 @@ class MasterController extends BaseController
     public function profileServicePriceAction(Request $request)
     {
         $master = $this->user->getMasterInfo();
-        $form = $this->createForm(new LaForm\MasterServiceType($master), $master);
+        $form = $this->createForm(new LaForm\MasterServiceType(), $master);
         
         if ('POST' == $request->getMethod()) {
 //        $newServices = array();
@@ -161,7 +161,9 @@ class MasterController extends BaseController
     
     public function listAction(Request $request)
     {
-      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 10);
+        $session = $this->getRequest()->getSession();
+
+      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 10, $session->get('region'));
       $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
 
       return $this->render('LaNetLaNetBundle:Master:masterList.html.twig', array('masters' => $masters, 

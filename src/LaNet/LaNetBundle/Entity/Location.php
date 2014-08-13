@@ -21,42 +21,48 @@ class Location
      */
     private $id;
 
-    
+  
      /**
-     * @ORM\ManyToOne(targetEntity="City", inversedBy="location")
-     */
-    private $city;
-    
-     /**
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="location")
-     */
-    private $region;
-    
-     /**
-     * @ORM\ManyToOne(targetEntity="Country", inversedBy="location")
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $country;
     
-    /**
+     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    protected $district;
-    
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    protected $station;
-    
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    protected $street;
+    private $administrative_area;
     
      /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    protected $building;
+    private $locality;
     
+     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $sublocality;
+    
+     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $route;
+    
+     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $streetNumber;
+    
+     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $lang;
+    
+     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $lat;
+    
+ 
     /**
      * @ORM\OneToOne(targetEntity="Consumer", inversedBy="location")
      */
@@ -66,6 +72,11 @@ class Location
      * @ORM\OneToOne(targetEntity="Master", inversedBy="location")
      */
     private $masterInfo;
+    
+     /**
+     * @ORM\OneToOne(targetEntity="Salon", inversedBy="location")
+     */
+    private $salonInfo;
     
     
 
@@ -79,166 +90,8 @@ class Location
         return $this->id;
     }
 
-    /**
-     * Set district
-     *
-     * @param string $district
-     * @return Location
-     */
-    public function setDistrict($district)
-    {
-        $this->district = $district;
     
-        return $this;
-    }
-
-    /**
-     * Get district
-     *
-     * @return string 
-     */
-    public function getDistrict()
-    {
-        return $this->district;
-    }
-
-    /**
-     * Set station
-     *
-     * @param string $station
-     * @return Location
-     */
-    public function setStation($station)
-    {
-        $this->station = $station;
     
-        return $this;
-    }
-
-    /**
-     * Get station
-     *
-     * @return string 
-     */
-    public function getStation()
-    {
-        return $this->station;
-    }
-
-    /**
-     * Set street
-     *
-     * @param string $street
-     * @return Location
-     */
-    public function setStreet($street)
-    {
-        $this->street = $street;
-    
-        return $this;
-    }
-
-    /**
-     * Get street
-     *
-     * @return string 
-     */
-    public function getStreet()
-    {
-        return $this->street;
-    }
-
-    /**
-     * Set building
-     *
-     * @param string $building
-     * @return Location
-     */
-    public function setBuilding($building)
-    {
-        $this->building = $building;
-    
-        return $this;
-    }
-
-    /**
-     * Get building
-     *
-     * @return string 
-     */
-    public function getBuilding()
-    {
-        return $this->building;
-    }
-
-    /**
-     * Set city
-     *
-     * @param \LaNet\LaNetBundle\Entity\City $city
-     * @return Location
-     */
-    public function setCity(\LaNet\LaNetBundle\Entity\City $city = null)
-    {
-        $this->city = $city;
-    
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return \LaNet\LaNetBundle\Entity\City 
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set region
-     *
-     * @param \LaNet\LaNetBundle\Entity\Region $region
-     * @return Location
-     */
-    public function setRegion(\LaNet\LaNetBundle\Entity\Region $region = null)
-    {
-        $this->region = $region;
-    
-        return $this;
-    }
-
-    /**
-     * Get region
-     *
-     * @return \LaNet\LaNetBundle\Entity\Region 
-     */
-    public function getRegion()
-    {
-        return $this->region;
-    }
-
-    /**
-     * Set country
-     *
-     * @param \LaNet\LaNetBundle\Entity\Country $country
-     * @return Location
-     */
-    public function setCountry(\LaNet\LaNetBundle\Entity\Country $country = null)
-    {
-        $this->country = $country;
-    
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return \LaNet\LaNetBundle\Entity\Country 
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
 
     /**
      * Set consumerInfo
@@ -284,5 +137,212 @@ class Location
     public function getMasterInfo()
     {
         return $this->masterInfo;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return Location
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set administrative_area
+     *
+     * @param string $administrativeArea
+     * @return Location
+     */
+    public function setAdministrativeArea($administrativeArea)
+    {
+        $this->administrative_area = $administrativeArea;
+    
+        return $this;
+    }
+
+    /**
+     * Get administrative_area
+     *
+     * @return string 
+     */
+    public function getAdministrativeArea()
+    {
+        return $this->administrative_area;
+    }
+
+    /**
+     * Set locality
+     *
+     * @param string $locality
+     * @return Location
+     */
+    public function setLocality($locality)
+    {
+        $this->locality = $locality;
+    
+        return $this;
+    }
+
+    /**
+     * Get locality
+     *
+     * @return string 
+     */
+    public function getLocality()
+    {
+        return $this->locality;
+    }
+
+    /**
+     * Set sublocality
+     *
+     * @param string $sublocality
+     * @return Location
+     */
+    public function setSublocality($sublocality)
+    {
+        $this->sublocality = $sublocality;
+    
+        return $this;
+    }
+
+    /**
+     * Get sublocality
+     *
+     * @return string 
+     */
+    public function getSublocality()
+    {
+        return $this->sublocality;
+    }
+
+    /**
+     * Set route
+     *
+     * @param string $route
+     * @return Location
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+    
+        return $this;
+    }
+
+    /**
+     * Get route
+     *
+     * @return string 
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * Set streetNumber
+     *
+     * @param string $streetNumber
+     * @return Location
+     */
+    public function setStreetNumber($streetNumber)
+    {
+        $this->streetNumber = $streetNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get streetNumber
+     *
+     * @return string 
+     */
+    public function getStreetNumber()
+    {
+        return $this->streetNumber;
+    }
+
+    /**
+     * Set lang
+     *
+     * @param string $lang
+     * @return Location
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+    
+        return $this;
+    }
+
+    /**
+     * Get lang
+     *
+     * @return string 
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param string $lat
+     * @return Location
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+    
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string 
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set salonInfo
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salonInfo
+     * @return Location
+     */
+    public function setSalonInfo(\LaNet\LaNetBundle\Entity\Salon $salonInfo = null)
+    {
+        $this->salonInfo = $salonInfo;
+    
+        return $this;
+    }
+
+    /**
+     * Get salonInfo
+     *
+     * @return \LaNet\LaNetBundle\Entity\Salon 
+     */
+    public function getSalonInfo()
+    {
+        return $this->salonInfo;
     }
 }

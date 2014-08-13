@@ -9,16 +9,19 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class LocationController extends BaseController
 {
-    public function getRegionsAction($id)
+    public function getRegionsAction()
     {
-      $regions = $this->manager->createQuery("SELECT r FROM LaNetLaNetBundle:Region r WHERE r.country = :id")->setParameter('id',$id)->getArrayResult();
-      return new JsonResponse( $regions );
+      $regions = $this->manager->createQuery("SELECT r FROM LaNetLaNetBundle:Region r WHERE r.country_id = 9908")->getResult();
+      return $this->render('LaNetLaNetBundle::regions.html.twig', array('regions' => $regions));
     }
     
-    public function getCitiesAction($id)
+    public function setRegionAction(Request $request)
     {
-      $cities = $this->manager->createQuery("SELECT r FROM LaNetLaNetBundle:City r WHERE r.region = :id")->setParameter('id',$id)->getArrayResult();
-      return new JsonResponse( $cities );
+      $session = $this->getRequest()->getSession();
+      $session->set('region', $request->request->get('regions'));
+
+        
+        return $this->redirect($request->server->get('HTTP_REFERER'));
     }
   
 }

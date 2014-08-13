@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
   <head>
 	<meta charset="utf-8"/>
@@ -9,8 +10,9 @@
      <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}">
       <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
       <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+        <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
       <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
-      
 {#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
       <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
@@ -18,15 +20,15 @@
   </head>
   <body>
       <header>
+          
         <div id="header-row" class="container">
           <div class="wrapper row-fluid">
             <div class="span3">
               <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192"></a></div>
             </div>
             <div class="span9">
-              <form action="formdata.php" method="POST" name="form" id="form1">
-                <input type="text" name="region" placeholder="Выбрать регион" id="region">
-                <input type="submit" name="select" value="" id="select">
+              <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
+                {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
               </form>
               <div id="login">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -40,10 +42,10 @@
                  {% endif %}
               </div>
               <div  id="form2">
-                <form action="http://lalook.net/formdata.php" method="POST" name="form">
+               {# <form action="http://lalook.net/formdata.php" method="POST" name="form">
                   <input type="text" name="search" placeholder="Поиск" id="search">
                   <input type="submit" name="submit" value="" id="submit">
-                </form>
+                </form>#}
               </div>
             </div>
           </div>

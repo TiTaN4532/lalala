@@ -23,8 +23,12 @@ class MasterProfileType extends AbstractType
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
                                                     'by_reference' => false,
+                    ))
+                ->add('mail', 'collection', array( 'type'         => new MailType(),
+                                                    'allow_add'    => true,
+                                                    'allow_delete'    => true,
+                                                    'by_reference' => false,
                     ));
-            ;
     }
     
     /**

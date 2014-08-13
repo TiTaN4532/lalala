@@ -26,10 +26,7 @@ class Country
      */
     protected $name;
     
-    /**
-     * @ORM\OneToMany(targetEntity="Region", mappedBy="country")
-     */
-    private $region;
+    
     
      /**
      * @ORM\OneToMany(targetEntity="Location", mappedBy="country")

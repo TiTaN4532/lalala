@@ -18,7 +18,7 @@
             {{ form_errors(form.services) }}
 
         </div>
-       
+
         <ul class="serveces" style="list-style-type: none;" data-prototype="
           {% filter escape %}
              {{ include('LaNetLaNetBundle:Master:servicePrototype.html.twig', { 'form': form.services.vars.prototype }) }}
@@ -26,15 +26,15 @@
          {% for service in form.services %}
            <li>
               <div class="row">
-                <div class="col col_1_of_3">
+                <div class="col col_2_of_4">
                    {{ form_label(service.name) }}
                    {{ form_widget(service.name) }}
                 </div>
-                <div class="col col_1_of_3">
+                <div class="col col_1_of_4">
                    {{ form_label(service.startPrice) }}
                    {{ form_widget(service.startPrice) }}
                 </div>
-                <div class="col col_1_of_3">
+                <div class="col col_1_of_4">
                    {{ form_label(service.endPrice) }}
                    {{ form_widget(service.endPrice) }}
                 </div>

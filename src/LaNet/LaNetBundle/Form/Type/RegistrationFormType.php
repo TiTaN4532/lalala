@@ -89,7 +89,11 @@ class RegistrationFormType extends AbstractType
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
                                                     'by_reference' => false,
-                    ));
+                    ))
+                ->add('mail', 'collection', array( 'type'         => new MailType(),
+                                                    'allow_add'    => true,
+                                                    'allow_delete'    => true,
+                                                    'by_reference' => false,));
     }
     
     protected function _buildFormMaster(FormBuilderInterface $builder)
@@ -103,14 +107,31 @@ class RegistrationFormType extends AbstractType
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
                                                     'by_reference' => false,
-                    ));
+                    ))
+                ->add('mail', 'collection', array( 'type'         => new MailType(),
+                                                    'allow_add'    => true,
+                                                    'allow_delete'    => true,
+                                                    'by_reference' => false,))
             ;
     }
     
     protected function _buildFormSalon(FormBuilderInterface $builder)
     {
         $this->_buildFormMain($builder);
-        $builder->add('userInfo', new SalonType(), array('label' => ' '));
+        $builder->add('userInfo', new SalonType(), array('label' => ' '))
+            ->add('showMail', 'checkbox', array('label' => 'Отображать адрес электронной почты на сайте', 'required' => false))
+            ->add('showPhone', 'checkbox', array('label' => 'Отображать номер телефона на сайте', 'required' => false))
+            ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
+            ->add('phone', 'collection', array( 'type'         => new PhoneType(),
+                                                'allow_add'    => true,
+                                                'allow_delete'    => true,
+                                                'by_reference' => false,
+                ))
+            ->add('mail', 'collection', array( 'type'         => new MailType(),
+                                                'allow_add'    => true,
+                                                'allow_delete'    => true,
+                                                'by_reference' => false,))
+            ;
     }
     
     protected function _buildFormAgancy(FormBuilderInterface $builder)

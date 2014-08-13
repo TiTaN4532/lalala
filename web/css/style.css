@@ -63,7 +63,7 @@ form {
     border: 2px solid #3a6b85;
     box-sizing: border-box;
     color: #b9b9b9;
-    font: 12px Comfortaa;
+    font: 12px Comfortaa Regular;
     padding-left: 9px;
     margin-bottom: 12px;
 }
@@ -82,14 +82,14 @@ form {
 #enter {   float: left;
     margin-left: 50px;
     color: #ffffff;
-    font:14px Comfortaa;
+    font:14px Comfortaa Regular;
     text-decoration: none;
 }
 #reg {
     float: left;
     margin-left: 34px;
     color: #ffffff;
-    font:14px Comfortaa;
+    font:14px Comfortaa Regular;
     text-decoration: none;
 }
 #line2 {
@@ -106,7 +106,7 @@ form {
     border: 2px solid #3a6b85;
     box-sizing: border-box;
     color: #b9b9b9;
-    font: 12px Comfortaa;
+    font: 12px Comfortaa Regular;
     padding-left: 9px;
     margin-right: 11px;
     float: left;
@@ -119,7 +119,7 @@ form {
     cursor: pointer;
     float: left;
 }
-#form1 {
+#form-regions {
     float: left;
     margin-top: 17px;
 }
@@ -134,7 +134,7 @@ nav ul {
     text-align: center;
     padding-top: 14px;
     list-style-type: none;
-    font:  14px Comfortaa;
+    font:  14px Comfortaa Regular;
     color: #fffefe;
 }
 nav ul li {
@@ -146,7 +146,7 @@ nav ul li {
     background-color: #c2d9b1;
 }
 h1 {
-    font: 28px Comfortaa;
+    font: 28px Comfortaa Regular;
     color: #578fac;
     margin-left: 178px;
     margin-top: 24px;
@@ -170,7 +170,7 @@ section ul {
     width: 279px;
 }
 section ul li a {
-    font: 22px Comfortaa;   
+    font: 22px Comfortaa Regular;   
     display: block;
     height: 54px;
     width: 256px;
@@ -198,7 +198,7 @@ section ul li a {
     padding-left: 23px;
 }
 section ul li a:hover {
-    font: 22px Comfortaa;   
+    font: 22px Comfortaa Regular;   
     display: block;
     height: 54px;
     width: 256px;
@@ -239,7 +239,7 @@ section ul li a:hover {
   text-align: center;
 }
 h2 {
-    font: 18px Comfortaa;secondLi
+    font: 18px Comfortaa Regular;secondLi
 }
 .sectionLine {
     background-color: rgba(194,217,177,0.6);
@@ -257,7 +257,7 @@ h2 {
     display: block;
     cursor: pointer;
     color: #5d5d5d;
-    font: 18px Comfortaa; 
+    font: 18px Comfortaa Regular; 
     padding-left: 90px;
     padding-right: 5px;
 }
@@ -489,7 +489,7 @@ footer > nav > ul {
     margin-left: 100px;
     height: 14px;
     list-style-type: none;
-    font:  14px Comfortaa;
+    font:  14px Comfortaa Regular;
     color: #fffefe;
     margin-top: 13px;
 }
@@ -504,7 +504,7 @@ footer p {
     clear: both;
     color: #ffffff;
     text-align: center;
-    font:  12px Arial;
+    font:  12px;
 }
 
 @media (max-width: 1200px) {
@@ -545,7 +545,7 @@ height: 90px;
 padding-top: 10px;
 }
 .menu ul li a {
-font: 16px Comfortaa;
+font: 16px Comfortaa Regular;
 padding-left: 80px;
 }
 }
@@ -558,7 +558,7 @@ width: 64%;
 width: 64%;
 }
 .menu ul li a {
-font: 13px Comfortaa;
+font: 13px Comfortaa Regular;
 padding-left: 60px;
 }
 .menu .fourthLi, #kosmetika .fourthLi, #instr .fourthLi {

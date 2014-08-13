@@ -27,14 +27,10 @@ class City
     protected $name;
     
      /**
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="city")
+     * @ORM\Column(type="string", length=100)
      */
-    private $region;
+    private $region_id;
         
-    /**
-     * @ORM\OneToMany(targetEntity="Location", mappedBy="city")
-     */
-    private $location;
     
 
     /**

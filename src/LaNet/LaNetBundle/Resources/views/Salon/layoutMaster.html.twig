@@ -1,0 +1,22 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+      
+{% block content %}
+<div class="col col_1_of_4 left-nav">
+  <ul>
+    <li><a href="{{ path('la_net_la_net_profile') }}">Основное</a></li>
+    <li><a href="{{ path('la_net_la_net_profile_work') }}">Работа</a></li>
+    <li><a href="{{ path('la_net_la_net_profile_portfolio') }}">Портфолио</a></li>
+    <li><a href="{{ path('la_net_la_net_profile_service_price') }}">Услуги</a></li>
+  </ul>
+</div> 
+<div class="col col_3_of_4">
+{% block masterContent %}
+  {% for flashMessage in app.session.flashbag.get('notice_profile') %}
+        <div class="flash-notice success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+{% endblock%}
+</div>
+{% endblock %}
