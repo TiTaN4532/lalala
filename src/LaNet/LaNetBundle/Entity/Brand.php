@@ -61,6 +61,16 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $product;
     
+    /**
+     * @ORM\OneToMany(targetEntity="BrandCategory", mappedBy="brand", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $category;
+    
+     /**
+     * @ORM\ManyToMany(targetEntity="MasterCategory", inversedBy="brand")
+     * @ORM\JoinTable(name="brands_categories")
+     */
+    protected $masterCategory;
   
     /**
      * Constructor
@@ -306,5 +316,72 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \LaNet\LaNetBundle\Entity\BrandCategory $category
+     * @return Brand
+     */
+    public function addCategory(\LaNet\LaNetBundle\Entity\BrandCategory $category)
+    {
+        $category->setBrand($this);
+        $this->category[] = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \LaNet\LaNetBundle\Entity\BrandCategory $category
+     */
+    public function removeCategory(\LaNet\LaNetBundle\Entity\BrandCategory $category)
+    {
+        $this->category->removeElement($category);
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Add masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     * @return Brand
+     */
+    public function addMasterCategory(\LaNet\LaNetBundle\Entity\MasterCategory $masterCategory)
+    {
+        $this->masterCategory[] = $masterCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Remove masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     */
+    public function removeMasterCategory(\LaNet\LaNetBundle\Entity\MasterCategory $masterCategory)
+    {
+        $this->masterCategory->removeElement($masterCategory);
+    }
+
+    /**
+     * Get masterCategory
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMasterCategory()
+    {
+        return $this->masterCategory;
     }
 }

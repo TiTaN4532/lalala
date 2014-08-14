@@ -16,6 +16,19 @@ class BrandType extends AbstractType
              -> add('country', 'text', array('label' => 'Страна производитель:'))
              -> add('link', 'text', array('label' => 'Сайт:'))
              -> add('description', 'textarea', array('label' => 'Описание:'))
+             ->add('category', 'collection', array( 'type'         => new BrandCategoryType(),
+                                                    'allow_add'    => true,
+                                                    'allow_delete'    => true,
+                                                    'by_reference' => false,
+                    ))
+            ->add('masterCategory', 'entity', array(
+                  'attr' => array('class' => 'category-list'),
+                  'label' => 'Товары для мастеров:',
+                  'class' => 'LaNet\LaNetBundle\Entity\MasterCategory',
+                  'property'     => 'name',
+                  'multiple'     => true,
+                  'expanded' => true
+                )) 
              -> add('save', 'submit', array('label' => 'Сохранить'));
   }
 
