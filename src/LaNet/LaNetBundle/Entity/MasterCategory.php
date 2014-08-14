@@ -27,6 +27,11 @@ class MasterCategory
      */
     private $master;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Brand", mappedBy="brandCategory")
+     */
+    private $brand;
+    
         /**
      * @ORM\ManyToMany(targetEntity="Salon", mappedBy="category")
      */
@@ -229,5 +234,38 @@ class MasterCategory
     public function getSalon()
     {
         return $this->salon;
+    }
+
+    /**
+     * Add brand
+     *
+     * @param \LaNet\LaNetBundle\Entity\Brand $brand
+     * @return MasterCategory
+     */
+    public function addBrand(\LaNet\LaNetBundle\Entity\Brand $brand)
+    {
+        $this->brand[] = $brand;
+    
+        return $this;
+    }
+
+    /**
+     * Remove brand
+     *
+     * @param \LaNet\LaNetBundle\Entity\Brand $brand
+     */
+    public function removeBrand(\LaNet\LaNetBundle\Entity\Brand $brand)
+    {
+        $this->brand->removeElement($brand);
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBrand()
+    {
+        return $this->brand;
     }
 }
