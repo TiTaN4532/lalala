@@ -1,0 +1,10 @@
+{% if is_granted('ROLE_CONSUMER') %}
+    {{ app.user.getUserInfo.firstName | upper}} {{ app.user.getUserInfo.lastName | upper }}
+{% elseif is_granted('ROLE_SPECIALIST') %}
+  {{ app.user.getUserInfo.firstName | upper }} {{ app.user.getUserInfo.lastName | upper }}
+{% elseif is_granted('ROLE_SALON') %}
+  {{ app.user.getUserInfo.name | upper }}
+{% elseif is_granted('ROLE_AGANCY') %}
+{% elseif is_granted('ROLE_SHOP') %}
+{% elseif is_granted('ROLE_SCHOOL_CENTER') %}
+{% endif %}

@@ -3,7 +3,7 @@
 {% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
 
 {% macro phone_prototype(phone) %}
-   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}
+   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }} {{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}
 {% endmacro %}
 
 {% macro mail_prototype(mail) %}
@@ -14,9 +14,9 @@
 {% if not app.request.get('type') %}
   <h5 class="clear" style="color: #AAA;">1. ВЫ РЕГИСТРИРУЕТЕСЬ КАК:</h5>
   <div id="registration">
-    <a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a>
-    <a href="{{ path('fos_user_registration_register', {'type': 'specialist'}) }}">Специалист</a>
-    <a href="{{ path('fos_user_registration_register', {'type': 'salon'}) }}">Салон</a>
+    <div class="item"><img src="{{ asset('images/1.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a></div>
+    <div class="item"><img src="{{ asset('images/2.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'specialist'}) }}">Мастер индустрии красоты</a></div>
+    <div class="item"><img src="{{ asset('images/3.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'salon'}) }}">Салон красоты, студия, парикмахерская...</a></div>
     {#<a href="{{ path('fos_user_registration_register', {'type': 'agancy'}) }}">Представительство</a>
     <a href="{{ path('fos_user_registration_register', {'type': 'shop'}) }}">Магазин</a>
     <a href="{{ path('fos_user_registration_register', {'type': 'school_center'}) }}">Учебный центр</a>#}
@@ -34,7 +34,7 @@
   <div class="col col_1_of_2">
   <form action="" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" name="{{ form.vars.name }}">
     {{ form_errors(form) }}
-    {{ form_row(form.email) }}
+    {{ form_widget(form.email) }}
     {{ form_row(form.plainPassword) }}
     {% if app.request.get('type') == 'specialist' %}
         {{ form_row(form.userInfo.firstName) }}
@@ -165,8 +165,7 @@
             {% for item in form.phone %}
                 <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
             {% endfor %}
-        </ul>
-        <div>{{ form_widget(form.showPhone) }}{{ form_label(form.showPhone) }}</div>
+        </ul>        
         <label>Дополнительный электронный адрес:</label>
         <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
             {% for item in form.mail %}
@@ -187,7 +186,6 @@
             <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
         {% endfor %}
     </ul>
-    <div>{{ form_widget(form.showPhone) }}{{ form_label(form.showPhone) }}</div>
     <label>Дополнительный электронный адрес:</label>
     <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
         {% for item in form.mail %}
@@ -319,7 +317,6 @@
                 <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
             {% endfor %}
         </ul>
-        <div>{{ form_widget(form.showPhone) }}{{ form_label(form.showPhone) }}</div>
         <label>Дополнительный электронный адрес:</label>
         <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
             {% for item in form.mail %}
