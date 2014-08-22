@@ -31,6 +31,10 @@ class Phone
      */
     protected $operator;
     
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $showPhone;
      /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="phone")
      */
@@ -136,5 +140,28 @@ class Phone
     public function getOperator()
     {
         return $this->operator;
+    }
+
+    /**
+     * Set showPhone
+     *
+     * @param boolean $showPhone
+     * @return Phone
+     */
+    public function setShowPhone($showPhone)
+    {
+        $this->showPhone = $showPhone;
+    
+        return $this;
+    }
+
+    /**
+     * Get showPhone
+     *
+     * @return boolean 
+     */
+    public function getShowPhone()
+    {
+        return $this->showPhone;
     }
 }

@@ -24,12 +24,17 @@
           <div class="col col_1_of_3 blue">Город:</div>
           <div class="col col_2_of_3">{{ master.location.locality }} {{ master.location.administrativearea }}</div>
         </div>
-        {% if master.user.showPhone  %}
+        
           <div class="row">
             <div class="col col_1_of_3 blue">Телефон:</div>
-            <div class="col col_2_of_3">{% for item in master.user.phone %}<p>+38 ({{ item.operator }}) - {{ item.number }}</p>{% endfor %}</div>
+            <div class="col col_2_of_3">
+                {% for item in master.user.phone %}
+                    {% if item.showPhone  %}
+                        <p>+38 ({{ item.operator }}) - {{ item.number }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
           </div>
-        {% endif %}
         {% if master.user.showMail  %}
           <div class="row">
             <div class="col col_1_of_3 blue">Email:</div>

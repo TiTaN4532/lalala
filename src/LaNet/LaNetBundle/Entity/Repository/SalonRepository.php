@@ -18,11 +18,15 @@ class SalonRepository extends EntityRepository
     {
       $request = Request::createFromGlobals();
       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
+      $whereRegion = '';
+      if($region) {
+          $whereRegion = 'l.administrative_area LIKE '%" . trim('.', $region) . "%' AND';
+      } 
       $category = ($request->get('category')) ? " AND c.id = '" . $request->get('category') ."'" : "";
       $query = $this->_em->createQuery("SELECT m, c  FROM LaNetLaNetBundle:Salon m 
                                                     LEFT JOIN m.category c     
                                                     LEFT JOIN m.location l     
-                                                    WHERE l.administrative_area LIKE '%" . trim('.', $region) . "%' AND  (m.name LIKE :like)".$category)
+                                                    WHERE " . $whereRegion . "  (m.name LIKE :like)".$category)
                           ->setParameters(array('like' => '%'.$searchterm.'%'));
       if ($peginator) {
         $page = $request->query->get('page', 1);

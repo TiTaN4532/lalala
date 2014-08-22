@@ -22,4 +22,6 @@ web/uploads/images/product/*
 !default.jpg
 web/uploads/images/brands/*
 !default.jpg
+web/uploads/images/salons/*
+!default.jpg
 !.htaccess

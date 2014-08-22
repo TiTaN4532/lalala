@@ -63,10 +63,6 @@ class User extends BaseUser
      */
     protected $mail;
     
-    /**
-     * @ORM\Column(type="boolean", nullable = true)
-     */
-    protected $showPhone;
     
     /**
      * @ORM\Column(type="boolean", nullable = true)
@@ -363,30 +359,7 @@ class User extends BaseUser
         return $this->mail;
     }
 
-    /**
-     * Set showPhone
-     *
-     * @param boolean $showPhone
-     * @return User
-     */
-    public function setShowPhone($showPhone)
-    {
-        $this->showPhone = $showPhone;
-    
-        return $this;
-    }
-
-    /**
-     * Get showPhone
-     *
-     * @return boolean 
-     */
-    public function getShowPhone()
-    {
-        return $this->showPhone;
-    }
-
-    /**
+     /**
      * Set showMail
      *
      * @param boolean $showMail

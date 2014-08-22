@@ -11,7 +11,7 @@ class LocationController extends BaseController
 {
     public function getRegionsAction()
     {
-      $regions = $this->manager->createQuery("SELECT r FROM LaNetLaNetBundle:Region r WHERE r.country_id = 9908")->getResult();
+      $regions = $this->manager->createQuery("SELECT r FROM LaNetLaNetBundle:Region r WHERE r.country_id = 9908" )->getResult();
       return $this->render('LaNetLaNetBundle::regions.html.twig', array('regions' => $regions));
     }
     

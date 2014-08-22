@@ -29,11 +29,14 @@
               <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
                 {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
               </form>
-              <div id="login">
+              <div id="login" style="float:right;">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <a href="{{ path('fos_user_security_logout') }}" id="enter" >Выйти</a>
-                        <div id="line2"></div>
-                        <a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}" id="reg">Профиль</a>
+                        <div style="float:left;margin: 5px;"> <img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></div>
+                       <div style="float:left;margin: 5px;"> 
+                        <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
+                        <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>
+                        <p id="sing_out"><a href="{{ path('fos_user_security_logout') }}">Выйти</a></p>
+                       </div>
                  {% else  %}
                      <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
                      <div id="line2"></div>

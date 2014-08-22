@@ -3,7 +3,7 @@
 {% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
 
 {% macro phone_prototype(phone) %}
-   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}
+   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }} {{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}
 {% endmacro %}
 
 {% macro mail_prototype(mail) %}
@@ -34,7 +34,6 @@
                 <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
             {% endfor %}
         </ul>
-        <div>{{ form_widget(form.showPhone) }}{{ form_label(form.showPhone) }}</div>
         <label>Дополнительный электронный адрес:</label>
         <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
             {% for item in form.mail %}

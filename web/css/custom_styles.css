@@ -19,14 +19,38 @@ html, body {height: 100%;   font-family: 'Comfortaa Regular', arial;}
   min-height: 100%;
 }
 
-div#registration a {
-  color: #fff;
+div#registration .item {
+    position: relative;
+  text-align: bottom;
   float: left;
-  width: 20%;
-  display:block;
-  margin: 10px;
-  padding: 20px 50px;
+  width: 225px;
+  margin-left: 100px;
+  margin-top: 75px;
+}
+
+div#registration a {
+  position: relative;
+  display: block;
+  color: #fff;
   background-color: #2d93b2;
+  text-align: right;
+  padding: 10px 20px 0 75px;
+  width:145px;
+  height:70px;
+  
+}
+
+div#registration img {
+  left:-75px;
+  top:-75px;
+  position: absolute;
+  z-index: 2;
+  border: solid #e8e8e8 2px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 50%;
 }
 
 div#registration a:hover{
@@ -60,21 +84,17 @@ input[type="week"],
 select,
 textarea {
   padding: 5px;
-  border: 1px solid #bbbbbb;
+  border: 1px solid #e8e8e8;
   color: #444444;
   background: white;
-  -webkit-box-shadow: 0 2px 3px #e8e8e8 inset;
-  -moz-box-shadow: 0 2px 3px #e8e8e8 inset;
-  box-shadow: 0 2px 3px #e8e8e8 inset;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
   box-sizing: border-box;
   width: 100%;
+  font-family: 'Comfortaa Regular';  
 }
 input[type="text"].half, input.half[type="password"],
 input.half[type="email"],
@@ -445,4 +465,14 @@ ul.phone li, ul.mail li {
 
 .success {
     color: green;
+}
+
+#edit a, #sing_out a {
+    margin-left: 20px;
+}
+#edit {
+     background: url(../images/edit.png) no-repeat;
+}
+#sing_out {
+     background: url(../images/sign_out.png) no-repeat;
 }

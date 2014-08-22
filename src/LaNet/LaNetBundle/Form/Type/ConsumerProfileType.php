@@ -18,7 +18,6 @@ class ConsumerProfileType extends AbstractType
     {
         $builder->add('userInfo', new ConsumerType(), array('label' => ' '))
                 ->add('showMail', 'checkbox', array('label' => 'Отображать адрес электронной почты на сайте', 'required' => false))
-                ->add('showPhone', 'checkbox', array('label' => 'Отображать номер телефона на сайте', 'required' => false))
                 ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
                 ->add('save', 'submit', array('label' => 'Сохранить'))
                 ->add('phone', 'collection', array( 'type'         => new PhoneType(),
