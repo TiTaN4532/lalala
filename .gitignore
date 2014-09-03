@@ -11,6 +11,7 @@ logs/
 #.gitignore
 composer.phar
 composer.lock
+web/media/*
 web/uploads/images/master/*
 !default.jpg
 web/uploads/images/news/*

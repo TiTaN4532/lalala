@@ -82,6 +82,7 @@ fos_user:
             type: la_user_registration
     
 liip_imagine:
+    driver:		  imagick
 #    cache_prefix:         /uploads/cache
 #    cache_clearer:        true
     cache: ~
