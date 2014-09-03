@@ -468,11 +468,10 @@ h2 {
 }
 .clear-bottom {
     clear: both;
-    height: 220px;
+    height: 200px;
 }
 footer {
     position:relative;
-    margin-top: -200px;
     background-color: #2690af;
     min-height: 200px;
 }

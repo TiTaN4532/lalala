@@ -97,11 +97,10 @@ liip_imagine:
 #            filters:
 #                my_square_filter: { size: 40 }  
 
-#        my_slide:
-#            quality:              100
-#            filters:
-#                relative_resize: { widen: 1200 }
-#                crop: {start: [0,0], size:[1200,400]}
+        my_news_big:
+            quality:              100
+            filters:
+                relative_resize: { widen: 700 }
         my_master_thumb_medium:
                     quality:              100
                     filters:

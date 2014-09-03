@@ -19,63 +19,63 @@
     {% endblock %}
   </head>
   <body>
-      <header>
-        <div id="header-row" class="container">
-          <div class="wrapper row-fluid">
-            <div class="span3">
-              <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192"></a></div>
-            </div>
-            <div class="span9">
-              <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
-                {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
-              </form>
-              <div id="login" style="float:right;">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <div style="float:left;margin: 5px;"> <img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></div>
-                       <div style="float:left;margin: 5px;"> 
-                        <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
-                        <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>
-                        <p id="sing_out"><a href="{{ path('fos_user_security_logout') }}">Выйти</a></p>
-                       </div>
-                 {% else  %}
-                     <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
-                     <div id="line2"></div>
-                     <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
-                 {% endif %}
+      <div style="min-height: 100%; margin-bottom: -200px;height:auto ! important;height:100%;">
+        <header>
+          <div id="header-row" class="container">
+            <div class="wrapper row-fluid">
+              <div class="span3">
+                <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192"></a></div>
               </div>
-              {#<div  id="form2">
-                <form action="http://lalook.net/formdata.php" method="POST" name="form">
-                  <input type="text" name="search" placeholder="Поиск" id="search">
-                  <input type="submit" name="submit" value="" id="submit">
+              <div class="span9">
+                <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
+                  {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
                 </form>
-              </div>#}
+                <div id="login" style="float:right;">
+                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                          <div style="float:left;margin: 5px;"> <img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></div>
+                         <div style="float:left;margin: 5px;"> 
+                          <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
+                          <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>
+                          <p id="sing_out"><a href="{{ path('fos_user_security_logout') }}">Выйти</a></p>
+                         </div>
+                   {% else  %}
+                       <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
+                       <div id="line2"></div>
+                       <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
+                   {% endif %}
+                </div>
+                {#<div  id="form2">
+                  <form action="http://lalook.net/formdata.php" method="POST" name="form">
+                    <input type="text" name="search" placeholder="Поиск" id="search">
+                    <input type="submit" name="submit" value="" id="submit">
+                  </form>
+                </div>#}
+              </div>
             </div>
           </div>
-        </div>
-        <nav>
-           <div class="container">
-            <ul>
-                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
-                <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
-                <li><a href="{{ path('la_net_la_net_brands_list') }}">Брэнды</a></li>
-               {# <li><a href="">Косметика</a></li>
-                <li><a href="">Магазаны</a></li>
-                <li><a href="">Обучение</a></li>
-                <li><a href="">Литератур</a></li>
-                <li><a href="">Форум</a></li>#}
-                <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
-                <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
-            </ul>
-             </div>
-        </nav>
-        <div id="line"></div>
-    </header>
-    <div class="container">
-        {% block fos_user_content %}{% endblock %}
+          <nav>
+             <div class="container">
+              <ul>
+                  <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
+                  <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
+                  <li><a href="{{ path('la_net_la_net_brands_list') }}">Брэнды</a></li>
+                 {# <li><a href="">Косметика</a></li>
+                  <li><a href="">Магазаны</a></li>
+                  <li><a href="">Обучение</a></li>
+                  <li><a href="">Литератур</a></li>
+                  <li><a href="">Форум</a></li>#}
+                  <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
+                  <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
+              </ul>
+               </div>
+          </nav>
+          <div id="line"></div>
+      </header>
+      <div class="container">
+          {% block fos_user_content %}{% endblock %}
+      </div>
+      <div class="clear-bottom"></div>
     </div>
-    <div class="clear-bottom"></div>
-    </div>
-    
     <footer>
             <div class="footerLine"></div>
        <div class="container">  
