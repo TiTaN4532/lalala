@@ -19,6 +19,7 @@
     {% endblock %}
   </head>
   <body>
+      <div style="min-height: 100%; margin-bottom: -200px;height:auto ! important;height:100%;">
       <header>
           
         <div id="header-row" class="container">
@@ -32,10 +33,14 @@
               </form>
               <div id="login" style="float:right;">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                  {% if not is_granted('ROLE_ADMIN') %}
                        <div style="float:left;margin: 5px;"> <img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></div>
+                  {% endif %}
                        <div style="float:left;margin: 5px;"> 
-                        <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
-                        <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>
+                        {% if not is_granted('ROLE_ADMIN') %}
+                            <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
+                            <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>
+                        {% endif %}
                         <p id="sing_out"><a href="{{ path('fos_user_security_logout') }}">Выйти</a></p>
                        </div>
                  {% else  %}
@@ -76,7 +81,7 @@
     
     <div class="clear-bottom"></div>
  
-    
+    </div>
     <footer>
             <div class="footerLine"></div>
        <div class="container">  
