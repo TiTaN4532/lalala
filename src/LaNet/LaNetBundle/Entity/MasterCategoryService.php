@@ -101,10 +101,10 @@ class MasterCategoryService
     /**
      * Add masters
      *
-     * @param \LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $masters
+     * @param \LaNet\LaNetBundle\Entity\Master $masters
      * @return MasterCategoryService
      */
-    public function addMaster(\LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $masters)
+    public function addMaster(\LaNet\LaNetBundle\Entity\Master $masters)
     {
         $this->masters[] = $masters;
     
@@ -114,9 +114,9 @@ class MasterCategoryService
     /**
      * Remove masters
      *
-     * @param \LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $masters
+     * @param \LaNet\LaNetBundle\Entity\Master $masters
      */
-    public function removeMaster(\LaNet\LaNetBundle\Entity\MasterCategoryServicePrice $masters)
+    public function removeMaster(\LaNet\LaNetBundle\Entity\Master $masters)
     {
         $this->masters->removeElement($masters);
     }
