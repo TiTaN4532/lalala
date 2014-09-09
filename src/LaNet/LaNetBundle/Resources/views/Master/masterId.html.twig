@@ -12,8 +12,8 @@
 {% block content %}
 <div class="master-id">
   <div class="row">
-    <div class="col col_1_of_4"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
-    <div class="col col_3_of_4">
+    <div class="col col_2_of_5"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
+    <div class="col col_3_of_5">
         <h2 style="color:#578fac;">{{ master.firstname | upper }} {{ master.lastname | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
         <div class="row">
@@ -35,14 +35,17 @@
                 {% endfor %}
             </div>
           </div>
-        {% if master.user.showMail  %}
           <div class="row">
             <div class="col col_1_of_3 blue">Email:</div>
-            <div class="col col_2_of_3">{{ master.user.email }}
-            {% for item in master.user.mail %}<p>{{ item.name }}</p>{% endfor %}
+          <div class="col col_2_of_3">
+{#  {{ master.user.email }}#}
+            {% for item in master.user.mail %}
+                {% if item.showMail  %}
+                    <p>{{ item.name }}</p>
+                {% endif %}
+            {% endfor %}
             </div>
           </div>
-        {% endif %}
     </div>
   </div>
   <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Работа:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
@@ -68,6 +71,7 @@
                     
                     google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
+  {% if master.serviceType %}
   <div class="row">
     <div class="col col_1_of_3 blue">Тип обслуживания:</div>
     <div class="col col_2_of_3">{% for item in master.serviceType %}
@@ -82,41 +86,61 @@
                             {% endfor %}
     </div>
   </div>
+  {% endif %}
+  {% if master.usedCosmetics %}
+    <div class="row clear">
+      <div class="col col_1_of_3 blue">Косметика:</div>
+      <div class="col col_2_of_3">{{ master.usedCosmetics }}</div>
+    </div>
+  {% endif %}
+                
   <div class="row clear">
-    <div class="col col_1_of_3 blue">Косметика:</div>
-    <div class="col col_2_of_3">{{ master.usedCosmetics }}</div>
+    <div class="col col_1_of_3 blue">Место работы:</div>
+    <div class="col col_2_of_3">{{ master.location.locality }}, {{ master.location.sublocality }}, {{ master.location.route }} {{ master.location.streetNumber }}</div>
   </div>
-
-  <div class="row clear">
-    <div class="col col_1_of_3 blue">График работы:</div>
-    <div class="col col_2_of_3">{% for item in master.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
-  </div> 
-  <div class="row clear">
-    <div class="col col_1_of_3 blue">Услуги и цены:</div>
-    <div class="col col_2_of_3">{% for item in master.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
-  </div> 
-  
+  {% if master.schedule is not empty %}              
+    <div class="row clear">
+      <div class="col col_1_of_3 blue">График работы:</div>
+      <div class="col col_2_of_3">{% for item in master.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
+    </div> 
+  {% endif %}
+  {% if master.services is not empty %}              
+    <div class="row clear">
+      <div class="col col_1_of_3 blue">Услуги и цены:</div>
+      <div class="col col_2_of_3">{% for item in master.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }} грн</p>{% endfor %}</div>
+    </div> 
+  {% endif %}
+{% if master.competitions or master.education or master.hobby %}
 <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">О себе:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+{% endif %}
+{% if master.education %}
   <div class="row clear">
     <div class="col col_1_of_3 blue">Образование:</div>
     <div class="col col_2_of_3">{{ master.education }}</div>
   </div> 
+{% endif %}
+{% if master.competitions %}
   <div class="row clear">
     <div class="col col_1_of_3 blue">Конкурсы и мероприятия:</div>
     <div class="col col_2_of_3">{{ master.competitions }}</div>
   </div>
+{% endif %}
+{% if master.hobby %}
   <div class="row clear">
     <div class="col col_1_of_3 blue">Хобби:</div>
     <div class="col col_2_of_3">{{ master.hobby }}</div>
   </div>
-  <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">Портфолио:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
-  <div class="gallery row">
-      {% for image in master.portfolio%}
-        <div class="col col_1_of_6">
-          <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></a>
-        </div>
-      {% endfor %}
-  </div>
+{% endif %}
+  {% if master.portfolio is not empty %}
+    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">Портфолио:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+    <div class="gallery row">
+        {% for image in master.portfolio%}
+          <div class="col col_1_of_6">
+            <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></a>
+          </div>
+        {% endfor %}
+    </div>
+  {% endif %}
 </div>
   <script>
     $(document).ready(function() {

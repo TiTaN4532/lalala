@@ -77,7 +77,10 @@ class SalonController extends BaseController
                     $result = $stmt->execute();
                 } 
             }
-
+            $this->get('session')->getFlashBag()->add(
+                'notice_profile',
+                'Ваши изменения были сохранены'
+            );
             return $this->redirect($this->generateUrl('la_net_la_net_salon_profile_work'));
       }
         return $this->render('LaNetLaNetBundle:Salon:profileWork.html.twig', array('salonShcedule' => $salonShcedule, 'checkedShcedule' => $checked));

@@ -3,14 +3,19 @@
 {% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
 
 {% macro phone_prototype(phone) %}
-   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }} {{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}
+    <div>{{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}</div>
+    <div>+38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}</div> 
 {% endmacro %}
 
 {% macro mail_prototype(mail) %}
-   {{ form_widget(mail.name) }}
+    <div>{{ form_widget(mail.showMail) }}{{ form_label(mail.showMail) }}</div>
+    <div>{{ form_widget(mail.name) }}</div>
 {% endmacro %}
-
- <h1 class='line' style="float:left;margin-right: 10px;">Регистриция</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
+ {% if app.request.get('type') %}
+        <a href="{{ path('fos_user_registration_register') }}" class="button grey" style="margin-top: 20px;">Назад</a>
+ {% endif %}
+  <div class="clear"></div>
+  <h1 class='line' style="float:left;margin-right: 10px;">Регистриция</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
 {% if not app.request.get('type') %}
   <h5 class="clear" style="color: #AAA;">1. ВЫ РЕГИСТРИРУЕТЕСЬ КАК:</h5>
   <div id="registration">
@@ -31,31 +36,86 @@
         {% elseif app.request.get('type') == 'shop' %} МАГАЗИН.
         {% elseif app.request.get('type') == 'school_center' %} ОБУЧАЮЩИЙ ЦЕНТР.
         {% endif %}</h5>
-  <div class="col col_1_of_2">
+  
   <form action="" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" name="{{ form.vars.name }}">
     {{ form_errors(form) }}
-    {{ form_widget(form.email) }}
-    {{ form_row(form.plainPassword) }}
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.email) }}
+        </div>
+      </div>
+    {{ form_widget(form.plainPassword) }}
+    {{ form_errors(form.plainPassword) }}
+      
     {% if app.request.get('type') == 'specialist' %}
-        {{ form_row(form.userInfo.firstName) }}
-        {{ form_row(form.userInfo.lastName) }}
-        {{ form_row(form.userInfo.link) }}
-        {{ form_row(form.userInfo.gender) }}
-        {{ form_row(form.userInfo.birthday) }}
-        <div style="margin: 10px 0;">
-            {{ form_label(form.userInfo.serviceType) }}
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.firstName) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.firstName) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.lastName) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.lastName) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.link) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.link) }}
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col col_1_of_6">
+           {{ form_label(form.userInfo.gender, null, {'label_attr': {'class': 'blue-label'}}) }}
+           {{ form_widget(form.userInfo.gender) }}
+        </div>
+        <div class="col col_2_of_6 error">
+            {{ form_label(form.userInfo.birthday, null, {'label_attr': {'class': 'blue-label'}}) }}
+            {{ form_widget(form.userInfo.birthday) }}
+        </div>
+      </div>
+
+      <hr />
+      {{ form_widget(form.userInfo.file) }}
+      {{ form_errors(form.userInfo.file) }}
+      <hr />
+      <div class="row">
+        <div class="col col_1_of_5">
+            {{ form_label(form.userInfo.serviceType, null, {'label_attr': {'class': 'blue-label'}}) }}
+        </div>
+        <div class="col col_4_of_5">
             {{ form_widget(form.userInfo.serviceType) }}
         </div>
-        <div style="margin: 10px 0;">
-            {{ form_label(form.userInfo.category) }}
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col col_1_of_5">
+            {{ form_label(form.userInfo.category, null, {'label_attr': {'class': 'blue-label'}}) }}
+        </div>
+        <div class="col col_4_of_5">
             {{ form_widget(form.userInfo.category) }}
         </div>
-
+      </div>
+      <hr />
         <div class="row">
-            <div class="col col_1_of_1">
-                <label>Место работы:</label>
-                <input type="text" id="Service_address" style="width:100%;"/>
-                <div id="map" style="width:100%;height:150px;"></div>
+            <div class="col col_1_of_5">
+                <label class="blue-label">Место работы:</label>
+            </div>
+            <div class="col col_4_of_5">
+                <input type="text" id="Service_address" class="half"/>
+                <div id="map" style="width:100%;height:200px;"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
                 <script>
                     function initialize() {
@@ -160,53 +220,124 @@
                 {{ form_widget(form.userInfo.location.lat) }}
                 </div>
         </div>
-        <label>Телефон: (+38 0XX XXXXXXX)</label>
-        <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
-            {% for item in form.phone %}
-                <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
-            {% endfor %}
-        </ul>        
-        <label>Дополнительный электронный адрес:</label>
-        <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
-            {% for item in form.mail %}
-                <li>{{ form_widget(item.name) }}</li>
-            {% endfor %}
-        </ul>
-        <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div>        
-        {{ form_row(form.userInfo.startWork) }}
+      <hr />
+      <div class="row">
+          <div class="col col_1_of_2">
+            <label>Телефон: (+38 0XX XXXXXXX)</label>
+            <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
+                {% for item in form.phone %}
+                    <li><div>{{ form_widget(item.showPhone) }}{{ form_label(item.showPhone) }}</div>
+                        <div>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</div></li>
+                {% endfor %}
+            </ul>   
+          </div>
+          <div class="col col_1_of_2">
+            <label>Дополнительный электронный адрес:</label>
+            <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+                {% for item in form.mail %}
+                    <li><div>{{ form_widget(item.showMail) }}{{ form_label(item.showMail) }}</div>
+                        <div>{{ form_widget(item.name) }}</div></li>
+                {% endfor %}
+            </ul>  
+          </div>
+        </div>
+      <hr />       
+    <div class="row">
+        <div class="col col_1_of_5">
+            {{ form_label(form.userInfo.startWork, null, {'label_attr': {'class': 'blue-label'}}) }}
+        </div>
+        <div class="col col_2_of_5">
+            {{ form_widget(form.userInfo.startWork) }}
+        </div>
+    </div> 
     {% elseif app.request.get('type') == 'consumer' %}   
-        {{ form_row(form.userInfo.firstName) }}
-        {{ form_row(form.userInfo.lastName) }}
-        {{ form_row(form.userInfo.gender) }}
-        {{ form_row(form.userInfo.birthday) }}
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.firstName) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.firstName) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.lastName) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.lastName) }}
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col col_1_of_6">
+           {{ form_label(form.userInfo.gender, null, {'label_attr': {'class': 'blue-label'}}) }}
+           {{ form_widget(form.userInfo.gender) }}
+        </div>
+        <div class="col col_2_of_6 error">
+            {{ form_label(form.userInfo.birthday, null, {'label_attr': {'class': 'blue-label'}}) }}
+            {{ form_widget(form.userInfo.birthday) }}
+        </div>
+      </div>
 
-    <label>Телефон: (+38 0XX XXXXXXX)</label>
-    <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
-        {% for item in form.phone %}
-            <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
-        {% endfor %}
-    </ul>
-    <label>Дополнительный электронный адрес:</label>
-    <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
-        {% for item in form.mail %}
-            <li>{{ form_widget(item.name) }}</li>
-        {% endfor %}
-    </ul>
-    <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div>
+      <hr />
+      {{ form_widget(form.userInfo.file) }}{{ form_errors(form.userInfo.file) }}
+      <hr />
 
-    {% elseif app.request.get('type') == 'salon' %}   
-        {{ form_row(form.userInfo.name) }}
-        {{ form_row(form.userInfo.link) }}
-        <div style="margin: 10px 0;">
-            {{ form_label(form.userInfo.category) }}
+     <div class="row">
+          <div class="col col_1_of_2">
+            <label>Телефон: (+38 0XX XXXXXXX)</label>
+            <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
+                {% for item in form.phone %}
+                    <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
+                {% endfor %}
+            </ul>   
+          </div>
+          <div class="col col_1_of_2">
+            <label>Дополнительный электронный адрес:</label>
+            <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+                {% for item in form.mail %}
+                    <li>{{ form_widget(item.name) }}</li>
+                {% endfor %}
+            </ul>  
+          </div>
+        </div>
+    {% elseif app.request.get('type') == 'salon' %} 
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.name) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.name) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.link) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.link) }}
+        </div>
+      </div>
+        <hr />
+      {{ form_widget(form.userInfo.file) }}
+      {{ form_errors(form.userInfo.file) }}
+      <hr />
+      <div class="row">
+        <div class="col col_1_of_5">
+            {{ form_label(form.userInfo.category, null, {'label_attr': {'class': 'blue-label'}}) }}
+        </div>
+        <div class="col col_4_of_5">
             {{ form_widget(form.userInfo.category) }}
         </div>
-
-        <div class="row">
-            <div class="col col_1_of_1">
-                <label>Адрес:</label>
-                <input type="text" id="Service_address" style="width:100%;"/>
-                <div id="map" style="width:100%;height:150px;"></div>
+      </div>
+      <hr />
+      <div class="row">
+            <div class="col col_1_of_5">
+                <label class="blue-label">Aдрес:</label>
+            </div>
+            <div class="col col_4_of_5">
+                <input type="text" id="Service_address" class="half"/>
+                <div id="map" style="width:100%;height:200px;"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
                 <script>
                     function initialize() {
@@ -311,19 +442,25 @@
                 {{ form_widget(form.userInfo.location.lat) }}
                 </div>
         </div>
-        <label>Телефон: (+38 0XX XXXXXXX)</label>
-        <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
-            {% for item in form.phone %}
-                <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
-            {% endfor %}
-        </ul>
-        <label>Дополнительный электронный адрес:</label>
-        <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
-            {% for item in form.mail %}
-                <li>{{ form_widget(item.name) }}</li>
-            {% endfor %}
-        </ul>
-        <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div>
+       <hr />
+        <div class="row">
+          <div class="col col_1_of_2">
+            <label>Телефон: (+38 0XX XXXXXXX)</label>
+            <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
+                {% for item in form.phone %}
+                    <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
+                {% endfor %}
+            </ul>   
+          </div>
+          <div class="col col_1_of_2">
+            <label>Дополнительный электронный адрес:</label>
+            <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+                {% for item in form.mail %}
+                    <li>{{ form_widget(item.name) }}</li>
+                {% endfor %}
+            </ul>  
+          </div>
+        </div>
     {% elseif app.request.get('type') == 'agancy' %}   
         {{ form_row(form.userInfo.name) }}
         {{ form_row(form.userInfo.category) }}
@@ -333,11 +470,18 @@
         {{ form_row(form.userInfo.name) }}
         {{ form_row(form.userInfo.category) }}
     {% endif %}
-        <div>{{ form_widget(form.newsNotify, { 'attr' : {'checked' : 'checked'}} ) }}{{ form_label(form.newsNotify) }}</div>
-        <div>{{ form_widget(form.termsConditions) }}{{ form_label(form.termsConditions) }} <a href="" class="blue-link">пользовательским соглашением</a></div>
+        <hr />
+    <div class="row">
+        <div class="col col_1_of_1">
+            <div>{{ form_widget(form.newsNotify, { 'attr' : {'checked' : 'checked'}} ) }}{{ form_label(form.newsNotify) }}</div>
+            <div>{{ form_widget(form.termsConditions) }}{{ form_label(form.termsConditions) }} <a href="" class="blue-link">пользовательским соглашением</a></div>
+        </div>
+    </div>
         {{ form_row(form._token) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+    <div class="row" style="margin:10px 0;">
+        <div class="col col_1_of_1">
+            <input type="submit" value="{{ 'registration.submit'|trans }}" />
+        </div>
     </div>
   </form>
    

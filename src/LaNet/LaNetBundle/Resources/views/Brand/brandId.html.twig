@@ -3,14 +3,40 @@
 {% block slider %}
 {% endblock %}
 {% block content %}
-<h1>{{ brand.name }}</h1>
-             
+<a href="{{ path('la_net_la_net_brands_list') }}" class="button grey" style="margin-top: 20px;">Назад</a>
+<div class="brand-id">
   <div class="row">
-    <div class="col col_1_of_2"><img src="{{ asset(brand.getWebPath)}}" style="width:100%;" /></div>
-    <div class="col col_1_of_2">
-      <p>{{ brand.country }}</p>
-      <p>{{ brand.link }}</p>
-      <p>{{ brand.description }}</p>
+    <div class="col col_2_of_5"><img src="{{ brand.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
+    <div class="col col_3_of_5">
+        <h2 style="color:#578fac;">{{ brand.name | upper }}</h2>
+        <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
+        <div class="row">
+          <div class="col col_1_of_3 blue">Страна:</div>
+          <div class="col col_2_of_3">{{ brand.country }}</div>
+        </div>
+        <div class="row">
+          <div class="col col_1_of_3 blue">Товары для мастеров:</div>
+          <div class="col col_2_of_3">{% for item in brand.masterCategory %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+        </div>
+        
+          <div class="row">
+            <div class="col col_1_of_3 blue">Описание:</div>
+            <div class="col col_2_of_3">
+                {{ brand.description }}
+            </div>
+          </div>
     </div>
   </div>
+    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Продукция:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+    <div class="row">
+        {% for item in brand.category %}
+           <div class="col col_1_of_5">
+               <p><img src="{{ item.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></p>
+               <p style="text-align: center;" class="blue" >{{ item.name }}</p>
+           </div>
+        {% endfor %}
+   </div>
+</div>
+
+ 
 {% endblock %}

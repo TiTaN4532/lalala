@@ -17,6 +17,7 @@ body {
     position: relative;
     background: #ffffff;
     padding: 0!important;
+    color: #5d5d5d;
 }
 ul {
     margin: 0;
@@ -468,7 +469,7 @@ h2 {
 }
 .clear-bottom {
     clear: both;
-    height: 200px;
+    height: 220px;
 }
 footer {
     position:relative;

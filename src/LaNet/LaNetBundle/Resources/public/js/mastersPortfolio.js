@@ -19,7 +19,7 @@ function addImageForm(collectionHolder, $newLinkLi) {
 }
 
 function addImageFormDeleteLink($tagFormLi) {
-    var $removeFormA = $('<a href="" class="blue-link">Удлить фото</a>');
+    var $removeFormA = $('<a href="" class="blue-link">Удалить фото</a>');
     $tagFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {

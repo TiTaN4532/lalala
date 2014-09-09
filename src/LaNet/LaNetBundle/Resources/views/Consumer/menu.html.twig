@@ -1,2 +1,3 @@
-<li><a href="{{ path('la_net_la_net_consumer_profile') }}">Основная информация</a></li>
-<li><a href="{{ path('la_net_la_net_consumer_change_pass') }}">Сменить пароль</a></li>
+<a href="{{ path('la_net_la_net_consumer_profile') }}" class="tabs {% if app.request.attributes.get('_route') == 'la_net_la_net_consumer_profile' %} active {% endif %}">Основная информация</a>
+<a href="{{ path('la_net_la_net_consumer_change_pass') }}" class="tabs {% if app.request.attributes.get('_route') == 'la_net_la_net_consumer_change_pass' %} active {% endif %}">Сменить пароль</a>
+<hr class="clear" style="margin:7px 0 20px 0;" />

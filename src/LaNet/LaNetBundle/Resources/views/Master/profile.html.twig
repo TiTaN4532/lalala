@@ -3,11 +3,13 @@
 {% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
 
 {% macro phone_prototype(phone) %}
-   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }} {{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}
+    <div>{{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}</div>
+    <div>+38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}</div> 
 {% endmacro %}
 
 {% macro mail_prototype(mail) %}
-   {{ form_widget(mail.name) }}
+    <div>{{ form_widget(mail.showMail) }}{{ form_label(mail.showMail) }}</div>
+    <div>{{ form_widget(mail.name) }}</div>
 {% endmacro %}
 
 
@@ -25,7 +27,7 @@
         <div class="row errors">
             {{ form_errors(form) }}
         </div>
-        <div style="display:table">{{ form_widget(form.userInfo.file) }}</div>
+        <div>{{ form_widget(form.userInfo.file) }}</div>
         {{ form_row(form.userInfo.firstName) }}
         {{ form_row(form.userInfo.lastName) }}
         {{ form_row(form.userInfo.link) }}
@@ -143,19 +145,26 @@
                 {{ form_widget(form.userInfo.location.lat) }}
                 </div>
         </div>
-        <label>Телефон: (+38 0XX XXXXXXX)</label>
-        <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
-            {% for item in form.phone %}
-                <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
-            {% endfor %}
-        </ul>
-        <label>Дополнительный электронный адрес:</label>
-        <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
-            {% for item in form.mail %}
-                <li>{{ form_widget(item.name) }}</li>
-            {% endfor %}
-        </ul>
-        <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div> 
+        <div class="row">
+          <div class="col col_1_of_2">
+            <label>Телефон: (+38 0XX XXXXXXX)</label>
+            <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
+                {% for item in form.phone %}
+                    <li><div>{{ form_widget(item.showPhone) }}{{ form_label(item.showPhone) }}</div>
+                        <div>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</div></li>
+                {% endfor %}
+            </ul>   
+          </div>
+          <div class="col col_1_of_2">
+            <label>Дополнительный электронный адрес:</label>
+            <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+                {% for item in form.mail %}
+                    <li><div>{{ form_widget(item.showMail) }}{{ form_label(item.showMail) }}</div>
+                        <div>{{ form_widget(item.name) }}</div></li>
+                {% endfor %}
+            </ul>  
+          </div>
+        </div>
         {{ form_row(form.userInfo.startWork) }}
         {{ form_row(form.userInfo.competitions) }}
         {{ form_row(form.userInfo.education) }}

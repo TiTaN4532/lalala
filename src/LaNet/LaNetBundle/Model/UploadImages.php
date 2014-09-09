@@ -46,7 +46,7 @@ abstract class UploadImages {
     public function getWebPath()
     {
         return null === $this->image
-            ? $this->getUploadDir().'/default.jpg'
+            ? $this->getUploadDir().'/../default.png'
             : $this->getUploadDir().'/'.$this->image;
     }
 

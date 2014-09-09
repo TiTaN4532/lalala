@@ -15,7 +15,6 @@ class SalonProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('userInfo', new SalonType('profile'), array('label' => ' '))
-                ->add('showMail', 'checkbox', array('label' => 'Отображать адрес электронной почты на сайте', 'required' => false))
                 ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
                 ->add('save', 'submit', array('label' => 'Сохранить'))
                 ->add('phone', 'collection', array( 'type'         => new PhoneType(),

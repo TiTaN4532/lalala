@@ -15,11 +15,14 @@
 {% block content %}
   <div class="row">
     <div class="col col_1_of_1">
-      <ul class="profile-nav list-style-none">
         {% block menu %}
 
         {% endblock %}
-      </ul>
+        {% for flashMessage in app.session.flashbag.get('notice_profile') %}
+            <div class="flash-notice success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
     </div>
   </div>
   {% block profile_content %}

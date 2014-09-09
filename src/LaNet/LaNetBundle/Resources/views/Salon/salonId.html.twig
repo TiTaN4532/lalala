@@ -12,8 +12,8 @@
 {% block content %}
 <div class="master-id">
   <div class="row">
-    <div class="col col_1_of_4"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
-    <div class="col col_3_of_4">
+    <div class="col col_2_of_5"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
+    <div class="col col_3_of_5">
         <h2 style="color:#578fac;">{{ salon.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
         <div class="row">
@@ -34,14 +34,16 @@
                 {% endfor %}
             </div>
           </div>
-        {% if salon.user.showMail  %}
           <div class="row">
             <div class="col col_1_of_3 blue">Email:</div>
-            <div class="col col_2_of_3">{{ salon.user.email }}
-            {% for item in salon.user.mail %}<p>{{ item.name }}</p>{% endfor %}
+            <div class="col col_2_of_3">
+                {% for item in salon.user.mail %}
+                    {% if item.showMail  %}
+                        <p>{{ item.name }}</p>
+                    {% endif %}
+                {% endfor %}
             </div>
           </div>
-        {% endif %}
     </div>
   </div>
   <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Работа:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
@@ -67,24 +69,32 @@
                     
                     google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
-
   <div class="row clear">
-    <div class="col col_1_of_3 blue">График работы:</div>
-    <div class="col col_2_of_3">{% for item in salon.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
+    <div class="col col_1_of_3 blue">Адрес:</div>
+    <div class="col col_2_of_3">{{ salon.location.locality }}, {{ salon.location.sublocality }}, {{ salon.location.route }} {{ salon.location.streetNumber }}</div>
   </div> 
-  <div class="row clear">
-    <div class="col col_1_of_3 blue">Услуги и цены:</div>
-    <div class="col col_2_of_3">{% for item in salon.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
-  </div> 
-  
-  <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">Портфолио:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
-  <div class="gallery row">
-      {% for image in salon.portfolio%}
-        <div class="col col_1_of_6">
-          <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></a>
-        </div>
-      {% endfor %}
-  </div>
+  {% if salon.schedule is not empty %}              
+    <div class="row clear">
+      <div class="col col_1_of_3 blue">График работы:</div>
+      <div class="col col_2_of_3">{% for item in salon.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
+    </div> 
+  {% endif %}
+  {% if salon.services is not empty %}
+    <div class="row clear">
+      <div class="col col_1_of_3 blue">Услуги и цены:</div>
+      <div class="col col_2_of_3">{% for item in salon.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
+    </div> 
+  {% endif %}
+  {% if salon.portfolio is not empty %}
+    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">Портфолио:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+    <div class="gallery row">
+        {% for image in salon.portfolio%}
+          <div class="col col_1_of_6">
+            <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></a>
+          </div>
+        {% endfor %}
+    </div>
+  {% endif %}
 </div>
   <script>
     $(document).ready(function() {

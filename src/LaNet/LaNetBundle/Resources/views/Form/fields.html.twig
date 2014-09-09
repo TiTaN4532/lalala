@@ -2,16 +2,23 @@
 
 {% block image_upload_widget %}
     {% spaceless %}
-        <div class="float-left">
-          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.jpg') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        <div class="row">
+            <div class="col col_1_of_4">
+              <img id="{{id}}_image" style="width:150px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+            </div>
+            <div class="col col_1_of_4">
+                <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Выберите файл</a> 
+                <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+            </div>
+            <div class="col col_1_of_4 info-blue">
+                Поддерживаемые форматы: JPEG, PNG
+            </div>
+            <script type="text/javascript">
+                $("#{{id}}").change(function(){
+                    readURL(this, '{{id}}_image');
+                });
+            </script> 
         </div>
-        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Загрузить</a>
-        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
-        <script type="text/javascript">
-            $("#{{id}}").change(function(){
-                readURL(this, '{{id}}_image');
-            });
-        </script>
     {% endspaceless %}
 {% endblock %}
 
@@ -28,7 +35,7 @@
 {% block form_widget_simple %}
 {% spaceless %}
     {% set type = type|default('text') %}
-    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    <input type="{{ type }}" {{ block('widget_custom_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 {% endspaceless %}
 {% endblock form_widget_simple %}
 
@@ -72,9 +79,14 @@
 {% block choice_widget_expanded %}
 {% spaceless %}
     <div {{ block('widget_container_attributes') }}>
-    {% for child in form %}
-        <div>{{ form_widget(child) }} {{ form_label(child) }}</div>
-    {% endfor %}
+        <div class="col col_1_of_2">
+            {% for child in form %}
+                <div>{{ form_widget(child) }} {{ form_label(child) }}</div>
+                {% if loop.index%5 == 0 %}
+                    </div><div class="col col_1_of_2">
+                {% endif %}
+            {% endfor %}
+         </div>
     </div>
 {% endspaceless %}
 {% endblock choice_widget_expanded %}
@@ -300,6 +312,19 @@
     </div>
 {% endspaceless %}
 {% endblock form_row %}
+        
+{% block form_custom_row %}
+{% spaceless %}
+    <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form) }}
+        </div>
+        <div class="col col_1_of_2">
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock form_custom_row %}
 
 {% block button_row %}
 {% spaceless %}
@@ -380,7 +405,14 @@
 {% block form_rows %}
 {% spaceless %}
     {% for child in form %}
-        {{ form_row(child) }}
+    <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(child) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(child) }}
+        </div>
+      </div>
     {% endfor %}
 {% endspaceless %}
 {% endblock form_rows %}
@@ -391,6 +423,14 @@
     {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
 {% endspaceless %}
 {% endblock widget_attributes %}
+
+{% block widget_custom_attributes %}
+{% spaceless %}
+    id="{{ id }}" name="{{ full_name }}"{% if read_only %} readonly="readonly"{% endif %}{% if disabled %} disabled="disabled"{% endif %}{% if required %} required="required"{% endif %}{% if max_length %} maxlength="{{ max_length }}"{% endif %}{% if pattern %} pattern="{{ pattern }}"{% endif %}
+    {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
+    placeholder="{{ label|trim(':') }}"
+{% endspaceless %}
+{% endblock widget_custom_attributes %}
 
 {% block widget_container_attributes %}
 {% spaceless %}

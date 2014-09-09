@@ -16,6 +16,7 @@ class MailType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('attr' => array(), 'label' => ' '))
+            ->add('showMail', 'checkbox', array('label' => 'Отображать адрес электронной почты на сайте', 'required' => false))
             ;
 
     }

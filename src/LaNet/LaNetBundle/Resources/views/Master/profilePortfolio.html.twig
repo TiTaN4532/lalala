@@ -11,9 +11,9 @@
 {% block image_upload_widget %}
     {% spaceless %}
         <div>
-          <img id="{{id}}_image" style="width:400px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.jpg') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
         </div>
-        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Выбрать файл</a>
         <input type="file" {{ block('widget_attributes') }} style="display:none"/>
         <script type="text/javascript">
             $("#{{id}}").change(function(){
