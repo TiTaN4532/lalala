@@ -24,7 +24,7 @@ abstract class BaseController extends Controller implements InitializableControl
         $this->session=$this->get('session');
         $this->manager=$this->getDoctrine()->getManager();
         $this->paginator = $this->get('knp_paginator');
-        $this->user=$this->get('security.context')->getToken()->getUser();
+        $this->user=$this->getUser();
     }
     
 }
