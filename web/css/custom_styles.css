@@ -84,8 +84,8 @@ input[type="week"],
 select,
 textarea {
   padding: 5px;
-  border: 1px solid #e8e8e8;
-  color: #444444;
+  border: 1px solid #c5c5c5;
+  color: #5d5d5d;
   background: white;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -168,13 +168,27 @@ input[type="reset"] {
   padding: .25em 2em;
   text-align: center;
 }
+button.grey, .button.grey,
+input[type="submit"].grey,
+input[type="button"].grey,
+input[type="reset"].grey {
+  border: 1px solid #9d9d9d;
+  color: #9d9d9d;
+}
+button.grey:hover, .button.grey:hover,
+input[type="submit"].grey:hover,
+input[type="button"].grey:hover,
+input[type="reset"].grey:hover {
+  color: #fff ! important;
+  background: #9d9d9d ! important;
+}
 
 button:hover, .button:hover,
 input[type="submit"]:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover {
-  color: #6cb55d ! important;
-  border-color: #6cb55d ! important;
+  color: #fff ! important;
+  background: #2d93b2 ! important;
 }
 
 input[type="checkbox"] + label {
@@ -379,6 +393,9 @@ input[type="checkbox"] + label {
 a.blue-link {
   color: #2d93b2;
 }
+a.black-link {
+  color: #5d5d5d;
+}
 
 ul.profile-nav li {
   border: #2d93b2 solid 1px;
@@ -430,8 +447,8 @@ ul.list-style-none li {
 .error ul {
     display: inline-block;
     padding:6px 20px;
-    background: #eed3d7;
-    color: red;
+    background: #ffe5e5;
+    color: #e39494;
 }
 .error li {
     list-style-type: none;
@@ -453,10 +470,20 @@ ul.phone li, ul.mail li {
     color: #2d93b2;
 }
 .tabs {
-    color: #bbbbbb;
-    border: solid 1px #e8e8e8;
-    padding: 10px 20px;
+    color: #2d93b2;
+    border: solid 1px #2d93b2;
+    padding: 5px 10px;
+    display:inline-block;
+    float:left;
+    margin: 2px;
+    text-align: center;
 }
+
+.tabs.fixed {
+    width:100px;
+    height:50px;
+}
+
 .tabs:hover, .tabs.active {
     color: #fff;
     background-color: #2d93b2;
@@ -477,4 +504,34 @@ ul.phone li, ul.mail li {
 }
 #sing_out {
      background: url(../images/sign_out.png) no-repeat;
+}
+
+.info-blue {
+    color: #2d93b2;
+    background: #dbf1fb;
+    padding: 10px 20px;
+}
+
+.blue-label {
+    color: #9dc1d1;
+}
+
+.add-item {
+    border: 2px solid #2d93b2;
+    padding: 4px;
+    margin-right: 10px;
+    display:inline-block;
+    width:15px;
+    height:15px;
+    background: url(../images/plus.png) 4px 4px no-repeat;
+}
+
+.delete-item {
+    border: 2px solid #2d93b2;
+    padding: 4px;
+    margin-right: 10px;
+    display:inline-block;
+    width:15px;
+    height:15px;
+    background: url(../images/min.png) 7px 9px no-repeat;
 }

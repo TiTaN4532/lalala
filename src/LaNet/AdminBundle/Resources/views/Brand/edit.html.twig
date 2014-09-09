@@ -6,7 +6,25 @@
       <script src="{{ asset('bundles/lanetadmin/js/brand_category_collection.js') }}"></script>
   {% endblock %}
       
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div>
+          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Выберите файл</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+        
   {% macro category_prototype(mail) %}
+   {{ form_widget(mail.file) }}
    {{ form_widget(mail.name) }}
 {% endmacro %}
 
@@ -23,7 +41,8 @@
      <label>Линейки:</label>
     <ul style="padding:0px;" class="category" data-prototype="{{ _self.category_prototype(form.category.vars.prototype)|e }}">
         {% for item in form.category %}
-            <li>{{ form_widget(item.name) }}</li>
+            <li>{{ form_widget(item.file) }}
+                {{ form_widget(item.name) }}</li>
         {% endfor %}
     </ul>
     {{ form_row(form.link) }}

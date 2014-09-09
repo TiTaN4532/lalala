@@ -63,12 +63,7 @@ class User extends BaseUser
      */
     protected $mail;
     
-    
-    /**
-     * @ORM\Column(type="boolean", nullable = true)
-     */
-    protected $showMail;
-    
+  
     /**
      * @ORM\Column(type="boolean", nullable = true)
      */
@@ -357,29 +352,6 @@ class User extends BaseUser
     public function getMail()
     {
         return $this->mail;
-    }
-
-     /**
-     * Set showMail
-     *
-     * @param boolean $showMail
-     * @return User
-     */
-    public function setShowMail($showMail)
-    {
-        $this->showMail = $showMail;
-    
-        return $this;
-    }
-
-    /**
-     * Get showMail
-     *
-     * @return boolean 
-     */
-    public function getShowMail()
-    {
-        return $this->showMail;
     }
 
     /**

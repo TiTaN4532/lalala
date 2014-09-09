@@ -22,7 +22,7 @@ function addServiceForm(collectionHolder, $newLinkLi) {
 }
 
 function addServiceFormDeleteLink($tagFormLi) {
-    var $removeFormA = $('<a href="" class="blue-link">Удлить услугу</a>');
+    var $removeFormA = $('<a href="" class="blue-link">Удалить услугу</a>');
     $tagFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {

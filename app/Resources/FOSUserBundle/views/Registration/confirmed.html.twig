@@ -4,8 +4,18 @@
 
 {% block fos_user_content %}
     <div style="width:50%;margin:50px auto;">
-        <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
-        <a href="{{ path('la_net_la_net_homepage') }}" class="button">На Главную</a><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}" class="button">Редактировать Профиль</a>
+        <div class="row">
+            <div class="col col_1_of_1">
+                <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col_1_of_2">
+                <a href="{{ path('la_net_la_net_homepage') }}" class="button">На Главную</a>
+            </div>
+            <div class="col col_1_of_2">
+                <a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}" class="button">Редактировать Профиль</a>
+            </div>
         {% if app.session is not empty %}
             {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
             {% if targetUrl is not empty %}<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>{% endif %}

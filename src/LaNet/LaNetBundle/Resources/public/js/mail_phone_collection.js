@@ -19,7 +19,7 @@ function addForm(collectionHolder, $newLinkLi, text) {
 }
 
 function addFormDeleteLink($tagFormLi, text) {
-    var $removeFormA = $('<a href="" class="blue-link">Удалить ' + text + '</a>');
+    var $removeFormA = $('<a href="" class="blue-link"><span class="delete-item"></span> Удалить ' + text + '</a>');
     $tagFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {
@@ -35,8 +35,8 @@ $(document).ready(function(){
   var collectionHolderPhone = $('ul.phone');
   var collectionHolderMail = $('ul.mail');
     // setup an "add a tag" link
-    var $addLinkPhone = $('<a href="" class="blue-link">Добавить телефон</a>');
-    var $addLinkMail = $('<a href="" class="blue-link">Добавить адрес</a>');
+    var $addLinkPhone = $('<a href="" class="blue-link"><span class="add-item"></span>Добавить телефон</a>');
+    var $addLinkMail = $('<a href="" class="blue-link"> <span class="add-item"></span>Добавить адрес</a>');
     var $newLinkLiPhone = $('<li></li>').append($addLinkPhone);
     var $newLinkLiMail = $('<li></li>').append($addLinkMail);
     

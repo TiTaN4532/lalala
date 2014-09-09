@@ -76,7 +76,10 @@ class MasterController extends BaseController
                     $result = $stmt->execute();
                 } 
             }
-
+            $this->get('session')->getFlashBag()->add(
+                'notice_profile',
+                'Ваши изменения были сохранены'
+            );
             return $this->redirect($this->generateUrl('la_net_la_net_master_profile_work'));
       }
         return $this->render('LaNetLaNetBundle:Master:profileWork.html.twig', array('masterShcedule' => $masterShcedule, 'checkedShcedule' => $checked));
@@ -125,7 +128,6 @@ class MasterController extends BaseController
 //        }
 //        $request->request->set('lanet_profile_service_price', $requestData);
         $form->bind($request);
-
         if ($form->isValid()) {
 //          if(!empty($newServices))
 //          {

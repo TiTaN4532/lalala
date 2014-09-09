@@ -10,6 +10,13 @@ use LaNet\LaNetBundle\Form\Type\LocationType;
 
 class ConsumerType extends AbstractType
 {
+    
+   private $register;
+   
+   public function __construct($register = false)
+   {
+       $this->register = $register;
+   }
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -20,7 +27,7 @@ class ConsumerType extends AbstractType
             ->add('firstName', 'text', array('label' => 'Имя:'))
             ->add('lastName', 'text', array('label' => 'Фамилия:'))
             ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('m' => 'Муж', 'f' => 'Жен'),
-                                            'required'  => false,
+                                            'required'  => true,
             ))  
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
                 

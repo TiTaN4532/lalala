@@ -30,6 +30,11 @@ class Mail
      * @ORM\ManyToOne(targetEntity="User", inversedBy="mail")
      */
     private $user;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $showMail;
 
     
 
@@ -87,5 +92,28 @@ class Mail
     public function getUser()
     {
         return $this->user;
+    }
+    
+    /**
+     * Set showMail
+     *
+     * @param boolean $showMail
+     * @return Mail
+     */
+    public function setShowMail($showMail)
+    {
+        $this->showMail = $showMail;
+    
+        return $this;
+    }
+
+    /**
+     * Get showMail
+     *
+     * @return boolean 
+     */
+    public function getShowMail()
+    {
+        return $this->showMail;
     }
 }

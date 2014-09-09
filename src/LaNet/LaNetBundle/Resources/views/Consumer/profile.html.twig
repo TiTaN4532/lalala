@@ -3,11 +3,13 @@
 {% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
 
 {% macro phone_prototype(phone) %}
-   +38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }} {{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}
+    <div>{{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}</div>
+    <div>+38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}</div> 
 {% endmacro %}
 
 {% macro mail_prototype(mail) %}
-   {{ form_widget(mail.name) }}
+    <div>{{ form_widget(mail.showMail) }}{{ form_label(mail.showMail) }}</div>
+    <div>{{ form_widget(mail.name) }}</div>
 {% endmacro %}
         
 {% block menu %}
@@ -21,26 +23,59 @@
         <div class="row errors">
             {{ form_errors(form) }}
         </div>
-        <div style="display:table">{{ form_widget(form.userInfo.file) }}</div>
-        {{ form_row(form.userInfo.firstName) }}
-        {{ form_row(form.userInfo.lastName) }}
-        {{ form_row(form.userInfo.gender) }}
-        {{ form_row(form.userInfo.birthday) }}
+        <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.firstName) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.firstName) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.lastName) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.lastName) }}
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col col_1_of_6">
+           {{ form_label(form.userInfo.gender, null, {'label_attr': {'class': 'blue-label'}}) }}
+           {{ form_widget(form.userInfo.gender) }}
+        </div>
+        <div class="col col_2_of_6 error">
+            {{ form_label(form.userInfo.birthday, null, {'label_attr': {'class': 'blue-label'}}) }}
+            {{ form_widget(form.userInfo.birthday) }}
+        </div>
+      </div>
 
+      <hr />
+      {{ form_widget(form.userInfo.file) }}{{ form_errors(form.userInfo.file) }}
+      <hr />
 
-        <label>Телефон: (+38 0XX XXXXXXX)</label>
-        <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
-            {% for item in form.phone %}
-                <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
-            {% endfor %}
-        </ul>
-        <label>Дополнительный электронный адрес:</label>
-        <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
-            {% for item in form.mail %}
-                <li>{{ form_widget(item.name) }}</li>
-            {% endfor %}
-        </ul>
-        <div>{{ form_widget(form.showMail) }}{{ form_label(form.showMail) }}</div>
+     <div class="row">
+          <div class="col col_1_of_2">
+            <label>Телефон: (+38 0XX XXXXXXX)</label>
+            <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
+                {% for item in form.phone %}
+                    <li><div>{{ form_widget(item.showPhone) }}{{ form_label(item.showPhone) }}</div>
+                    <div>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</div></li>
+                {% endfor %}
+            </ul>   
+          </div>
+          <div class="col col_1_of_2">
+            <label>Дополнительный электронный адрес:</label>
+            <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+                {% for item in form.mail %}
+                   <li><div>{{ form_widget(item.showMail) }}{{ form_label(item.showMail) }}</div>
+                        <div>{{ form_widget(item.name) }}</div></li>
+                {% endfor %}
+            </ul>  
+          </div>
+    </div>
+    <hr />
         <div>{{ form_widget(form.newsNotify) }}{{ form_label(form.newsNotify) }}</div>
         {{ form_row(form.save) }}
         {{ form_row(form._token) }}

@@ -66,14 +66,14 @@ class RegistrationFormType extends AbstractType
     protected function _buildFormMain(FormBuilderInterface $builder)
     {
         $builder
-            ->add('email', 'email', array('attr' => array( 'placeholder' => 'Электронный адрес'), 'translation_domain' => 'FOSUserBundle'))
+            ->add('email', 'email', array('label' => 'Электронный адрес', 'translation_domain' => 'FOSUserBundle'))
             ->add('termsConditions', 'checkbox', array('label' => 'Согласен с', 'required' => true))
             ->add('plainPassword', 'repeated', array(
                 'type' => 'password',
                 'options' => array('translation_domain' => 'FOSUserBundle'),
-                'first_options' => array('label' => 'form.password'),
-                'second_options' => array('label' => 'form.password_confirmation'),
-                'invalid_message' => 'fos_user.password.mismatch',
+                'first_options' => array('label' => 'Пароль'),
+                'second_options' => array('label' => 'Подтверждение пароля'),
+                'invalid_message' => 'Пароли не совпадают',
             ))
 //            ->add('city',  new CityType())
         ;
@@ -82,7 +82,6 @@ class RegistrationFormType extends AbstractType
     {
         $this->_buildFormMain($builder);
         $builder->add('userInfo', new ConsumerType(), array('label' => ' '))
-                ->add('showMail', 'checkbox', array('label' => 'Отображать адрес электронной почты на сайте', 'required' => false))
                 ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
                 ->add('phone', 'collection', array( 'type'         => new PhoneType(),
                                                     'allow_add'    => true,
@@ -99,7 +98,6 @@ class RegistrationFormType extends AbstractType
     {
         $this->_buildFormMain($builder);
         $builder->add('userInfo', new MasterType(), array('label' => ' '))
-                ->add('showMail', 'checkbox', array('label' => 'Отображать адрес электронной почты на сайте', 'required' => false))
                 ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
                 ->add('phone', 'collection', array( 'type'         => new PhoneType(),
                                                     'allow_add'    => true,
@@ -117,7 +115,6 @@ class RegistrationFormType extends AbstractType
     {
         $this->_buildFormMain($builder);
         $builder->add('userInfo', new SalonType(), array('label' => ' '))
-            ->add('showMail', 'checkbox', array('label' => 'Отображать адрес электронной почты на сайте', 'required' => false))
             ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
             ->add('phone', 'collection', array( 'type'         => new PhoneType(),
                                                 'allow_add'    => true,
