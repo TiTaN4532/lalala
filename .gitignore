@@ -14,6 +14,8 @@ composer.lock
 web/media/*
 web/uploads/images/master/*
 !default.jpg
+web/uploads/images/consumers/*
+!default.jpg
 web/uploads/images/news/*
 !default.jpg
 web/uploads/cache/*
