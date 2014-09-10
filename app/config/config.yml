@@ -115,3 +115,8 @@ liip_imagine:
                     quality:              100
                     filters:
                         thumbnail: { size: [240, 240], mode: inset }
+services:
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
