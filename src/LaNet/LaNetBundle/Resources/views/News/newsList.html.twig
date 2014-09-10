@@ -13,7 +13,7 @@
                     {{ post.description }} <a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}" class="blue-link">Подробнее</a>
                 </div>
                 <div class="col col_1_of_2" style="color:#2d93b2;">
-                    Добавлена на сайт {{ post.updated | date("F jS Y")}}
+                    Добавлена на сайт {{ post.updated | localizeddate('long', 'short')}}
                 </div>
                 <div class="col col_1_of_2" style="color:#2d93b2;">
                     Отправить:

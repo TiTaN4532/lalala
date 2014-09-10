@@ -3,13 +3,15 @@
 {% block slider %}
 {% endblock %}
 {% block content %}
+<a href="{{ path('la_net_la_net_news_list') }}" class="button grey" style="margin-top: 20px;">Назад</a>
+
 <h1>{{ news.title }}</h1>
              
   <div class="row">
     <div class="col col_1_of_2"><img src="{{ asset(news.getWebPath)}}" style="width:100%;" /></div>
     <div class="col col_1_of_2">
       <div>{{ news.post }}</div>
-      <div>{{ news.updated | date("F jS Y")}}</div>
+      <div>{{ news.updated | localizeddate('long', 'short')}}</div>
     </div>
   </div>
 {% endblock %}

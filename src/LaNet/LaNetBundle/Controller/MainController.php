@@ -66,7 +66,7 @@ class MainController extends BaseController
              $message = \Swift_Message::newInstance()
                     ->setSubject($data['subject'])
                     ->setFrom($data['mail'])
-                    ->setTo('derevyanko.pav@mail.ru')
+                    ->setTo('info@lalook.net')
                     ->setBody(
                         $data['body']
                     )
