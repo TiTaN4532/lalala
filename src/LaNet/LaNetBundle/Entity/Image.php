@@ -30,6 +30,11 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
      */
     private $salon;
     
+   /**
+     * @ORM\ManyToOne(targetEntity="Agancy", inversedBy="portfolio")
+     */
+    private $agancy;
+    
     /**
      * @ORM\Column(type="string", length=50)
      */
@@ -199,5 +204,28 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     public function getSalon()
     {
         return $this->salon;
+    }
+
+    /**
+     * Set agancy
+     *
+     * @param \LaNet\LaNetBundle\Entity\Agancy $agancy
+     * @return Image
+     */
+    public function setAgancy(\LaNet\LaNetBundle\Entity\Agancy $agancy = null)
+    {
+        $this->agancy = $agancy;
+    
+        return $this;
+    }
+
+    /**
+     * Get agancy
+     *
+     * @return \LaNet\LaNetBundle\Entity\Agancy 
+     */
+    public function getAgancy()
+    {
+        return $this->agancy;
     }
 }

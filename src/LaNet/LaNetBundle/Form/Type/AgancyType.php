@@ -16,15 +16,21 @@ class AgancyType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'Название:'))
+            ->add('description', 'textarea', array('label' => 'Описание:'))
+            ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
+             
             ->add('category', 'entity', array(
                   'attr' => array('class' => 'category-list'),
-                  'label' => 'Специализация:',
-                  'class' => 'LaNet\LaNetBundle\Entity\AgancyCategory',
+                  'label' => 'Товары для мастеров:',
+                  'class' => 'LaNet\LaNetBundle\Entity\MasterCategory',
                   'property'     => 'name',
-                  'multiple'     => false,
-                  'expanded' => false,
-                  'empty_value' => 'None'
+                  'multiple'     => true,
+                  'expanded' => true,
                 ))  
+            ->add('location', new LocationType(), array(
+                                                    'by_reference' => false,
+                                                    'label' => 'Адрес:'
+                                                  ))
             ;
 
     }

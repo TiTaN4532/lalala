@@ -16,7 +16,8 @@ class BrandCategoryType extends AbstractType
     {
         $builder
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
-            ->add('name', 'text', array('attr' => array(), 'label' => ' '))
+            ->add('name', 'text', array('attr' => array(), 'label' => 'Называние'))
+            ->add('description', 'textarea', array('attr' => array(), 'label' => 'Описание'))
             ;
 
     }

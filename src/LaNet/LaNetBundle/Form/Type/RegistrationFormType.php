@@ -131,7 +131,18 @@ class RegistrationFormType extends AbstractType
     protected function _buildFormAgancy(FormBuilderInterface $builder)
     {
         $this->_buildFormMain($builder);
-        $builder->add('userInfo', new AgancyType(), array('label' => ' '));
+        $builder->add('userInfo', new AgancyType(), array('label' => ' '))
+                 ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
+                ->add('phone', 'collection', array( 'type'         => new PhoneType(),
+                                                    'allow_add'    => true,
+                                                    'allow_delete'    => true,
+                                                    'by_reference' => false,
+                    ))
+                ->add('mail', 'collection', array( 'type'         => new MailType(),
+                                                    'allow_add'    => true,
+                                                    'allow_delete'    => true,
+                                                    'by_reference' => false,))
+                ;
     }
     
     protected function _buildFormShop(FormBuilderInterface $builder)

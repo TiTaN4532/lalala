@@ -25,7 +25,7 @@ div#registration .item {
   float: left;
   width: 225px;
   margin-left: 100px;
-  margin-top: 75px;
+  margin-top: 80px;
 }
 
 div#registration a {
@@ -34,9 +34,9 @@ div#registration a {
   color: #fff;
   background-color: #2d93b2;
   text-align: right;
-  padding: 10px 20px 0 75px;
+  padding: 10px 20px 0 80px;
   width:145px;
-  height:70px;
+  height:85px;
   
 }
 
@@ -534,4 +534,12 @@ ul.phone li, ul.mail li {
     width:15px;
     height:15px;
     background: url(../images/min.png) 7px 9px no-repeat;
+}
+
+#regions {
+    font-size:17px;
+}
+
+.master-id .row, .salon-id .row, .brand-id .row  {
+    margin-bottom: 10px;
 }

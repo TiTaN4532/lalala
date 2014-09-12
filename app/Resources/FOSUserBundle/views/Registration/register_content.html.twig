@@ -22,17 +22,17 @@
     <div class="item"><img src="{{ asset('images/1.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a></div>
     <div class="item"><img src="{{ asset('images/2.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'specialist'}) }}">Мастер индустрии красоты</a></div>
     <div class="item"><img src="{{ asset('images/3.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'salon'}) }}">Салон красоты, студия, парикмахерская...</a></div>
-    {#<a href="{{ path('fos_user_registration_register', {'type': 'agancy'}) }}">Представительство</a>
+    {#<div class="item"><img src="{{ asset('images/4.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'agancy'}) }}">Представительство производителей товаров для индустрии красоты</a></div>
     <a href="{{ path('fos_user_registration_register', {'type': 'shop'}) }}">Магазин</a>
     <a href="{{ path('fos_user_registration_register', {'type': 'school_center'}) }}">Учебный центр</a>#}
     
   </div>
 {% else %}
   <h5 class="clear" style="color: #AAA;">2. ВЫ РЕГИСТРИРУЕТЕСЬ КАК
-        {% if app.request.get('type') == 'specialist' %} МАСТЕР.
+        {% if app.request.get('type') == 'specialist' %} {{ 'мастер индустрии красоты.' | upper }}
         {% elseif app.request.get('type') == 'consumer' %} ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ.
-        {% elseif app.request.get('type') == 'salon' %} САЛОН.
-        {% elseif app.request.get('type') == 'agancy' %} ПРЕДСТАВИТЕЛЬСТВО.
+        {% elseif app.request.get('type') == 'salon' %} {{ 'Салон красоты, студия, парикмахерская...' | upper }}
+        {% elseif app.request.get('type') == 'agancy' %} {{ 'Представительство производителей товаров для индустрии красоты' | upper }}
         {% elseif app.request.get('type') == 'shop' %} МАГАЗИН.
         {% elseif app.request.get('type') == 'school_center' %} ОБУЧАЮЩИЙ ЦЕНТР.
         {% endif %}</h5>
@@ -462,8 +462,165 @@
           </div>
         </div>
     {% elseif app.request.get('type') == 'agancy' %}   
-        {{ form_row(form.userInfo.name) }}
-        {{ form_row(form.userInfo.category) }}
+        <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.name) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.name) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col_1_of_6">
+            {{ form_label(form.userInfo.description, null, {'label_attr': {'class': 'blue-label'}}) }}
+        </div>
+        <div class="col col_2_of_6">
+            {{ form_widget(form.userInfo.description) }}
+        </div>
+      </div>
+        <hr />
+      {{ form_widget(form.userInfo.file) }}
+      {{ form_errors(form.userInfo.file) }}
+      <hr />
+      <div class="row">
+        <div class="col col_1_of_5">
+            {{ form_label(form.userInfo.category, null, {'label_attr': {'class': 'blue-label'}}) }}
+        </div>
+        <div class="col col_4_of_5">
+            {{ form_widget(form.userInfo.category) }}
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+            <div class="col col_1_of_5">
+                <label class="blue-label">Aдрес:</label>
+            </div>
+            <div class="col col_4_of_5">
+                <input type="text" id="Service_address" class="half"/>
+                <div id="map" style="width:100%;height:200px;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
+                <script>
+                    function initialize() {
+                        var map_canvas = document.getElementById('map');
+                        var map_options = {
+                            center: new google.maps.LatLng(51.507, 0.127),
+                            zoom: 8
+                        };
+                        var map = new google.maps.Map(map_canvas, map_options);
+
+                        if(navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                var location = new google.maps.LatLng(
+                                    position.coords.latitude,
+                                    position.coords.longitude
+                                );
+
+                                map.setCenter(location);
+                                map.setZoom(17);
+                            });
+                        }
+
+                        var input = document.getElementById('Service_address');
+                        var autocomplete = new google.maps.places.Autocomplete(input);
+                        google.maps.event.addListener(map, 'click', function(event) 
+                            {
+                                $.ajax({
+                                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
+                                    success     : function(data) {
+                                          fill_address(data);    
+                                          $('#fos_user_registration_form_userInfo_location_lang').val(event.latLng.lng());
+                                          $('#fos_user_registration_form_userInfo_location_lat').val(event.latLng.lat());
+                                          input.value = (data.results[0].formatted_address);
+                                         }
+                                });
+                            });
+                        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                        
+                            var place = autocomplete.getPlace();
+                            if (!place.geometry) {
+                                return;
+                            }
+
+                            var position = place.geometry.location;
+                                        
+                            $.ajax({
+                                url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.lat() + "," + position.lng() + "&sensor=false&language=ru",
+                                success     : function(data) {
+                                        
+                                       fill_address(data);               
+                                       $('#fos_user_registration_form_userInfo_location_lang').val(position.lng());
+                                       $('#fos_user_registration_form_userInfo_location_lat').val(position.lat());
+                                       input.value = (data.results[0].formatted_address);
+                                     }});
+                            if (place.geometry.viewport) {
+                                map.fitBounds(place.geometry.viewport);
+                            } else {
+                                map.setCenter(position);
+                                map.setZoom(17);
+                            }
+
+                            var marker = new google.maps.Marker({
+                                position: position,
+                                map: map
+                            });
+
+                        });
+                    }
+                    function fill_address(data) {
+                        for (var i = 0; i < data.results[0].address_components.length; i++) {
+                            switch(data.results[0].address_components[i].types[0]) {
+                                case "country":
+                                    $('#fos_user_registration_form_userInfo_location_country').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "administrative_area_level_1":
+                                    $('#fos_user_registration_form_userInfo_location_administrative_area').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "locality":
+                                    $('#fos_user_registration_form_userInfo_location_locality').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "sublocality_level_1":
+                                    $('#fos_user_registration_form_userInfo_location_sublocality').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "route":
+                                    $('#fos_user_registration_form_userInfo_location_route').val(data.results[0].address_components[i].long_name);
+                                    break;
+                                case "street_number":
+                                    $('#fos_user_registration_form_userInfo_location_streetNumber').val(data.results[0].address_components[i].long_name);
+                                    break;
+                            }
+                        }
+                    }
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+                {{ form_widget(form.userInfo.location.country) }}
+                {{ form_widget(form.userInfo.location.administrative_area) }}
+                {{ form_widget(form.userInfo.location.locality) }}
+                {{ form_widget(form.userInfo.location.sublocality) }}
+                {{ form_widget(form.userInfo.location.route) }}
+                {{ form_widget(form.userInfo.location.streetNumber) }}
+                {{ form_widget(form.userInfo.location.lang) }}
+                {{ form_widget(form.userInfo.location.lat) }}
+                </div>
+        </div>
+       <hr />
+        <div class="row">
+          <div class="col col_1_of_2">
+            <label>Телефон: (+38 0XX XXXXXXX)</label>
+            <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
+                {% for item in form.phone %}
+                    <li>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</li>
+                {% endfor %}
+            </ul>   
+          </div>
+          <div class="col col_1_of_2">
+            <label>Дополнительный электронный адрес:</label>
+            <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+                {% for item in form.mail %}
+                    <li>{{ form_widget(item.name) }}</li>
+                {% endfor %}
+            </ul>  
+          </div>
+        </div>
     {% elseif app.request.get('type') == 'shop' %}   
         {{ form_row(form.userInfo.name) }}
     {% elseif app.request.get('type') == 'school_center' %}   

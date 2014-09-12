@@ -25,7 +25,8 @@
         
   {% macro category_prototype(mail) %}
    {{ form_widget(mail.file) }}
-   {{ form_widget(mail.name) }}
+   {{ form_row(mail.name) }}
+   {{ form_row(mail.description) }}
 {% endmacro %}
 
 {% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}

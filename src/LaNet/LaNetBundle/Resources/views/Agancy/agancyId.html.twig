@@ -10,22 +10,22 @@
 {% endblock %}
       
 {% block content %}
-<div class="salon-id">
+<div class="master-id">
   <div class="row">
     <div class="col col_2_of_5"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
     <div class="col col_3_of_5">
         <h2 style="color:#578fac;">{{ salon.name | upper }}</h2>
-        <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">{{ "Основная информация:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
+        <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
         <div class="row">
-          <div class="col col_1_of_3 blue">специальность:</div>
+          <div class="col col_1_of_3 blue">Специальность:</div>
           <div class="col col_2_of_3">{% for item in salon.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
         </div>
         <div class="row">
-          <div class="col col_1_of_3 blue">город:</div>
+          <div class="col col_1_of_3 blue">Город:</div>
           <div class="col col_2_of_3">{{ salon.location.locality }} {{ salon.location.administrativearea }}</div>
         </div>
         <div class="row">
-            <div class="col col_1_of_3 blue">телефон:</div>
+            <div class="col col_1_of_3 blue">Телефон:</div>
             <div class="col col_2_of_3">
                 {% for item in salon.user.phone %}
                     {% if item.showPhone  %}
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col col_1_of_3 blue">email:</div>
+            <div class="col col_1_of_3 blue">Email:</div>
             <div class="col col_2_of_3">
                 {% for item in salon.user.mail %}
                     {% if item.showMail  %}
@@ -46,7 +46,7 @@
           </div>
     </div>
   </div>
-  <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">{{ "Работа:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+  <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Работа:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
   <div id="map" style="width:100%;height:150px; margin-bottom: 20px;"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
                 <script>
@@ -70,23 +70,23 @@
                     google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
   <div class="row clear">
-    <div class="col col_1_of_3 blue">адрес:</div>
+    <div class="col col_1_of_3 blue">Адрес:</div>
     <div class="col col_2_of_3">{{ salon.location.locality }}, {{ salon.location.sublocality }}, {{ salon.location.route }} {{ salon.location.streetNumber }}</div>
   </div> 
   {% if salon.schedule is not empty %}              
     <div class="row clear">
-      <div class="col col_1_of_3 blue">график работы:</div>
+      <div class="col col_1_of_3 blue">График работы:</div>
       <div class="col col_2_of_3">{% for item in salon.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
     </div> 
   {% endif %}
   {% if salon.services is not empty %}
     <div class="row clear">
-      <div class="col col_1_of_3 blue">услуги и цены:</div>
+      <div class="col col_1_of_3 blue">Услуги и цены:</div>
       <div class="col col_2_of_3">{% for item in salon.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
     </div> 
   {% endif %}
   {% if salon.portfolio is not empty %}
-    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">{{ "Портфолио:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">Портфолио:</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
     <div class="gallery row">
         {% for image in salon.portfolio%}
           <div class="col col_1_of_6">

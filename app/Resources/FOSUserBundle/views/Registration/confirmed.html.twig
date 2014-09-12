@@ -11,10 +11,10 @@
         </div>
         <div class="row">
             <div class="col col_1_of_2">
-                <a href="{{ path('la_net_la_net_homepage') }}" class="button">На Главную</a>
+                <a style="width:80%" href="{{ path('la_net_la_net_homepage') }}" class="button">На Главную</a>
             </div>
             <div class="col col_1_of_2">
-                <a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}" class="button">Редактировать Профиль</a>
+                <a style="width:80%" href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}" class="button">Редактировать Профиль</a>
             </div>
         {% if app.session is not empty %}
             {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
