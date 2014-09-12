@@ -1,0 +1,29 @@
+la_net_la_net_agancy_list:
+    pattern:  /club/agancy
+    defaults: { _controller: LaNetLaNetBundle:Agancy:list }
+
+la_net_la_net_agancy_id:
+    pattern:  /agancy/{id}
+    defaults: { _controller: LaNetLaNetBundle:Agancy:agancyId }
+    requirements:
+        id:  \d+
+    
+la_net_la_net_agancy_profile:
+    pattern:  /agancy/profile
+    defaults: { _controller: LaNetLaNetBundle:Agancy:profile }
+
+la_net_la_net_agancy_change_pass:
+    pattern:  /agancy/change_password
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+
+la_net_la_net_agancy_profile_work:
+    pattern:  /agancy/profile/work
+    defaults: { _controller: LaNetLaNetBundle:Agancy:profileWork }
+
+la_net_la_net_agancy_profile_portfolio:
+    pattern:  /agancy/profile/portfolio
+    defaults: { _controller: LaNetLaNetBundle:Agancy:profilePortfolio }
+    
+la_net_la_net_agancy_profile_service_price:
+    pattern:  /agancy/profile/service_price
+    defaults: { _controller: LaNetLaNetBundle:Agancy:profileServicePrice }

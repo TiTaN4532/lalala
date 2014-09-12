@@ -37,6 +37,11 @@ class MasterCategory
      */
     private $salon;
     
+        /**
+     * @ORM\ManyToMany(targetEntity="Agancy", mappedBy="category")
+     */
+    private $agancy;
+    
     /**
      * @ORM\Column(type="string", length=50)
      */
@@ -228,5 +233,38 @@ class MasterCategory
     public function getBrand()
     {
         return $this->brand;
+    }
+
+    /**
+     * Add agancy
+     *
+     * @param \LaNet\LaNetBundle\Entity\Agancy $agancy
+     * @return MasterCategory
+     */
+    public function addAgancy(\LaNet\LaNetBundle\Entity\Agancy $agancy)
+    {
+        $this->agancy[] = $agancy;
+    
+        return $this;
+    }
+
+    /**
+     * Remove agancy
+     *
+     * @param \LaNet\LaNetBundle\Entity\Agancy $agancy
+     */
+    public function removeAgancy(\LaNet\LaNetBundle\Entity\Agancy $agancy)
+    {
+        $this->agancy->removeElement($agancy);
+    }
+
+    /**
+     * Get agancy
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAgancy()
+    {
+        return $this->agancy;
     }
 }

@@ -5,6 +5,7 @@
 {% elseif is_granted('ROLE_SALON') %}
   {{ app.user.getUserInfo.name | upper }}
 {% elseif is_granted('ROLE_AGANCY') %}
+  {{ app.user.getUserInfo.name | upper }}
 {% elseif is_granted('ROLE_SHOP') %}
 {% elseif is_granted('ROLE_SCHOOL_CENTER') %}
 {% endif %}

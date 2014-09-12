@@ -78,6 +78,11 @@ class Location
      */
     private $salonInfo;
     
+     /**
+     * @ORM\OneToOne(targetEntity="Agancy", inversedBy="location")
+     */
+    private $agancyInfo;
+    
     
 
     /**
@@ -344,5 +349,28 @@ class Location
     public function getSalonInfo()
     {
         return $this->salonInfo;
+    }
+
+    /**
+     * Set agancyInfo
+     *
+     * @param \LaNet\LaNetBundle\Entity\Agancy $agancyInfo
+     * @return Location
+     */
+    public function setAgancyInfo(\LaNet\LaNetBundle\Entity\Agancy $agancyInfo = null)
+    {
+        $this->agancyInfo = $agancyInfo;
+    
+        return $this;
+    }
+
+    /**
+     * Get agancyInfo
+     *
+     * @return \LaNet\LaNetBundle\Entity\Agancy 
+     */
+    public function getAgancyInfo()
+    {
+        return $this->agancyInfo;
     }
 }

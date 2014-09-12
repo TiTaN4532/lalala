@@ -28,6 +28,11 @@ class BrandCategory extends \LaNet\LaNetBundle\Model\UploadImages
     protected $name;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    protected $description;
+
+    /**
      * @ORM\Column(type="string", length=50, nullable = true)
      */
     protected $image;
@@ -164,5 +169,28 @@ class BrandCategory extends \LaNet\LaNetBundle\Model\UploadImages
             if(file_exists($file))
                 unlink($file);
         }
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return BrandCategory
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

@@ -24,17 +24,37 @@ class Agancy extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="string", length=100, nullable = true)
      */
     protected $name;
+    
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $description;
 
     /**
      * @ORM\Column(type="string", length=50, nullable = true)
      */
     protected $image;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="AgancyCategory", inversedBy="agancy")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+   /**
+     * @ORM\ManyToMany(targetEntity="MasterCategory", inversedBy="agancy")
+     * @ORM\JoinTable(name="agancy_categories")
      */
     protected $category;
+    
+     /**
+     * @ORM\OneToMany(targetEntity="AgancyBrand", mappedBy="agancy")
+     */
+    protected $agancyBrand;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Location", mappedBy="agancyInfo", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $location;
+    
+     /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="agancy", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $portfolio;
     
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="consumerInfo")
@@ -180,27 +200,157 @@ class Agancy extends \LaNet\LaNetBundle\Model\UploadImages
         }
     }
 
-
     /**
-     * Set category
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->category = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Set description
      *
-     * @param \LaNet\LaNetBundle\Entity\AgancyCategory $category
+     * @param string $description
      * @return Agancy
      */
-    public function setCategory(\LaNet\LaNetBundle\Entity\AgancyCategory $category = null)
+    public function setDescription($description)
     {
-        $this->category = $category;
+        $this->description = $description;
     
         return $this;
     }
 
     /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $category
+     * @return Agancy
+     */
+    public function addCategory(\LaNet\LaNetBundle\Entity\MasterCategory $category)
+    {
+        $this->category[] = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $category
+     */
+    public function removeCategory(\LaNet\LaNetBundle\Entity\MasterCategory $category)
+    {
+        $this->category->removeElement($category);
+    }
+
+    /**
      * Get category
      *
-     * @return \LaNet\LaNetBundle\Entity\AgancyCategory 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \LaNet\LaNetBundle\Entity\Location $location
+     * @return Agancy
+     */
+    public function setLocation(\LaNet\LaNetBundle\Entity\Location $location = null)
+    {
+        $location->setAgancyInfo($this);
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \LaNet\LaNetBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Add agancyBrand
+     *
+     * @param \LaNet\LaNetBundle\Entity\AgancyBrand $agancyBrand
+     * @return Agancy
+     */
+    public function addAgancyBrand(\LaNet\LaNetBundle\Entity\AgancyBrand $agancyBrand)
+    {
+        $this->agancyBrand[] = $agancyBrand;
+    
+        return $this;
+    }
+
+    /**
+     * Remove agancyBrand
+     *
+     * @param \LaNet\LaNetBundle\Entity\AgancyBrand $agancyBrand
+     */
+    public function removeAgancyBrand(\LaNet\LaNetBundle\Entity\AgancyBrand $agancyBrand)
+    {
+        $this->agancyBrand->removeElement($agancyBrand);
+    }
+
+    /**
+     * Get agancyBrand
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAgancyBrand()
+    {
+        return $this->agancyBrand;
+    }
+
+    /**
+     * Add portfolio
+     *
+     * @param \LaNet\LaNetBundle\Entity\Image $portfolio
+     * @return Agancy
+     */
+    public function addPortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
+    {
+        $this->portfolio[] = $portfolio;
+    
+        return $this;
+    }
+
+    /**
+     * Remove portfolio
+     *
+     * @param \LaNet\LaNetBundle\Entity\Image $portfolio
+     */
+    public function removePortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
+    {
+        $this->portfolio->removeElement($portfolio);
+    }
+
+    /**
+     * Get portfolio
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPortfolio()
+    {
+        return $this->portfolio;
     }
 }

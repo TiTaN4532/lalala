@@ -71,6 +71,11 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\JoinTable(name="brands_categories")
      */
     protected $masterCategory;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AgancyBrand", mappedBy="brand")
+     */
+    protected $agancyBrand;
   
     /**
      * Constructor
@@ -383,5 +388,38 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     public function getMasterCategory()
     {
         return $this->masterCategory;
+    }
+
+    /**
+     * Add agancyBrand
+     *
+     * @param \LaNet\LaNetBundle\Entity\AgancyBrand $agancyBrand
+     * @return Brand
+     */
+    public function addAgancyBrand(\LaNet\LaNetBundle\Entity\AgancyBrand $agancyBrand)
+    {
+        $this->agancyBrand[] = $agancyBrand;
+    
+        return $this;
+    }
+
+    /**
+     * Remove agancyBrand
+     *
+     * @param \LaNet\LaNetBundle\Entity\AgancyBrand $agancyBrand
+     */
+    public function removeAgancyBrand(\LaNet\LaNetBundle\Entity\AgancyBrand $agancyBrand)
+    {
+        $this->agancyBrand->removeElement($agancyBrand);
+    }
+
+    /**
+     * Get agancyBrand
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAgancyBrand()
+    {
+        return $this->agancyBrand;
     }
 }

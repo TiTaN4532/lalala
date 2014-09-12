@@ -26,6 +26,10 @@ la_net_la_net_Salon_routes:
   resource: "routing_salon.yml"
   prefix: /
   
+la_net_la_net_agancy_routes:
+  resource: "routing_agancy.yml"
+  prefix: /
+  
 la_net_la_net_consumer_routes:
   resource: "routing_consumer.yml"
   prefix: /

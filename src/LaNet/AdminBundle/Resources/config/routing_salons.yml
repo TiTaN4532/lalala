@@ -1,0 +1,25 @@
+la_net_admin_salons:
+    pattern:  /salons
+    defaults: { _controller: LaNetAdminBundle:Salon:main }
+    
+la_net_admin_salons_list:
+    pattern:  /salons/list
+    defaults: { _controller: LaNetAdminBundle:Salon:list }
+    
+la_net_admin_salons_edit_profile:
+    pattern: /salons/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Master:edit }
+    
+la_net_admin_salons_ajax:
+    pattern:  /ajax/salons
+    defaults: { _controller: LaNetAdminBundle:Master:listAjax }
+    options:
+        expose: true
+
+la_net_admin_ajax_delete_salon:
+    pattern:  /ajax/delete_salon/{id}
+    defaults: { _controller: LaNetAdminBundle:Master:delete }
+    options:
+        expose: true
+
+

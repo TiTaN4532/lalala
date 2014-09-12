@@ -5,6 +5,7 @@
 {% elseif is_granted('ROLE_SALON') %}
   {{ path('la_net_la_net_salon_profile') }}
 {% elseif is_granted('ROLE_AGANCY') %}
+    {{ path('la_net_la_net_agancy_profile') }}
 {% elseif is_granted('ROLE_SHOP') %}
 {% elseif is_granted('ROLE_SCHOOL_CENTER') %}
 {% endif %}

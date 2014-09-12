@@ -29,7 +29,7 @@ class MasterType extends AbstractType
             ->add('firstName', 'text', array('label' => 'Имя:'))
             ->add('lastName', 'text', array('label' => 'Фамилия:'))
             ->add('link', 'text', array('label' => 'Сайт:'))
-            ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('m' => 'Муж', 'f' => 'Жен'),
+            ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('f' => 'Жен', 'm' => 'Муж'),
                                             'required'  => true,
             ))  
             ->add('serviceType', 'choice', array('label' => 'Тип обслуживания:', 

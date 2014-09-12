@@ -54,7 +54,7 @@ $(document).ready(function(){
     // index when inserting a new item (e.g. 2)
     collectionHolderPhone.data('index', collectionHolderPhone.find(':input').length);
     collectionHolderMail.data('index', collectionHolderMail.find(':input').length);
-
+  
     $addLinkPhone.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
@@ -69,4 +69,6 @@ $(document).ready(function(){
         // add a new tag form (see next code block)
         addForm(collectionHolderMail, $newLinkLiMail, 'адрес');
     });
+    if(collectionHolderPhone.children().length == 1)
+        addForm(collectionHolderPhone, $newLinkLiPhone, 'телефон');
 });
