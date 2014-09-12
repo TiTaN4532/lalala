@@ -1,0 +1,26 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
+
+
+{% block menu %}
+  {% include "LaNetLaNetBundle:Agancy:menu.html.twig" %}
+{% endblock %}
+        
+      
+{% block profile_content %}
+<h1>График работы</h1>
+
+<form action="" method="POST">
+        <div class="row errors">
+          
+        </div>
+        {% for item in agancyShcedule %}
+          <div class="row">
+            <div class="col col_1_of_3"><input type="checkbox" name="shcedule[{{ item.shcedule.name }}]" value="1" {% if item.shcedule.name in checkedShcedule|keys %} checked="checked"{% endif %}/> {{ item.shcedule.nameRus }}</div>
+            <div class="col col_2_of_3">{% if item.shcedule.name != 'record' %}c <input type="text" class="quarter" name="start[{{ item.shcedule.name }}]" {% if item.shcedule.name in checkedShcedule|keys %} value="{{ checkedShcedule[item.shcedule.name]['start'] }}"{% endif %}/> 
+              до <input type="text" class="quarter" name="end[{{ item.shcedule.name }}]" {% if item.shcedule.name in checkedShcedule|keys %} value="{{ checkedShcedule[item.shcedule.name]['end'] }}"{% endif %}/>{% endif %}</div>
+            </div>
+        {% endfor %}
+        <input type="submit" name="save" value="Сохранить">
+        
+</form>
+{% endblock %}
