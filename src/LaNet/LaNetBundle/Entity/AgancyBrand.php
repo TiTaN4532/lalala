@@ -151,7 +151,7 @@ class AgancyBrand
      * @param \LaNet\LaNetBundle\Entity\Brand  $brand
      * @return AgancyBrand
      */
-    public function setBrand(\Acme\UserBundle\Entity\User $brand = null)
+    public function setBrand(\LaNet\LaNetBundle\Entity\Brand $brand = null)
     {
         $this->brand = $brand;
     
