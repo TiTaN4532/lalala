@@ -165,12 +165,23 @@ class SalonController extends BaseController
     
     public function listAction(Request $request)
     {
-         $session = $this->getRequest()->getSession();
-      $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalons($this->paginator, 10, $session->get('region'));
+      $region = $this->getRequest()->getSession()->get('region');
+      $whereRegion = '';
+      if($region) {
+          $whereRegion ="l.administrative_area LIKE '%" . trim($region, '.') . "%' AND ";
+      } 
+      $query = $this->manager->createQuery("SELECT l.locality FROM LaNetLaNetBundle:Salon s
+                                                LEFT JOIN s.location l     
+                                                WHERE " . $whereRegion . " l.locality != '' AND l.locality IS NOT NULL 
+                                                GROUP BY s.id");
+          
+      $cities = $query->getArrayResult();
+      $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalons($this->paginator, 10, $region);
       $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
 
       return $this->render('LaNetLaNetBundle:Salon:salonList.html.twig', array('salons' => $salons, 
                                                                                  'masterCategory' => $masterCategory, 
+                                                                                 'cities' => $cities
                                                                                 ));
     }
     
