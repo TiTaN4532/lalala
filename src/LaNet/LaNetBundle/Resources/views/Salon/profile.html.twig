@@ -1,6 +1,7 @@
 {% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
 
-{% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
+{% form_theme form 'LaNetLaNetBundle:Form:fields_profile.html.twig' %}
+
 
 {% macro phone_prototype(phone) %}
     <div>{{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}</div>
@@ -26,10 +27,21 @@
         <div class="row errors">
             {{ form_errors(form) }}
         </div>
-        <div style="display:table">{{ form_widget(form.userInfo.file) }}</div>
-        {{ form_row(form.userInfo.name) }}
+       <div class="row">
+            <div class="col col_1_of_2">{{ form_widget(form.userInfo.file) }}</div>
+            <div class="col col_1_of_2">
+                <div class="row">
+                    <div class="col col_1_of_1">
+                        {{ form_widget(form.userInfo.name) }}
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
         {{ form_row(form.userInfo.link) }}
+        <hr />
         {{ form_row(form.userInfo.category) }}
+        <hr />
         <div class="row">
             <div class="col col_1_of_1">
                 <label>Адрес:</label>
@@ -140,6 +152,7 @@
                 {{ form_widget(form.userInfo.location.lat) }}
                 </div>
         </div>
+        <hr />
         <div class="row">
           <div class="col col_1_of_2">
             <label>Телефон: (+38 0XX XXXXXXX)</label>
@@ -160,6 +173,7 @@
             </ul>  
           </div>
         </div>
+        <hr />
         <div>{{ form_widget(form.newsNotify) }}{{ form_label(form.newsNotify) }}</div>
         
         {{ form_row(form.save) }}

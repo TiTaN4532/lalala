@@ -24,15 +24,16 @@ class MasterRepository extends EntityRepository
       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
       $whereRegion = '';
       if($region) {
-          $whereRegion = 'l.administrative_area LIKE '%" . trim('.', $region) . "%' AND';
+          $whereRegion ="l.administrative_area LIKE '%" . trim($region, '.') . "%' AND";
       } 
       
       $category = ($request->get('category')) ? " AND c.id = '" . $request->get('category') ."'" : "";
       $serviceType = ($request->get('service-type')) ? " AND m.serviceType = '" . $request->get('service-type') ."'" : "";
+      $city = ($request->get('city')) ? " AND l.locality = '" . $request->get('city') ."'" : "";
       $query = $this->_em->createQuery("SELECT m, c  FROM LaNetLaNetBundle:Master m 
                                                     LEFT JOIN m.category c     
                                                     LEFT JOIN m.location l     
-                                                    WHERE " . $whereRegion . " (m.firstName LIKE :like OR m.lastName LIKE :like)".$category.$serviceType)
+                                                    WHERE " . $whereRegion . " (m.firstName LIKE :like OR m.lastName LIKE :like)".$category.$serviceType.$city)
                           ->setParameters(array('like' => '%'.$searchterm.'%'));
       if ($peginator) {
         $page = $request->query->get('page', 1);

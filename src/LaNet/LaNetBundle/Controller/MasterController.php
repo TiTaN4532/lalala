@@ -163,13 +163,23 @@ class MasterController extends BaseController
     
     public function listAction(Request $request)
     {
-        $session = $this->getRequest()->getSession();
-
-      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 10, $session->get('region'));
+      $region = $this->getRequest()->getSession()->get('region');
+      $whereRegion = '';
+      if($region) {
+          $whereRegion ="WHERE l.administrative_area LIKE '%" . trim($region, '.') . "%' ";
+      } 
+      $query = $this->manager->createQuery("SELECT l.locality FROM LaNetLaNetBundle:Master m
+                                                LEFT JOIN m.location l     
+                                                 " . $whereRegion . "
+                                                GROUP BY m.id");
+          
+      $cities = $query->getArrayResult();
+      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 10, $region);
       $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
 
       return $this->render('LaNetLaNetBundle:Master:masterList.html.twig', array('masters' => $masters, 
                                                                                  'masterCategory' => $masterCategory, 
+                                                                                 'cities' => $cities,
                                                                                 ));
     }
     
