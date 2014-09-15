@@ -27,11 +27,13 @@
             <div class="span3">
               <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192"></a></div>
             </div>
-            <div class="span9">
+            <div class="span5">
               <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
                 {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
               </form>
-              <div id="login" style="float:right;">
+            </div>
+            <div class="span4">
+              <div id="login">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                   {% if not is_granted('ROLE_ADMIN') %}
                        <div style="float:left;margin: 5px;"> <img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></div>
