@@ -166,7 +166,7 @@ class MasterController extends BaseController
       $region = $this->getRequest()->getSession()->get('region');
       $whereRegion = '';
       if($region) {
-          $whereRegion ="l.administrative_area LIKE '%" . trim($region, '.') . "%' ";
+          $whereRegion ="l.administrative_area LIKE '%" . trim($region, '.') . "%' AND ";
       } 
       $query = $this->manager->createQuery("SELECT l.locality FROM LaNetLaNetBundle:Master m
                                                 LEFT JOIN m.location l     
