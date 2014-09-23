@@ -20,7 +20,7 @@ class SalonRepository extends EntityRepository
       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
       $whereRegion = '';
       if($region) {
-          $whereRegion = 'l.administrative_area LIKE '%" . trim('.', $region) . "%' AND';
+          $whereRegion = "l.administrative_area LIKE '%" . trim($region, '.') . "%' AND";
       } 
       $category = ($request->get('category')) ? " AND c.id = '" . $request->get('category') ."'" : "";
       $city = ($request->get('city')) ? " AND l.locality = '" . $request->get('city') ."'" : "";
