@@ -58,7 +58,7 @@
               </script>
       {% endif %}
     <hr style="margin-left: 3%;" />
-    <div class="col col_1_of_4"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div class="col col_1_of_4" style="text-align: center;"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
     <div class="col col_3_of_4">
       <h3><a href="{{ path('la_net_la_net_salon_id', {'id': salon.id }) }}" class="black-link">{{ salon.name }}</a></h3>
       {% if salon.category is not empty %}
