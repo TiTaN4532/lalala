@@ -103,6 +103,10 @@ liip_imagine:
                     quality:              100
                     filters:
                         thumbnail: { size: [120, 120], mode: inset }
+        my_thumb_portfolio:
+                    quality:              100
+                    filters:
+                        my_square_filter: { size: 120 }
         my_master_thumb_small:
                     quality:              100
                     filters:

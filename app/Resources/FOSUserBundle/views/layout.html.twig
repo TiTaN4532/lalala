@@ -35,7 +35,7 @@
               <div class="span4">
                 <div id="login">
                   {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                          <div style="float:left;margin: 5px;"> <img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></div>
+                          <div style="float:left;margin: 5px;"> {% include "LaNetLaNetBundle::profileImage.html.twig" %}</div>
                          <div style="float:left;margin: 5px;"> 
                           <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
                           <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>

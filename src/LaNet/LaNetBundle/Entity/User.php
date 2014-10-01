@@ -399,4 +399,20 @@ class User extends BaseUser
     {
         return $this->newsNotify;
     }
+    
+    public function hasPhones() {
+        $result = false;
+        foreach($this->phone as $value)
+            if($value->getShowPhone())
+                $result = true;
+        return $result;
+    }
+    
+    public function hasMails() {
+        $result = false;
+        foreach($this->mail as $value)
+            if($value->getShowMail())
+                $result = true;
+        return $result;
+    }
 }

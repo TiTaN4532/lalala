@@ -16,7 +16,7 @@ class PhoneType extends AbstractType
     {
         $builder
             ->add('number', 'text', array('attr' => array('style' => 'width:auto;', 'maxlength' => 7), 'label' => ' '))
-            ->add('operator', 'text', array('attr' => array('style' => 'width:40px;', 'maxlength' => 4), 'label' => ' '))
+            ->add('operator', 'text', array('attr' => array('style' => 'width:40px;', 'maxlength' => 3), 'label' => ' '))
             ->add('showPhone', 'checkbox', array('label' => 'Отображать номер телефона на сайте', 'required' => false))
             ;
 

@@ -28,5 +28,9 @@ services:
         class: LaNet\LaNetBundle\EventListener\ChangePasswordListener
         arguments: [ @router, @security.context]
         tags:
-            - { name: kernel.event_subscriber }        
+            - { name: kernel.event_subscriber }  
+    liip_imagine.filter.loader.my_square_filter:
+        class: LaNet\LaNetBundle\ImagineFilter\Loader\MySquareFilterLoader
+        tags:
+          - { name: liip_imagine.filter.loader, loader: my_square_filter }
             
