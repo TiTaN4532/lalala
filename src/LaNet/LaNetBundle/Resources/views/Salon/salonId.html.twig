@@ -12,8 +12,8 @@
 {% block content %}
 <div class="salon-id">
   <div class="row">
-    <div class="col col_2_of_5"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
-    <div class="col col_3_of_5">
+    <div class="col col_1_of_3"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
+    <div class="col col_2_of_3">
         <h2 style="color:#578fac;">{{ salon.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">{{ "Основная информация:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
         <div class="row">
@@ -24,6 +24,7 @@
           <div class="col col_1_of_3 blue">город:</div>
           <div class="col col_2_of_3">{{ salon.location.locality }} {{ salon.location.administrativearea }}</div>
         </div>
+        {% if salon.user.hasPhones %}
         <div class="row">
             <div class="col col_1_of_3 blue">телефон:</div>
             <div class="col col_2_of_3">
@@ -34,6 +35,8 @@
                 {% endfor %}
             </div>
           </div>
+        {% endif %}
+        {% if salon.user.hasMails %}
           <div class="row">
             <div class="col col_1_of_3 blue">email:</div>
             <div class="col col_2_of_3">
@@ -44,6 +47,7 @@
                 {% endfor %}
             </div>
           </div>
+        {% endif %}
     </div>
   </div>
   <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">{{ "Работа:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
@@ -87,12 +91,18 @@
   {% endif %}
   {% if salon.portfolio is not empty %}
     <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear;">{{ "Портфолио:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
-    <div class="gallery row">
+    <div class="gallery">
+        <div class="row clear">
         {% for image in salon.portfolio%}
-          <div class="col col_1_of_6">
-            <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></a>
+          
+          <div class="col col_1_of_5">
+            <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_thumb_portfolio') }}" /></a>
           </div>
+          {% if loop.index % 5 == 0 %}
+             </div><div class="row clear">
+          {% endif %}
         {% endfor %}
+        </div>
     </div>
   {% endif %}
 </div>

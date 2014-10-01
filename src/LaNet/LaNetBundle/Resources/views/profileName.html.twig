@@ -1,9 +1,9 @@
 {% if is_granted('ROLE_CONSUMER') %}
     {{ app.user.getUserInfo.firstName | upper}} {{ app.user.getUserInfo.lastName | upper }}
 {% elseif is_granted('ROLE_SPECIALIST') %}
-  {{ app.user.getUserInfo.firstName | upper }} {{ app.user.getUserInfo.lastName | upper }}
+  <a href="{{ path('la_net_la_net_master_id', { 'id' : app.user.id }) }}">{{ app.user.getUserInfo.firstName | upper }} {{ app.user.getUserInfo.lastName | upper }}</a>
 {% elseif is_granted('ROLE_SALON') %}
-  {{ app.user.getUserInfo.name | upper }}
+  <a href="{{ path('la_net_la_net_salon_id', { 'id' : app.user.id }) }}">{{ app.user.getUserInfo.name | upper }}</a>
 {% elseif is_granted('ROLE_AGANCY') %}
   {{ app.user.getUserInfo.name | upper }}
 {% elseif is_granted('ROLE_SHOP') %}

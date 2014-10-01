@@ -63,9 +63,9 @@
               </script>
       {% endif %}
     <hr style="margin-left: 3%;" />
-    <div class="col col_1_of_3"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
-    <div class="col col_2_of_3">
-      <h3><a class="black-link" href="{{ path('la_net_la_net_master_id', {'id': master.id }) }}">{{ master.firstName }} {{ master.firstName }}</a></h3>
+    <div class="col col_1_of_4"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div class="col col_3_of_4">
+      <h3><a class="black-link" href="{{ path('la_net_la_net_master_id', {'id': master.id }) }}">{{ master.firstName }} {{ master.lastName }}</a></h3>
       {% if master.category is not empty %}
         <div class="row">
           <div class="col col_1_of_3 blue">Специальность:</div>
