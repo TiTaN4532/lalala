@@ -36,7 +36,7 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
     protected $gender;
         
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="text")
      */
     protected $birthday;
 
@@ -249,7 +249,8 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function setBirthday($birthday)
     {
-        $this->birthday = new \DateTime(date('Y-m-d', $birthday));
+//        $this->birthday = new \DateTime(date('Y-m-d', $birthday));
+        $this->birthday = $birthday;
     
         return $this;
     }
@@ -262,7 +263,7 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
     public function getBirthday()
     {
 
-        return $this->birthday->getTimestamp();
+        return $this->birthday;
     }
 
     /**

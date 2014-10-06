@@ -38,9 +38,7 @@ class MasterType extends AbstractType
                                                  'multiple' => true,
                                                  'expanded' => true,
             ))
-            ->add('birthday', 'date', array(   'label' => 'Дата рождения:', 
-                                                'input'  => 'timestamp',
-                                                'widget' => 'single_text'))       
+            ->add('birthday', 'text', array(   'label' => 'Дата рождения:', 'attr' => array('class' => 'datepicker')))       
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
             ->add('category', 'entity', array(
                   'attr' => array('class' => 'category-list'),
@@ -54,15 +52,13 @@ class MasterType extends AbstractType
                                                     'by_reference' => false,
                                                     'label' => 'Адрес:'
                                                   ))
-            ->add('startWork', 'date', array(   'label' => 'Начало работы:', 
-                                                'input'  => 'timestamp',
-                                                'widget' => 'single_text'))    
+            ->add('startWork', 'text', array(   'label' => 'Начало работы:', 'attr' => array('class' => 'datepicker')))    
             ;
         if($this->action == 'profile')
-            $builder->add('competitions', 'text', array('label' => 'Конкурсы, мероприятия:', 'required' => false))
-                    ->add('education', 'text', array('label' => 'Образование:', 'required' => false))
-                    ->add('usedCosmetics', 'text', array('label' => 'Используемая косметика:', 'required' => false))
-                    ->add('hobby', 'text', array('label' => 'Хобби:', 'required' => false))
+            $builder->add('competitions', 'textarea', array('label' => 'Конкурсы, мероприятия:', 'required' => false))
+                    ->add('education', 'textarea', array('label' => 'Образование:', 'required' => false))
+                    ->add('usedCosmetics', 'textarea', array('label' => 'Используемая косметика:', 'required' => false))
+                    ->add('hobby', 'textarea', array('label' => 'Хобби:', 'required' => false))
             ;
     }
     

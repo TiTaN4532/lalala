@@ -46,12 +46,12 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $serviceType;
     
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="text")
      */
     protected $birthday;
     
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="text")
      */
     protected $startWork;
     
@@ -66,7 +66,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $experience;
     
     /**
-     * @ORM\Column(type="string", nullable = true)
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $usedCosmetics;
     
@@ -76,17 +76,17 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $link;
     
     /**
-     * @ORM\Column(type="string", nullable = true)
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $education;
     
     /**
-     * @ORM\Column(type="string", nullable = true)
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $competitions;
     
     /**
-     * @ORM\Column(type="string", nullable = true)
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $hobby;
     
@@ -663,7 +663,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function setBirthday($birthday)
     {
-        $this->birthday = new \DateTime(date('Y-m-d', $birthday));
+        $this->birthday = $birthday;
     
         return $this;
     }
@@ -675,7 +675,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function getBirthday()
     {
-        return $this->birthday->getTimestamp();
+        return $this->birthday;
     }
 
     /**
@@ -686,7 +686,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function setStartWork($startWork)
     {
-        $this->startWork = new \DateTime(date('Y-m-d', $startWork));
+        $this->startWork = $startWork;
     
         return $this;
     }
@@ -698,7 +698,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function getStartWork()
     {
-        return $this->startWork->getTimestamp();
+        return $this->startWork;
     }
 
     /**
