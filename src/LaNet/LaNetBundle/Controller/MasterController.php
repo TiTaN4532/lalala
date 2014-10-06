@@ -171,7 +171,7 @@ class MasterController extends BaseController
       $query = $this->manager->createQuery("SELECT l.locality FROM LaNetLaNetBundle:Master m
                                                 LEFT JOIN m.location l     
                                                  WHERE " . $whereRegion . " l.locality != '' AND l.locality IS NOT NULL
-                                                GROUP BY m.id");
+                                                GROUP BY l.locality");
           
       $cities = $query->getArrayResult();
       $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 10, $region);
