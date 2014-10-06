@@ -173,7 +173,7 @@ class SalonController extends BaseController
       $query = $this->manager->createQuery("SELECT l.locality FROM LaNetLaNetBundle:Salon s
                                                 LEFT JOIN s.location l     
                                                 WHERE " . $whereRegion . " l.locality != '' AND l.locality IS NOT NULL 
-                                                GROUP BY s.id");
+                                                GROUP BY l.locality");
           
       $cities = $query->getArrayResult();
       $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalons($this->paginator, 10, $region);
