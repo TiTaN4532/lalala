@@ -18,7 +18,7 @@ la_net_admin_salons_ajax:
 
 la_net_admin_ajax_delete_salon:
     pattern:  /ajax/delete_salon/{id}
-    defaults: { _controller: LaNetAdminBundle:Master:delete }
+    defaults: { _controller: LaNetAdminBundle:Salon:delete }
     options:
         expose: true
 
