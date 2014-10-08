@@ -538,6 +538,7 @@ ul.phone li, ul.mail li {
 
 #regions {
     font-size:17px;
+    height: auto;
 }
 
 .master-id .row, .salon-id .row, .brand-id .row  {

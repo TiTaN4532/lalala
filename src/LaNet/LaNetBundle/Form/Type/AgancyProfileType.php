@@ -44,6 +44,6 @@ class AgancyProfileType extends AbstractType
      */
     public function getName()
     {
-        return 'lanet_salon_profile';
+        return 'lanet_agancy_profile';
     }
 }

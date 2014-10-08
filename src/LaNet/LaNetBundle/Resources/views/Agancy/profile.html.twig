@@ -30,6 +30,20 @@
         {{ form_row(form.userInfo.name) }}
         {{ form_row(form.userInfo.description) }}
         {{ form_row(form.userInfo.category) }}
+        {% for item in brands %}
+            {% if loop.first %}<label> Брэнды: </label>{% endif %}
+          <div class="row">
+            <div class="col col_1_of_4"><input type="checkbox" class="brandAgancy" name="brands[{{ item.brand.name }}]" value="1" {% if item.brand.name in checkedBrands|keys %} checked="checked"{% endif %}/> {{ item.brand.name }}</div>
+            <div class="col col_2_of_4" {% if item.brand.name not in checkedBrands|keys %} style="display:none;" {% endif %}><input type="checkbox" name="oficial[{{ item.brand.name }}]" value="1" {% if item.brand.name in checkedBrands|keys and checkedBrands[item.brand.name]['oficial'] %} checked="checked"{% endif %}/> официсльный представитель </div>
+            <div class="col col_1_of_4" {% if item.brand.name not in checkedBrands|keys %} style="display:none;" {% endif %}>
+                <select name="type[{{ item.brand.name }}]">
+                    <option value="country" {% if item.brand.name in checkedBrands|keys and  checkedBrands[item.brand.name]['type']  == 'country' %} selected = "selected" {% endif %}>в Украине</option>
+                    <option value="region" {% if item.brand.name in checkedBrands|keys and checkedBrands[item.brand.name]['type'] == 'region' %} selected = "selected" {% endif %}>в области</option>
+                    <option value="city" {% if item.brand.name in checkedBrands|keys and checkedBrands[item.brand.name]['type'] == 'city' %} selected = "selected" {% endif %}>в городе</option>
+                </select>
+            </div>
+        </div>
+        {% endfor %}
         <div class="row">
             <div class="col col_1_of_1">
                 <label>Адрес:</label>
@@ -166,4 +180,11 @@
         {{ form_row(form._token) }}
         
 </form>
+<script>
+    $(document).ready(function(){
+        $('.brandAgancy').click(function(){
+           $(this).parent().nextAll('div').toggle();
+        });
+    });
+</script>
 {% endblock %}

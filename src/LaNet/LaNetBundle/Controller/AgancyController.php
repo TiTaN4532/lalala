@@ -14,16 +14,50 @@ class AgancyController extends BaseController
     {
         $form = $this->createForm(new LaForm\AgancyProfileType(), $this->user);
 
-        if ('POST' == $request->getMethod()) {
-        if($prevLocation = $this->user->getUserInfo()->getLocation()) {
-            $this->manager->remove($prevLocation);
-            $this->manager->flush();
+        $queryBuilder = $this->manager->createQueryBuilder();
+        $agancy = $this->user->getAgancyInfo();
+        $queryBuilder
+                ->select('b.name, ab.type, ab.oficial')
+                ->from('LaNetLaNetBundle:AgancyBrand', 'ab')
+                ->leftjoin('LaNetLaNetBundle:Brand', 'b',  'WITH', 'ab.brand = b.id')
+                ->where('ab.agancy = :agancy')
+                ->setParameter('agancy', $agancy)
+            ;
+        
+        $checkedBrands = $queryBuilder->getQuery()->getResult();
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findAll();
+                
+        $checked = array();
+        foreach($checkedBrands as $value) {
+            $checked[$value['name']] = array('type' => $value['type'], 'oficial' => $value['oficial']);
         }
-
+        foreach($brands as $value) {
+            $agancyBrandsTemp = new LaEntity\AgancyBrand();
+            $agancyBrand[] = $agancyBrandsTemp->setAgancy($agancy)->setBrand($value);
+        }
+        
+        if ('POST' == $request->getMethod()) {
+            if($prevLocation = $this->user->getUserInfo()->getLocation()) {
+                $this->manager->remove($prevLocation);
+                $this->manager->flush();
+            }
         $form->bind($request);
-
         if ($form->isValid()) {
+          $queryBuilder
+                    ->delete('LaNetLaNetBundle:AgancyBrand', 'ab')
+                    ->where('ab.agancy = :agancy')->setParameter('agancy', $agancy)->getQuery()->execute();
 
+          if(isset( $_POST['brands']))
+            foreach($agancyBrand as $key => $value) {
+                if(key_exists($value->getBrand()->getName(), $_POST['brands'])) { 
+                    $oficial = (isset($_POST['oficial'][$value->getBrand()->getName()]) ) ? $_POST['oficial'][$value->getBrand()->getName()] : '0';
+                    $sql = "INSERT INTO agancy_brand (type, oficial, agancy_id, brand_id ) VALUES ('".$_POST['type'][$value->getBrand()->getName()]."',
+                            '".$oficial."',
+                            '".$agancy->getId()."',
+                            '".$value->getBrand()->getId()."'    )";
+                    $result = $this->manager->getConnection()->prepare($sql)->execute();
+                } 
+            }
           $this->manager->persist($this->user);
           $this->get('session')->getFlashBag()->add(
                 'notice_profile',
@@ -35,14 +69,15 @@ class AgancyController extends BaseController
         }
       }
       
-        return $this->render('LaNetLaNetBundle:Agancy:profile.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Agancy:profile.html.twig', array('form' => $form->createView(),
+                                                                                'brands' => $agancyBrand,
+                                                                                'checkedBrands' => $checked));
     }
     
      public function profileWorkAction(Request $request)
     {
         $queryBuilder = $this->manager->createQueryBuilder();
         $agancy = $this->user->getAgancyInfo();
-        $shcedule = $this->manager->getRepository('LaNetLaNetBundle:WorkShcedule')->findAll();
         $queryBuilder
                 ->select('s.name, ags.id, ags.startTime, ags.endTime')
                 ->from('LaNetLaNetBundle:AgancyWorkShcedule', 'ags')
@@ -52,6 +87,19 @@ class AgancyController extends BaseController
             ;
         
         $checkedShcedule = $queryBuilder->getQuery()->getResult();
+        $queryBuilder = $this->manager->createQueryBuilder();
+        $queryBuilder
+                ->select('sc')
+                ->from('LaNetLaNetBundle:WorkShcedule', 'sc')
+                ->where("sc.name != :even")
+                ->andwhere("sc.name != :odd")
+                ->andwhere("sc.name != :record")
+                ->setParameter('even', array('even'))
+                ->setParameter('odd', array('odd'))
+                ->setParameter('record', array('record'))
+            ;
+        
+        $shcedule = $queryBuilder->getQuery()->getResult();
         
         $checked = array();
         foreach($checkedShcedule as $value) {
@@ -63,20 +111,22 @@ class AgancyController extends BaseController
         }
         
         if ('POST' == $request->getMethod()) {
+            $queryBuilder = $this->manager->createQueryBuilder();
             $queryBuilder
                     ->delete('LaNetLaNetBundle:AgancyWorkShcedule', 'ss')
                     ->where('ss.agancy = :agancy')->setParameter('agancy', $agancy)->getQuery()->execute();
             
-            foreach($agancyShcedule as $key => $value) {
-                if(key_exists($value->getShcedule()->getName(), $_POST['shcedule'])) {                    
-                    $sql = "INSERT INTO agancy_shcedule (startTime, endTime, agancy_id, shcedule_id ) VALUES ('".$_POST['start'][$value->getShcedule()->getName()]."',
-                                                                                                            '".$_POST['end'][$value->getShcedule()->getName()]."',
-                                                                                                            '".$agancy->getId()."',
-                                                                                                           '".$value->getShcedule()->getId()."'    )";
-                    $stmt = $this->manager->getConnection()->prepare($sql);
-                    $result = $stmt->execute();
-                } 
-            }
+            if(isset( $_POST['shcedule'])) 
+                foreach($agancyShcedule as $key => $value) {
+                    if(key_exists($value->getShcedule()->getName(), $_POST['shcedule'])) {                    
+                        $sql = "INSERT INTO agancy_shcedule (startTime, endTime, agancy_id, shcedule_id ) VALUES ('".$_POST['start'][$value->getShcedule()->getName()]."',
+                                                                                                                '".$_POST['end'][$value->getShcedule()->getName()]."',
+                                                                                                                '".$agancy->getId()."',
+                                                                                                               '".$value->getShcedule()->getId()."'    )";
+                        $stmt = $this->manager->getConnection()->prepare($sql);
+                        $result = $stmt->execute();
+                    } 
+                }
             $this->get('session')->getFlashBag()->add(
                 'notice_profile',
                 'Ваши изменения были сохранены'

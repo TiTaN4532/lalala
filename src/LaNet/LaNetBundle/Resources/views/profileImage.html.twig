@@ -5,7 +5,7 @@
 {% elseif is_granted('ROLE_SALON') %}
  <a href="{{ path('la_net_la_net_salon_id', { 'id' : app.user.id }) }}"><img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></a>
 {% elseif is_granted('ROLE_AGANCY') %}
-    {{ path('la_net_la_net_agancy_profile') }}
+ <a href="{{ path('la_net_la_net_agancy_id', { 'id' : app.user.id }) }}"><img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></a>
 {% elseif is_granted('ROLE_SHOP') %}
 {% elseif is_granted('ROLE_SCHOOL_CENTER') %}
 {% endif %}

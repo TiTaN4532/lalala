@@ -79,14 +79,16 @@
 {% block choice_widget_expanded %}
 {% spaceless %}
     <div {{ block('widget_container_attributes') }}>
-        <div class="col col_1_of_2">
-            {% for child in form %}
-                <div>{{ form_widget(child) }} {{ form_label(child) }}</div>
-                {% if loop.index%5 == 0 %}
-                    </div><div class="col col_1_of_2">
-                {% endif %}
-            {% endfor %}
-         </div>
+        <div class="row">
+            <div class="col col_1_of_2">
+                {% for child in form %}
+                    <div>{{ form_widget(child) }} {{ form_label(child) }}</div>
+                    {% if loop.index%5 == 0 and not loop.last%}
+                        </div><div class="col col_1_of_2">
+                    {% endif %}
+                {% endfor %}
+             </div>
+        </div>
     </div>
 {% endspaceless %}
 {% endblock choice_widget_expanded %}

@@ -61,6 +61,15 @@ class Agancy extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->category = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->portfolio = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     /**
      * Get id
@@ -199,14 +208,7 @@ class Agancy extends \LaNet\LaNetBundle\Model\UploadImages
                 unlink($file);
         }
     }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->category = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+  
     
     /**
      * Set description
@@ -329,6 +331,7 @@ class Agancy extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function addPortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
     {
+        $portfolio->setAgancy($this);
         $this->portfolio[] = $portfolio;
     
         return $this;

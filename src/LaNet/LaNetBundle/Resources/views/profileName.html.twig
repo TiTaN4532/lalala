@@ -5,7 +5,7 @@
 {% elseif is_granted('ROLE_SALON') %}
   <a href="{{ path('la_net_la_net_salon_id', { 'id' : app.user.id }) }}">{{ app.user.getUserInfo.name | upper }}</a>
 {% elseif is_granted('ROLE_AGANCY') %}
-  {{ app.user.getUserInfo.name | upper }}
+  <a href="{{ path('la_net_la_net_agancy_id', { 'id' : app.user.id }) }}">{{ app.user.getUserInfo.name | upper }}</a>
 {% elseif is_granted('ROLE_SHOP') %}
 {% elseif is_granted('ROLE_SCHOOL_CENTER') %}
 {% endif %}
