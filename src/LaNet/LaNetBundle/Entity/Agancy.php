@@ -42,7 +42,7 @@ class Agancy extends \LaNet\LaNetBundle\Model\UploadImages
     protected $category;
     
      /**
-     * @ORM\OneToMany(targetEntity="AgancyBrand", mappedBy="agancy")
+     * @ORM\OneToMany(targetEntity="AgancyBrand", mappedBy="agancy", cascade={"persist"}, orphanRemoval=true)
      */
     protected $agancyBrand;
     
@@ -56,6 +56,10 @@ class Agancy extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $portfolio;
     
+   /**
+     * @ORM\OneToMany(targetEntity="AgancyWorkShcedule", mappedBy="agancy", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $schedule;
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="consumerInfo")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -355,5 +359,38 @@ class Agancy extends \LaNet\LaNetBundle\Model\UploadImages
     public function getPortfolio()
     {
         return $this->portfolio;
+    }
+
+    /**
+     * Add schedule
+     *
+     * @param \LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule
+     * @return Agancy
+     */
+    public function addSchedule(\LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule)
+    {
+        $this->schedule[] = $schedule;
+    
+        return $this;
+    }
+
+    /**
+     * Remove schedule
+     *
+     * @param \LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule
+     */
+    public function removeSchedule(\LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule)
+    {
+        $this->schedule->removeElement($schedule);
+    }
+
+    /**
+     * Get schedule
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchedule()
+    {
+        return $this->schedule;
     }
 }

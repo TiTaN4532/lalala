@@ -1,0 +1,25 @@
+la_net_admin_agancy:
+    pattern:  /agancy
+    defaults: { _controller: LaNetAdminBundle:Agancy:main }
+    
+la_net_admin_agancy_list:
+    pattern:  /agancy/list
+    defaults: { _controller: LaNetAdminBundle:Agancy:list }
+    
+la_net_admin_agancy_edit_profile:
+    pattern: /agancy/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Agancy:edit }
+    
+la_net_admin_agancy_ajax:
+    pattern:  /ajax/agancy
+    defaults: { _controller: LaNetAdminBundle:Agancy:listAjax }
+    options:
+        expose: true
+
+la_net_admin_ajax_delete_agancy:
+    pattern:  /ajax/delete_agancy/{id}
+    defaults: { _controller: LaNetAdminBundle:Agancy:delete }
+    options:
+        expose: true
+
+
