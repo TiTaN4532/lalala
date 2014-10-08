@@ -26,4 +26,6 @@ web/uploads/images/salons/*
 !default.png
 web/uploads/images/brand_category
 !default.png
+web/uploads/images/agancy
+!default.png
 !.htaccess
