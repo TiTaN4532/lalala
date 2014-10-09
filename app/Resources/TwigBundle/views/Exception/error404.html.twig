@@ -1,5 +1,154 @@
-{% extends "::base.html.twig" %}
+<!DOCTYPE html>
 
-{% block body %}
-  <h1>Page not found</h1>
-{% endblock %}
+<html>
+  <head>
+	<meta charset="utf-8"/>
+    <title>{% block title %}Lalook{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% block stylesheets %}
+     <script src="{{ asset('js/jquery-1.10.1.min.js') }}"></script>
+     <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+        <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
+{#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
+      <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+      <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    {% endblock %}
+  </head>
+  <body>
+      <div style="min-height: 100%; margin-bottom: -200px;height:auto ! important;height:100%;">
+      <header>
+          
+        <div id="header-row" class="container">
+          <div class="wrapper row-fluid">
+            <div class="span3">
+              <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192"></a></div>
+            </div>
+            <div class="span5">
+              <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
+                {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
+              </form>
+            </div>
+            <div class="span4">
+              <div  id="form2">
+               {# <form action="http://lalook.net/formdata.php" method="POST" name="form">
+                  <input type="text" name="search" placeholder="Поиск" id="search">
+                  <input type="submit" name="submit" value="" id="submit">
+                </form>#}
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav>
+           <div class="container">
+            <ul>
+                <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
+                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
+                <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
+                <li><a href="{{ path('la_net_la_net_brands_list') }}">Брэнды</a></li>
+                <li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>
+               {# <li><a href="">Косметика</a></li>
+                <li><a href="">Магазаны</a></li>
+                <li><a href="">Обучение</a></li>
+                <li><a href="">Литератур</a></li>
+                <li><a href="">Форум</a></li>#}
+                <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
+                <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
+            </ul>
+             </div>
+        </nav>
+        <div id="line"></div>
+    </header>
+    
+    <div class="wrapper">
+        <div class="container">
+        <h1 style="text-align: center;color:red;">Ошибка 404</h1>
+        <h3>Запрашиваемая страница не найдена</h3>
+        <p>Страница, на которую вы перешли, не найдена</p>
+        <p>Если вы перешли на эту страницу из письма, убедитесь, что ссылка не была искажена вашим почтовым клиентом. В случае, если ссылка в письмке разделена на части переносами строки, вы можете заного поссоздат ее, скопировав части в адресную строку браузера поочередно.</p>
+        <p><a href="{{ path('la_net_la_net_homepage') }}" class="blue-link">Вернуться на главную</a></p>
+        </div>
+    </div>
+    
+    <div class="clear-bottom"></div>
+ 
+    </div>
+    <footer>
+            <div class="footerLine"></div>
+       <div class="container">  
+        <nav>
+            <ul>
+                <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
+                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
+                <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
+                <li><a href="{{ path('la_net_la_net_brands_list') }}">Брэнды</a></li>
+                <li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>
+               {# <li><a href="">Косметика</a></li>
+                <li><a href="">Магазаны</a></li>
+                <li><a href="">Обучение</a></li>
+                <li><a href="">Литератур</a></li>
+                <li><a href="">Форум</a></li>#}
+                <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
+                <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
+            </ul>
+        </nav>
+        {#<div class="social">
+        <ul class="soc_group">
+            <li id="f"><a href="" ><img src="{{ asset('images/f.png') }}" height="20" width="10"/></a></li>
+            <li id="in"><a href="" ><img src="{{ asset('images/in.png') }}" height="19" width="21"/></a></li>
+            <li id="tw"><a href="" ><img src="{{ asset('images/tw.png') }}" height="16" width="18"/></a></li>
+            <li id="vk"><a href="" ><img src="{{ asset('images/vk.png') }}" height="17" width="28"/></a></li>
+        </ul>
+        </div>#}
+        <p>© 2013-2014 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.
+        <br />E-mail: lalooknet@gmail.com</p>
+       <p> <!-- Yandex.Metrika informer -->
+            <a href="https://metrika.yandex.ru/stat/?id=26254971&amp;from=informer"
+            target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/26254971/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+            style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:26254971,lang:'ru'});return false}catch(e){}"/></a>
+            <!-- /Yandex.Metrika informer -->
+
+            <!-- Yandex.Metrika counter -->
+            <script type="text/javascript">
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter26254971 = new Ya.Metrika({id:26254971,
+                                clickmap:true,
+                                trackLinks:true,
+                                accurateTrackBounce:true});
+                    } catch(e) { }
+                });
+
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f, false);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks");
+            </script>
+            <noscript><div><img src="//mc.yandex.ru/watch/26254971" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+            <!-- /Yandex.Metrika counter -->
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-54996261-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+       </p>
+       </div>
+    </footer>
+  </body>
+</html>

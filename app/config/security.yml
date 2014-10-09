@@ -29,5 +29,12 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/profile, role: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/master/profile, role: ROLE_SPECIALIST }
+        - { path: ^/master/change_password, role: ROLE_SPECIALIST }
+        - { path: ^/salon/profile, role: ROLE_SALON }
+        - { path: ^/salon/change_password, role: ROLE_SALON }
+        - { path: ^/agancy/profile, role: ROLE_AGANCY }
+        - { path: ^/agancy/change_password, role: ROLE_AGANCY }
+        - { path: ^/consumer/profile, role: ROLE_CONSUMER }
+        - { path: ^/consumer/change_password, role: ROLE_CONSUMER }
         - { path: ^/admin/, role: ROLE_ADMIN }

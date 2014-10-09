@@ -67,7 +67,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', 'email', array('label' => 'Электронный адрес', 'translation_domain' => 'FOSUserBundle'))
-            ->add('termsConditions', 'checkbox', array('label' => 'Согласен с', 'required' => true))
+//            ->add('termsConditions', 'checkbox', array('label' => 'Согласен с', 'required' => true))
             ->add('plainPassword', 'repeated', array(
                 'type' => 'password',
                 'options' => array('translation_domain' => 'FOSUserBundle'),

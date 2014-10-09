@@ -1,11 +1,11 @@
 {% if is_granted('ROLE_CONSUMER') %}
     {{ app.user.getUserInfo.firstName | upper}} {{ app.user.getUserInfo.lastName | upper }}
 {% elseif is_granted('ROLE_SPECIALIST') %}
-  <a href="{{ path('la_net_la_net_master_id', { 'id' : app.user.id }) }}">{{ app.user.getUserInfo.firstName | upper }} {{ app.user.getUserInfo.lastName | upper }}</a>
+  <a href="{{ path('la_net_la_net_master_id', { 'id' : app.user.userinfo.id }) }}">{{ app.user.getUserInfo.firstName | upper }} {{ app.user.getUserInfo.lastName | upper }}</a>
 {% elseif is_granted('ROLE_SALON') %}
-  <a href="{{ path('la_net_la_net_salon_id', { 'id' : app.user.id }) }}">{{ app.user.getUserInfo.name | upper }}</a>
+  <a href="{{ path('la_net_la_net_salon_id', { 'id' : app.user.userinfo.id }) }}">{{ app.user.getUserInfo.name | upper }}</a>
 {% elseif is_granted('ROLE_AGANCY') %}
-  <a href="{{ path('la_net_la_net_agancy_id', { 'id' : app.user.id }) }}">{{ app.user.getUserInfo.name | upper }}</a>
+  <a href="{{ path('la_net_la_net_agancy_id', { 'id' : app.user.userinfo.id }) }}">{{ app.user.getUserInfo.name | upper }}</a>
 {% elseif is_granted('ROLE_SHOP') %}
 {% elseif is_granted('ROLE_SCHOOL_CENTER') %}
 {% endif %}
