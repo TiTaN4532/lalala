@@ -2,7 +2,7 @@
   
 {% block content %}
     <a href="{{ path('la_net_admin_agancy') }}"> < Назад</a>
-    <h1>Предстввительства:</h1>
+    <h1>Предствительства:</h1>
     <div class="results">
         {% for flashMessage in app.session.flashbag.get('notice_agancy') %}
           <div class="flash-notice success">

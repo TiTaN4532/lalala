@@ -1,5 +1,5 @@
 la_net_la_net_agancy_list:
-    pattern:  /club/agancy
+    pattern:  /agancy
     defaults: { _controller: LaNetLaNetBundle:Agancy:list }
 
 la_net_la_net_agancy_id:

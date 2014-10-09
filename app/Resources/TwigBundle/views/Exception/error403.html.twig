@@ -33,24 +33,6 @@
               </form>
             </div>
             <div class="span4">
-              <div id="login">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                  {% if not is_granted('ROLE_ADMIN') %}
-                       <div style="float:left;margin: 5px;"> {% include "LaNetLaNetBundle::profileImage.html.twig" %}</div>
-                  {% endif %}
-                       <div style="float:left;margin: 5px;"> 
-                        {% if not is_granted('ROLE_ADMIN') %}
-                            <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
-                            <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>
-                        {% endif %}
-                        <p id="sing_out"><a href="{{ path('fos_user_security_logout') }}">Выйти</a></p>
-                       </div>
-                 {% else  %}
-                     <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
-                     <div id="line2"></div>
-                     <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
-                 {% endif %}
-              </div>
               <div  id="form2">
                {# <form action="http://lalook.net/formdata.php" method="POST" name="form">
                   <input type="text" name="search" placeholder="Поиск" id="search">
@@ -81,7 +63,14 @@
         <div id="line"></div>
     </header>
     
-    {% block body %}{% endblock %}
+    <div class="wrapper">
+        <div class="container">
+        <h1 style="text-align: center;color:red;">Ошибка 403</h1>
+        <h3>Нет доступа</h3>
+        <p>У Вас нет доступа к этой странице</p>
+        <p><a href="{{ path('la_net_la_net_homepage') }}" class="blue-link">Вернуться на главную</a></p>
+        </div>
+    </div>
     
     <div class="clear-bottom"></div>
  

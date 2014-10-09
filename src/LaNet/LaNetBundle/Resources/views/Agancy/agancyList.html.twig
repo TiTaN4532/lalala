@@ -1,0 +1,85 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block slider %}
+{% endblock %}      
+
+{% block content %}
+<div><form action=""><input placeholder="Найдите представительство по названию" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input style="margin-left:10px;" type="submit" value="Найти"></form></div>
+
+<div> <div style="margin:10px 0 ;">{{ "Подбор представительства согласно вашим критериям:" | upper }}</div><form action="">
+        <select name="brand" class="half">
+          <option value="0">Выберите брэнд</option>
+          {% for item in brands %}
+            <option value="{{ item.id }}" {% if app.request.query.get('brand') == item.id  %} selected="selected"{% endif %}>{{ item.name }}</option>
+          {% endfor %}
+        </select>
+        {% if cities | length %}
+            <select name="city"  class="half">
+              <option value="0">Выберите город</option>
+              {% for item in cities %}
+                  <option value="{{ item['locality'] }}" {% if app.request.query.get('city') ==  item['locality']  %} selected="selected"{% endif %}>{{ item['locality'] }}</option>
+              {% endfor %}
+            </select>
+        {% endif %}
+        <div><input type="submit" value="Фильтровать"></div>
+      </form>
+</div>
+
+<h2 style="float:left;margin-right: 10px;">Карта</h2><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+<div id="map" style="width:100%;height:250px;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
+                <script>
+                    var map;
+                    function initialize() {
+                        var map_canvas = document.getElementById('map');
+                        var map_options = {
+                            center: new google.maps.LatLng(49.99, 36.230),
+                            zoom: 8
+                        };
+                        map = new google.maps.Map(map_canvas, map_options);
+
+                    }  
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+{% for item in agancy %}
+  <div class="row clear">
+      {% if item.location is not empty and item.location.lat is not empty and item.location.lang is not empty %}
+      <script type="text/javascript">
+          google.maps.event.addDomListener(window, 'load', function() {
+              var marker = new google.maps.Marker({
+                position: new google.maps.LatLng({{ item.location.lat }}, {{ item.location.lang }}),
+                map: map,
+                title:"{{ item.name }}" 
+            });
+          });
+          
+              </script>
+      {% endif %}
+    <hr style="margin-left: 3%;" />
+    <div class="col col_1_of_4" style="text-align: center;"><img src="{{ item.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div class="col col_3_of_4">
+      <h3><a href="{{ path('la_net_la_net_agancy_id', {'id': item.id }) }}" class="black-link">{{ item.name }}</a></h3>
+      {% if item.agancyBrand is not empty %}
+        <div class="row">
+          <div class="col col_1_of_3 blue">Брэнды:</div>
+          <div class="col col_2_of_3">{% for agancyBrand in item.agancyBrand %}{{ agancyBrand.brand.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+        </div>
+      {% endif %}
+      
+      {% if item.location is not empty and item.location.locality %}
+        <div class="row">
+          <div class="col col_1_of_3 blue">Адрес:</div>
+          <div class="col col_2_of_3">{{ item.location.locality }} {{ item.location.route }} {{ item.location.streetNumber }}
+          </div>
+        </div>
+      {% endif %}
+      <a style="float:right;" href="{{ path('la_net_la_net_agancy_id', {'id': item.id }) }}" class="blue-link">Подробнее</a>
+    </div>
+  </div>
+{% else %}
+  Представительств нет
+{% endfor %}
+  <div class="row clear pagination">
+  {{ knp_pagination_render(agancy) }}
+  </div>
+{% endblock %}

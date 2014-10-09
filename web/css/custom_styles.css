@@ -444,6 +444,9 @@ ul.list-style-none li {
     text-align: justify;
 }
 
+div.error {
+    color: #e39494;
+}
 .error ul {
     display: inline-block;
     padding:6px 20px;

@@ -163,12 +163,23 @@ class AgancyController extends BaseController
     
     public function listAction(Request $request)
     {
-         $session = $this->getRequest()->getSession();
-      $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalons($this->paginator, 10, $session->get('region'));
-      $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
+      $region = $this->getRequest()->getSession()->get('region');
+      $whereRegion = '';
+      if($region) {
+          $whereRegion ="l.administrative_area LIKE '%" . trim($region, '.') . "%' AND ";
+      } 
+      $query = $this->manager->createQuery("SELECT l.locality FROM LaNetLaNetBundle:Agancy a
+                                                LEFT JOIN a.location l     
+                                                WHERE " . $whereRegion . " l.locality != '' AND l.locality IS NOT NULL 
+                                                GROUP BY l.locality");
+          
+      $cities = $query->getArrayResult();
+      $agancy = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findFilteredAgancy($this->paginator, 10, $region); 
+      $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findAll();
 
-      return $this->render('LaNetLaNetBundle:Salon:salonList.html.twig', array('salons' => $salons, 
-                                                                                 'masterCategory' => $masterCategory, 
+      return $this->render('LaNetLaNetBundle:Agancy:agancyList.html.twig', array('agancy' => $agancy, 
+                                                                                 'brands' => $brands,
+                                                                                 'cities' => $cities
                                                                                 ));
     }
     
