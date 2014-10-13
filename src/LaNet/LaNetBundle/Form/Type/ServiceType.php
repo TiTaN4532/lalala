@@ -12,9 +12,9 @@ class ServiceType extends AbstractType
     
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    $builder ->add('name', 'text', array('label' => 'Услуга:', 'attr' => array('class' => 'half')))
-             ->add('startPrice', 'text', array('label' => 'цена от:', 'attr' => array('class' => 'half')))
-             ->add('endPrice', 'text', array('label' => 'до:', 'attr' => array('class' => 'half')));
+    $builder ->add('name', 'text', array('required' => true, 'label' => 'Услуга:', 'attr' => array('class' => 'half')))
+             ->add('startPrice', 'text', array('required' => true,'label' => 'цена от:', 'attr' => array('class' => 'half')))
+             ->add('endPrice', 'text', array('required' => true,'label' => 'до:', 'attr' => array('class' => 'half')));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)
