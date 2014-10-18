@@ -1,13 +1,20 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+{% endblock %}
 {% block slider %}
 {% endblock %}
 {% block content %}
 <a href="{{ path('la_net_la_net_brands_list') }}" class="button grey" style="margin-top: 20px;">Назад</a>
 <div class="brand-id">
   <div class="row">
-    <div class="col col_2_of_5"><img src="{{ brand.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
-    <div class="col col_3_of_5">
+       <div class="col col_1_of_3">
+        <a href="{{ asset(brand.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ brand.name | upper }}"><img src="{{ brand.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
+        </div>
+      <div class="col col_3_of_5">
         <h2 style="color:#578fac;">{{ brand.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
         <div class="row">
@@ -46,5 +53,12 @@
     
 </div>
 
- 
+   <script>
+    $(document).ready(function() {
+	$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
+  </script>
 {% endblock %}

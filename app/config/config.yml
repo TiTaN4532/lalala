@@ -114,7 +114,8 @@ liip_imagine:
         my_master_thumb_large:
                     quality:              100
                     filters:
-                        thumbnail: { size: [240, 240], mode: inset }
+#                        thumbnail: { size: [240, 240], mode: outbound }
+                        my_square_filter:  { size: 240 }
         my_master_large:
                     quality:              100
                     filters:
