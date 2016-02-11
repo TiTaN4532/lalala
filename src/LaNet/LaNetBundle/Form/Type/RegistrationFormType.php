@@ -83,7 +83,7 @@ class RegistrationFormType extends AbstractType
         $this->_buildFormMain($builder);
         $builder->add('userInfo', new ConsumerType(), array('label' => ' '))
                 ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
-                ->add('phone', 'collection', array( 'type'         => new PhoneType(),
+              /*  ->add('phone', 'collection', array( 'type'         => new PhoneType(),
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
                                                     'by_reference' => false,
@@ -91,7 +91,11 @@ class RegistrationFormType extends AbstractType
                 ->add('mail', 'collection', array( 'type'         => new MailType(),
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
-                                                    'by_reference' => false,));
+                                                    'by_reference' => false,
+                )
+               */
+                ;
+               
     }
     
     protected function _buildFormMaster(FormBuilderInterface $builder)
@@ -99,7 +103,7 @@ class RegistrationFormType extends AbstractType
         $this->_buildFormMain($builder);
         $builder->add('userInfo', new MasterType(), array('label' => ' '))
                 ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
-                ->add('phone', 'collection', array( 'type'         => new PhoneType(),
+               /* ->add('phone', 'collection', array( 'type'         => new PhoneType(),
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
                                                     'by_reference' => false,
@@ -108,7 +112,7 @@ class RegistrationFormType extends AbstractType
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
                                                     'by_reference' => false,))
-            ;
+         */   ;
     }
     
     protected function _buildFormSalon(FormBuilderInterface $builder)
@@ -116,7 +120,7 @@ class RegistrationFormType extends AbstractType
         $this->_buildFormMain($builder);
         $builder->add('userInfo', new SalonType(), array('label' => ' '))
             ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false))
-            ->add('phone', 'collection', array( 'type'         => new PhoneType(),
+            /*->add('phone', 'collection', array( 'type'         => new PhoneType(),
                                                 'allow_add'    => true,
                                                 'allow_delete'    => true,
                                                 'by_reference' => false,
@@ -125,7 +129,7 @@ class RegistrationFormType extends AbstractType
                                                 'allow_add'    => true,
                                                 'allow_delete'    => true,
                                                 'by_reference' => false,))
-            ;
+       */     ;
     }
     
     protected function _buildFormAgancy(FormBuilderInterface $builder)

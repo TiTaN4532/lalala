@@ -2,7 +2,24 @@
 
 {% block content %}
 
-<ul>
-  <li><a href="{{ path('la_net_admin_salons_list') }}">Список салонов</a></li>
-</ul>
+Тут должна быть форма для рассылки 2 2
+
+<h1>Автоматическая рассылка</h1>
+
+<form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
+        <div class="row errors">
+            {{ form_errors(form) }}
+            
+        </div>
+
+         {{ form_row(form.subject) }}
+         {{ form_row(form.mail) }}
+         {{ form_row(form.body) }}
+      
+
+        
+        {{ form_row(form._token) }}
+        <input type="submit" value="Отправить" />
+</form>
+       
 {% endblock content %}

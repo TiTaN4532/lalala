@@ -16,7 +16,7 @@ class SalonType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'Название:'))
-            ->add('link', 'text', array('label' => 'Сайт:'))
+           /* ->add('link', 'text', array('label' => 'Сайт:'))
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
              
             ->add('category', 'entity', array(
@@ -31,7 +31,7 @@ class SalonType extends AbstractType
                                                     'by_reference' => false,
                                                     'label' => 'Адрес:'
                                                   ))
-            ;
+          */  ;
 
     }
     
