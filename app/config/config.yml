@@ -82,8 +82,8 @@ fos_user:
             type: la_user_registration
     
 liip_imagine:
-    cache_prefix:         /uploads/cache
-    cache_clearer:        true
+#    cache_prefix:         /uploads/cache
+#    cache_clearer:        true
     filter_sets:
 #        my_partner_thumb_small:
 #            quality:              100
