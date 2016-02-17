@@ -13,7 +13,7 @@ class MainController extends BaseController
     public function indexAction()
     {
         $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findBy(array(),array('updated' => 'DESC'),3);
-        return $this->render('LaNetLaNetBundle::layout.html.twig', array('news' => $news));
+        return $this->render('LaNetLaNetBundle::layout.html.twig', array('news' => $news, 'menuPoint' => 'main'));
     }
     
     public function generateCsrfTokenAction()
@@ -84,13 +84,13 @@ class MainController extends BaseController
           }
 
         return $this->render('LaNetLaNetBundle::contact.html.twig',
-			array('menuPoint' => 'brand',
+			array('menuPoint' => 'contact',
                             'form' => $form->createView())
 		);
     }
     
     public function aboutAction() {
-        return $this->render('LaNetLaNetBundle::about.html.twig');
+        return $this->render('LaNetLaNetBundle::about.html.twig', array('menuPoint' => 'about'));
     }
    
 }

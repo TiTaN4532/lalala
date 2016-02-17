@@ -16,8 +16,8 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'ФИО'))
-            ->add('subject', 'text', array('label' => 'Тема 22:'))
-            ->add('body', 'textarea', array('label' => 'Сообщение2:'))
+            ->add('subject', 'text', array('label' => 'Тема:'))
+            ->add('body', 'textarea', array('label' => 'Сообщение:'))
             ->add('company', 'text', array('label' => 'Название компании:', 'required' => false))
             ->add('phone', 'text', array('label' => 'Телефон:'))
             ->add('mail', 'email', array('label' => 'Email адрес'))

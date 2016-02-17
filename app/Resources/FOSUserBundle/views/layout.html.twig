@@ -10,6 +10,9 @@
       <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
       <link rel="stylesheet" href="{{ asset('css/style.css') }}">
       
+      <script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      
         <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
       <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
 {#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
@@ -59,8 +62,9 @@
             </div>
           </div>
           <nav>
-             <div class="container">
-              <ul>
+             <div class="dropdown">
+                 <div class="container" <div class="dropdown">>
+               <ul class="dropdown-menu">
                   <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
 {#                  <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
                   <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
@@ -75,6 +79,7 @@
                   <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
               </ul>
                </div>
+                </div>
           </nav>
           <div id="line"></div>
       </header>

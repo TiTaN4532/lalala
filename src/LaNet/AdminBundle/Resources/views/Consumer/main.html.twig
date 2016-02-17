@@ -5,4 +5,13 @@
 <ul>
   <li><a href="{{ path('la_net_admin_consumers_list') }}">Список потребителей</a></li>
 </ul>
+ 
+   </br> </br>
+
+ <ul>
+  <li><a href="{{ path('la_net_admin_consumers_list', {'period': 'day'}) }}"">Добавленные пользователи за день({{day}})</a></li>
+  <li><a href="{{ path('la_net_admin_consumers_list', {'period': 'week'}) }}">Добавленные пользователи за неделю({{week}})</a></li>
+  <li><a href="{{ path('la_net_admin_consumers_list', {'period': 'month'}) }}">Добавленные пользователи за месяц({{month}})</a></li>
+</ul>
+  
 {% endblock content %}

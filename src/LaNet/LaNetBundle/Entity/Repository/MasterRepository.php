@@ -43,4 +43,41 @@ class MasterRepository extends EntityRepository
         return $query->getResult();
       }
     }
-}
+    
+    public function findListMasters($period)
+    {
+      
+                 
+      switch ($period) {
+        case "day":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+             
+        break;
+     
+        case "week":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+        break;
+    
+        case "month":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+        break;
+            
+        case "":
+              $wherePeriod = "";
+        break;
+             }
+                         
+ $query = $this->_em->createQuery("SELECT u FROM LaNetLaNetBundle:User u WHERE u.roles LIKE '%ROLE_SPECIALIST%'" .$wherePeriod);
+ return $query->getResult();
+    }
+
+               
+      }
+    
+    
+
+
+

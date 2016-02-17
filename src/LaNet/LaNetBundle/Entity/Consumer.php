@@ -249,7 +249,7 @@ class Consumer extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function setBirthday($birthday)
     {
-//        $this->birthday = new \DateTime(date('Y-m-d', $birthday));
+//       $this->birthday = new \DateTime(date('Y-m-d', $birthday));
         $this->birthday = $birthday;
     
         return $this;

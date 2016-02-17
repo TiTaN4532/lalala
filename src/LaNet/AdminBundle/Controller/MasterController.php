@@ -14,24 +14,36 @@ class MasterController extends BaseController
   
   public function mainAction(Request $request)
   {
-    return $this->render('LaNetAdminBundle:Master:main.html.twig', array('menuPoint' => 'masters'));
+                      
+     $resDay = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters('day');
+     
+     $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters('week');
+     
+     $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters('month');
+     
+                        
+    return $this->render('LaNetAdminBundle:Master:main.html.twig', array('menuPoint' => 'masters', 'day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
   }
 
   
   public function listAction(Request $request)
     {
+          
+        $period = $request->get('period');
+        
         $page = $request->query->get('page', 1);
-
-        $query = $this->manager->getRepository("LaNetLaNetBundle:User")->createQueryBuilder('u')
-                ->select('u')
-                ->where("u.roles LIKE '%ROLE_SPECIALIST%'");
-
-        $result = $query->getQuery();
-        
+             
+        $result = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters($period);
+               
         $paginator = $this->paginator->paginate($result, $page, 10);
-        
-        return $this->render('LaNetAdminBundle:Master:list.html.twig', array('menuPoint' => 'masters', 'masters' => $paginator));
+     
+            
+        return $this->render('LaNetAdminBundle:Master:list.html.twig', array('menuPoint' =>  array('masters', 'salon'),
+                                                                            'masters' => $paginator));
     }
+    
+    
+    
    
     public function editAction(Request $request, $id)
     {

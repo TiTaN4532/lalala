@@ -3,7 +3,8 @@
 namespace LaNet\LaNetBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-
+use LaNet\LaNetBundle\Entity;
+use Symfony\Component\HttpFoundation\Request;
 /**
  * ConsumerRepository
  *
@@ -12,4 +13,35 @@ use Doctrine\ORM\EntityRepository;
  */
 class ConsumerRepository extends EntityRepository
 {
+    public function findListConsumers($period)
+    {
+             
+      switch ($period) {
+        case "day":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+             
+        break;
+     
+        case "week":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+        break;
+    
+        case "month":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+        break;
+            
+        case "":
+              $wherePeriod = "";
+        break;
+             }
+                         
+ $query = $this->_em->createQuery("SELECT u FROM LaNetLaNetBundle:User u WHERE u.roles LIKE '%ROLE_CONSUMER%'" .$wherePeriod);
+  
+
+ return $query->getResult();
+    }
+    
 }

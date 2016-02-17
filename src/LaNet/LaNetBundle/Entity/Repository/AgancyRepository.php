@@ -14,6 +14,43 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AgancyRepository extends EntityRepository
 {
+    
+    
+    public function findListAgancy($period)
+    {
+             
+      switch ($period) {
+        case "day":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+             
+        break;
+     
+        case "week":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+        break;
+    
+        case "month":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+        break;
+            
+        case "":
+              $wherePeriod = "";
+        break;
+             }
+                         
+ $query = $this->_em->createQuery("SELECT u FROM LaNetLaNetBundle:User u WHERE u.roles LIKE '%ROLE_AGANCY%'" .$wherePeriod);
+  
+
+ return $query->getResult();
+    }
+    
+
+    
+    
+    
     public function findFilteredAgancy($peginator = false, $onPage = 1, $region)
     {
       $request = Request::createFromGlobals();

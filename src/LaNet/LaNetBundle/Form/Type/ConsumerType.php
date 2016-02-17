@@ -26,17 +26,16 @@ class ConsumerType extends AbstractType
         $builder
             ->add('firstName', 'text', array('label' => 'Имя:'))
             ->add('lastName', 'text', array('label' => 'Фамилия:'))
-//            ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('f' => 'Жен', 'm' => 'Муж'),
-//                                            'required'  => true,
-//            ))  
-//            ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
-//                
-//            ->add('birthday', 'text', array(   'label' => 'Дата рождения:', 'attr' => array('class' => 'datepicker'))) 
-//            ->add('location', new LocationType(true), array(
-//                                                    'by_reference' => false,
-//                                                    'label' => 'Адрес:'
-//                                                  ))  
-            ;
+            ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('f' => 'Жен', 'm' => 'Муж'),
+                                            'required'  => true,
+            ))  
+            ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
+                
+            ->add('birthday', 'text', array(   'label' => 'Дата рождения:', 'attr' => array('class' => 'datepicker'))) 
+            ->add('location', new LocationType(true), array(
+                                                    'by_reference' => false,
+                                                    'label' => 'Адрес:'
+                                                 ));
 
     }
     

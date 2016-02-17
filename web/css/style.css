@@ -254,6 +254,16 @@ h2 {
     float: left;
     width: 50%;
 }
+ul li a.active {
+  color: #005580;
+  text-decoration: underline;
+}
+
+ul li ul li a.active {
+  color: #005580;
+  text-decoration: underline;
+}
+
 .menu ul li a{
     display: block;
     cursor: pointer;

@@ -5,4 +5,12 @@
 <ul>
   <li><a href="{{ path('la_net_admin_salons_list') }}">Список салонов</a></li>
 </ul>
+  
+  </br> </br>
+
+ <ul>
+  <li><a href="{{ path('la_net_admin_salons_list', {'period': 'day'}) }}">Добавленные салоны за день({{day}})</a></li>
+  <li><a href="{{ path('la_net_admin_salons_list', {'period': 'week'}) }}">Добавленные салоны за неделю({{week}})</a></li>
+  <li><a href="{{ path('la_net_admin_salons_list', {'period': 'month'}) }}">Добавленные салоны за месяц({{month}})</a></li>
+</ul>
 {% endblock content %}

@@ -48,7 +48,7 @@
   <div class="clear"></div>
   <h1 class='line' style="float:left;margin-right: 10px;">Регистриция</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
 {% if not app.request.get('type') %}
-  <h5 class="clear" style="color: #AAA;">1. ВЫ РЕГИСТРИРУЕТЕСЬ КАК222:</h5>
+  <h5 class="clear" style="color: #AAA;">1. ВЫ РЕГИСТРИРУЕТЕСЬ КАК:</h5>
   <div id="registration">
     <div class="item"><img src="{{ asset('images/1.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a></div>
     <div class="item"><img src="{{ asset('images/2.png') }}"><a href="{{ path('fos_user_registration_register', {'type': 'specialist'}) }}">Мастер индустрии красоты</a></div>
