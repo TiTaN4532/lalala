@@ -160,7 +160,7 @@ class SalonController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_salon_profile_service_price'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Salon:profileServicePrice.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Salon:profileServicePrice.html.twig', array('menuPoint' => 'salon', 'form' => $form->createView()));
     }
     
     public function listAction(Request $request)

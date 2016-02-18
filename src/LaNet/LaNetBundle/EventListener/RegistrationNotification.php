@@ -9,7 +9,7 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class AutoRoleAssignmentListener implements EventSubscriberInterface
+class RegistrationNotification implements EventSubscriberInterface
 {
     private $container;
 
@@ -20,22 +20,27 @@ class AutoRoleAssignmentListener implements EventSubscriberInterface
     
     public static function getSubscribedEvents()
     {
-      return array(FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess', FOSUserEvents::REGISTRATION_INITIALIZE => 'onRegistrationInitialise' );
+      return array(FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess');
     }
 
     public function onRegistrationSuccess( FormEvent $event )
     {
-      $roles = array('specialist' => 'ROLE_SPECIALIST',
-                     'consumer' => 'ROLE_CONSUMER',
-                     'salon' => 'ROLE_SALON', 
-                     'agancy' => 'ROLE_AGANCY',
-                     'shop' => 'ROLE_SHOP',
-                     'school_center' => "ROLE_SCHOOL_CENTER");
-      $event->getForm()->getData()->addRole($roles[$event->getRequest()->query->get('type')]);
-
-     
-      
-        // what do
+    
+   
+     $form = $event->getForm();
+     $email = $form['email']->getData();
+       
+          
+             $message = \Swift_Message::newInstance()
+                    ->setSubject('Thanks')
+                    ->setFrom('info@lalook.net')
+                    ->setTo($email)
+                    ->setBody('message')
+                   ;
+              $this->container->get('mailer')->send($message);
+ 
+    //print_r ($data); 
+   // exit;
     }
     
     public function onRegistrationInitialise( UserEvent $event )

@@ -24,6 +24,11 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: kernel.event_subscriber }
+    la_net.reg_init_confirm:
+        class: LaNet\LaNetBundle\EventListener\RegistrationNotification
+        arguments: ['@service_container']
+        tags:
+            - { name: kernel.event_subscriber }
     la_net.password_change:
         class: LaNet\LaNetBundle\EventListener\ChangePasswordListener
         arguments: [ @router, @security.context]

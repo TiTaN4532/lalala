@@ -2,18 +2,18 @@
 
 {% block content %}
 
-<ul>
+  <div class="admin-main-menu">
+ <ul>
   <li><a href="{{ path('la_net_admin_masters_list') }}">Список мастеров</a></li>
   <li><a href="{{ path('la_net_admin_masters_categories_list') }}">Категории мастеров</a></li>
 </ul>
-  
-  </br> </br>
+  </div> 
 
+   <div class="admin-main-menu-period"> 
  <ul>
-  <li><a href="{{ path('la_net_admin_masters_list', {'period': 'day'}) }}">Добавленные мастера за день({{day}})</a></li>
-  <li><a href="{{ path('la_net_admin_masters_list', {'period': 'week'}) }}">Добавленные мастера за неделю({{week}})</a></li>
-  <li><a href="{{ path('la_net_admin_masters_list', {'period': 'month'}) }}">Добавленные мастера за месяц({{month}})</a></li>
-</ul>
+    <li><a href="{{ path('la_net_admin_masters_list', {'period': 'day'}) }}">Добавленные за день({{day}})</a><a href="{{ path('la_net_admin_masters_list', {'period': 'week'}) }}">Добавленные за неделю({{week}})</a><a href="{{ path('la_net_admin_masters_list', {'period': 'month'}) }}">Добавленные за месяц({{month}})</a></li>
+ </ul>
+   </div>
   
   
 {% endblock content %}
