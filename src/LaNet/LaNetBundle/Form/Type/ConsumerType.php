@@ -35,8 +35,7 @@ class ConsumerType extends AbstractType
             ->add('location', new LocationType(true), array(
                                                     'by_reference' => false,
                                                     'label' => 'Адрес:'
-                                                  ))  
-            ;
+                                                 ));
 
     }
     

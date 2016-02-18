@@ -14,23 +14,25 @@ class SalonController extends BaseController
   
   public function mainAction(Request $request)
   {
-    return $this->render('LaNetAdminBundle:Salon:main.html.twig', array('menuPoint' => 'salons'));
-  }
-
-  
+     $resDay = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('day');
+     $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('week');
+     $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('month');
+     
+     return $this->render('LaNetAdminBundle:Salon:main.html.twig', array('menuPoint' => 'salons', 'day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+  } 
+      
+    
   public function listAction(Request $request)
     {
-        $page = $request->query->get('page', 1);
+      $period= $request->get('period');
+      
+      $page = $request->query->get('page', 1);
                 
-        $query = $this->manager->getRepository("LaNetLaNetBundle:User")->createQueryBuilder('u')
-                ->select('u')
-                ->where("u.roles LIKE '%ROLE_SALON%'");
-
-        $result = $query->getQuery();
-       
+        $result= $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons($period);
+               
         $paginator = $this->paginator->paginate($result, $page, 10);
         
-        return $this->render('LaNetAdminBundle:Salon:list.html.twig', array('menuPoint' => 'salons', 'salons' => $paginator));
+        return $this->render('LaNetAdminBundle:Salon:list.html.twig', array('menuPoint' =>  array('masters', 'salon'), 'salons' => $paginator));
     }
 
        

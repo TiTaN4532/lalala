@@ -33,7 +33,9 @@ class AutoRoleAssignmentListener implements EventSubscriberInterface
                      'school_center' => "ROLE_SCHOOL_CENTER");
       $event->getForm()->getData()->addRole($roles[$event->getRequest()->query->get('type')]);
 
-      // what do
+     
+      
+        // what do
     }
     
     public function onRegistrationInitialise( UserEvent $event )

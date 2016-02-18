@@ -58,8 +58,7 @@ class MasterType extends AbstractType
             $builder->add('competitions', 'textarea', array('label' => 'Конкурсы, мероприятия:', 'required' => false))
                     ->add('education', 'textarea', array('label' => 'Образование:', 'required' => false))
                     ->add('usedCosmetics', 'textarea', array('label' => 'Используемая косметика:', 'required' => false))
-                    ->add('hobby', 'textarea', array('label' => 'Хобби:', 'required' => false))
-            ;
+                    ->add('hobby', 'textarea', array('label' => 'Хобби:', 'required' => false));
     }
     
     /**

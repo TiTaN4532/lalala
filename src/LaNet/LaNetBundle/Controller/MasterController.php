@@ -34,7 +34,8 @@ class MasterController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_master_profile'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Master:profile.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Master:profile.html.twig', array('menuPoint' => 'master', 'form' => $form->createView()
+                                                                                ));
     }
     
      public function profileWorkAction(Request $request)
@@ -82,7 +83,7 @@ class MasterController extends BaseController
             );
             return $this->redirect($this->generateUrl('la_net_la_net_master_profile_work'));
       }
-        return $this->render('LaNetLaNetBundle:Master:profileWork.html.twig', array('masterShcedule' => $masterShcedule, 'checkedShcedule' => $checked));
+        return $this->render('LaNetLaNetBundle:Master:profileWork.html.twig', array('menuPoint' => 'master', 'masterShcedule' => $masterShcedule, 'checkedShcedule' => $checked));
     }
     
     public function profilePortfolioAction(Request $request)
@@ -106,7 +107,7 @@ class MasterController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_master_profile_portfolio'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Master:profilePortfolio.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Master:profilePortfolio.html.twig', array('menuPoint' => 'master', 'form' => $form->createView()));
     }
     
     public function profileServicePriceAction(Request $request)
@@ -158,7 +159,7 @@ class MasterController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_master_profile_service_price'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Master:profileServicePrice.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Master:profileServicePrice.html.twig', array('menuPoint' => 'master', 'form' => $form->createView()));
     }
     
     public function listAction(Request $request)
@@ -180,6 +181,7 @@ class MasterController extends BaseController
       return $this->render('LaNetLaNetBundle:Master:masterList.html.twig', array('masters' => $masters, 
                                                                                  'masterCategory' => $masterCategory, 
                                                                                  'cities' => $cities,
+                                                                                 'menuPoint' => 'master',
                                                                                 ));
     }
     
@@ -190,6 +192,6 @@ class MasterController extends BaseController
           throw $this->createNotFoundException('Master not found!');
         }
       
-      return $this->render('LaNetLaNetBundle:Master:masterId.html.twig', array('master' => $master));
+      return $this->render('LaNetLaNetBundle:Master:masterId.html.twig', array('menuPoint' => 'master', 'master' => $master));
     }
 }

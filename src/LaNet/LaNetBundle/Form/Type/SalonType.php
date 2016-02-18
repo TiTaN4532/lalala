@@ -30,8 +30,7 @@ class SalonType extends AbstractType
             ->add('location', new LocationType(), array(
                                                     'by_reference' => false,
                                                     'label' => 'Адрес:'
-                                                  ))
-            ;
+                                                  ));
 
     }
     

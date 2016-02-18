@@ -890,3 +890,13 @@ ul li a.active {
 .width-auto select{
   width: auto;
 }
+
+.admin-main-menu {
+  padding-bottom: 0px;  
+    
+}
+
+.admin-main-menu-period li a {
+    padding-right: 10px;  
+    
+}

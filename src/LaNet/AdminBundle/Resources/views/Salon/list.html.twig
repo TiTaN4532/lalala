@@ -17,25 +17,37 @@
             <span><a href="" class="users-filter" data="{{letter}}">{{letter|upper}}</a></span>
         {% endfor %}
     </div>#}
-    <div style="margin-top: 30px;" id="users-list">
+      
+   <div style="margin-top: 30px;" id="users-list">
         {% for salon in salons %}
             <div class="user-item">
 
-                {#<div class="image col col_1_of_6 tablet_1_of_3 mobile_1_of_1"><img src="{{ asset(master.getWebPath) | imagine_filter('my_master_thumb_medium') }}"></div>#}
+                      {#<div class="image col col_1_of_6 tablet_1_of_3 mobile_1_of_1"><img src="{{ asset(master.getWebPath) | imagine_filter('my_master_thumb_medium') }}"></div>#}
               <div class="col col_2_of_6 tablet_1_of_3 mobile_1_of_1">
                     Email: <br />
                     <span>{{ salon.email }}</span>
                 </div>  
 
-
                 <div class="col col_2_of_6 tablet_1_of_3 mobile_1_of_1">
+                     Название: <br />
+            <span>{{ salon.userInfo.name }}</span>
+        </div>
+        
+        <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
+                    Дата регистрации: <br />
+           <span>{{ salon.created|date("m/d/Y") }}</span>
+        </div>
+        
+                <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
                     <a href="javascript:void(0)" class="remove-salon button" data="{{ salon.id }}">Удалить</a>
                     {#<a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>#}
                 </div>
             </div>
             <div class="clear"></div>
         {% endfor %}
+                
         {{ knp_pagination_render(salons) }}
+    </div>
             <script>
                 $('a.remove-salon').click(function() {
                     var link = $(this);
@@ -49,3 +61,4 @@
             </script>
     </div>
 {% endblock content %}
+

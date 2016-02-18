@@ -14,40 +14,37 @@ class ConsumerController extends BaseController
   
   public function mainAction(Request $request)
   {
-    return $this->render('LaNetAdminBundle:Consumer:main.html.twig', array('menuPoint' => 'consumers'));
-  }
-
+     $resDay = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('day');
+     $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('week');
+     $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('month');
+     
+     return $this->render('LaNetAdminBundle:Consumer:main.html.twig', array('menuPoint' => 'consumers', 'day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+  } 
+      
+    
   
   public function listAction(Request $request)
-    {
+    {   
+        $period= $request->get('period');
+              
         $usersFilter = array("#" => "", "0-9" => "", "A" => "a", "B" => "b", "C" => "c", "D" => "d", "E" => "e", "F" => "f", "G" => "g", "H" => "h",
                              "I" => "i", "J" => "j", "K" => "k", "L" => "l", "M" => "m", "N" => "n", "O" => "o", "P" => "p", "Q" => "q",
                               "R" => "r", "S" => "s", "T" => "t", "U" => "u", "V" => "v", "W" => "w", "X" => "x", "Y" => "y", "Z" => "z");
-        return $this->render('LaNetAdminBundle:Consumer:list.html.twig', array('menuPoint' => 'consumers', 'usersFilter' => $usersFilter));
-    }
-    
-    public function listAjaxAction(Request $request)
-    {
+        
         $page = $request->query->get('page', 1);
         $filter = $request->get('filter') ? $request->get('filter') : '';
         
-        $query = $this->manager->getRepository("LaNetLaNetBundle:User")->createQueryBuilder('u')
-                ->select('u')
-                ->where("u.roles LIKE '%ROLE_CONSUMER%'");
-
-        $result = $query->getQuery();
-       
+        $result = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers($period);
+                
         $paginator = $this->paginator->paginate($result, $page, 10);
-        $paginator->setTemplate('LaNetLaNetBundle:Pagination:ajaxPager.html.twig');
-        $paginator->setUsedRoute('la_net_admin_profiles_ajax');
-        $paginator->setParam('filter', $filter);
-        $paginator->setCustomParameters(array(
-            'divId' => 'users-list'
-        ));
-
-        return $this->render('LaNetAdminBundle:Consumer:listAjax.html.twig', array('items' => $paginator));
+             
+        
+        return $this->render('LaNetAdminBundle:Consumer:list.html.twig', array('menuPoint' => 'consumers', 'items' => $paginator, 'usersFilter' => $usersFilter));
     }
     
+    
+ 
+   
     public function editAction(Request $request, $id)
     {
         $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);

@@ -2,6 +2,8 @@
  
 {% block stylesheets %}
       {{ parent() }}
+        <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
+        <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
       <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
   {% endblock %}
       

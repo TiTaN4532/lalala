@@ -14,25 +14,32 @@ class AgancyController extends BaseController
   
   public function mainAction(Request $request)
   {
-    return $this->render('LaNetAdminBundle:Agancy:main.html.twig', array('menuPoint' => 'agancy'));
-  }
+     $resDay = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('day');
+     $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('week');
+     $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('month');
+     
+     return $this->render('LaNetAdminBundle:Agancy:main.html.twig', array('menuPoint' => 'agancy', 'day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+  } 
+     
 
   
   public function listAction(Request $request)
     {
+        $period= $request->get('period');
+        
         $page = $request->query->get('page', 1);
                 
-        $query = $this->manager->getRepository("LaNetLaNetBundle:User")->createQueryBuilder('u')
-                ->select('u')
-                ->where("u.roles LIKE '%ROLE_AGANCY%'");
-
-        $result = $query->getQuery();
-       
+        $result= $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy($period);
+               
         $paginator = $this->paginator->paginate($result, $page, 10);
+      
         
-        return $this->render('LaNetAdminBundle:Agancy:list.html.twig', array('menuPoint' => 'agancy', 'agancis' => $paginator));
+        return $this->render('LaNetAdminBundle:Agancy:list.html.twig', array('menuPoint' => 'agancy',
+                                                                             'agancis' => $paginator));
     }
 
+    
+       
        
     public function deleteAction(Request $request, $id)
     {

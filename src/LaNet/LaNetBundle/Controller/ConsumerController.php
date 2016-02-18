@@ -34,7 +34,7 @@ class ConsumerController extends BaseController
         }
       }
      
-        return $this->render('LaNetLaNetBundle:Consumer:profile.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Consumer:profile.html.twig', array('menuPoint' => 'consumer', 'form' => $form->createView()));
     }
     
     
@@ -43,7 +43,7 @@ class ConsumerController extends BaseController
     {
       $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findAll();
       
-      return $this->render('LaNetLaNetBundle:Master:masterList.html.twig', array('masters' => $masters));
+      return $this->render('LaNetLaNetBundle:Master:masterList.html.twig', array('menuPoint' => 'consumer', 'masters' => $masters));
     }
     
     public function masterIdAction(Request $request, $id)
@@ -53,6 +53,6 @@ class ConsumerController extends BaseController
           throw $this->createNotFoundException('Master not found!');
         }
       
-      return $this->render('LaNetLaNetBundle:Master:masterId.html.twig', array('master' => $master));
+      return $this->render('LaNetLaNetBundle:Master:masterId.html.twig', array('menuPoint' => 'consumer', 'master' => $master));
     }
 }

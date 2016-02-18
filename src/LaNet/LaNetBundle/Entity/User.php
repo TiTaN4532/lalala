@@ -64,6 +64,12 @@ class User extends BaseUser
     protected $mail;
     
   
+     /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
+    
     /**
      * @ORM\Column(type="boolean", nullable = true)
      */
@@ -216,6 +222,29 @@ class User extends BaseUser
         return $this->salonInfo;
     }
 
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Project
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+      
     /**
      * Set agancyInfo
      *

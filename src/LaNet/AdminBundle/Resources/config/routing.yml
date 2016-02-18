@@ -2,6 +2,10 @@ la_net_admin_homepage:
     pattern:  /
     defaults: { _controller: LaNetAdminBundle:Main:index }
     
+la_net_admin_send_mail:
+    pattern:  /send_mail
+    defaults: { _controller: LaNetAdminBundle:Main:sendMail }
+    
 la_net_admin_news_routes:
   resource: "routing_news.yml"
   prefix: /

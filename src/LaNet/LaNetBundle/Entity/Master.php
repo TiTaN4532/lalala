@@ -36,7 +36,7 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $adress;
      
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable = true)
      */
     protected $gender;
     
@@ -46,12 +46,12 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $serviceType;
     
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $birthday;
     
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $startWork;
     

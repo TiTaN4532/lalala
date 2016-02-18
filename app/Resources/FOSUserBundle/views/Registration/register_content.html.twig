@@ -100,10 +100,10 @@
       </div>
       <div class="row">
         <div class="col col_1_of_2">
-            {{ form_widget(form.userInfo.link) }}
+            {#{ form_widget(form.userInfo.link) }}
         </div>
         <div class="col col_1_of_2 error">
-            {{ form_errors(form.userInfo.link) }}
+            {{form_errors(form.userInfo.link) }}
         </div>
       </div>
       
@@ -278,7 +278,7 @@
             {{ form_label(form.userInfo.startWork, null, {'label_attr': {'class': 'blue-label'}}) }}
         </div>
         <div class="col col_2_of_5">
-            {{ form_widget(form.userInfo.startWork) }}
+            {{ form_widget(form.userInfo.startWork) }#}
         </div>
     </div> 
     {% elseif app.request.get('type') == 'consumer' %}   
@@ -301,7 +301,7 @@
       
       <div class="row">
         <div class="col col_1_of_6">
-           {{ form_label(form.userInfo.gender, null, {'label_attr': {'class': 'blue-label'}}) }}
+           {#{ form_label(form.userInfo.gender, null, {'label_attr': {'class': 'blue-label'}}) }}
            {{ form_widget(form.userInfo.gender) }}
         </div>
         <div class="col col_2_of_6 error">
@@ -328,7 +328,7 @@
             <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
                 {% for item in form.mail %}
                     <li>{{ form_widget(item.name) }}</li>
-                {% endfor %}
+                {% endfor %#}
             </ul>  
           </div>
         </div>
@@ -343,7 +343,7 @@
       </div>
       <div class="row">
         <div class="col col_1_of_2">
-            {{ form_widget(form.userInfo.link) }}
+            {#{ form_widget(form.userInfo.link) }}
         </div>
         <div class="col col_1_of_2 error">
             {{ form_errors(form.userInfo.link) }}
@@ -488,7 +488,7 @@
             <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
                 {% for item in form.mail %}
                     <li>{{ form_widget(item.name) }}</li>
-                {% endfor %}
+                {% endfor %#}
             </ul>  
           </div>
         </div>
@@ -505,7 +505,7 @@
         <div class="col col_1_of_2">
             <div class="row">
                 <div class="col col_1_of_5">
-                    {{ form_label(form.userInfo.description, null, {'label_attr': {'class': 'blue-label'}}) }}
+                    {#{ form_label(form.userInfo.description, null, {'label_attr': {'class': 'blue-label'}}) }}
                 </div>
                 <div class="col col_4_of_5">
                     {{ form_widget(form.userInfo.description) }}
@@ -652,10 +652,10 @@
             <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
                 {% for item in form.mail %}
                     <li>{{ form_widget(item.name) }}</li>
-                {% endfor %}
+                {% endfor %#}
             </ul>  
           </div>
-        </div>
+        </div> 
     {% elseif app.request.get('type') == 'shop' %}   
         {{ form_row(form.userInfo.name) }}
     {% elseif app.request.get('type') == 'school_center' %}   

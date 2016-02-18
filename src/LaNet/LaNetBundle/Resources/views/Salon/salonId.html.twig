@@ -12,8 +12,10 @@
 {% block content %}
 <div class="salon-id">
   <div class="row">
-    <div class="col col_1_of_3"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></div>
-    <div class="col col_2_of_3">
+    <div class="col col_1_of_3">
+        <a href="{{ asset(salon.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ salon.name | upper }}"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
+    </div>
+      <div class="col col_2_of_3">
         <h2 style="color:#578fac;">{{ salon.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">{{ "Основная информация:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
         <div class="row">

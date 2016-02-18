@@ -1,0 +1,23 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+
+<h1>Форма для рассылки</h1>
+
+<form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
+        <div class="row errors">
+            {{ form_errors(form) }}
+            
+        </div>
+
+         {{ form_row(form.subject) }}
+         {{ form_row(form.mail) }}
+         {{ form_row(form.body) }}
+      
+
+        
+        {{ form_row(form._token) }}
+        <input type="submit" value="Отправить" />
+</form>
+       
+{% endblock content %}

@@ -142,6 +142,11 @@ nav ul li {
     display: inline-block;
     margin-right: 33px;
 }
+
+ul.dropdown-menu li {
+    margin-right: 0px;
+}
+
 #line {
     height: 5px;
     background-color: #c2d9b1;
@@ -254,6 +259,16 @@ h2 {
     float: left;
     width: 50%;
 }
+ul li a.active {
+  color: #005580;
+  text-decoration: underline;
+}
+
+ul li ul li a.active {
+  color: #005580;
+  text-decoration: underline;
+}
+
 .menu ul li a{
     display: block;
     cursor: pointer;
