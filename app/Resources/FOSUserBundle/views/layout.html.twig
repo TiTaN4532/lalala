@@ -62,16 +62,20 @@
             </div>
           </div>
           <nav>
-             <div class="dropdown">
-                 <div class="container" <div class="dropdown">
-               <ul class="dropdown-menu">
-                  <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
-{#                  <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
-                  <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
+             <div class="container">
+                <ul>
+                   <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
+                   <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>
+                <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}" data-toggle="dropdown" >Клуб</a>
+                <ul class="dropdown-menu pull-rigth">
+                    <li><a href="{{ path('la_net_la_net_master_list') }}">Поиск мастера</a></li>
+                    <li><a href="{{ path('la_net_la_net_salon_list') }}">Поиск салона</a></li>
+                </ul>
+                </li>
                   <li><a href="{{ path('la_net_la_net_brands_list') }}">Брэнды</a></li>
                   <li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>
-                 {# <li><a href="">Косметика</a></li>
-                  <li><a href="">Магазаны</a></li>
+                  <li><a href="">Косметика</a></li>
+{#                <li><a href="">Магазаны</a></li>
                   <li><a href="">Обучение</a></li>
                   <li><a href="">Литератур</a></li>
                   <li><a href="">Форум</a></li>#}
@@ -79,7 +83,7 @@
                   <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
               </ul>
                </div>
-                </div>
+                
           </nav>
           <div id="line"></div>
       </header>
