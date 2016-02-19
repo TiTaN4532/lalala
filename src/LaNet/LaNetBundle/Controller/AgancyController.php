@@ -71,7 +71,7 @@ class AgancyController extends BaseController
         }
       }
       
-        return $this->render('LaNetLaNetBundle:Agancy:profile.html.twig', array('menuPoint' => 'agancy', 'form' => $form->createView(),
+        return $this->render('LaNetLaNetBundle:Agancy:profile.html.twig', array('form' => $form->createView(),
                                                                                 'brands' => $agancyBrand,
                                                                                 'checkedBrands' => $checked
                                                                                 ));
@@ -136,7 +136,7 @@ class AgancyController extends BaseController
             );
             return $this->redirect($this->generateUrl('la_net_la_net_agancy_profile_work'));
       }
-        return $this->render('LaNetLaNetBundle:Agancy:profileWork.html.twig', array('menuPoint' => 'agancy', 'agancyShcedule' => $agancyShcedule, 'checkedShcedule' => $checked));
+        return $this->render('LaNetLaNetBundle:Agancy:profileWork.html.twig', array('agancyShcedule' => $agancyShcedule, 'checkedShcedule' => $checked));
     }
     
     public function profilePortfolioAction(Request $request)
@@ -160,7 +160,7 @@ class AgancyController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_agancy_profile_portfolio'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Agancy:profilePortfolio.html.twig', array('menuPoint' => 'agancy', 'form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Agancy:profilePortfolio.html.twig', array('form' => $form->createView()));
     }
     
     
@@ -183,8 +183,7 @@ class AgancyController extends BaseController
       return $this->render('LaNetLaNetBundle:Agancy:agancyList.html.twig', array('agancy' => $agancy, 
                                                                                  'brands' => $brands,
                                                                                  'cities' => $cities,
-                                                                                 'menuPoint' => 'agancy',
-                                                                                ));
+                                                                                  ));
     }
     
     public function agancyIdAction(Request $request, $id)
@@ -194,6 +193,6 @@ class AgancyController extends BaseController
           throw $this->createNotFoundException('Agancy not found!');
         }
       
-      return $this->render('LaNetLaNetBundle:Agancy:agancyId.html.twig', array('menuPoint' => 'agancy', 'agancy' => $agancy));
+      return $this->render('LaNetLaNetBundle:Agancy:agancyId.html.twig', array('agancy' => $agancy));
     }
 }

@@ -28,9 +28,9 @@ class MasterType extends AbstractType
         $builder
             ->add('firstName', 'text', array('label' => 'Имя:'))
             ->add('lastName', 'text', array('label' => 'Фамилия:'))
-            ->add('link', 'text', array('label' => 'Сайт:'))
+            ->add('link', 'text', array('required'  => false, 'label' => 'Сайт:'))
             ->add('gender', 'choice', array('label' => 'Пол:', 'choices'   => array('f' => 'Жен', 'm' => 'Муж'),
-                                            'required'  => true,
+                                            'required'  => false,
             ))  
             ->add('serviceType', 'choice', array('label' => 'Тип обслуживания:', 
                                                  'choices'   => array('home' => 'На дому', 'salon' => 'В салоне', 'salon-home' => 'Выезд на дом к клиенту'),
@@ -38,7 +38,7 @@ class MasterType extends AbstractType
                                                  'multiple' => true,
                                                  'expanded' => true,
             ))
-            ->add('birthday', 'text', array(   'label' => 'Дата рождения:', 'attr' => array('class' => 'datepicker')))       
+            ->add('birthday', 'text', array( 'required'  => false,  'label' => 'Дата рождения:', 'attr' => array('class' => 'datepicker')))       
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
             ->add('category', 'entity', array(
                   'attr' => array('class' => 'category-list'),
@@ -46,13 +46,14 @@ class MasterType extends AbstractType
                   'class' => 'LaNet\LaNetBundle\Entity\MasterCategory',
                   'property'     => 'name',
                   'multiple'     => true,
+                  'required'  => false,
                   'expanded' => true
                 ))  
             ->add('location', new LocationType(), array(
                                                     'by_reference' => false,
                                                     'label' => 'Адрес:'
                                                   ))
-            ->add('startWork', 'text', array(   'label' => 'Начало работы:', 'attr' => array('class' => 'datepicker')))    
+            ->add('startWork', 'text', array( 'required'  => false,  'label' => 'Начало работы:', 'attr' => array('class' => 'datepicker')))    
             ;
         if($this->action == 'profile')
             $builder->add('competitions', 'textarea', array('label' => 'Конкурсы, мероприятия:', 'required' => false))

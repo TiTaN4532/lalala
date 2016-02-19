@@ -18,7 +18,7 @@ class ConsumerController extends BaseController
      $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('week');
      $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('month');
      
-     return $this->render('LaNetAdminBundle:Consumer:main.html.twig', array('menuPoint' => 'consumers', 'day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+     return $this->render('LaNetAdminBundle:Consumer:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
   } 
       
     
@@ -39,7 +39,7 @@ class ConsumerController extends BaseController
         $paginator = $this->paginator->paginate($result, $page, 10);
              
         
-        return $this->render('LaNetAdminBundle:Consumer:list.html.twig', array('menuPoint' => 'consumers', 'items' => $paginator, 'usersFilter' => $usersFilter));
+        return $this->render('LaNetAdminBundle:Consumer:list.html.twig', array('items' => $paginator, 'usersFilter' => $usersFilter));
     }
     
     
@@ -67,7 +67,7 @@ class ConsumerController extends BaseController
           }
         }
 
-        return $this->render('LaNetAdminBundle:Master:edit.html.twig', array('menuPoint' => 'masters', 'form' => $form->createView()));
+        return $this->render('LaNetAdminBundle:Master:edit.html.twig', array('form' => $form->createView()));
     }
     
     public function deleteAction(Request $request, $id)

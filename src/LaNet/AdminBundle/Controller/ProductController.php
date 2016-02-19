@@ -18,7 +18,7 @@ class ProductController extends BaseController
             $products, $this->getRequest()->query->get('page', 1), 12
         );
 
-        return $this->render('LaNetAdminBundle:Product:List.html.twig', array('menuPoint' => 'product', 'pagination' => $pagination));
+        return $this->render('LaNetAdminBundle:Product:List.html.twig', array('pagination' => $pagination));
     }
 
     public function editAction(Request $request, $id = null)
@@ -89,8 +89,7 @@ class ProductController extends BaseController
         }
       }
 
-        return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('menuPoint' => 'product',
-                                                                              'product' => $product, 
+        return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('product' => $product, 
                                                                               'categoryTree' => $categoryTree, 
                                                                               'categories' => $categories, 
                                                                               'form' => $form->createView()));

@@ -18,7 +18,7 @@ class AgancyController extends BaseController
      $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('week');
      $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('month');
      
-     return $this->render('LaNetAdminBundle:Agancy:main.html.twig', array('menuPoint' => 'agancy', 'day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+     return $this->render('LaNetAdminBundle:Agancy:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
   } 
      
 
@@ -34,8 +34,7 @@ class AgancyController extends BaseController
         $paginator = $this->paginator->paginate($result, $page, 10);
       
         
-        return $this->render('LaNetAdminBundle:Agancy:list.html.twig', array('menuPoint' => 'agancy',
-                                                                             'agancis' => $paginator));
+        return $this->render('LaNetAdminBundle:Agancy:list.html.twig', array('agancis' => $paginator));
     }
 
     

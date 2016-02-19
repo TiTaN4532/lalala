@@ -18,7 +18,7 @@ class BrandController extends BaseController
             $brands, $this->getRequest()->query->get('page', 1), 1000
         );
 
-        return $this->render('LaNetAdminBundle:Brand:list.html.twig', array('menuPoint' => 'brand', 'pagination' => $pagination));
+        return $this->render('LaNetAdminBundle:Brand:list.html.twig', array('pagination' => $pagination));
     }
 
     public function editAction(Request $request, $id = null)
@@ -51,7 +51,7 @@ class BrandController extends BaseController
         }
       }
 
-        return $this->render('LaNetAdminBundle:Brand:edit.html.twig', array('menuPoint' => 'brand', 'brand' => $brand, 'form' => $form->createView()));
+        return $this->render('LaNetAdminBundle:Brand:edit.html.twig', array('brand' => $brand, 'form' => $form->createView()));
     }
 
     public function deleteAction(Request $request, $id)

@@ -18,7 +18,7 @@ class MasterCategoryController extends BaseController
       $category = new LaEntity\MasterCategory();
 
       $form = $this->createForm(new LaForm\MasterCategoryType(), $category);
-      return $this->render('LaNetAdminBundle:Master:Category.html.twig', array('menuPoint' => 'masters', 'categories' => $categories, 'form' => $form->createView()));
+      return $this->render('LaNetAdminBundle:Master:Category.html.twig', array('categories' => $categories, 'form' => $form->createView()));
     }
 
     public function newCategoryAction(Request $request)

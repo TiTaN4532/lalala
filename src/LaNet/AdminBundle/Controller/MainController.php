@@ -13,7 +13,7 @@ class MainController extends BaseController
 {
     public function indexAction()
     {
-        return $this->render('LaNetAdminBundle::layout.html.twig', array('menuPoint' => 'details'));
+        return $this->render('LaNetAdminBundle::layout.html.twig');
     }
     
     
@@ -27,9 +27,9 @@ class MainController extends BaseController
             $data = ($form->getData());
              $message = \Swift_Message::newInstance()
                     ->setSubject($data['subject'])
-                    ->setFrom($data['mail'])
-                    ->setTo('derevyanko.pav@mail.ru')
-//                    ->setTo('info@lalook.net')
+                    ->setFrom('info@lalook.net')
+//                    ->setTo('derevyanko.pav@mail.ru')
+                    ->setTo($data['mail'])
                     ->setBody(
                         $data['body']
                     )
@@ -46,14 +46,13 @@ class MainController extends BaseController
           }
 
         return $this->render('LaNetAdminBundle:Sendmail:send.html.twig',
-			array( 'menuPoint' => 'send',
-                            'form' => $form->createView())
+			array('form' => $form->createView())
 		);
     }
     
    # public function sendMailAction()
    # {
-   #     return $this->render('LaNetAdminBundle:Sendmail:send.html.twig', array('menuPoint' => 'send'));
+   #     return $this->render('LaNetAdminBundle:Sendmail:send.html.twig');
    # }
     
     public function accessDeniedAction()

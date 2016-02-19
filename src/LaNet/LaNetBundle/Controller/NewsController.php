@@ -10,12 +10,12 @@ class NewsController extends BaseController
     public function newsListAction()
     {
         $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findBy(array(),array('updated' => 'DESC'));
-        return $this->render('LaNetLaNetBundle:News:newsList.html.twig', array('menuPoint' => 'news', 'news' => $news));
+        return $this->render('LaNetLaNetBundle:News:newsList.html.twig', array('news' => $news));
     }
     
     public function newsIdAction($slug)
     {
         $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findOneBy(array('slug' => $slug));
-        return $this->render('LaNetLaNetBundle:News:newsId.html.twig', array('menuPoint' => 'news', 'news' => $news));
+        return $this->render('LaNetLaNetBundle:News:newsId.html.twig', array('news' => $news));
     }
 }

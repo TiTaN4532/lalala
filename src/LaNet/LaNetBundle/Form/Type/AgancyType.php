@@ -16,7 +16,7 @@ class AgancyType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'Название:'))
-            ->add('description', 'textarea', array('label' => 'Описание:'))
+            ->add('description', 'textarea', array('required'  => false, 'label' => 'Описание:'))
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
              
             ->add('category', 'entity', array(

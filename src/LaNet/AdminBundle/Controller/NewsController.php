@@ -18,7 +18,7 @@ class NewsController extends BaseController
             $newsPosts, $this->getRequest()->query->get('page', 1), 12
         );
 
-        return $this->render('LaNetAdminBundle:News:List.html.twig', array('menuPoint' => 'news_posts', 'pagination' => $pagination));
+        return $this->render('LaNetAdminBundle:News:List.html.twig', array('pagination' => $pagination));
     }
 
     public function editAction(Request $request, $id = null)
@@ -58,7 +58,7 @@ class NewsController extends BaseController
         }
       }
 
-        return $this->render('LaNetAdminBundle:News:Edit.html.twig', array('menuPoint' => 'news_posts', 'news_post' => $newsPost, 'form' => $form->createView()));
+        return $this->render('LaNetAdminBundle:News:Edit.html.twig', array('news_post' => $newsPost, 'form' => $form->createView()));
     }
 
     public function deleteAction(Request $request, $id)
