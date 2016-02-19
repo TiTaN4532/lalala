@@ -35,13 +35,13 @@ class MainController extends BaseController
                     )
                 ;
               $this->get('mailer')->send($message);
- /*             $this->get('session')->getFlashBag()->add(
-                    'notice',
-                    'Мы прочитаем ваше сообщение!'
+              $this->get('session')->getFlashBag()->add(
+                    'notice_send',
+                    'Сообщения отправлены!'
                 );
               $this->manager->flush();
-*/
- //               return $this->redirect($this->generateUrl('la_net_la_net_homepage'));
+
+                return $this->redirect($this->generateUrl('la_net_admin_homepage'));
             }
           }
 

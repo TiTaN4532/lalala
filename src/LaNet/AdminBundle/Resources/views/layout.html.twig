@@ -35,7 +35,14 @@
       </div>
       <div class="col col_4_of_5 tablet_2_of_3 mobile_1_of_2">
           {% block content %}
-          {% endblock %}
+
+{% for flashMessage in app.session.flashbag.get('notice_send') %}
+        <div class="flash-notice success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    
+{% endblock content %}
       </div>
     </div>
   </div>
@@ -48,3 +55,4 @@
 
  </script>
 {% endblock %}
+
