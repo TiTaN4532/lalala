@@ -22,7 +22,8 @@ class ConsumerProfileType extends AbstractType
                 ->add('phone', 'collection', array( 'type'         => new PhoneType(),
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
-                                                    'by_reference' => false,))
+                                                    'by_reference' => false,
+                                                    'required' => false))
                 ->add('mail', 'collection', array( 'type'         => new MailType(),
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,

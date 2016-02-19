@@ -22,7 +22,7 @@ class MasterController extends BaseController
      $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters('month');
      
                         
-    return $this->render('LaNetAdminBundle:Master:main.html.twig', array('menuPoint' => 'masters', 'day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+    return $this->render('LaNetAdminBundle:Master:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
   }
 
   
@@ -38,8 +38,7 @@ class MasterController extends BaseController
         $paginator = $this->paginator->paginate($result, $page, 10);
      
             
-        return $this->render('LaNetAdminBundle:Master:list.html.twig', array('menuPoint' =>  array('masters', 'salon'),
-                                                                            'masters' => $paginator));
+        return $this->render('LaNetAdminBundle:Master:list.html.twig', array('masters' => $paginator));
     }
     
     
@@ -67,7 +66,7 @@ class MasterController extends BaseController
           }
         }
 
-        return $this->render('LaNetAdminBundle:Master:edit.html.twig', array('menuPoint' => 'masters', 'form' => $form->createView()));
+        return $this->render('LaNetAdminBundle:Master:edit.html.twig', array('form' => $form->createView()));
     }
     
     public function deleteAction(Request $request, $id)

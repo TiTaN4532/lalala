@@ -35,7 +35,7 @@ class SalonController extends BaseController
         }
       }
       
-        return $this->render('LaNetLaNetBundle:Salon:profile.html.twig', array('menuPoint'=>'salon', 'form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Salon:profile.html.twig', array('form' => $form->createView()));
     }
     
      public function profileWorkAction(Request $request)
@@ -83,7 +83,7 @@ class SalonController extends BaseController
             );
             return $this->redirect($this->generateUrl('la_net_la_net_salon_profile_work'));
       }
-        return $this->render('LaNetLaNetBundle:Salon:profileWork.html.twig', array('menuPoint'=>'salon', 'salonShcedule' => $salonShcedule, 'checkedShcedule' => $checked));
+        return $this->render('LaNetLaNetBundle:Salon:profileWork.html.twig', array('salonShcedule' => $salonShcedule, 'checkedShcedule' => $checked));
     }
     
     public function profilePortfolioAction(Request $request)
@@ -107,7 +107,7 @@ class SalonController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_salon_profile_portfolio'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Salon:profilePortfolio.html.twig', array('menuPoint'=>'salon', 'form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Salon:profilePortfolio.html.twig', array('form' => $form->createView()));
     }
     
     public function profileServicePriceAction(Request $request)
@@ -160,7 +160,7 @@ class SalonController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_salon_profile_service_price'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Salon:profileServicePrice.html.twig', array('menuPoint' => 'salon', 'form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Salon:profileServicePrice.html.twig', array('form' => $form->createView()));
     }
     
     public function listAction(Request $request)
@@ -181,9 +181,8 @@ class SalonController extends BaseController
 
       return $this->render('LaNetLaNetBundle:Salon:salonList.html.twig', array('salons' => $salons, 
                                                                                  'masterCategory' => $masterCategory, 
-                                                                                 'cities' => $cities,
-                                                                                 'menuPoint'=> 'salon' 
-                                                                                ));
+                                                                                 'cities' => $cities
+                                                                                  ));
     }
     
     public function salonIdAction(Request $request, $id)
@@ -193,6 +192,6 @@ class SalonController extends BaseController
           throw $this->createNotFoundException('Salon not found!');
         }
       
-      return $this->render('LaNetLaNetBundle:Salon:salonId.html.twig', array('menuPoint'=>'salon', 'salon' => $salon));
+      return $this->render('LaNetLaNetBundle:Salon:salonId.html.twig', array('salon' => $salon));
     }
 }

@@ -65,23 +65,23 @@
         <nav>
            <div class="container">
             <ul>
-                <li><a href="{{ path('la_net_la_net_homepage') }}"{% if menuPoint == 'main' %} class="active"{% endif %}>Главная</a></li>
-                <li><a href="{{ path('la_net_la_net_news_list') }}"{% if menuPoint == 'news' %} class="active"{% endif %}>Новости</a></li>
-                <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if menuPoint == 'salon' or menuPoint == 'master'%} class="active"{% endif %} data-toggle="dropdown" >Клуб</a>
+                <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li>
+                <li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>
+                <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб</a>
                 <ul class="dropdown-menu pull-rigth">
-                    <li><a href="{{ path('la_net_la_net_master_list') }}"{% if menuPoint == 'master' %} class="active"{% endif %}>Поиск мастера</a></li>
-                    <li><a href="{{ path('la_net_la_net_salon_list') }}"{% if menuPoint == 'salon' %} class="active"{% endif %}>Поиск салона</a></li>
+                    <li><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' %} class="active"{% endif %}>Поиск мастера</a></li>
+                    <li><a href="{{ path('la_net_la_net_salon_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %} class="active"{% endif %}>Поиск салона</a></li>
                 </ul>
                 </li>
-                <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if menuPoint == 'brand' %} class="active"{% endif %}>Брэнды</a></li>
-                <li><a href="{{ path('la_net_la_net_agancy_list') }}"{% if menuPoint == 'agancy' %} class="active"{% endif %}>Представительства</a></li>
-                <li><a href="{{ path('la_net_la_net_product_list') }}"{% if menuPoint == 'product' %} class="active"{% endif %}>Косметика</a></li>
-{#                <li><a href="">Магазаны</a></li>
+                <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Брэнды</a></li>
+                <li><a href="{{ path('la_net_la_net_agancy_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_agancy_list' %} class="active"{% endif %}>Представительства</a></li>
+                <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Косметика</a></li>
+{#               <li><a href="">Магазаны</a></li>
                 <li><a href="">Обучение</a></li>
                 <li><a href="">Литератур</a></li>
                 <li><a href="">Форум</a></li>#}
-                <li><a href="{{ path('la_net_la_net_contact') }}"{% if menuPoint == 'contact' %} class="active"{% endif %}>Обратная связь</a></li>
-                <li><a href="{{ path('la_net_la_net_about') }}"{% if menuPoint == 'about' %} class="active"{% endif %}>О портале</a></li>
+                <li><a href="{{ path('la_net_la_net_contact') }}" {% if app.request.attributes.get('_route') == 'la_net_la_net_contact' %} class="active" {% endif %}>Обратная связь</a></li>
+                <li><a href="{{ path('la_net_la_net_about') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_about' %} class="active"{% endif %}>О портале</a></li>
             </ul>
              </div>
         </nav>

@@ -22,12 +22,12 @@ class Phone
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable = true)
      */
     protected $number;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable = true)
      */
     protected $operator;
     

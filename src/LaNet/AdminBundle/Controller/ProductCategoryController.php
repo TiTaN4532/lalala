@@ -15,7 +15,7 @@ class ProductCategoryController extends BaseController
       
         $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('parent' => NULL));
         
-        return $this->render('LaNetAdminBundle:ProductCategory:list.html.twig', array('menuPoint' => 'product_category', 'categories' => $categories));
+        return $this->render('LaNetAdminBundle:ProductCategory:list.html.twig', array('categories' => $categories));
     }
 
     public function editAction(Request $request, $id = null)
@@ -53,7 +53,7 @@ class ProductCategoryController extends BaseController
           }
         }
 
-          return $this->render('LaNetAdminBundle:ProductCategory:edit.html.twig', array('menuPoint' => 'product_category', 'form' => $form->createView()));
+          return $this->render('LaNetAdminBundle:ProductCategory:edit.html.twig', array('form' => $form->createView()));
 
       }
       

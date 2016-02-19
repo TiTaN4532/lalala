@@ -13,7 +13,7 @@ class MainController extends BaseController
     public function indexAction()
     {
         $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findBy(array(),array('updated' => 'DESC'),3);
-        return $this->render('LaNetLaNetBundle::layout.html.twig', array('news' => $news, 'menuPoint' => 'main'));
+        return $this->render('LaNetLaNetBundle::layout.html.twig', array('news' => $news, ));
     }
     
     public function generateCsrfTokenAction()
@@ -66,8 +66,8 @@ class MainController extends BaseController
              $message = \Swift_Message::newInstance()
                     ->setSubject($data['subject'])
                     ->setFrom($data['mail'])
-                    ->setTo('derevyanko.pav@mail.ru')
-//                    ->setTo('info@lalook.net')
+//                    ->setTo('derevyanko.pav@mail.ru')
+                    ->setTo('info@lalook.net')
                     ->setBody(
                         $data['body']
                     )
@@ -84,13 +84,12 @@ class MainController extends BaseController
           }
 
         return $this->render('LaNetLaNetBundle::contact.html.twig',
-			array('menuPoint' => 'contact',
-                            'form' => $form->createView())
+			array('form' => $form->createView())
 		);
     }
     
     public function aboutAction() {
-        return $this->render('LaNetLaNetBundle::about.html.twig', array('menuPoint' => 'about'));
+        return $this->render('LaNetLaNetBundle::about.html.twig', array());
     }
    
 }
