@@ -17,26 +17,28 @@
         </div><div class="col col_3_of_5">
         <h2 style="color:#578fac;">{{ agancy.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-        <div class="row">
-          <div class="col col_1_of_3 blue">брэнды:</div>
-          <div class="col col_2_of_3">{% for item in agancy.agancyBrand %}
-             <p> {% if item.oficial %}
-                    Официальный представитель {{ item.brand.name }}
-                    {% if item.type == 'country' %}
-                        в Украине
-                    {% elseif item.type == 'region' %}
-                        в области
-                    {% elseif item.type == 'city' %}
-                        в городе
-                    {% endif %}
-                 {% else  %}
-                        {{ item.brand.name }}
-                 {% endif %}
-                    
-            </p>
-            {% endfor %}
-          </div>
-        </div>
+        {% if agancy.agancyBrand is not empty %} 
+            <div class="row">
+              <div class="col col_1_of_3 blue">брэнды:</div>
+              <div class="col col_2_of_3">{% for item in agancy.agancyBrand %}
+                 <p> {% if item.oficial %}
+                        Официальный представитель {{ item.brand.name }}
+                        {% if item.type == 'country' %}
+                            в Украине
+                        {% elseif item.type == 'region' %}
+                            в области
+                        {% elseif item.type == 'city' %}
+                            в городе
+                        {% endif %}
+                     {% else  %}
+                            {{ item.brand.name }}
+                     {% endif %}
+
+                </p>
+                {% endfor %}
+              </div>
+            </div>
+        {% endif %}
         {% if (agancy.location and agancy.location.locality) %}
             <div class="row">
               <div class="col col_1_of_3 blue">город:</div>
