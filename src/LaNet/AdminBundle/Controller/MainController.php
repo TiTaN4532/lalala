@@ -31,13 +31,12 @@ class MainController extends BaseController
 //                    ->setTo('derevyanko.pav@mail.ru')
                     ->setTo($data['mail'])
                     ->setBody(
-                        $data['body']
-                    )
-                ;
+                        $this->renderView('LaNetAdminBundle:Sendmail:mail.html.twig'));
+                
               $this->get('mailer')->send($message);
               $this->get('session')->getFlashBag()->add(
                     'notice_send',
-                    'Сообщения отправлены!'
+                    'Сообщение отправлено!'
                 );
               $this->manager->flush();
 
