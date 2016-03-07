@@ -31,7 +31,7 @@ class MainController extends BaseController
 //                    ->setTo('derevyanko.pav@mail.ru')
                     ->setTo($data['mail'])
                     ->setBody(
-                        $this->renderView('LaNetAdminBundle:Sendmail:mail.html.twig'));
+                        $this->renderView('LaNetAdminBundle:Sendmail:mail.html.twig'), 'text/html');
                 
               $this->get('mailer')->send($message);
               $this->get('session')->getFlashBag()->add(
