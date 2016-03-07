@@ -68,11 +68,15 @@ class MasterController extends BaseController
                     ->where('ms.master = :master')->setParameter('master', $master)->getQuery()->execute();
             
             foreach($masterShcedule as $key => $value) {
-                if(key_exists($value->getShcedule()->getName(), $_POST['shcedule'])) {                    
-                    $sql = "INSERT INTO masters_shcedule (startTime, endTime, master_id, shcedule_id ) VALUES ('".$_POST['start'][$value->getShcedule()->getName()]."',
+                if(key_exists($value->getShcedule()->getName(), $_POST['shcedule'])) {   
+                    if($value->getShcedule()->getName() != 'record')
+                        $sql = "INSERT INTO masters_shcedule (startTime, endTime, master_id, shcedule_id ) VALUES ('".$_POST['start'][$value->getShcedule()->getName()]."',
                                                                                                             '".$_POST['end'][$value->getShcedule()->getName()]."',
                                                                                                             '".$master->getId()."',
                                                                                                            '".$value->getShcedule()->getId()."'    )";
+                    else
+                        $sql = "INSERT INTO masters_shcedule (master_id, shcedule_id ) VALUES ('".$master->getId()."',
+                                                                                               '".$value->getShcedule()->getId()."'    )";
                     $stmt = $this->manager->getConnection()->prepare($sql);
                     $result = $stmt->execute();
                 } 
