@@ -9,7 +9,32 @@ class ProductController extends BaseController
 {
     public function listAction()
     {
-        $products = $this->manager->getRepository('LaNetLaNetBundle:Product')->findAll();
-        return $this->render('LaNetLaNetBundle:Product:list.html.twig', array('products' => $products));
+                
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findAll();
+        
+        $products = $this->findFilteredProducts();
+               
+        return $this->render('LaNetLaNetBundle:Product:list.html.twig', array('products' => $products, 'brands' => $brands));
     }
+
+
+
+    public function findFilteredProducts()
+    {
+      $request = Request::createFromGlobals();
+            
+      $brand = ($request->get('brand')) ? " WHERE p.brand ='" . $request->get('brand') ."'" : "";
+     
+      $query = $this->manager->createQuery("SELECT p FROM LaNetLaNetBundle:Product p"  .$brand);
+        
+        return $query->getResult();
+      
+    }
+ 
+    public function getBrandAction()
+    {
+       $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findAll();
+       return $this->render('LaNetLaNetBundle::product.html.twig', array('brands' => $brands));
+    }
+    
 }

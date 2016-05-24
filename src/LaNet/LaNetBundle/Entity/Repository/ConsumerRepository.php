@@ -33,6 +33,10 @@ class ConsumerRepository extends EntityRepository
             $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
             
+        case "all":
+              $wherePeriod = "";
+        break;
+    
         case "":
               $wherePeriod = "";
         break;

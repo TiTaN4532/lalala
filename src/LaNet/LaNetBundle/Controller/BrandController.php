@@ -19,4 +19,9 @@ class BrandController extends BaseController
         $brand = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findOneBy(array('slug' => $slug));
         return $this->render('LaNetLaNetBundle:Brand:brandId.html.twig', array('brand' => $brand));
     }
+    
+    
+    
+    
+    
 }

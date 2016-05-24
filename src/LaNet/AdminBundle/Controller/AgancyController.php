@@ -17,8 +17,8 @@ class AgancyController extends BaseController
      $resDay = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('day');
      $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('week');
      $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('month');
-     
-     return $this->render('LaNetAdminBundle:Agancy:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+     $resAll = $this->manager->getRepository('LaNetLaNetBundle:Agancy')->findListAgancy('all');
+     return $this->render('LaNetAdminBundle:Agancy:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth), 'all' => count($resAll),));
   } 
      
 

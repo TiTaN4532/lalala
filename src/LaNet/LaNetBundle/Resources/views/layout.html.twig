@@ -1,5 +1,5 @@
 {% extends "::base.html.twig" %}
-
+{% block title %}Всеукраинский портал индустрии красоты и здоровья{% endblock %}
 {% block body %}
 <div class="wrapper">
   {% for flashMessage in app.session.flashbag.get('notice') %}

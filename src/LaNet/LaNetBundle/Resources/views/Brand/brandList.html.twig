@@ -3,21 +3,21 @@
 {% block slider %}
 {% endblock %}
 {% block content %}
- <h1 style="float:left;margin-right: 10px;">Брэнды</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
+ <h1 style="float:left;margin-right: 10px;">Бренды</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
 {% for item in brands %}
  {% if not loop.first %} <hr /> {% endif %}
   <div class="row clear">
     
     <div class="col col_1_of_3"><img src="{{ item.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
     <div class="col col_2_of_3">
-      <h3><a class="black-link" href="{{ path('la_net_la_net_brands_id', { 'slug' : item.slug }) }}">{{ item.name }}</a></h3>
+      <h2><a class="blue-link" href="{{ path('la_net_la_net_brands_id', { 'slug' : item.slug }) }}">{{ item.name }}</a></h2>
         <div class="row">
-          <div class="col col_1_of_3 blue">Страна:</div>
+            <div class="brand-country">
           <div class="col col_2_of_3">{{ item.country }}</div>
+          </div>
         </div>
         <div class="row">
-          <div class="col col_1_of_3 blue">Описание:</div>
-          <div class="col col_2_of_3">{{ item.description|striptags|slice(0, 200) }}{% if item.description|length > 200 %}...{% endif %}</div>
+           <div class="col col_2_of_2">{{ item.description|striptags|slice(0, 200) }}{% if item.description|length > 200 %}...{% endif %}</div>
         </div>
       <a style="float:right;" href="{{ path('la_net_la_net_brands_id', { 'slug' : item.slug }) }}" class="blue-link">Подробнее</a>
    

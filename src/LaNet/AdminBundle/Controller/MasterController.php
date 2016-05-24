@@ -16,13 +16,11 @@ class MasterController extends BaseController
   {
                       
      $resDay = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters('day');
-     
      $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters('week');
-     
      $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters('month');
-     
+     $resAll = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters('all');
                         
-    return $this->render('LaNetAdminBundle:Master:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+    return $this->render('LaNetAdminBundle:Master:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth), 'all' => count($resAll)));
   }
 
   

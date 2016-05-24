@@ -1,0 +1,5 @@
+{% block content %}
+{% for brand in brands %}
+   <li><a href="{{ path('la_net_la_net_product_list', { 'brand' : brand.id}) }}">{{ brand.name }}</a></li>
+{% endfor %}   
+{% endblock %}

@@ -17,8 +17,9 @@ class SalonController extends BaseController
      $resDay = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('day');
      $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('week');
      $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('month');
+     $resAll = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('all');
      
-     return $this->render('LaNetAdminBundle:Salon:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth)));
+     return $this->render('LaNetAdminBundle:Salon:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth), 'all' => count($resAll)));
   } 
       
     

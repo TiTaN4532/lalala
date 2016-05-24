@@ -1,15 +1,47 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
 
 {% block content %}
-<h2>Товары:</h2>
+    <div style="margin:10px 0 ;">{{ "Выбор бренда:" | upper }}</div><form action="">
+            <select name="brand" class="half">
+               <option value="0">Выберите бренд</option>
+          {% for brand in brands %}
+            <option value="{{ brand.id }}" {% if app.request.query.get('brand') == brand.id  %} selected="selected"{% endif %}>{{ brand.name }}</option>
+          {% endfor %}
+        </select>
+        
+     <div><input type="submit" value="Фильтровать"></div>
+      </form>
+    
+     <h2>Товары:</h2>
               {% for product in products %}
               <div class="row">
-                <div class="col col_1_of_3"><img src="{{ asset(product.getWebPath)}}" style="width:100%;" /></div>
-                <div class="col col_1_of_3">{{ product.name }}</div>
-                <div class="col col_1_of_3">{{ product.description}}</div>
+          <div class="col col_1_of_3"><img src="{{ asset(product.getWebPath)}}" style="width:100%;" /></div>
+          <div class="col col_2_of_3" style="font-weight: 900">
+               {{ product.name }}
+          </div>
+                <div class="col col_2_of_3"><div class="text_review">{{ product.description}}</div></div>
               </div>
               <hr />
               {% else %}
                 Пока нет товаров
               {% endfor %}
+              
+         <script type="text/javascript">
+          jQuery(".text_review").each(function(){
+	var review_full = jQuery(this).html();
+	var review = review_full;
+
+	if( review.length > 300 )
+	{
+		review = review.substring(0, 300);
+		jQuery(this).html( review + '<div class="read_more"><a class="blue-link" style="cursor:pointer;" >Читать далее...</a></div>' );
+	}
+	jQuery(this).append('<div class="full_text" style="display: none;">' + review_full + '</div>');
+});
+
+jQuery(".read_more").click(function(){
+	jQuery(this).parent().html( jQuery(this).parent().find(".full_text").html() );
+});  
+        </script>      
 {% endblock %}
+
