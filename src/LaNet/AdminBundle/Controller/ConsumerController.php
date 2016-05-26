@@ -17,7 +17,7 @@ class ConsumerController extends BaseController
      $resDay = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('day');
      $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('week');
      $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('month');
-     $resAll = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers('all');
+     $resAll = $this->manager->getRepository('LaNetLaNetBundle:Consumer')->findListConsumers();
 
      return $this->render('LaNetAdminBundle:Consumer:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth), 'all' => count($resAll) ));
   } 

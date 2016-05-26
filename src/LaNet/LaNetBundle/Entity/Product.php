@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\ProductRepository")
  * @ORM\Table(name="product")
  * @ORM\HasLifecycleCallbacks()
  */

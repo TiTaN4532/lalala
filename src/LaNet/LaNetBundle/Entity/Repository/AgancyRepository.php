@@ -14,9 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AgancyRepository extends EntityRepository
 {
-    
-    
-    public function findListAgancy($period)
+       
+    public function findListAgancy($period='')
     {
              
       switch ($period) {
@@ -36,10 +35,6 @@ class AgancyRepository extends EntityRepository
             $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
     
-        case "all":
-              $wherePeriod = "";
-        break;
-    
         case "":
               $wherePeriod = "";
         break;
@@ -52,9 +47,7 @@ class AgancyRepository extends EntityRepository
     }
     
 
-    
-    
-    
+     
     public function findFilteredAgancy($peginator = false, $onPage = 1, $region)
     {
       $request = Request::createFromGlobals();

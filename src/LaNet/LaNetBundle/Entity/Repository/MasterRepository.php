@@ -44,7 +44,7 @@ class MasterRepository extends EntityRepository
       }
     }
     
-    public function findListMasters($period)
+    public function findListMasters($period='')
     {
       
                  
@@ -65,10 +65,6 @@ class MasterRepository extends EntityRepository
             $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
             
-        case "all":
-              $wherePeriod = "";
-        break;
-    
         case "":
               $wherePeriod = "";
         break;

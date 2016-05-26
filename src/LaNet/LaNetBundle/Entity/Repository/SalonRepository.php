@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class SalonRepository extends EntityRepository
 {
-    public function findListSalons($period)
+    public function findListSalons($period='')
     {
              
       switch ($period) {
@@ -33,11 +33,7 @@ class SalonRepository extends EntityRepository
             $date= new \DateTime('-1'.$period );
             $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
-        
-        case "all":
-              $wherePeriod = "";
-        break;
-    
+           
         case "":
               $wherePeriod = "";
         break;
