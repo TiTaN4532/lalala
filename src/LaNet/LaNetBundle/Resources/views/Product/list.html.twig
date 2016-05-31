@@ -12,6 +12,8 @@
      <div><input type="submit" value="Фильтровать"></div>
       </form>
     
+              
+        
      <h2>Товары:</h2>
               {% for product in products %}
               <div class="row">
@@ -19,29 +21,37 @@
           <div class="col col_2_of_3" style="font-weight: 900">
                {{ product.name }}
           </div>
-                <div class="col col_2_of_3"><div class="text_review">{{ product.description}}</div></div>
-              </div>
-              <hr />
+                <div class="col col_2_of_3">
+    {% if product.description|length < 250 %}
+        {{ product.description}}
+     {% else%}
+         <div class="product-description-wrapper">
+         <div class="desc">{{ product.description|striptags|slice(0, 250) }}...<div class="button_desc"><a class="blue-link" style="cursor:pointer;">Читать далее</a></div></div>
+         <div class="trimed-desc" style="display: none;">{{ product.description}}<div class="button_trimed-desc"><a class="blue-link" style="cursor:pointer;">Свернуть</a></div></div>
+         </div>
+         {% endif%}
+     
+        </div>
+        </div>
+              <hr/>
               {% else %}
                 Пока нет товаров
               {% endfor %}
-              
+                   
          <script type="text/javascript">
-          jQuery(".text_review").each(function(){
-	var review_full = jQuery(this).html();
-	var review = review_full;
+        
+        $(".button_desc").click(function(){
+        $(this).parents(".product-description-wrapper").find(".desc").hide();
+        $(this).parents(".product-description-wrapper").find(".trimed-desc").show();
+                
+      });
+   
+        $(".button_trimed-desc").click(function(){
+        $(this).parents('.product-description-wrapper').find(".trimed-desc").hide();
+        $(this).parents('.product-description-wrapper').find(".desc").show();
+        
+      });
 
-	if( review.length > 300 )
-	{
-		review = review.substring(0, 300);
-		jQuery(this).html( review + '<div class="read_more"><a class="blue-link" style="cursor:pointer;" >Читать далее...</a></div>' );
-	}
-	jQuery(this).append('<div class="full_text" style="display: none;">' + review_full + '</div>');
-});
-
-jQuery(".read_more").click(function(){
-	jQuery(this).parent().html( jQuery(this).parent().find(".full_text").html() );
-});  
-        </script>      
+        </script>    
 {% endblock %}
 
