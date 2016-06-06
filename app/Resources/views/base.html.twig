@@ -77,12 +77,12 @@
                 <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренды</a></li>
                                   
                 <li><a href="{{ path('la_net_la_net_agancy_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_agancy_list' %} class="active"{% endif %}>Представительства</a></li>
-                <li class="dropdown"><a href="{{ path('la_net_la_net_product_list') }}" data-toggle="dropdown" >Каталог товаров</a>
+                <li class="dropdown"><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active" {% endif %} data-toggle="dropdown" >Каталог товаров</a>
                 <ul class="dropdown-menu pull-rigth">
                  {{ render(controller('LaNetLaNetBundle:Product:getBrand')) }}  
                 </ul>
                 </li>
-{#              <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route'){#  == 'la_net_la_net_product_list' %} class="active"{% endif %}>Косметика</a></li>
+{#              <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Косметика</a></li>
                 <li><a href="">Магазаны</a></li>
                 <li><a href="">Обучение</a></li>
                 <li><a href="">Литератур</a></li>
