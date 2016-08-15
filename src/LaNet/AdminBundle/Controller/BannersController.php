@@ -120,25 +120,21 @@ class BannersController extends BaseController
        $banner = $em->getRepository('LaNetLaNetBundle:Banners')->find($id);
        
        $clickStat = new LaEntity\ClickStat ();
-       
-       $link=$banner->getLink();
-       
-       $click=$banner->getClick();
-       
-       $click= $click+1;
-           
-       $banner -> setClick($click);
+              
+       $banner -> setClick($banner->getClick() + 1);
   
-       $clickStat->setIdNum(2);
+       $clickStat->setIdNum(2);     
        
        $clickStat ->setBanners($banner);
        
        $em->persist($clickStat);
        
        $em->flush();
-
-             
-       return $this->redirect($link);
+       
+       
+       
+       
+       return $this->redirect($banner->getLink());
       
    }
   

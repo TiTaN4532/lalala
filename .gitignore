@@ -31,4 +31,6 @@ web/uploads/images/brand_category
 !default.png
 web/uploads/images/agancy
 !default.png
+web/uploads/images/banners/*
+!default.png
 !.htaccess
