@@ -15,8 +15,8 @@ class ProductType extends AbstractType
     $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
              -> add('name', 'text', array('label' => 'Название:'))
              -> add('description', 'textarea', array('required' => false,'label' => 'Описание:'))
-             -> add('contraindications', 'textarea', array('required' => false,'label' => 'Противопоказания:'))
-             -> add('application', 'textarea', array('required' => false,'label' => 'Применение:'))
+            // -> add('contraindications', 'textarea', array('required' => false,'label' => 'Противопоказания:'))
+            // -> add('application', 'textarea', array('required' => false,'label' => 'Применение:'))
              -> add('brand', 'entity', array(
                         'label' => 'Брэнд',
                         'class' => 'LaNetLaNetBundle:Brand',

@@ -1,0 +1,30 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h3>Баннеры</h3>
+     {% if pagination.count %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Переходов за месяц</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for banners in pagination %}
+                    <tr>
+                        <td>{{ banners.name }}</td>
+                        <td>{{ banners.cnt }}</td>
+                    </tr>            
+                {% endfor %}
+               
+                 <div><a class="button" href="{{ path('la_net_admin_banners') }}">< Назад</a></div>
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            На данный момент статистика недоступна
+        </div>
+    {% endif %}
+    {{ knp_pagination_render(pagination) }}
+ {% endblock %}

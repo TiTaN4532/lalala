@@ -1,0 +1,62 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+ 
+{% block stylesheets %}
+      {{ parent() }}
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/brand_category_collection.js') }}"></script>
+  {% endblock %}
+      
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div>
+          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Выберите файл</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+        
+  {% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
+
+  
+{% block content %}
+      
+    <h2>{% if banners.getId %}Обновить "{{ banners.name }}"{% else %}Создать {% endif %} баннер</h2>
+  <form action="" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form.file) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.link) }}
+      <div>
+      <button id="cancel-banners-btn">Назад</button>
+    {{ form_widget(form.save) }}
+    </div>
+    {{ form_rest(form) }}
+  </form>
+  <script>
+      $(document).ready(function(){
+          $('#cancel-banners-btn').click(function() {
+               window.location = Routing.generate('la_net_admin_banners_list');
+            });
+        {% if banners.id %}
+        $('.remove-image').click(function(event) {
+        event.preventDefault();
+          var el = $(this);
+          $.ajax({
+              url         : Routing.generate('la_net_admin_banners_remove_image', {'id': {{ banners.id }}}),
+              success     : function(data) {
+                if(data) { 
+                  el.prev('img').remove();
+                  el.remove(); } }
+          })
+      })
+      {% endif %}
+        });
+  </script> 
+{% endblock %}

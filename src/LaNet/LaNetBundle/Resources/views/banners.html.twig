@@ -1,0 +1,7 @@
+{% block content %}
+    {% for banner in banners %}
+                    
+        <a href="{{ path('la_net_la_net_banner', {'id': banner.id})}}"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
+    
+    {% endfor %} 
+{% endblock %}

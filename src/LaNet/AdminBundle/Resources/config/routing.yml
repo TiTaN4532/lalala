@@ -30,6 +30,10 @@ la_net_admin_brand_routes:
   resource: "routing_brand.yml"
   prefix: /
   
+la_net_admin_banners_routes:
+  resource: "routing_banners.yml"
+  prefix: /
+  
 la_net_admin_product_category_routes:
   resource: "routing_product_category.yml"
   prefix: /

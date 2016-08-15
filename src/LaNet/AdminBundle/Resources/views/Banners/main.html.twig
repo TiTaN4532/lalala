@@ -1,0 +1,12 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+
+  <div class="admin-main-menu">
+ <ul>
+  <li><a href="{{ path('la_net_admin_banners_list') }}">Добавить баннер</a></li>
+  <li><a href="{{ path('la_net_admin_banners_stat') }}">Статистика переходов за месяц</a></li>
+</ul>
+  </div> 
+  
+{% endblock content %}

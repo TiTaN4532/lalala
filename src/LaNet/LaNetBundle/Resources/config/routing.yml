@@ -6,6 +6,10 @@ la_net_la_net_contact:
     pattern:  /contact
     defaults: { _controller: LaNetLaNetBundle:Main:contact }
     
+la_net_la_net_banner:
+    pattern:  /banner/{id}
+    defaults: { _controller: LaNetAdminBundle:Banners:count }
+        
 la_net_la_net_about:
     pattern:  /about
     defaults: { _controller: LaNetLaNetBundle:Main:about }

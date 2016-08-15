@@ -1,0 +1,34 @@
+la_net_admin_banners_list:
+    pattern:  /banners/list
+    defaults: { _controller: LaNetAdminBundle:Banners:list }
+    
+la_net_admin_banners:
+    pattern:  /banners
+    defaults: { _controller: LaNetAdminBundle:Banners:main }    
+    
+la_net_admin_banners_stat:
+    pattern:  /banners/stat
+    defaults: { _controller: LaNetAdminBundle:Banners:stat }
+    
+la_net_admin_banners_create:
+    pattern:  /banners/create
+    defaults: { _controller: LaNetAdminBundle:Banners:edit }
+    options:
+        expose: true
+    
+la_net_admin_banners_edit:
+    pattern:  /banners/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Banners:edit }
+
+la_net_admin_banners_delete:
+    pattern:  /ajax/banners/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:Banners:delete }
+    options:
+        expose: true
+        
+la_net_admin_banners_remove_image:
+    pattern:  /ajax/banners/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:Banners:removeImage }
+    options:
+        expose: true
+

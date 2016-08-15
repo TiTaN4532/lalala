@@ -33,12 +33,12 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     protected $description;
     
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $contraindications;
     
      /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $application;
     
