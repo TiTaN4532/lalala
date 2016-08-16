@@ -1,13 +1,30 @@
 {% extends "LaNetAdminBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+ <style>
+.ui-datepicker-calendar {
+    display: none;
+    }
+</style>
+
+{% endblock %}
+
 {% block content %}
-  <h3>Баннеры</h3>
-     {% if pagination.count %}
+  Выбор месяца:
+  <form action="">
+  <input name="startDate" id="startDate" class="date-picker" />
+  <input type="submit">
+  </form>
+
+  {% if pagination.count %}
         <table>
             <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Переходов за месяц</th>
+                    <th>Переходов за {{date}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,8 +40,49 @@
         </table>
     {% else %}
         <div>
-            На данный момент статистика недоступна
+            За этот период статистика недоступна
+            
+            <div><a class="button" href="{{ path('la_net_admin_banners') }}">< Назад</a></div>
+            
         </div>
     {% endif %}
     {{ knp_pagination_render(pagination) }}
- {% endblock %}
+ 
+
+<script type="text/javascript">
+jQuery(function($){
+        $.datepicker.regional['ru'] = {
+                closeText: 'Закрыть',
+                prevText: '&#x3c;Пред',
+                nextText: 'След&#x3e;',
+                currentText: 'Сегодня',
+                monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+                monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+                'Июл','Авг','Сен','Окт','Ноя','Дек'],
+                dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+                dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+                dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+                weekHeader: 'Не',
+                firstDay: 1,
+                isRTL: false,
+                
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
+});    
+$(function() {
+    $('.date-picker').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: false,
+        dateFormat: 'yy-mm',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        }
+    });
+  });
+</script>
+
+  
+  {% endblock %}

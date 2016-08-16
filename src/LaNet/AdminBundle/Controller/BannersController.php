@@ -19,12 +19,19 @@ class BannersController extends BaseController
   
    public function statAction(Request $request)
   {
-   $banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')-> count();       
+       
+        $date= $request->get('startDate');
+       
+   $banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')-> count($date);       
         $pagination = $this->paginator->paginate(
             $banners, $this->getRequest()->query->get('page', 1), 1000
         );   
+       
         
-   return $this->render('LaNetAdminBundle:Banners:stat.html.twig', array('pagination' => ($pagination)));
+        $month = $this->manager->getRepository('LaNetLaNetBundle:Banners')-> getMonth($date);
+        
+        
+   return $this->render('LaNetAdminBundle:Banners:stat.html.twig', array('pagination' => ($pagination), 'date' => $month));
 
   }
  
@@ -130,9 +137,6 @@ class BannersController extends BaseController
        $em->persist($clickStat);
        
        $em->flush();
-       
-       
-       
        
        return $this->redirect($banner->getLink());
       
