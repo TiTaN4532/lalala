@@ -7,7 +7,7 @@ la_net_la_net_master_id:
     defaults: { _controller: LaNetLaNetBundle:Master:masterId }
     requirements:
         id:  \d+
-    
+   
 la_net_la_net_master_profile:
     pattern:  /master/profile
     defaults: { _controller: LaNetLaNetBundle:Master:profile }

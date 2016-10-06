@@ -9,12 +9,34 @@ class ProductController extends BaseController
 {
     public function listAction()
     {
-                
-        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findAll();
+        $request = Request::createFromGlobals();
         
+        $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
+        
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->getBrandOnMasterCategory();
+             
+        $product_cat = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->getProductsCategory();
+        
+        $product_sub_cat = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->getProductsSubCategory();
+                
         $products = $this->manager->getRepository('LaNetLaNetBundle:Product')->findFilteredProducts();
-      
-        return $this->render('LaNetLaNetBundle:Product:list.html.twig', array('products' => $products, 'brands' => $brands));
+        
+        $id_product_sub_cat = ($request->get('product_sub_cat')); 
+        $id_product_sub_cat_array = $this->manager->getRepository('LaNetLaNetBundle:Product')->getArrayCatId($id_product_sub_cat);
+               
+        $selectedCategories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->getParentId(($request->get('product_sub_cat')) ? $request->get('product_sub_cat') : "");
+        
+        if ( $selectedCategories)
+        {
+        $selectedCategories = array_reverse($selectedCategories, true);
+         
+        }
+        return $this->render('LaNetLaNetBundle:Product:list.html.twig', array('products' => $products,
+                                                                              'masterCategory' => $masterCategory,  
+                                                                              'brands' => $brands,
+                                                                              'product_cat' => $product_cat,
+                                                                              'product_sub_cat' => $product_sub_cat,
+                                                                              'selectedCategories' => $selectedCategories));
     }
     
  

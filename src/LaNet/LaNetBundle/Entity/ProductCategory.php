@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\ProductCategoryRepository")
  * @ORM\Table(name="product_category")
  */
 class ProductCategory
@@ -35,6 +35,17 @@ class ProductCategory
      * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
      */
     protected $product;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="MasterCategory", inversedBy="productCategory")
+     */
+    protected $masterCategory;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Brand", inversedBy="productCategory")
+     */
+    protected $brand;
+        
     
     /**
      * @ORM\OneToMany(targetEntity="ProductCategory", mappedBy="parent",cascade={"persist"}, orphanRemoval=true)
@@ -233,4 +244,52 @@ class ProductCategory
     {
         return $this->descriptionItem;
     }
-}
+
+    /**
+     * Set brand
+     *
+     * @param \LaNet\LaNetBundle\Entity\Brand $brand
+     * @return ProductCategory
+     */
+    public function setBrand(\LaNet\LaNetBundle\Entity\Brand $brand = null)
+    {
+        $this->brand = $brand;
+    
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \LaNet\LaNetBundle\Entity\Brand 
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+    
+    /**
+     * Set masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     * @return ProductCategory
+     */
+    public function setMasterCategory(\LaNet\LaNetBundle\Entity\MasterCategory $masterCategory = null)
+    {
+        $this->masterCategory = $masterCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get masterCategory
+     *
+     * @return \LaNet\LaNetBundle\Entity\MasterCategory 
+     */
+    public function getMasterCategory()
+    {
+        return $this->masterCategory;
+    }
+    
+    
+    }

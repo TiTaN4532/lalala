@@ -1,0 +1,6 @@
+{% block content %}
+{% for category in categories %}
+   <li id="{{ category.id }}"><a href="{{ path('la_net_la_net_product_list', { 'category' : category.id}) }}">{{ category.name }}</a>
+  </li>
+{% endfor %}   
+{% endblock %}

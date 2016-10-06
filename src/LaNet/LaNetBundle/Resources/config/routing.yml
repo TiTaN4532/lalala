@@ -9,7 +9,7 @@ la_net_la_net_contact:
 la_net_la_net_banner:
     pattern:  /banner/{id}
     defaults: { _controller: LaNetAdminBundle:Banners:count }
-        
+            
 la_net_la_net_about:
     pattern:  /about
     defaults: { _controller: LaNetLaNetBundle:Main:about }
@@ -25,6 +25,10 @@ la_net_la_net_access_denied:
 la_net_la_net_Master_routes:
   resource: "routing_master.yml"
   prefix: /
+  
+la_net_la_net_Menu_routes:
+  resource: "routing_menu.yml"
+  prefix: /  
   
 la_net_la_net_Salon_routes:
   resource: "routing_salon.yml"

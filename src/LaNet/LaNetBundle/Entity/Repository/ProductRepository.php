@@ -13,11 +13,45 @@ class ProductRepository extends EntityRepository
     public function findFilteredProducts($peginator = false, $onPage = 1)
     {
       $request = Request::createFromGlobals();
-            
-      $brand = ($request->get('brand')) ? " WHERE p.brand ='" . $request->get('brand') ."'" : "";
+      $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));      
+      $masterCategory ='';
+      
+      if ($request->get('category')){
+        $masterCategory = "p.masterCategory ='" . $request->get('category') ."' AND";
+      }     
+      
+      $brand = ($request->get('brand')) ? " AND p.brand ='" . $request->get('brand') ."'" : "";
+           
+            if ($request->get('product_sub_cat')) 
+                {
+                 
+                 $id_product_sub_cat = $request->get('product_sub_cat');    
+                 $id_product_sub_cat_array = $this -> getArrayCatId($id_product_sub_cat);
+                        
+                 $product_sub_cat =" AND p.category IN (".implode(",",$id_product_sub_cat_array).")";    
+                 $product_cat = "";
+                }
+           
+            else 
+                 {
+                if  ($request->get('product_cat')) {
+                 $id_product_cat = $request->get('product_cat');    
+                 $id_product_cat_array = $this -> getArrayCatId($id_product_cat);
+                        
+                 $product_cat =" AND p.category IN (".implode(",",$id_product_cat_array).")";    
+                 //$product_cat = ($request->get('product_cat')) ? " AND p.category ='" . $request->get('product_cat') ."'" : "";    
+                 $product_sub_cat = "";
+                }
+                
+                $product_cat ="";
+                $product_sub_cat = "";
+                 }
      
-      $query = $this->_em->createQuery("SELECT p FROM LaNetLaNetBundle:Product p"  .$brand);
-        if ($peginator) {
+     
+           
+      $query = $this->_em->createQuery("SELECT p FROM LaNetLaNetBundle:Product p WHERE " .$masterCategory."(p.name LIKE :like)".$brand.$product_cat.$product_sub_cat)
+                                     ->setParameters(array('like' => '%'.strtolower($searchterm).'%'));
+      if ($peginator) {                 
         $page = $request->query->get('page', 1);
         return $peginator->paginate($query, $page, $onPage);
       }
@@ -27,6 +61,37 @@ class ProductRepository extends EntityRepository
     }
     
     
-      }
+    function getArrayCatId($id, $arrayId = array())
+    {      
+        if ($id) 
+        {
+             
+        $connection = $this->_em->getConnection();
+        $statement = $connection->prepare("SELECT id FROM product_category WHERE parent_id = :id");
+        $statement->bindValue('id', $id);
+        $statement->execute();
+        $response = $statement->fetchAll();    
+                        
+        if (!empty($response)) 
+            {
+                        
+            $id_cat = $response['0']['id'];
+
+            $arrayId [] = $id_cat;
+
+            if ($id_cat != 0)
+                {
+                   $arrayId = $this -> getArrayCatId($id_cat,  $arrayId);
+                 }     
+             }
+       
+             return $arrayId;
+        } 
+       
+        return false;
+                 
+  
+    }     
+}
     
-   
+ 

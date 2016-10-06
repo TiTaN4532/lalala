@@ -675,7 +675,70 @@ padding-top: 20px;
 #instr .tenLi {
     background: url(../images/up_res.png) 9px 21px no-repeat;
 }
-}
+
+
+
+ #main_custom {
+    position: absolute; 
+    padding-right: 5px; 
+    top: 150px;
+    background: #ffffff;;
+    border: 1px solid #c5c5c5;
+    margin: 20px;
+    box-shadow: 4px 3px 16px 0px #4b8349;
+    height: auto;
+ } 
+ 
+ #brand_custom {
+    position: absolute; 
+    background: #ffffff;;
+    border: 1px solid #c5c5c5;
+    margin: 20px;
+ } 
+ 
+ #category_custom {
+    position: absolute; 
+    background: #ffffff;;
+    border: 1px solid #c5c5c5;
+    margin: 20px;
+ } 
+ 
+ #sub_cat_custom {
+    position: absolute; 
+    background: #ffffff;;
+    border: 1px solid #c5c5c5;
+    margin: 20px;   
+ } 
+ 
+ .sub_cat_custom {
+    position: absolute; 
+    background: #ffffff;;
+    border: 1px solid #c5c5c5;
+    margin: 20px;   
+ } 
+  
+ .sub_menu:not(#main_menu) {
+    padding-left: 20px;
+    padding-right: 5px; 
+    margin: 5px; 
+    float: left;
+    box-shadow: 4px 3px 16px 0px #4b8349;
+    height: auto;
+    max-width: 270px;
+ } 
+ 
+ .sub_menu ul li {
+     display: block;
+     text-align: left;
+ }
+ .sub_menu ul li.active a {
+  color: #0088cc;
+  }
+
+ .sub_menu ul li a {
+   color: #5d5d5d;
+ } 
+   
 
 @media (max-width: 320px) {
   nav ul li {

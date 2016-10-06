@@ -1,179 +1,478 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-	<meta charset="utf-8"/>
-      <meta name="description" content="Всеукраинский портал индустрии красоты и здоровья"/>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="description" content="Всеукраинский портал индустрии красоты и здоровья"/>
         <title>{% block title %}Lalook{% endblock %}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    {% block stylesheets %}
-     <script src="{{ asset('js/jquery-1.10.1.min.js') }}"></script>
-      <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}">
-      <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-      <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            <script src="{{ asset('js/jquery-1.10.1.min.js') }}"></script>
+            <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-      
-        <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
-      <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
-{#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
-      <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-      <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    {% endblock %}
-  </head>
-  <body>
-      <div style="min-height: 100%; margin-bottom: -200px;height:auto ! important;height:100%;">
-      <header>
-          
-        <div id="header-row" class="container">
-          <div class="wrapper row-fluid">
-            <div class="span3">
-              <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192"></a></div>
-            </div>
-            <div class="span5">
-              <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
-                {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
-              </form>
-            </div>
-            <div class="span4">
-              <div id="login">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                  {% if not is_granted('ROLE_ADMIN') %}
-                       <div style="float:left;margin: 5px;"> {% include "LaNetLaNetBundle::profileImage.html.twig" %}</div>
-                  {% endif %}
-                       <div style="float:left;margin: 5px;"> 
-                        {% if not is_granted('ROLE_ADMIN') %}
-                            <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
-                            <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>
-                        {% endif %}
-                        <p id="sing_out"><a href="{{ path('fos_user_security_logout') }}">Выйти</a></p>
-                       </div>
-                 {% else  %}
-                     <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
-                     <div id="line2"></div>
-                     <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
-                 {% endif %}
-              </div>
-              <div  id="form2">
-               {# <form action="http://lalook.net/formdata.php" method="POST" name="form">
-                  <input type="text" name="search" placeholder="Поиск" id="search">
-                  <input type="submit" name="submit" value="" id="submit">
-                </form>#}
-              </div>
-            </div>
-          </div>
-        </div>
-            <nav>
-           <div class="container">
-            <ul>
-              {#  <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> #}
-                <li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>
-                <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб</a>
-                <ul class="dropdown-menu pull-rigth">
-                    <li><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' %} class="active"{% endif %}>Поиск мастера</a></li>
-                    <li><a href="{{ path('la_net_la_net_salon_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %} class="active"{% endif %}>Поиск салона</a></li>
-                </ul>
-                </li>
-                <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренды</a></li>
-                                  
-                <li><a href="{{ path('la_net_la_net_agancy_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_agancy_list' %} class="active"{% endif %}>Представительства</a></li>
-                <li class="dropdown"><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active" {% endif %} data-toggle="dropdown" >Каталог товаров</a>
-                <ul class="dropdown-menu pull-rigth">
-                 {{ render(controller('LaNetLaNetBundle:Product:getBrand')) }}  
-                </ul>
-                </li>
-{#              <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Косметика</a></li>
-                <li><a href="">Магазаны</a></li>
-                <li><a href="">Обучение</a></li>
-                <li><a href="">Литератур</a></li>
-                <li><a href="">Форум</a></li>#}
-                <li><a href="{{ path('la_net_la_net_contact') }}" {% if app.request.attributes.get('_route') == 'la_net_la_net_contact' %} class="active" {% endif %}>Обратная связь</a></li>
-                <li><a href="{{ path('la_net_la_net_about') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_about' %} class="active"{% endif %}>О портале</a></li>
-            </ul>
-             </div>
-        </nav>
-        <div id="line"></div>
-    </header>
-    
-    {% block body %}{% endblock %}
-    
-    <div class="clear-bottom"></div>
- 
+            <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
+            {#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+
+
+        {% endblock %}
+    </head>
+    <body>
+        <div style="min-height: 100%; margin-bottom: -200px;height:auto ! important;height:100%;">
+            <header>
+
+                <div id="header-row" class="container">
+                    <div class="wrapper row-fluid">
+                        <div class="span3">
+                            <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192"></a></div>
+                        </div>
+                        <div class="span5">
+                            <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
+                                {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
+                            </form>
+                        </div>
+                        <div class="span4">
+                            <div id="login">
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    {% if not is_granted('ROLE_ADMIN') %}
+                                        <div style="float:left;margin: 5px;"> {% include "LaNetLaNetBundle::profileImage.html.twig" %}</div>
+                                    {% endif %}
+                                    <div style="float:left;margin: 5px;"> 
+                                        {% if not is_granted('ROLE_ADMIN') %}
+                                            <p style="color:#fff;">{% include "LaNetLaNetBundle::profileName.html.twig" %}</p>   
+                                            <p id="edit"><a href="{% include "LaNetLaNetBundle::profileLink.html.twig" %}">Редактировать</a></p>
+                                        {% endif %}
+                                        <p id="sing_out"><a href="{{ path('fos_user_security_logout') }}">Выйти</a></p>
+                                    </div>
+                                {% else  %}
+                                    <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
+                                    <div id="line2"></div>
+                                    <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
+                                {% endif %}
+                            </div>
+                            <div  id="form2">
+                                {# <form action="http://lalook.net/formdata.php" method="POST" name="form">
+                                   <input type="text" name="search" placeholder="Поиск" id="search">
+                                   <input type="submit" name="submit" value="" id="submit">
+                                 </form>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>                    
+                <nav>
+                    <div class="container">
+                        <ul>
+                          {#<li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> #}
+                            <li><a id="drop_custom" href="{{ path('la_net_la_net_master_list') }}" data-toggle="dropdown" >Бренд-инфо</a>
+                                <div id="main_custom" style="display:none;" class="sub_menu"> 
+                                    <ul>                     
+                                         {{ render(controller('LaNetLaNetBundle:Menu:getMasterCategory')) }}
+                                    </ul>   
+                                </div> 
+                            </li>        
+                            <li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>
+                            <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб</a>
+                                <ul class="dropdown-menu pull-rigth">
+                                    <li><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' %} class="active"{% endif %}>Поиск мастера</a></li>
+                                    <li><a href="{{ path('la_net_la_net_salon_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %} class="active"{% endif %}>Поиск салона</a></li>
+                                </ul>
+                            </li>
+                            {#<li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренды</a></li>#}
+
+                            <li><a href="{{ path('la_net_la_net_agancy_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_agancy_list' %} class="active"{% endif %}>Представительства</a></li>
+                                {# <li class="dropdown"><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active" {% endif %} data-toggle="dropdown" >Каталог товаров</a>
+                                    <ul class="dropdown-menu pull-rigth">
+                                        {{ render(controller('LaNetLaNetBundle:Product:getBrand')) }}  
+                                    </ul>
+                                </li>
+                                             <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Косметика</a></li>
+                                                <li><a href="">Магазаны</a></li>
+                                                <li><a href="">Обучение</a></li>
+                                                <li><a href="">Литератур</a></li>
+                                                <li><a href="">Форум</a></li>#}
+                            <li><a href="{{ path('la_net_la_net_contact') }}" {% if app.request.attributes.get('_route') == 'la_net_la_net_contact' %} class="active" {% endif %}>Обратная связь</a></li>
+                            <li><a href="{{ path('la_net_la_net_about') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_about' %} class="active"{% endif %}>О портале</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div id="line"></div>
+            </header>
+
+        {% block body %}{% endblock %}
+
+        <div class="clear-bottom"></div>
+
     </div>
     <footer>
-            <div class="footerLine"></div>
-       <div class="container">  
-        <nav>
-            <ul>
-                <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
-{#                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
-                <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
-                <li><a href="{{ path('la_net_la_net_brands_list') }}">Бренды</a></li>
-                <li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>
-               {# <li><a href="">Косметика</a></li>
-                <li><a href="">Магазаны</a></li>
-                <li><a href="">Обучение</a></li>
-                <li><a href="">Литератур</a></li>
-                <li><a href="">Форум</a></li>#}
-                <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
-                <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
+        <div class="footerLine"></div>
+        <div class="container">  
+            <nav>
+                <ul>
+                    <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
+                        {#                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
+                    <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
+                    <li><a href="{{ path('la_net_la_net_brands_list') }}">Бренды</a></li>
+                    <li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>
+                        {# <li><a href="">Косметика</a></li>
+                         <li><a href="">Магазаны</a></li>
+                         <li><a href="">Обучение</a></li>
+                         <li><a href="">Литератур</a></li>
+                         <li><a href="">Форум</a></li>#}
+                    <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
+                    <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
+                </ul>
+            </nav>
+            {#<div class="social">
+            <ul class="soc_group">
+                <li id="f"><a href="" ><img src="{{ asset('images/f.png') }}" height="20" width="10"/></a></li>
+                <li id="in"><a href="" ><img src="{{ asset('images/in.png') }}" height="19" width="21"/></a></li>
+                <li id="tw"><a href="" ><img src="{{ asset('images/tw.png') }}" height="16" width="18"/></a></li>
+                <li id="vk"><a href="" ><img src="{{ asset('images/vk.png') }}" height="17" width="28"/></a></li>
             </ul>
-        </nav>
-        {#<div class="social">
-        <ul class="soc_group">
-            <li id="f"><a href="" ><img src="{{ asset('images/f.png') }}" height="20" width="10"/></a></li>
-            <li id="in"><a href="" ><img src="{{ asset('images/in.png') }}" height="19" width="21"/></a></li>
-            <li id="tw"><a href="" ><img src="{{ asset('images/tw.png') }}" height="16" width="18"/></a></li>
-            <li id="vk"><a href="" ><img src="{{ asset('images/vk.png') }}" height="17" width="28"/></a></li>
-        </ul>
-        </div>#}
-        <p>© 2013-2016 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.
-        <br />E-mail: lalooknet@gmail.com</p>
-              
-       <p> <!-- Yandex.Metrika informer -->
-            <a href="https://metrika.yandex.ru/stat/?id=26254971&amp;from=informer"
-            target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/26254971/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
-            style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:26254971,lang:'ru'});return false}catch(e){}"/></a>
-            <!-- /Yandex.Metrika informer -->
+            </div>#}
+            <p>© 2013-2016 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.
+                <br />E-mail: lalooknet@gmail.com</p>
 
-            <!-- Yandex.Metrika counter -->
-            <script type="text/javascript">
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter26254971 = new Ya.Metrika({id:26254971,
-                                clickmap:true,
-                                trackLinks:true,
-                                accurateTrackBounce:true});
-                    } catch(e) { }
-                });
+            <p> <!-- Yandex.Metrika informer -->
+                <a href="https://metrika.yandex.ru/stat/?id=26254971&amp;from=informer"
+                   target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/26254971/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+                                                    style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try {
+                                                                Ya.Metrika.informer({i: this, id: 26254971, lang: 'ru'});
+                                                                return false
+                                                            } catch (e) {
+                                                            }"/></a>
+                <!-- /Yandex.Metrika informer -->
 
-                var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+                <!-- Yandex.Metrika counter -->
+                <script type="text/javascript">
+                    (function (d, w, c) {
+                        (w[c] = w[c] || []).push(function () {
+                            try {
+                                w.yaCounter26254971 = new Ya.Metrika({id: 26254971,
+                                    clickmap: true,
+                                    trackLinks: true,
+                                    accurateTrackBounce: true});
+                            } catch (e) {
+                            }
+                        });
 
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f, false);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-            </script>
+                        var n = d.getElementsByTagName("script")[0],
+                                s = d.createElement("script"),
+                                f = function () {
+                                    n.parentNode.insertBefore(s, n);
+                                };
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+                        if (w.opera == "[object Opera]") {
+                            d.addEventListener("DOMContentLoaded", f, false);
+                        } else {
+                            f();
+                        }
+                    })(document, window, "yandex_metrika_callbacks");
+                </script>
             <noscript><div><img src="//mc.yandex.ru/watch/26254971" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
             <!-- /Yandex.Metrika counter -->
             <script>
-              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-              ga('create', 'UA-54996261-1', 'auto');
-              ga('send', 'pageview');
+                ga('create', 'UA-54996261-1', 'auto');
+                ga('send', 'pageview');
 
             </script>
-       </p>
-       </div>
+
+
+            <script>
+
+                $(document).on('mouseenter', '#main_custom li', function (event) {
+                   
+                    var el = $(event.target)
+                    if (event.target.tagName != 'LI') {
+                        el = $(event.target).parent('li');
+                    }             
+                        
+                    el.parents('ul').eq(0).find('li').removeClass('active')
+                    el.addClass('active')
+
+                    el.parents('#main_custom').nextAll('.sub_menu').remove();
+                                
+                    if (typeof (xhrMain) != 'undefined') {
+
+                        xhrMain.abort()
+                    }
+                    
+                    var id = (el.attr('id'));
+                   
+                    xhrMain = $.ajax({
+                        url: Routing.generate('la_net_la_net_ajax_menu_getBrand'),
+                        data: {id: id},
+                        success: function (response) {
+                            
+                        if (response.length != 0)
+                            {
+                                if ($("#main_custom").length) {
+                                var right = $('#main_custom').offset().left + $('#main_custom').outerWidth();
+                                var top = $('#main_custom').offset().top;
+                                }
+                                $('#main_custom').after($('<div id="brand_custom" class="sub_menu"></div>'));
+
+                                $('#brand_custom').offset({top:top, left:right});
+                                                              
+                                var brandMenu = $('#brand_custom');
+                                var data = (response);
+                                var ul = '<ul>'
+                                $.each(data, function (index, value) {
+                                    ul += '<li data-brand="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + value.id + '&category=' + el.id + '">' + value.name + '</a></li>';
+
+
+                                });
+                                ul += '</ul>';
+
+                                brandMenu.html(ul);
+                            }
+                        }
+                    });
+
+                });
+            </script>       
+
+            <script>
+                $(document).on('mouseenter', '#brand_custom li', function (event) {
+              
+                    var el = $(event.target)
+                    if (event.target.tagName != 'LI') {
+                        el = $(event.target).parent('li');
+                    }
+                         
+                    el.parents('ul').eq(0).find('li').removeClass('active');
+                    el.addClass('active')
+
+                    el.parents('#brand_custom').nextAll('.sub_menu').remove();
+
+                    if (typeof (xhrBrand) != 'undefined')
+                    {
+                        xhrBrand.abort()
+                    }    
+
+                    
+                    var brand = (el.attr("data-brand"))
+                    var cat = $('#main_custom li.active').attr('id')
+
+                    xhrBrand = $.ajax({
+                        url: Routing.generate('la_net_la_net_ajax_menu_getProductCategory'),
+                        data: {id_cat: cat, id_brand: brand},
+                        success: function (response) {
+
+                            if (response.length != 0)
+                            {
+                                if ($("#brand_custom").length) {
+                                var right = $('#brand_custom').offset().left + $('#brand_custom').outerWidth();
+                                var top = $('#brand_custom').offset().top;
+                            }
+                                $('#brand_custom').after($('<div id="category_custom" class="sub_menu"></div>'));
+
+                                $('#category_custom').offset({top:top, left:right});
+                               
+                                var categoryMenu = $('#category_custom')
+                                var data = (response);
+                                var ul = '<ul>'
+                                $.each(data, function (index, value) {
+                                    ul += '<li data-cat="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + brand + '&category=' + cat + '&product_cat=' + value.id + '">' + value.name + '</a></li>';
+
+                                });
+                                ul += '</ul>';
+                                categoryMenu.html(ul);
+                            }
+                        }
+                    });
+                });
+            </script>       
+
+
+            <script>
+
+                $(document).on('mouseenter', '#category_custom li', function (event) {
+                    
+                    var el = $(event.target)
+                    if (event.target.tagName != 'LI') {
+                        el = $(event.target).parent('li');
+                    }
+                    
+                    el.parents('ul').eq(0).find('li').removeClass('active');
+                    el.addClass('active');
+
+                    el.parents('#category_custom').nextAll('.sub_menu').remove();
+
+                    if (typeof (xhrCat) != 'undefined')
+                    {
+                        xhrCat.abort()
+                    }
+
+                    var cat = $('#main_custom li.active').attr('id')
+                    var catParent = (el.attr("data-cat"))
+
+                    main_cat = catParent;
+                    
+                    xhrCat = $.ajax({
+                        url: Routing.generate('la_net_la_net_ajax_menu_getProductSubCategory'),
+                        data: {id_parent: catParent},
+                        success: function (response) {
+
+                            if (response.length != 0)
+                            {
+                                el.parents('#category_custom').eq(0).nextAll('.sub_cat_custom').remove();
+                                 
+                                if ($("#category_custom").length) {
+                                var right = $('#category_custom').offset().left + $('#category_custom').outerWidth();
+                                var top = $('#category_custom').offset().top;
+                                }
+                                $('#category_custom').after($('<div class="sub_menu sub_cat_custom"></div>'));
+
+                                $('.sub_cat_custom').last().offset({top:top, left:right});   
+            
+                                var subcatMenu = $('.sub_cat_custom').last();
+
+                                var data = (response);
+                                var ul = '<ul>'
+                                $.each(data, function (index, value) {
+                                    ul += '<li data-sub-cat="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + $('#brand_custom li.active').attr('data-brand') + '&category=' + cat + '&product_cat=' + catParent + '&product_sub_cat=' + value.id + '">' + value.name + '</a></li>';
+
+                                });
+                                ul += '</ul>';
+
+                                subcatMenu.html(ul);
+                            }
+                        }
+                    });
+
+                });
+            </script>            
+
+            <script>
+
+                $(document).on('mouseenter', '.sub_cat_custom li', function (event) {
+  
+                    var el = $(event.target)
+                    if (event.target.tagName != 'LI') {
+                        el = $(event.target).parent('li');
+                    }
+                    
+                    el.parents('ul').eq(0).find('li').removeClass('active')
+                    el.addClass('active');
+                    
+                    if (typeof (xhrSubCat) != 'undefined')
+                    {
+                        xhrSubCat.abort()
+                    }
+
+                    var idCat = el.attr("data-sub-cat");
+                   
+                    xhrSubCat = $.ajax({
+                        url: Routing.generate('la_net_la_net_ajax_menu_getProductSubCategory'),
+                        data: {id_parent: idCat},
+                        success: function (response) {
+
+                            if (response.length != 0)
+                            {
+                                
+                                
+                                el.parents('.sub_cat_custom').eq(0).nextAll('.sub_cat_custom').remove();
+                                
+                                var right = $('.sub_cat_custom').last().offset().left + $('.sub_cat_custom').last().outerWidth();
+                                var top = $('.sub_cat_custom').last().offset().top;
+                                                                                            
+                                $('.sub_cat_custom').last().after($('<div class="sub_cat_custom sub_menu"></div>'));
+                                $('.sub_cat_custom').last().offset({top:top, left:right}); 
+                                var subcatMenu = $('.sub_cat_custom').last();
+
+                                var data = (response);
+                                var ul = '<ul>' 
+                                $.each(data, function (index, value) {
+                                    ul += '<li data-sub-cat="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + $('#brand_custom li.active').attr('data-brand') + '&category=' + $('#main_custom li.active').attr('id') + '&product_cat=' + main_cat + '&product_sub_cat=' + value.id + '">' + value.name + '</a></li>';
+
+                                });
+                                ul += '</ul>';
+
+                                subcatMenu.html(ul);
+                            }
+                        }
+                    });
+
+                });
+            </script>
+
+            <script>
+                
+    
+        $(document).ready(function(){
+            var x = $('#drop_custom').offset().left;
+            $('#main_custom').offset({left:x});
+            $('.sub_menu').hide();
+        });
+                
+
+    </script>    
+                       
+                       
+    <script>  
+               
+            function pos(){
+                var x = $('#drop_custom').offset().left;
+                $('#main_custom').offset({left:x});
+            }
+                                
+                $("#drop_custom").click(function () {
+                $('#main_custom').nextAll('.sub_menu').remove();
+                $('#main_custom').toggle();
+                pos();
+                });
+                    
+                    
+            $(window).on('resize', function(){
+            var x = $('#drop_custom').offset().left;
+            $('#main_custom').offset({left:x}); 
+            $('#main_custom').nextAll('.sub_menu').remove();
+            $('#brand_custom').remove();
+});        
+                              
+    </script>  
+                                          
+ 
+         
+    <script>
+
+                //скрытие всего меню по любому клику вне меню
+
+                $(document).click(function (e) {
+                    var elem = $(".sub_menu");
+                    if (e.target != elem[0] && !elem.has(e.target).length) {
+                        elem.hide();
+                        $('#main_custom').nextAll('.sub_menu').remove();
+                        $("#main_custom").find('a').removeClass('active')
+                        $("#main_custom").find('li').removeClass('active')
+
+                    }
+                })
+            </script>     
+        </div>
     </footer>
-  </body>
+</body>
 </html>

@@ -5,16 +5,19 @@
       <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
       <script src="{{ asset('bundles/lanetadmin/js/productCategory.js') }}"></script>
   {% endblock %}
- 
+  
 {% macro recursiveCategory(category) %}
     
         <div>{{ form_label(category.name) }}</div>
+       
         <div><a class="toggle-category open" href="">+</a>{{ form_widget(category.name) }} <a href="" class="toggle-desc open">Показать описание</a></div>
+        
         <div class="category-desc">
+            
             <ul class="category-desc" data-prototype="{{ form_widget(category.descriptionItem.vars.prototype)|e }}">
                 {% for item in category.descriptionItem %}
                     <li>{{ form_row(item.name) }}</li>
-                {% endfor %}
+                     {% endfor %}
             </ul>
         </div>
         
@@ -52,8 +55,12 @@
   <form action="" method="post" {{ form_enctype(form) }}>
     {{ form_errors(form)}}
                {{ _self.recursiveCategory(form) }}
+    {{ form_row(form.brand) }}
+    {{ form_row(form.masterCategory) }}
     {{ form_row(form.save) }}
     {{ form_row(form._token) }}
   </form>
 
+    
+  
 {% endblock %}
