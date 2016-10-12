@@ -229,12 +229,16 @@
                         if (response.length != 0)
                             {
                                 if ($("#main_custom").length) {
+                               // var right = $('#main_custom').offset().left + $('#main_custom').outerWidth();
+                                var top2 = el.offset().top - 15;
+                                
                                 var right = $('#main_custom').offset().left + $('#main_custom').outerWidth();
                                 var top = $('#main_custom').offset().top;
-                                }
+                               
+                            }
                                 $('#main_custom').after($('<div id="brand_custom" class="sub_menu"></div>'));
 
-                                $('#brand_custom').offset({top:top, left:right});
+                                $('#brand_custom').offset({top:top2, left:right});
                                                               
                                 var brandMenu = $('#brand_custom');
                                 var data = (response);
@@ -286,10 +290,11 @@
                                 if ($("#brand_custom").length) {
                                 var right = $('#brand_custom').offset().left + $('#brand_custom').outerWidth();
                                 var top = $('#brand_custom').offset().top;
+                                var top2 = el.offset().top - 15;
                             }
                                 $('#brand_custom').after($('<div id="category_custom" class="sub_menu"></div>'));
 
-                                $('#category_custom').offset({top:top, left:right});
+                                $('#category_custom').offset({top:top2, left:right});
                                
                                 var categoryMenu = $('#category_custom')
                                 var data = (response);
@@ -343,10 +348,11 @@
                                 if ($("#category_custom").length) {
                                 var right = $('#category_custom').offset().left + $('#category_custom').outerWidth();
                                 var top = $('#category_custom').offset().top;
+                                var top2 = el.offset().top - 16;
                                 }
                                 $('#category_custom').after($('<div class="sub_menu sub_cat_custom"></div>'));
 
-                                $('.sub_cat_custom').last().offset({top:top, left:right});   
+                                $('.sub_cat_custom').last().offset({top:top2, left:right});   
             
                                 var subcatMenu = $('.sub_cat_custom').last();
 
@@ -398,9 +404,10 @@
                                 
                                 var right = $('.sub_cat_custom').last().offset().left + $('.sub_cat_custom').last().outerWidth();
                                 var top = $('.sub_cat_custom').last().offset().top;
-                                                                                            
+                                var top2 = el.offset().top - 15;
+                                
                                 $('.sub_cat_custom').last().after($('<div class="sub_cat_custom sub_menu"></div>'));
-                                $('.sub_cat_custom').last().offset({top:top, left:right}); 
+                                $('.sub_cat_custom').last().offset({top:top2, left:right}); 
                                 var subcatMenu = $('.sub_cat_custom').last();
 
                                 var data = (response);

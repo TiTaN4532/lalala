@@ -17,20 +17,20 @@ class ProductType extends AbstractType
              -> add('description', 'textarea', array('required' => false,'label' => 'Описание:'))
             // -> add('contraindications', 'textarea', array('required' => false,'label' => 'Противопоказания:'))
             // -> add('application', 'textarea', array('required' => false,'label' => 'Применение:'))
-             -> add('brand', 'entity', array(
+            /*-> add('brand', 'entity', array(
                         'label' => 'Брэнд',
                         'class' => 'LaNetLaNetBundle:Brand',
                         'property' => 'name',
                         'empty_value' => 'Выберите брэнд',
                         'empty_data'  => null
-                    ))
-             -> add('masterCategory', 'entity', array(
+                    ))*/
+             /*-> add('masterCategory', 'entity', array(
                         'label' => 'Специализация:',
                         'class' => 'LaNetLaNetBundle:MasterCategory',
                         'property' => 'name',
                         'empty_value' => 'Выберите специализацию',
                         'empty_data'  => null
-                    ))
+                    ))*/
              -> add('save', 'submit', array('label' => 'Сохранить'));
   }
 

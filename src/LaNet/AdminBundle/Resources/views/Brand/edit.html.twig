@@ -39,14 +39,14 @@
     {{ form_row(form.name) }}
     {{ form_row(form.country) }}
     {{ form_row(form.masterCategory) }}
-     <label>Линейки:</label>
+     {#<label>Линейки:</label>
     <ul style="padding:0px;" class="category" data-prototype="{{ _self.category_prototype(form.category.vars.prototype)|e }}">
         {% for item in form.category %}
             <li>{{ form_widget(item.file) }}
                 {{ form_row(item.name) }}
                 {{ form_row(item.description) }}</li>
         {% endfor %}
-    </ul>
+    </ul>#}
     {{ form_row(form.link) }}
     {{ form_row(form.description) }}
     <div>

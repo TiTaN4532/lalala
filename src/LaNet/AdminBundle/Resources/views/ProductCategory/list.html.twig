@@ -8,8 +8,13 @@
  
       
 {% block content %}
-  <h2>Список категорий</h2>
-      <a href="{{ path('la_net_admin_product_category_create') }}">Добавить категорию</a>
+  {% for flashMessage in app.session.flashbag.get('notice_product_category') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %} 
+    <h2>Список категорий</h2>
+    <a href="{{ path('la_net_admin_product_category_create') }}">Добавить категорию</a>
       <ul>
         {% for category in categories %}
             <li>
@@ -20,10 +25,11 @@
     </ul>
 
       <script>
-         $(document).ready(function() {
-            $('.delete-category').click(function(event) {
+                $(document).ready(function() {
+                $('.delete-category').click(function(event) {
               event.preventDefault();
-              var element = $(this);
+            if (confirm("Вы уверены что хотите удалить эту категорию?")) {
+            var element = $(this);
               $.ajax({
                   url         : element.attr('href'),
                   success     : function(data) {
@@ -33,7 +39,13 @@
                       alert('Probably there are products related to this category');
               }
               });
-            })
+            }
+              
+            });
+            
+             
          })
+    
+             
       </script>   
 {% endblock %}

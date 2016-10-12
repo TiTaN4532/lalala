@@ -51,16 +51,79 @@
       
       
 {% block content %}
-  <h2>Список категорий</h2>
+  <h2>Список категорий</h2>  
   <form action="" method="post" {{ form_enctype(form) }}>
     {{ form_errors(form)}}
-               {{ _self.recursiveCategory(form) }}
-    {{ form_row(form.brand) }}
-    {{ form_row(form.masterCategory) }}
+    {{ form_row(form.masterCategory) }}         
+      {% if brandList is not empty %}
+        <div id="brand" style="padding-top: 10px; padding-bottom: 10px;">
+          <label for="curentBrand" required="required">Бренд</label>
+            <select name="brand" id="brand-select">
+                {% for brand in  brandList %}
+                    <option value="{{ brand.id}}"{% if brandId == brand.id %} selected="selected"  {% endif %}>{{ brand.name }}</option> 
+                {% endfor %}       
+            </select> 
+        </div>
+      {% endif%} 
+    {{ _self.recursiveCategory(form) }}
     {{ form_row(form.save) }}
     {{ form_row(form._token) }}
   </form>
 
-    
-  
+  <script>
+  $(document).ready(function(){
+       
+     var SelectedMasterCat = $("#product_category_masterCategory option:selected").val();
+     var n = $('#brand').length;
+     
+       if (typeof SelectedMasterCat != "undefined" && SelectedMasterCat !='0' && n == '0'){ 
+           
+       var val = $("#product_category_masterCategory").val(); 
+          
+        if (val != '0') {  
+            $.ajax({
+                url: Routing.generate('la_net_la_net_ajax_menu_getBrand'),
+                data: {id: val},
+                success: function (response) {
+
+                    if (response.length != 0) {
+                    var data = (response);
+                    var new_options =  '<div id="brand"><label for="brand-select" required="required">Бренд:</label><div><select name="brand" id="brand-select"><option value="0">Выберите бренд</option><div>';
+                    $.each(data, function (index, value) {
+                        new_options += '<option value="'+ value.id +'">'+ value.name +'</option>';
+
+                    });
+
+                      new_options += '</select></div>';
+                  $("#product_category_masterCategory").after(new_options);
+
+                    }}})}}
+                     
+    $(document).on('change', '#product_category_masterCategory', function(){
+        $('#brand').remove();
+        $('#brand-form').remove();
+        $('#product_category_brand').remove();
+        var val = $("#product_category_masterCategory").val(); 
+          
+        if (val != '0') {  
+            $.ajax({
+                url: Routing.generate('la_net_la_net_ajax_menu_getBrand'),
+                data: {id: val},
+                success: function (response) {
+
+                    if (response.length != 0) {
+                    var data = (response);
+                    var new_options =  '<div id="brand"><label for="brand-select" required="required">Бренд:</label><div><select name="brand" id="brand-select"><option value="0">Выберите бренд</option><div>';
+                    $.each(data, function (index, value) {
+                        new_options += '<option value="'+ value.id +'">'+ value.name +'</option>';
+
+                    });
+
+                      new_options += '</select></div>';
+                  $("#product_category_masterCategory").after(new_options);
+       
+    }  }});  }
+      
+   })});    
+    </script>
 {% endblock %}

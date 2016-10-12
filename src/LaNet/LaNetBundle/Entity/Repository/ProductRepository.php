@@ -17,7 +17,7 @@ class ProductRepository extends EntityRepository
       $masterCategory ='';
       
       if ($request->get('category')){
-        $masterCategory = "p.masterCategory ='" . $request->get('category') ."' AND";
+        $masterCategory = "p.masterCategory ='" . $request->get('category') ."' AND ";
       }     
       
       $brand = ($request->get('brand')) ? " AND p.brand ='" . $request->get('brand') ."'" : "";

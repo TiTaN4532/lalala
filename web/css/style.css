@@ -719,6 +719,7 @@ padding-top: 20px;
   
  .sub_menu:not(#main_menu) {
     padding-left: 20px;
+    padding-bottom: 7px;
     padding-right: 5px; 
     margin: 5px; 
     float: left;
@@ -738,7 +739,8 @@ padding-top: 20px;
  .sub_menu ul li a {
    color: #5d5d5d;
  } 
-   
+ 
+
 
 @media (max-width: 320px) {
   nav ul li {

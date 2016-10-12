@@ -26,25 +26,45 @@ class ProductController extends BaseController
 
       $productRepo = $this->manager->getRepository('LaNetLaNetBundle:Product');
       $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('parent' => null));
+      $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
       $categoryTree = array();
+      $brandList = '';
       if (is_null($id)) {
         $product = new LaEntity\Product();
-        if($this->session->has('product_category')) {
+          if($this->session->has('master_category')) {
+          $brandList = $this->manager->getRepository('LaNetLaNetBundle:Brand')->getBrandList ($this->session->get('master_category'));    
+         
+          if($this->session->has('brand')) {
+          
+          if($this->session->has('product_category')) {
           $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($this->session->get('product_category'));
           $product->setCategory($category);
+          
+          $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('masterCategory' => $this->session->get('master_category'), 'brand' => $this->session->get('brand')));
+          $parentCategory = $product->getCategory();
           $categoryTree[] = $parentCategory = $product->getCategory();
             while($parentCategory->getParent() != null) {
               $categoryTree[] = $parentCategory = $parentCategory->getParent();
             }
             $categoryTree = array_reverse($categoryTree);
+           }
         }
+          
+          
+          }
+          
       } else {
         $product = $productRepo->find($id);
         if (!$product) {
           throw $this->createNotFoundException('News post not found!');
         }
         
+        $MasterCategory = $product->getMasterCategory();
+        $brand = $product->getBrand();
+        $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('masterCategory' => $product->getMasterCategory(), 'brand' => $product->getBrand()));
+        $brandList = $this->manager->getRepository('LaNetLaNetBundle:Brand')->getBrandList ($MasterCategory->getId());
         $categoryTree[] = $parentCategory = $product->getCategory();
+       
         while($parentCategory->getParent() != null) {
           $categoryTree[] = $parentCategory = $parentCategory->getParent();
         }
@@ -56,7 +76,22 @@ class ProductController extends BaseController
 
         $form->bind($request);
         if ($form->isValid()) {
-          $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($request->get('category'));
+          
+          $category = $request->get('category') ? $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($request->get('category')) : ""; 
+          $masterCategory_session = $request->get('masterCategory') ? $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->find($request->get('masterCategory')) : ""; 
+          $brand = $request->get('brand') ? $this->manager->getRepository('LaNetLaNetBundle:Brand')->find($request->get('brand')) : ""; 
+              
+        if ((empty($masterCategory_session)) or (empty($brand)) or (empty($category))) {
+              
+              $this->session->getFlashBag()->add(
+                'notice_product_fail',
+                'Товар не добавлен. Форма заполнена не полностью!'
+            );
+            $this->manager->flush(); 
+        }
+               
+        else {
+                  
           if($request->request->has('descr-items'))
           {
               foreach($request->get('descr-items') as $key => $value) {
@@ -74,9 +109,18 @@ class ProductController extends BaseController
                   } 
               }
           }
+         
+          $product->setMasterCategory($masterCategory_session);
+          $product->setBrand($brand);
           $product->setCategory($category);
           $this->manager->persist($product);
+          
+          $this->session->set('master_category', $masterCategory_session->getId());
           $this->session->set('product_category', $category->getId());
+          $this->session->set('brand', $brand->getId());
+          $this->session->remove('master_category');
+          $this->session->remove('product_category');
+          $this->session->remove('brand');
           $this->session->getFlashBag()->add(
                 'notice_product',
                 'Ваши изменения были сохранены'
@@ -84,14 +128,16 @@ class ProductController extends BaseController
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_product_list'));
         }
-        else {
+       /*else {
           print_r($form->getErrorsAsString());
-        }
-      }
+      }*/
+      }}
 
         return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('product' => $product, 
                                                                               'categoryTree' => $categoryTree, 
-                                                                              'categories' => $categories, 
+                                                                              'categories' => $categories,
+                                                                              'brandList' => $brandList,
+                                                                              'masterCategory' => $masterCategory,
                                                                               'form' => $form->createView()));
     }
 

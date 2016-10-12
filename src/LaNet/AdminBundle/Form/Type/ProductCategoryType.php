@@ -21,13 +21,13 @@ class ProductCategoryType extends AbstractType {
                     'allow_add' => true,
                     'allow_delete' => true,
                 ))
-                ->add('brand', 'entity', array(
-                    'label' => 'Брэнд',
+                /*->add('brand', 'entity', array(
+                    'label' => 'Бренд',
                     'class' => 'LaNetLaNetBundle:Brand',
                     'property' => 'name',
                     'empty_value' => 'Выберите брэнд',
                     'empty_data' => null
-                ))
+                ))*/
                 ->add('masterCategory', 'entity', array(
                     'label' => 'Специализация:',
                     'class' => 'LaNetLaNetBundle:MasterCategory',

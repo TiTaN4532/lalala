@@ -23,6 +23,8 @@ function bindRemoveAction(type)
     e.preventDefault();
     clearResultsMessages();
     var el = $(this);
+    
+    console.log('1231');
     $.ajax({
       url         : el.attr( 'href' ),
       success     : function(data) {

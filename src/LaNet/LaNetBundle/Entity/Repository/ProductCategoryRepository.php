@@ -80,6 +80,21 @@ public function getAllSubCat($parentId)
         return $result;
          
 }   
+
+ public function getCategory($masterCategoryId, $brandId)
+    {
         
-    }
+        $masterCategory = $masterCategoryId ? " AND masterCategory_id ='" .$masterCategoryId."'" : "";
+      
+        $brand = $brandId ? " AND brand_id ='" .$brandId."'" : "";
+                
+        $connection = $this->_em->getConnection();
+        $statement = $connection->prepare("SELECT name, id FROM product_category WHERE parent_id IS NULL". $masterCategory.$brand);
+        $statement->execute();
+        $result = $statement->fetchAll();    
+    
+        return $result;
+      }
+   
+}
    
