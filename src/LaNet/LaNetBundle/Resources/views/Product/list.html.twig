@@ -343,9 +343,22 @@
         URL += '&brand=' +brandSelected;
     }
     
+    
+   if (typeof categorySelected != "undefined" && categorySelected !='0') {
+    
     if (productName.length != 0)  
     {
         URL += '&name=' +productName;
+    }
+    
+    }
+    
+    else {
+        if (productName.length != 0)  
+    {
+        URL += '?name=' +productName;
+    } 
+        
     }
         
     if (typeof productCategorySelected != "undefined" && productCategorySelected !='0')
