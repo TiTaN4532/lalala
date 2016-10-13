@@ -49,11 +49,11 @@
     </ul>#}
     {{ form_row(form.link) }}
     {{ form_row(form.description) }}
+    {{ form_row(form._token) }}
     <div>
       <button id="cancel-brand-btn">Назад</button>
     {{ form_widget(form.save) }}
     </div>
-    {{ form_rest(form) }}
   </form>
   <script>
       $(document).ready(function(){

@@ -92,7 +92,7 @@ class ProductController extends BaseController
                
         else {
                   
-          if($request->request->has('descr-items'))
+          /*if($request->request->has('descr-items'))
           {
               foreach($request->get('descr-items') as $key => $value) {
                   $item = $this->manager->getRepository('LaNetLaNetBundle:ProductCategoryDescriptionItem')->find($key);
@@ -108,7 +108,7 @@ class ProductController extends BaseController
                       $product->addDescriptionName($itemName);
                   } 
               }
-          }
+          }*/
          
           $product->setMasterCategory($masterCategory_session);
           $product->setBrand($brand);
@@ -118,9 +118,6 @@ class ProductController extends BaseController
           $this->session->set('master_category', $masterCategory_session->getId());
           $this->session->set('product_category', $category->getId());
           $this->session->set('brand', $brand->getId());
-          $this->session->remove('master_category');
-          $this->session->remove('product_category');
-          $this->session->remove('brand');
           $this->session->getFlashBag()->add(
                 'notice_product',
                 'Ваши изменения были сохранены'

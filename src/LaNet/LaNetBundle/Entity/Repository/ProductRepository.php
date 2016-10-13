@@ -15,7 +15,9 @@ class ProductRepository extends EntityRepository
       $request = Request::createFromGlobals();
       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));      
       $masterCategory ='';
-      
+      $product_sub_cat = "";
+      $product_cat = "";
+        
       if ($request->get('category')){
         $masterCategory = "p.masterCategory ='" . $request->get('category') ."' AND ";
       }     
@@ -24,27 +26,35 @@ class ProductRepository extends EntityRepository
            
             if ($request->get('product_sub_cat')) 
                 {
-                 
+                                 
                  $id_product_sub_cat = $request->get('product_sub_cat');    
+                 
                  $id_product_sub_cat_array = $this -> getArrayCatId($id_product_sub_cat);
-                        
+                 
+                 if (empty ($id_product_sub_cat_array)){
+                 
+                 $product_sub_cat =" AND p.category = '" .$request->get('product_sub_cat')."'";    
+                 
+                 }
+                 
+                 else {
+                     
                  $product_sub_cat =" AND p.category IN (".implode(",",$id_product_sub_cat_array).")";    
+                 }
+                 
                  $product_cat = "";
                 }
            
             else 
                  {
-                if  ($request->get('product_cat')) {
-                 $id_product_cat = $request->get('product_cat');    
-                 $id_product_cat_array = $this -> getArrayCatId($id_product_cat);
+                 if  ($request->get('product_cat')) {
+                 //$id_product_cat = $request->get('product_cat');    
+                 //$id_product_cat_array = $this -> getArrayCatId($id_product_cat);
                         
-                 $product_cat =" AND p.category IN (".implode(",",$id_product_cat_array).")";    
+                 $product_cat =" AND p.category = '" .$request->get('product_cat')."'";   
                  //$product_cat = ($request->get('product_cat')) ? " AND p.category ='" . $request->get('product_cat') ."'" : "";    
                  $product_sub_cat = "";
                 }
-                
-                $product_cat ="";
-                $product_sub_cat = "";
                  }
      
      
@@ -65,13 +75,13 @@ class ProductRepository extends EntityRepository
     {      
         if ($id) 
         {
-             
+                  
         $connection = $this->_em->getConnection();
         $statement = $connection->prepare("SELECT id FROM product_category WHERE parent_id = :id");
         $statement->bindValue('id', $id);
         $statement->execute();
         $response = $statement->fetchAll();    
-                        
+       
         if (!empty($response)) 
             {
                         

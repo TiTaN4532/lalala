@@ -97,14 +97,14 @@
               {% set previous = product_category %}
               
             {% endfor %}
-            {% if previous.descriptionItem.count > 0 %}
+            {#{% if previous.descriptionItem.count > 0 %}
               <div class="category-descr">
                   {% for item in previous.descriptionItem %}
 
                     <div>{{ item.name }}: <input name="descr-items[{{ item.id }}]" {% if product.hasDescriptionItem(item) %} value="{{ product.hasDescriptionItem(item).name }}" {% endif %}></div>
                   {% endfor %}
               </div>
-            {% endif %}
+            {% endif %}#}
         {% endif %}
      <div id="product-buttons" >
       <button id="cancel-product-btn">Назад</button>
@@ -136,14 +136,14 @@
                   }
                   else {
                     element.attr('name', 'category').attr('id', 'product_category')
-                    if(msg.has_description) {
+                    /*if(msg.has_description) {
                       var descriptions = $('<div></div>');
                       descriptions.addClass('category-descr');
                       for(var key in msg.items) {
                         descriptions.append('<div>' + msg.items[key].name + ': <input name="descr-items[' + msg.items[key].id + ']" /></div>');
                       }
                       element.after(descriptions);
-                    }
+                    }*/
                   }
               }
             });
@@ -187,7 +187,7 @@
                 if (response.length != 0) {
                 var data = (response);
               
-                var new_options =  '<div id="brands"><label for="brand-select" required="required">Бренд:</label><div><select name="brand" id="brand-select"><option value="0">Выберите бренд</option><div>';
+                var new_options =  '<div id="brands"><label for="brand-select">Бренд:</label><div><select name="brand" required="required" id="brand-select"><option value="">Выберите бренд</option><div>';
                 $.each(data, function (index, value) {
                     new_options += '<option value="'+ value.id +'">'+ value.name +'</option>';
                   
@@ -225,7 +225,7 @@
                 if (response.length != 0) {
                 var data = (response);
                 
-                var new_options = '<div id="main-cat-del"><label for="main_cat" required="required">Категории:</label><select name="product" id="main_cat" class="select-category"><option value="0">Выберите категорию</option>';
+                var new_options = '<div id="main-cat-del"><label for="main_cat" required="required">Категории:</label><select name="product" required="required" id="main_cat" class="select-category"><option value="">Выберите категорию</option>';
                 $.each(data, function (index, value) {
                     new_options += '<option value="'+ value.id +'">'+ value.name +'</option>';
                   

@@ -204,13 +204,18 @@
 
                 $(document).on('mouseenter', '#main_custom li', function (event) {
                    
-                    var el = $(event.target)
+                    var el = $(event.target);
+                    
                     if (event.target.tagName != 'LI') {
                         el = $(event.target).parent('li');
-                    }             
+                    }     
+                    var id = (el.attr('id'));
+                    if(el.parents('#main_custom').next('.sub_menu').find('ul').attr('data-prev') == id) {
+                        return;
+                    }
                         
                     el.parents('ul').eq(0).find('li').removeClass('active')
-                    el.addClass('active')
+                    el.addClass('active');
 
                     el.parents('#main_custom').nextAll('.sub_menu').remove();
                                 
@@ -219,7 +224,7 @@
                         xhrMain.abort()
                     }
                     
-                    var id = (el.attr('id'));
+                    
                    
                     xhrMain = $.ajax({
                         url: Routing.generate('la_net_la_net_ajax_menu_getBrand'),
@@ -242,9 +247,9 @@
                                                               
                                 var brandMenu = $('#brand_custom');
                                 var data = (response);
-                                var ul = '<ul>'
+                                var ul = '<ul data-prev="' + id + '">'
                                 $.each(data, function (index, value) {
-                                    ul += '<li data-brand="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + value.id + '&category=' + el.id + '">' + value.name + '</a></li>';
+                                    ul += '<li data-brand="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + value.id + '&category=' + id + '">' + value.name + '</a></li>';
 
 
                                 });
@@ -265,6 +270,12 @@
                     if (event.target.tagName != 'LI') {
                         el = $(event.target).parent('li');
                     }
+                    
+                    var idMenu = (el.attr('data-brand'));
+                    if(el.parents('#brand_custom').next('.sub_menu').find('ul').attr('data-prev') == idMenu) {
+                        return;
+                    }
+                    
                          
                     el.parents('ul').eq(0).find('li').removeClass('active');
                     el.addClass('active')
@@ -279,7 +290,7 @@
                     
                     var brand = (el.attr("data-brand"))
                     var cat = $('#main_custom li.active').attr('id')
-
+                                     
                     xhrBrand = $.ajax({
                         url: Routing.generate('la_net_la_net_ajax_menu_getProductCategory'),
                         data: {id_cat: cat, id_brand: brand},
@@ -298,7 +309,7 @@
                                
                                 var categoryMenu = $('#category_custom')
                                 var data = (response);
-                                var ul = '<ul>'
+                                var ul = '<ul data-prev="' + idMenu + '">'
                                 $.each(data, function (index, value) {
                                     ul += '<li data-cat="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + brand + '&category=' + cat + '&product_cat=' + value.id + '">' + value.name + '</a></li>';
 
@@ -321,6 +332,11 @@
                         el = $(event.target).parent('li');
                     }
                     
+                    var idMenu = (el.attr('data-cat'));
+                    if(el.parents('#category_custom').next('.sub_menu').find('ul').attr('data-prev') == idMenu) {
+                        return;
+                    }
+                                        
                     el.parents('ul').eq(0).find('li').removeClass('active');
                     el.addClass('active');
 
@@ -357,7 +373,7 @@
                                 var subcatMenu = $('.sub_cat_custom').last();
 
                                 var data = (response);
-                                var ul = '<ul>'
+                                var ul = '<ul data-prev="' + idMenu + '">'
                                 $.each(data, function (index, value) {
                                     ul += '<li data-sub-cat="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + $('#brand_custom li.active').attr('data-brand') + '&category=' + cat + '&product_cat=' + catParent + '&product_sub_cat=' + value.id + '">' + value.name + '</a></li>';
 
@@ -379,6 +395,11 @@
                     var el = $(event.target)
                     if (event.target.tagName != 'LI') {
                         el = $(event.target).parent('li');
+                    }
+                    
+                    var idMenu = (el.attr('data-sub-cat'));
+                    if(el.parents('.sub_cat_custom').next('.sub_menu').find('ul').attr('data-prev') == idMenu) {
+                        return;
                     }
                     
                     el.parents('ul').eq(0).find('li').removeClass('active')
@@ -411,7 +432,7 @@
                                 var subcatMenu = $('.sub_cat_custom').last();
 
                                 var data = (response);
-                                var ul = '<ul>' 
+                                var ul = '<ul data-prev="' + idMenu + '">'
                                 $.each(data, function (index, value) {
                                     ul += '<li data-sub-cat="' + value.id + '"><a href="{{ path('la_net_la_net_product_list') }}' + '?brand=' + $('#brand_custom li.active').attr('data-brand') + '&category=' + $('#main_custom li.active').attr('id') + '&product_cat=' + main_cat + '&product_sub_cat=' + value.id + '">' + value.name + '</a></li>';
 
