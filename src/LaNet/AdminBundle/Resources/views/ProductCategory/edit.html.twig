@@ -64,6 +64,14 @@
                 {% endfor %}       
             </select> 
         </div>
+       {% else %}     
+         <div id="brand" style="padding-top: 10px; padding-bottom: 10px;">
+          <label for="curentBrand" class="required">Бренд</label>
+            <select name="brand" required="required" id="brand-select">
+                <option value="">Выберите бренд</option>
+            </select> 
+        </div>   
+            
       {% endif%} 
     {{ _self.recursiveCategory(form) }}
     {{ form_row(form.save) }}
@@ -97,7 +105,14 @@
                       new_options += '</select></div>';
                   $("#product_category_masterCategory").after(new_options);
 
-                    }}})}}
+                    }
+                    else {
+                        var new_options =  '<div id="brand"><label for="brand-select" class="required">Бренд:</label><div><select name="brand" required="required" id="brand-select"><option value="">Выберите бренд</option><div>';
+                         new_options += '</select></div>';
+                         $("#product_category_masterCategory").after(new_options);
+                    }
+
+    }})}}
                      
     $(document).on('change', '#product_category_masterCategory', function(){
         $('#brand').remove();
@@ -122,7 +137,13 @@
                       new_options += '</select></div>';
                   $("#product_category_masterCategory").after(new_options);
        
-    }  }});  }
+                    }  
+                    else {
+                        var new_options =  '<div id="brand"><label for="brand-select" class="required">Бренд:</label><div><select name="brand" required="required" id="brand-select"><option value="">Выберите бренд</option><div>';
+                         new_options += '</select></div>';
+                         $("#product_category_masterCategory").after(new_options);
+                        }
+}});  }
       
    })});    
     </script>
