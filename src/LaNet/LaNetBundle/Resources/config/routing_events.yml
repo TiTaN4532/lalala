@@ -1,0 +1,7 @@
+la_net_la_net_events_list:
+    pattern:  /events
+    defaults: { _controller: LaNetLaNetBundle:Events:eventsList }
+    
+la_net_la_net_events_id:
+    pattern:  /events/{slug}
+    defaults: { _controller: LaNetLaNetBundle:Events:eventsId }

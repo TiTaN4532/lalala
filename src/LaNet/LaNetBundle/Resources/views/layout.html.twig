@@ -20,65 +20,380 @@
       </section>#}
     {% endblock %}
     
-     <div class="container">
+    <div class="container">
           <div class="row-fluid">
               <div class="span8">
-                  {% block content %}
-                   <div class="menu">
-                      <div class="sectionName">
-                      <h2>Мастера и салоны</h2>
-                      </div>
-                      <div class="sectionLine"></div>
-                      <ul>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 3 }) }}" class="firstLi">Парикмахер</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 8 }) }}" class="secondLi">Наращивание волос</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 4 }) }}" class="thirdLi">Косметолог</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 9 }) }}" class="fourthLi">Маникюр / Педикюр<br/>Наращивание ногтей</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 5 }) }}" class="fifthLi">Массажист</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 10 }) }}" class="sixthLi">Пирсинг</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 6 }) }}" class="sevenLi">Наращивание ресниц</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 11 }) }}" class="eightLi">Визажист</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 7 }) }}" class="nineLi">Тату / Татуаж</a></li>
-                          <li><a href="{{ path('la_net_la_net_master_list', { 'category' : 12 }) }}" class="tenLi">Депиляция</a></li>
-                          </ul>
-                  </div>
-                  {#<div class="menu">
-                      <div class="sectionName">
-                      <h2>Косметика и препараты</h2>
-                      </div>
-                      <div class="sectionLine"></div>
-                      <ul id="kosmetika">
-                          <li><a href="" class="firstLi">Для парикмахера</a></li>
-                          <li><a href="" class="secondLi">Для наращивания<br />волос</a></li>
-                          <li><a href="" class="thirdLi">Для косметолога</a></li>
-                          <li><a href="" class="fourthLi">Для маникюра /<br />педикюра /<br />наращивания ногтей</a></li>
-                          <li><a href="" class="fifthLi">Для массажиста</a></li>
-                          <li><a href="" class="sixthLi">Для депиляции</a></li>
-                          <li><a href="" class="sevenLi">Для тату /<br />татуажа</a></li>
-                          <li><a href="" class="eightLi">Для наращивания <br />ресниц</a></li>
-                          <li><a href="" class="nineLi">Для визажиста</a></li>
-                          <li><a href="" class="tenLi">Для пирсинга</a></li>
-                      </ul>
+       {% block content %}
+                
+        {% if news %}
+           <h2 class="section-title">TOP Новости</h2>
+                <section class="top-news">
+                    <div class="row-fluid">
+                       
+                    {% for post in news %}
+                         {% if loop.index == 1 %}
+                        <div class="span7">
+                            <div class="top-news-img">
+                                <a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath)}}" alt="placeholder"></a>
+                            </div>
+                            {% endif %}
+                          {% endfor %}   
+                            
+                            <div class="row-fluid">
+                                {% for post in news %}
+                                   {% if loop.index <= 4 and loop.index > 1 %}
+                                                                              <div class="span4">
+                                            <article class="top-news-item">
+                                                <a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath)}}" alt="placeholder"></a>
+                                                <h3 class="item-title"><a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+                                                <div class="top-news-date">{{ post.updated | date ('m.d.Y')}}</div>
+                                            </article>
+                                        </div>  
+                                    {% endif %}
+                                {% endfor %} 
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="span5">
+                           {% for post in news %}
+                                {% if loop.index > 4 %}
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath)}}" alt="placeholder"></a>
+                                        <h3 class="item-title"><a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+                                        <div class="top-news-date">{{ post.updated | date ('m.d.Y')}}</div>
+                                    </article>  
+                                {% endif %}
+                            {% endfor %} 
+                            <div class="facebook-area">
+                                <img src="./Всеукраинский портал индустрии красоты и здоровья_files/facebook-ads.jpg" alt="placeholderForFacebook">
+                            </div>
+                        </div>               
+                    </div>
+                </section>
+            {% endif %}                
+                
+            {% if tests %}
+                 <section class="holder">
+                    <h2 class="section-title"><a href="{{ path('la_net_la_net_tests_list') }}">Тестирование продуктов</a></h2>
+                    <div class="row-fluid">
+                        {% for post in tests %}
+                            {% if loop.index <= 3 %}
+                            <div class="span4">
+                                <div class="product-item">
+                                    <div class="product-item-img">
+                                       <a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">
+                                          <img src="{{ asset(post.getWebPath)}}"/>
+                                       </a>
+                                    </div>
+                                    <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug } ) }}">{{ post.title}}</a></h3>
+                                </div>
+                            </div>
+                                {% endif %}
+                       {% endfor %}
                    </div>
-                   <div class="menu">
-                      <div class="sectionName">
-                      <h2>Инструмент и оборудование</h2>
-                      </div>
-                      <div class="sectionLine"></div>
-                      <ul id="instr">
-                          <li><a href="" class="firstLi">Для парикмахера</a></li>
-                          <li><a href="" class="secondLi">Для визажиста</a></li>
-                          <li><a href="" class="thirdLi">Для косметолога</a></li>
-                          <li><a href="" class="fourthLi">Для маникюра /<br />педикюра /<br />наращивания ресниц</a></li>
-                          <li><a href="" class="fifthLi">Для массажиста</a></li>
-                          <li><a href="" class="sixthLi">Для тату /<br />татуажа</a></li>
-                          <li><a href="" class="sevenLi">Для депиляции</a></li>
-                          <li><a href="" class="eightLi">Для пирсинга</a></li>
-                          <li><a href="" class="nineLi">Для наращивания<br />волос</a></li>
-                          <li><a href="" class="tenLi">Для наращивания<br />ресниц</a></li>
-                      </ul>
-                   </div>#}
-                  {% endblock %}
+                      
+                    <div class="row-fluid">
+                        {% for post in tests %}
+                            {% if loop.index > 3 %}
+                            <div class="span4">
+                                <div class="product-item">
+                                    <div class="product-item-img">
+                                       <a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">
+                                          <img src="{{ asset(post.getWebPath)}}"/>
+                                       </a>
+                                    </div>
+                                    <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug } ) }}">{{ post.title}}</a></h3>
+                                </div>
+                            </div>
+                            {% endif %}
+                       {% endfor %}
+                    </div>
+                   
+                    <div class="product-btn-row">
+                        <a href="{{ path('la_net_la_net_tests_list') }}" class="btn">Ещё</a>
+                    </div>
+                </section>
+            {% endif %}
+            
+            {% if masters %}        
+                <section class="holder">
+                    <div class="row-fluid">
+                        <div class="span7">
+                            <h2 class="section-title"><a href="{{ path('la_net_la_net_master_list') }}">TOP мастера</a></h2>
+                            <div class="masters">
+                              {% for master in masters %}
+                                <div class="masters-item clearfix">
+                                    <div class="masters-item-img">
+                                        <img src="{{ asset(master.getWebPath)}}" />
+                                    </div>
+                                    <div class="masters-item-info">
+                                       <h3 class="masters-item-title {% if master.inTop != NULL%} starred {% endif%}">{{ master.firstName }} {{ master.lastName }}</h3>
+                                            {% if master.category is not empty %}
+                                                <div class="masters-item-profession">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+                                            {% endif %}
+                                        <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}" class="read-more">Читать полностью...</a>
+                                    </div>
+                                </div>
+                              {% endfor%}    
+                            </div>
+                        </div>
+                        <div class="span5">
+                            <div class="discount-section">
+                                <h2 class="section-title labeled"><a href="{{ path('la_net_la_net_salon_list') }}">ТОП салонов      </a>{#<span class="title-label">Выгодно</span>#}</h2>
+                                {% for salon in salons %}
+                                    <div class="discounts-item">
+                                        <div class="discounts-item-img">
+                                             <img src="{{ asset(salon.getWebPath)}}" />
+                                        </div>
+                                        {#<div class="discounts-item-description">-30% на вторую процедуру</div>#}
+                                        <a href="{{ path('la_net_la_net_salon_id', {'id': salon.id })}}" class="readmore">Читать полностью...</a>
+                                    </div>
+                               {% endfor%}  
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+                               
+            {% if trusts %}    
+                <section class="holder">
+                    <h2 class="section-title"><a href="{{ path('la_net_la_net_trusts_list') }}">Им доверяют</a></h2>
+                    <div class="row-fluid">
+                        <div class="span7">
+                            <div class="masters">
+                            {% for post in trusts %}  
+                                
+                                <div class="masters-item clearfix">
+                                    <div class="masters-item-img">
+                                        <img src="{{ asset(post.getWebPath)}}" />
+                                    </div>
+                                    <div class="masters-item-info">
+                                        <h3 class="masters-item-title">{{ post.title}}</h3>
+                                        <div class="masters-item-profession">{{ post.description}}</div>
+                                        <a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
+                                    </div>
+                                </div>
+                            {% endfor %}  
+                               
+                            </div>
+                        </div>
+                        
+                      {#  <div class="span5">
+                            <div class="discount-section">
+                                <div class="discounts-item">
+                                    <div class="discounts-item-img">
+                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/salon-logo-05.jpg" alt="placeholder">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="discount-section">
+                                <div class="discounts-item">
+                                    <div class="discounts-item-img">
+                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/salon-logo-06.jpg" alt="placeholder">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="discount-section">
+                                <div class="discounts-item">
+                                    <div class="discounts-item-img">
+                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/salon-logo-07.jpg" alt="placeholder">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="discount-section">
+                                <div class="discounts-item">
+                                    <div class="discounts-item-img">
+                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/salon-logo-08.jpg" alt="placeholder">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>#}
+                    </div>
+                </section>
+            {% endif %}
+                            
+            {% if advices %}
+                <section class="holder">
+                    <h2 class="section-title"><a href="{{ path('la_net_la_net_advices_list') }}">Советы красоты</a></h2>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            {% for post in advices %}  
+                                {% if loop.index <= 3 %}
+                                    <div class="info-block clearfix">
+                                        <div class="info-block-img">
+                                               <img src="{{ asset(post.getWebPath)}}" />
+                                        </div>
+                                        <div class="info-block-content">
+                                            <h3 class="info-block-title">{{ post.title}}</h3>
+                                            <div class="info-block-description">{{ post.description}}</div>
+                                            <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
+                                        </div>
+                                    </div>
+                                {% endif %}                            
+                            {% endfor %}                            
+                        </div>
+                        
+                        <div class="span6">
+                             {% for post in advices %}  
+                                {% if loop.index > 3 %}
+                                    <div class="info-block clearfix">
+                                        <div class="info-block-img">
+                                               <img src="{{ asset(post.getWebPath)}}" />
+                                        </div>
+                                        <div class="info-block-content">
+                                            <h3 class="info-block-title">{{ post.title}}</h3>
+                                            <div class="info-block-description">{{ post.description}}</div>
+                                            <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
+                                        </div>
+                                    </div>
+                                {% endif %}                            
+                            {% endfor %}        
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+                <section class="holder">
+                    <div class="gallery-wrap">
+                        <div class="gallery">
+                            <article class="top-news-item">
+                                <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-01.jpg" alt="placeholder"></a>
+                                <h3 class="item-title"><a href="#">Волшебный ноготок</a></h3>
+                                <div class="top-news-date">21.09.2017</div>
+                            </article>
+                            
+                        </div>
+                    </div>
+                </section>
+
+                <section class="holder">
+                    <div class="advert-wrap">
+                        <div class="text-center">
+                            <a href="#" class="btn">Новое объявление</a>
+                        </div>
+
+                        <div class="advert">
+                            <div class="advert-holder">
+                                <div class="advert-area clearfix">
+                                    <div class="advert-img">
+                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-03.png" alt="placeholder">
+                                    </div>
+                                    <div class="advert-info">
+                                        <h3>Ищу мастера маникюра в салон красоты г.Харьков</h3>
+                                        <div class="advert-descr">
+                                            <p>Команда Lak Nails Bar (Пушкинский вьезд.4) ищет мастера
+                                            ногтевого сервиса.На постоянную стабильную работу в молодой,
+                                            интересный коллектив.Требования:опыт работы от 6 месяцев,
+                                            работа с аппаратом,классический,комбинированный маникюр и
+                                            педикюр.Работа с дизайнами гель лаками.</p>
+
+                                            <p>Посменный график с 10-20 Заработная плата ежедневно,процент
+                                            Все материалы нашей студии,от Вас только желание и умение
+                                            выполнять работу на 5+</p>
+                                        </div>
+                                        <div class="advert-contacts">
+                                            <a href="#">+380 (12) 345 67 89</a>
+                                            <a href="#">mail123@mail.ru</a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="opener">&#8897;</a>
+                                    <a href="#" class="closer">&#8896;</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="advert">
+                            <div class="advert-holder">
+                                <div class="advert-area clearfix">
+                                    <div class="advert-img">
+                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-03.png" alt="placeholder">
+                                    </div>
+                                    <div class="advert-info">
+                                        <h3>Ищу мастера маникюра в салон красоты г.Харьков</h3>
+                                        <div class="advert-descr">
+                                            <p>Команда Lak Nails Bar (Пушкинский вьезд.4) ищет мастера
+                                            ногтевого сервиса.На постоянную стабильную работу в молодой,
+                                            интересный коллектив.Требования:опыт работы от 6 месяцев,
+                                            работа с аппаратом,классический,комбинированный маникюр и
+                                            педикюр.Работа с дизайнами гель лаками.</p>
+
+                                            <p>Посменный график с 10-20 Заработная плата ежедневно,процент
+                                            Все материалы нашей студии,от Вас только желание и умение
+                                            выполнять работу на 5+</p>
+                                        </div>
+                                        <div class="advert-contacts">
+                                            <a href="#">+380 (12) 345 67 89</a>
+                                            <a href="#">mail123@mail.ru</a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="opener">&#8897;</a>
+                                    <a href="#" class="closer">&#8896;</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="advert">
+                            <div class="advert-holder">
+                                <div class="advert-area clearfix">
+                                    <div class="advert-img">
+                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-03.png" alt="placeholder">
+                                    </div>
+                                    <div class="advert-info">
+                                        <h3>Ищу мастера маникюра в салон красоты г.Харьков</h3>
+                                        <div class="advert-descr">
+                                            <p>Команда Lak Nails Bar (Пушкинский вьезд.4) ищет мастера
+                                            ногтевого сервиса.На постоянную стабильную работу в молодой,
+                                            интересный коллектив.Требования:опыт работы от 6 месяцев,
+                                            работа с аппаратом,классический,комбинированный маникюр и
+                                            педикюр.Работа с дизайнами гель лаками.</p>
+
+                                            <p>Посменный график с 10-20 Заработная плата ежедневно,процент
+                                            Все материалы нашей студии,от Вас только желание и умение
+                                            выполнять работу на 5+</p>
+                                        </div>
+                                        <div class="advert-contacts">
+                                            <a href="#">+380 (12) 345 67 89</a>
+                                            <a href="#">mail123@mail.ru</a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="opener">&#8897;</a>
+                                    <a href="#" class="closer">&#8896;</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    
+                        <div class="row clear pagination">
+                            <div class="pagination">
+                                <span class="current">1</span>
+                                <span class="page">
+                                        <a href="/club/master?page=2">2</a>
+                                    </span>
+                                                <span class="page">
+                                        <a href="/club/master?page=3">3</a>
+                                    </span>
+                                                <span class="page">
+                                        <a href="/club/master?page=4">4</a>
+                                    </span>
+                                                <span class="page">
+                                        <a href="/club/master?page=5">5</a>
+                                    </span>
+                                    <span class="next">
+                                    <a href="/club/master?page=2">&gt;</a>
+                                </span>
+                                    <span class="last">
+                                    <a href="/club/master?page=10">&gt;&gt;</a>
+                                </span>
+                            </div>
+                          </div>
+                    </div>
+                </section>
+
+
+    
+{% endblock %}
+       
                   
               </div>
           
@@ -95,5 +410,5 @@
          </div>
     </div>
 </div>
-   
+  
 {% endblock %}

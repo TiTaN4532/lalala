@@ -1,19 +1,4 @@
-
-@font-face {
-    font-family: Comfortaa Bold; /* Имя шрифта */
-    src: url(../fonts/Comfortaa-Bold.ttf); /* Путь к файлу со шрифтом */
-   }
-   
-@font-face {
-    font-family: Comfortaa Light; /* Имя шрифта */
-    src: url(../fonts/Comfortaa-Light.ttf); /* Путь к файлу со шрифтом */
-   }
-   
-@font-face {
-    font-family: Comfortaa Regular; /* Имя шрифта */
-    src: url(../fonts/Comfortaa-Regular.ttf); /* Путь к файлу со шрифтом */
-   }
-html, body {height: 100%;   font-family: 'Comfortaa Regular', arial;}
+html, body {height: 100%;}
 
 .wrap {
   min-height: 100%;
@@ -37,7 +22,7 @@ div#registration a {
   padding: 10px 20px 0 80px;
   width:145px;
   height:85px;
-  
+
 }
 
 div#registration img {
@@ -55,16 +40,6 @@ div#registration img {
 
 div#registration a:hover{
   background-color: #6cb55d;
-}
-
-h1 {
-    font: 28px;
-    margin: 20px 0;
-}
-
-h1#main {
-    color: #578fac;
-    text-align: center;
 }
 
 input[type="text"], input[type="password"],
@@ -94,7 +69,7 @@ textarea {
   border-radius: 0;
   box-sizing: border-box;
   width: 100%;
-  font-family: 'Comfortaa Regular';  
+  font-family: 'Comfortaa Regular';
 }
 input[type="text"].half, input.half[type="password"],
 input.half[type="email"],
@@ -179,16 +154,16 @@ button.grey:hover, .button.grey:hover,
 input[type="submit"].grey:hover,
 input[type="button"].grey:hover,
 input[type="reset"].grey:hover {
-  color: #fff ! important;
-  background: #9d9d9d ! important;
+  color: #fff;
+  background: #9d9d9d;
 }
 
 button:hover, .button:hover,
 input[type="submit"]:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover {
-  color: #fff ! important;
-  background: #2d93b2 ! important;
+  color: #fff;
+  background: #2d93b2;
 }
 
 input[type="checkbox"] + label {
@@ -428,10 +403,10 @@ ul.list-style-none li {
   margin-bottom: 20px;
 }
 .float-left {
-  float:left;
+  float: left;
 }
 .float-right {
-  float:right;
+  float: right;
 }
 #about p {
     margin: 10px 0;
@@ -540,8 +515,13 @@ ul.phone li, ul.mail li {
 }
 
 #regions {
-    font-size:17px;
+    font-size: 17px;
     height: auto;
+    letter-spacing: 1px;
+}
+
+#regions option:first-letter {
+    letter-spacing: 0;
 }
 
 .master-id .row, .salon-id .row, .brand-id .row  {
@@ -549,5 +529,5 @@ ul.phone li, ul.mail li {
 }
 
 .brand-country {
-    padding-bottom: 25px;  
+    padding-bottom: 25px;
 }

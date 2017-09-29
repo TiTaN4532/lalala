@@ -14,6 +14,12 @@ la_net_la_net_about:
     pattern:  /about
     defaults: { _controller: LaNetLaNetBundle:Main:about }
     
+la_net_la_net_ajax_notifications:
+    pattern:  /ajax/notifications
+    defaults: { _controller: LaNetLaNetBundle:Main:notifications }
+    options:
+        expose: true
+        
 la_net_la_net_homepage:
     pattern:  /
     defaults: { _controller: LaNetLaNetBundle:Main:index }
@@ -44,6 +50,26 @@ la_net_la_net_consumer_routes:
   
 la_net_la_net_News_routes:
   resource: "routing_news.yml"
+  prefix: /
+  
+la_net_la_net_Events_routes:
+  resource: "routing_events.yml"
+  prefix: /
+  
+la_net_la_net_Tests_routes:
+  resource: "routing_tests.yml"
+  prefix: /
+  
+la_net_la_net_Adverts_routes:
+  resource: "routing_adverts.yml"
+  prefix: /
+  
+la_net_la_net_Trusts_routes:
+  resource: "routing_trusts.yml"
+  prefix: /
+  
+la_net_la_net_Advices_routes:
+  resource: "routing_advices.yml"
   prefix: /
   
 la_net_la_net_Product_routes:

@@ -17,7 +17,9 @@
         <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
         <input type="file" {{ block('widget_attributes') }} style="display:none"/>
         <script type="text/javascript">
-            $("#{{id}}").change(function(){
+            
+
+              $("#{{id}}").change(function(){
                 readURL(this, '{{id}}_image');
             });
         </script>
@@ -25,7 +27,7 @@
 {% endblock %}
   
 {% block content %}
-  <h2>{% if news_post.getId %}Обновить "{{ news_post.title }}"{% else %}Создать новость{% endif %} news post</h2>
+  <h2>{% if news_post.getId %}Обновить "{{ news_post.title }}"{% else %}Создать новость{% endif %}</h2>
   <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
         {{ form_widget(form.file) }}
     {{ form_row(form.title) }}
@@ -39,11 +41,15 @@
     {{ form_rest(form) }}
   </form>
   <script>
+      
+          
       $(document).ready(function(){
-          $('#cancel-news-post-btn').click(function() {
-               window.location = Routing.generate('la_net_admin_news_posts');
+      
+        $('#cancel-news-post-btn').click(function() {
+              window.location = Routing.generate('la_net_admin_news_posts');
             });
         {% if news_post.id %}
+               
         $('.remove-image').click(function(event) {
         event.preventDefault();
           var el = $(this);
@@ -57,5 +63,17 @@
       })
       {% endif %}
         });
+        
+          {% if not news_post.id %}
+        window.onload = function () {
+            var id_tiny = tinymce.editors[0].id;
+            tinymce.get(id_tiny).setContent('');
+          
+            var id_tiny2 = tinymce.editors[1].id;         
+            tinymce.get(id_tiny2).setContent('');
+
+                   };
+                        {% endif %}
+        
   </script>
 {% endblock %}

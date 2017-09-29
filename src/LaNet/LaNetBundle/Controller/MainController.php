@@ -9,12 +9,26 @@ use Symfony\Component\Security\Core\SecurityContext;
 use LaNet\LaNetBundle\Form\Type as LaForm;
 use Doctrine\ORM\Query\ResultSetMapping;
 use LaNet\LaNetBundle\Entity as LaEntity;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MainController extends BaseController {
 
     public function indexAction() {
-        $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findBy(array(), array('updated' => 'DESC'), 3);
-        return $this->render('LaNetLaNetBundle::layout.html.twig', array('news' => $news));
+        $advices = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'advice', 'is_draft' => NULL),array('updated' => 'DESC'), 8);
+        $tests = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'test', 'is_draft' => NULL),array('updated' => 'DESC'), 6);
+        $trusts = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'trust', 'is_draft' => NULL),array('updated' => 'DESC'), 3);
+        $events = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'event', 'is_draft' => NULL),array('updated' => 'DESC'), 4);
+        $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findBy(array(), array('updated' => 'DESC'), 7);
+        $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 5);
+        $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalons($this->paginator, 3);
+      
+        return $this->render('LaNetLaNetBundle::layout.html.twig', array('news' => $news,
+                                                                         'advices' => $advices,
+                                                                         'tests' => $tests,
+                                                                         'trusts' => $trusts,
+                                                                         'masters' => $masters,
+                                                                         'salons' => $salons,
+                                                                         'events' => $events));
     }
 
     public function generateCsrfTokenAction() {
@@ -85,6 +99,30 @@ class MainController extends BaseController {
 
     public function aboutAction() {
         return $this->render('LaNetLaNetBundle::about.html.twig', array());
+    }
+    
+     public function notificationsAction(Request $request)
+    {
+        if ($request){
+            $request = $this->container->get('request');
+            $mail = $request->query->get('notifications_mail'); 
+            $mailRepo = $this->manager->getRepository('LaNetLaNetBundle:Notifications')->findBy(array('mail' => $mail));
+            if ($mailRepo){
+                return new JsonResponse('duplicate');
+              }
+              else{
+                $newMail = new LaEntity\Notifications();
+
+                $newMail-> setMail($mail);
+                $newMail-> setActive(1);
+
+                $this->manager->persist($newMail);
+                $this->manager->flush();
+
+              return new JsonResponse('success');
+              
+              }
+       }
     }
 
 }

@@ -1,0 +1,7 @@
+la_net_la_net_advices_list:
+    pattern:  /advices
+    defaults: { _controller: LaNetLaNetBundle:Advices:advicesList }
+    
+la_net_la_net_advices_id:
+    pattern:  /advices/{slug}
+    defaults: { _controller: LaNetLaNetBundle:Advices:advicesId }

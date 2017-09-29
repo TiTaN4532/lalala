@@ -1,0 +1,7 @@
+la_net_la_net_tests_list:
+    pattern:  /tests
+    defaults: { _controller: LaNetLaNetBundle:Tests:testsList }
+    
+la_net_la_net_tests_id:
+    pattern:  /tests/{slug}
+    defaults: { _controller: LaNetLaNetBundle:Tests:testsId }

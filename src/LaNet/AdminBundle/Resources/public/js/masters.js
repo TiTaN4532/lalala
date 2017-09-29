@@ -86,6 +86,17 @@ $(document).ready(function(){
              }
         });
     });
+    
+    $('a.inTop-master').click(function() {
+      var link = $(this);
+      $.ajax({
+        url: Routing.generate('la_net_admin_ajax_inTop_master', {'id':link.attr('data')}),
+        success     : function(data) {
+           console.log (1312)
+             }
+        });
+    });
+    
    $('.users-filter').click(function(event){
       event.preventDefault();
       var link = $(this);

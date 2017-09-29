@@ -9,15 +9,20 @@
         {% block stylesheets %}
             <script src="{{ asset('js/jquery-1.10.1.min.js') }}"></script>
             <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}">
+            <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Comfortaa" />
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
             <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+            <script src="{{ asset('js/slick.min.js') }}"></script>
+            
             <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
             <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
             {#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js')}}"></script>
+            <script src="{{ asset('js/toastr/toastr.js')}}"></script>
+            <link rel="stylesheet" href="{{ asset('js/toastr/toastr.css')}}" >
             <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
 
@@ -56,6 +61,26 @@
                                     <div id="line2"></div>
                                     <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
                                 {% endif %}
+                                 </div>
+                                 <div>
+                                 <ul class="social-links">
+                                <li class="mail">
+                                    <a href="#" id="notifications-modal-btn" data-toggle="modal" data-target="#myModal">
+                                        <i class="icon icon-mail"></i>
+                                        <span>Подписаться на новости</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon icon-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon icon-youtube"></i>
+                                    </a>
+                                </li>
+                            </ul>
                             </div>
                             <div  id="form2">
                                 {# <form action="http://lalook.net/formdata.php" method="POST" name="form">
@@ -65,28 +90,53 @@
                             </div>
                         </div>
                     </div>
-                </div>                    
+                </div>   
+                    <div id="myModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><button class="close" type="button" id="close-btn" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">Введите адресс электронной почты</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="notifications" style="width:100%;"/>
+                        <span id="valid"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default notifications-confirm" type="button" >Подписаться</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
+                            
+                            
                 <nav>
                     <div class="container">
                         <ul>
                           {#<li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> #}
-                            <li><a id="drop_custom" href="{{ path('la_net_la_net_master_list') }}" data-toggle="dropdown" >Бренд-инфо</a>
+                          <li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>  
+                          {#<li><a id="drop_custom" href="{{ path('la_net_la_net_master_list') }}" data-toggle="dropdown" >Бренд-инфо</a>
                                 <div id="main_custom" style="display:none;" class="sub_menu"> 
                                     <ul>                     
                                          {{ render(controller('LaNetLaNetBundle:Menu:getMasterCategory')) }}
                                     </ul>   
                                 </div> 
-                            </li>        
-                            <li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>
-                            <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб</a>
+                            </li> #}       
+                             <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб</a>
                                 <ul class="dropdown-menu pull-rigth">
                                     <li><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' %} class="active"{% endif %}>Поиск мастера</a></li>
                                     <li><a href="{{ path('la_net_la_net_salon_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %} class="active"{% endif %}>Поиск салона</a></li>
                                 </ul>
                             </li>
+                            
+                            {#<li><a href="{{ path('la_net_la_net_trusts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_trusts_list' %} class="active"{% endif %}>Им доверяют</a></li>#}
+                            <li><a href="{{ path('la_net_la_net_tests_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_tests_list' %} class="active"{% endif %}>Бренд-инфо</a></li>
+                            {#<li><a href="{{ path('la_net_la_net_advices_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %} class="active"{% endif %}>Советы красоты</a></li>#}
+                            <li><a href="{{ path('la_net_la_net_adverts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %} class="active"{% endif %}>Объявления</a></li>
+                            <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Events</a></li>
+                            
                             {#<li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренды</a></li>#}
 
-                            <li><a href="{{ path('la_net_la_net_agancy_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_agancy_list' %} class="active"{% endif %}>Представительства</a></li>
+                            {#<li><a href="{{ path('la_net_la_net_agancy_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_agancy_list' %} class="active"{% endif %}>Представительства</a></li>#}
                                 {# <li class="dropdown"><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active" {% endif %} data-toggle="dropdown" >Каталог товаров</a>
                                     <ul class="dropdown-menu pull-rigth">
                                         {{ render(controller('LaNetLaNetBundle:Product:getBrand')) }}  
@@ -104,12 +154,10 @@
                 </nav>
                 <div id="line"></div>
             </header>
+{% block body %}{% endblock %}
 
-        {% block body %}{% endblock %}
-
-        <div class="clear-bottom"></div>
-
-    </div>
+<div class="clear-bottom"></div>
+ </div>
     <footer>
         <div class="footerLine"></div>
         <div class="container">  
@@ -200,9 +248,9 @@
             </script>
 
 
-            <script>
+        <script>
 
-                $(document).on('mouseenter', '#main_custom li', function (event) {
+           /*     $(document).on('mouseenter', '#main_custom li', function (event) {
                    
                     var el = $(event.target);
                     
@@ -260,11 +308,11 @@
                         }
                     });
 
-                });
+                }); */
             </script>       
 
             <script>
-                $(document).on('mouseenter', '#brand_custom li', function (event) {
+            /*    $(document).on('mouseenter', '#brand_custom li', function (event) {
               
                     var el = $(event.target)
                     if (event.target.tagName != 'LI') {
@@ -319,13 +367,13 @@
                             }
                         }
                     });
-                });
+                }); */
             </script>       
 
 
             <script>
 
-                $(document).on('mouseenter', '#category_custom li', function (event) {
+           /*     $(document).on('mouseenter', '#category_custom li', function (event) {
                     
                     var el = $(event.target)
                     if (event.target.tagName != 'LI') {
@@ -385,12 +433,12 @@
                         }
                     });
 
-                });
+                }); */
             </script>            
 
             <script>
 
-                $(document).on('mouseenter', '.sub_cat_custom li', function (event) {
+         /*       $(document).on('mouseenter', '.sub_cat_custom li', function (event) {
   
                     var el = $(event.target)
                     if (event.target.tagName != 'LI') {
@@ -444,16 +492,42 @@
                         }
                     });
 
-                });
+                }); */
             </script>
 
             <script>
                 
     
         $(document).ready(function(){
-            var x = $('#drop_custom').offset().left;
+            
+          $('.gallery').slick({
+              infinite: true,
+              slidesToShow: 5,
+              slidesToScroll: 1
+            });
+
+            $(".advert-holder").height('115px');
+
+            $('.opener').click(function () {
+                event.preventDefault();
+                var height = $(this).parent(".advert-area").outerHeight()+20;
+                $(this).parent().parent('.advert-holder').animate({
+                    height: height
+                }, 200);
+                $(this).parent().parent('.advert-holder').addClass('opened');
+            });
+
+            $('.closer').click(function () {
+                event.preventDefault();
+                $(this).parent().parent('.advert-holder').animate({
+                    height: '115px'
+                }, 200);
+                $(this).parent().parent('.advert-holder').removeClass('opened');
+            });
+
+           /*      var x = $('#drop_custom').offset().left;
             $('#main_custom').offset({left:x});
-            $('.sub_menu').hide();
+            $('.sub_menu').hide();*/
         });
                 
 
@@ -461,7 +535,7 @@
                        
                        
     <script>  
-               
+      /*         
             function pos(){
                 var x = $('#drop_custom').offset().left;
                 $('#main_custom').offset({left:x});
@@ -479,15 +553,80 @@
             $('#main_custom').offset({left:x}); 
             $('#main_custom').nextAll('.sub_menu').remove();
             $('#brand_custom').remove();
-});        
+});        */
                               
     </script>  
-                                          
- 
+                                    
+  <script>
+       
+    $(document).ready(function(){
+      toastr.options = {"closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": true,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "7000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                      }
+  
+        $('#notifications-modal-btn').click(function(){
+            document.getElementById('notifications').value = '';
+            $('#notifications').css({'border' : '1px solid #c5c5c5'});
+        });
+
+        $('.notifications-confirm').click(function(event){
+        var input = document.getElementById('notifications');
+       
+            if(input.value != '') {
+                var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+                if(pattern.test(input.value)){
+                    $('#notifications').css({'border' : '1px solid #569b44'});
+                    $.ajax({
+                         url: Routing.generate('la_net_la_net_ajax_notifications'),
+                    data: {notifications_mail: input.value},
+                    success: function (response) {
+                        if (response){
+                                if (response == "success"){
+                                    $('#myModal').modal("hide");
+                                    toastr.success('Вы подписались на расылку новостей');
+                                }
+                                if (response == "duplicate"){
+                                    $('#notifications').css({'border' : '1px solid #ff0000'});
+                                    //$('#valid').text('Данный адрес электронной почты уже подписан на рассылку!');
+                                    toastr.warning('Данный адрес электронной почты уже подписан на рассылку');
+                                }
+                             
+                        }else{ toastr.error('Произошла ошибка. Повторите попытку');}
+                              $('#myModal').modal("hide");
+                     }
+                       });
+                            
+                } else {
+                     $('#notifications').css({'border' : '1px solid #ff0000'});
+                     toastr.error ('Некорректный адрес электронной почты');
+                   //$('#valid').text('Некорректный адрес электронной почты');
+                }
+            } else {
+                $('#notifications').css({'border' : '1px solid #ff0000'});
+                toastr.error ('Поле email не должно быть пустым');
+              //$('#valid').text('Поле email не должно быть пустым');
+             }
+        });
+    });
+   
+            </script>           
          
     <script>
 
-                //скрытие всего меню по любому клику вне меню
+     /*           //скрытие всего меню по любому клику вне меню
 
                 $(document).click(function (e) {
                     var elem = $(".sub_menu");
@@ -498,7 +637,7 @@
                         $("#main_custom").find('li').removeClass('active')
 
                     }
-                })
+                }) */
             </script>     
         </div>
     </footer>

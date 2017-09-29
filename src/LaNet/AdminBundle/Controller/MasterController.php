@@ -32,7 +32,7 @@ class MasterController extends BaseController
         $page = $request->query->get('page', 1);
              
         $result = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters($period);
-               
+         
         $paginator = $this->paginator->paginate($result, $page, 10);
      
             
@@ -40,8 +40,6 @@ class MasterController extends BaseController
     }
     
     
-    
-   
     public function editAction(Request $request, $id)
     {
         $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
@@ -70,9 +68,27 @@ class MasterController extends BaseController
     public function deleteAction(Request $request, $id)
     {
         $user = $this->manager->getRepository('LaNetLaNetBundle:User')->find($id);
-
+           
         $this->manager->remove($user);
         
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
+    
+    public function inTopAction(Request $request, $id)
+    {
+        $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
+       
+       if ($master-> getinTop() == NULL){
+            $master-> setInTop(new \DateTime());
+        }
+         else{
+            $master-> setInTop();
+         }
+      
+        $this->manager->persist($master);
         $this->manager->flush();
 
         return new JsonResponse(1);

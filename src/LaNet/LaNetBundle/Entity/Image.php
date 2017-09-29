@@ -26,6 +26,12 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     private $master;
     
    /**
+     * @ORM\ManyToOne(targetEntity="Articles", inversedBy="portfolio")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     */
+    private $article;
+    
+   /**
      * @ORM\ManyToOne(targetEntity="Salon", inversedBy="portfolio")
      */
     private $salon;
@@ -79,6 +85,28 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->image;
     }
 
+    /**
+     * Set article
+     *
+     * @param \LaNet\LaNetBundle\Entity\Articles $article
+     * @return Image
+     */
+    public function setArticle(\LaNet\LaNetBundle\Entity\Articles $article = null)
+    {
+        $this->article = $article;
+    
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return \LaNet\LaNetBundle\Entity\Articles 
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
     /**
      * Set master
      *

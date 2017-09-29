@@ -1,0 +1,7 @@
+la_net_la_net_trusts_list:
+    pattern:  /trusts
+    defaults: { _controller: LaNetLaNetBundle:Trusts:trustsList }
+    
+la_net_la_net_trusts_id:
+    pattern:  /trusts/{slug}
+    defaults: { _controller: LaNetLaNetBundle:Trusts:trustsId }

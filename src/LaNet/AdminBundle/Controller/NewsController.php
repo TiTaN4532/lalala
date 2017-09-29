@@ -43,6 +43,11 @@ class NewsController extends BaseController
           if ($form->get('save_draft')->isClicked()) {
               $newsPost->setIsDraft(1);
           }
+          if ($form->get('add_post')->isClicked()) {
+              $newsPost->setIsDraft(NULL);
+          }
+         
+        
           $this->manager->persist($newsPost);
           $this->get('session')->getFlashBag()->add(
                 'notice_news',

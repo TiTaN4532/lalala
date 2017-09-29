@@ -1,0 +1,4 @@
+la_net_la_net_adverts_list:
+    pattern:  /adverts
+    defaults: { _controller: LaNetLaNetBundle:Adverts:advertsList }
+    

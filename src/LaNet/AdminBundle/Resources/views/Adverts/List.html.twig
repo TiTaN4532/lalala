@@ -1,0 +1,57 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h3>Объявления</h3>
+  {#<button id="add-events-btn">Добавить событие</button>#}
+        {% for flashMessage in app.session.flashbag.get('notice_adverts') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+ {% if pagination.count %}
+        <table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                    <th>Удалить объявление</th>
+                    <th>Редактировать объявление</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in pagination %}
+                    <tr>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.isdraft ? 'Draft' : 'Published' }}</td>
+                        <td>{{ post.created|date("l j-F-y g:ia") }}</td>
+                        <td><a href="{{ path('la_net_admin_adverts_delete', {'id': post.id}) }}" class="delete-post">Удалить</a></td>
+                        <td><a href="{{ path('la_net_admin_adverts_edit', {'id': post.id}) }}">Редактировать</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            На данный момент нет объявлений.
+        </div>
+    {% endif %}
+   
+    {{ knp_pagination_render(pagination) }}
+    
+  <script type="text/javascript">
+      $(document).ready(function() {
+         $('.delete-post').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                  if(data.success) 
+                    element.parent().parent().remove();
+            }
+            });
+          });
+      });
+  </script>
+{% endblock %}

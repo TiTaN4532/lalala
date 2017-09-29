@@ -4,7 +4,7 @@
     {% spaceless %}
         <div class="row">
             <div class="col col_1_of_2">
-              <img id="{{id}}_image" style="width:150px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+              <img id="{{id}}_image" style="width:150px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.jpg') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
             </div>
             <div class="col col_1_of_2">
                 <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Выберите файл</a> 

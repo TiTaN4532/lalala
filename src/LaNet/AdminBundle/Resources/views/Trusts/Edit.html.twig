@@ -1,0 +1,84 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+ 
+{% block stylesheets %}
+      {{ parent() }}
+        <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
+        <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+       <script src="{{ asset('bundles/lanetlanet/js/mastersPortfolio.js') }}"></script>
+  {% endblock %}
+      
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div class="float-left">
+          <img id="{{id}}_image" style="width:400px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+  
+{% block content %}
+  <h2>{% if trusts.getId %}Обновить "{{ trusts.title }}"{% else %}Создать статью{% endif %}</h2>
+  <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
+        {{ form_widget(form.file) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.post) }}
+    {{ form_row(form.video) }}
+      <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
+         {% for image in form.portfolio %}
+           <li>
+              {{ form_widget(image.file) }}
+              {{ form_row(image.description) }}
+           </li>
+         {% endfor %}
+       </ul>
+    <div>
+      <button id="cancel-trusts-btn">Назад</button>
+    {{ form_widget(form.save_draft) }}
+    {{ form_widget(form.add_post) }}
+    </div>
+    {{ form_rest(form) }}
+  </form>
+  <script>
+      $(document).ready(function(){
+          $('#cancel-trusts-btn').click(function() {
+               window.location = Routing.generate('la_net_admin_trusts');
+            });
+        {% if trusts.id %}
+        $('.remove-image').click(function(event) {
+        event.preventDefault();
+          var el = $(this);
+          $.ajax({
+              url         : Routing.generate('la_net_admin_trusts_remove_image', {'id': {{ trusts.id }}}),
+              success     : function(data) {
+                if(data) { 
+                  el.prev('img').remove();
+                  el.remove(); } }
+          })
+      })
+      {% endif %}
+        });
+        
+          {% if not trusts.id %}
+        window.onload = function () {
+            var id_tiny = tinymce.editors[0].id;
+            tinymce.get(id_tiny).setContent('');
+          
+            var id_tiny2 = tinymce.editors[1].id;         
+            tinymce.get(id_tiny2).setContent('');
+
+                   };
+                        {% endif %}
+        
+  </script>
+{% endblock %}
+

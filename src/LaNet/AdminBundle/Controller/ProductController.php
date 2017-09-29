@@ -39,7 +39,7 @@ class ProductController extends BaseController
           if($this->session->has('product_category')) {
           $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($this->session->get('product_category'));
           $product->setCategory($category);
-          
+          print_r ($this->session->get('product_category'));
           $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('masterCategory' => $this->session->get('master_category'), 'brand' => $this->session->get('brand')));
           $parentCategory = $product->getCategory();
           $categoryTree[] = $parentCategory = $product->getCategory();

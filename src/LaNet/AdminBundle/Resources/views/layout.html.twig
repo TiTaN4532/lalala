@@ -20,6 +20,11 @@
           <ul id="left-menu">
              {# <li><a href="{{ path('la_net_admin_homepage') }}">Details</a></li>#}
               <li><a href="{{ path('la_net_admin_news_posts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_news_posts' %} class="active"{% endif %}>Новости</a></li>
+              <li><a href="{{ path('la_net_admin_events') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_events' %} class="active"{% endif %}>События</a></li>
+              <li><a href="{{ path('la_net_admin_trusts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_trusts' %} class="active"{% endif %}>Им доверяют</a></li>
+              <li><a href="{{ path('la_net_admin_tests') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_tests' %} class="active"{% endif %}>Тестирование</a></li>
+              <li><a href="{{ path('la_net_admin_advices') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_advices' %} class="active"{% endif %}>Советы красоты</a></li>
+              <li><a href="{{ path('la_net_admin_adverts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_daverts' %} class="active"{% endif %}>Объявления</a></li>
               <li><a href="{{ path('la_net_admin_consumers') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_consumers' %} class="active"{% endif %}>Потребители</a></li>
               <li><a href="{{ path('la_net_admin_masters') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_masters' %} class="active"{% endif %}>Мастера</a></li>
               <li><a href="{{ path('la_net_admin_salons') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_salons' %} class="active"{% endif %}>Салоны</a></li> 
@@ -32,7 +37,6 @@
               <li><a href="{{ path('la_net_admin_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_list' %} class="active"{% endif %}>Товары</a></li>
               <li><a href="{{ path('la_net_admin_send_mail') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_send_mail' %} class="active"{% endif %}>Отправить письмо</a></li>
               <li><a href="{{ path('la_net_admin_banners') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_banners' %} class="active"{% endif %}>Баннеры</a></li>
-
           </ul>
       </div>
       <div class="col col_4_of_5 tablet_2_of_3 mobile_1_of_2">

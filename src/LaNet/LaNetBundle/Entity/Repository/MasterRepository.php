@@ -18,7 +18,7 @@ class MasterRepository extends EntityRepository
         
       return $query->getResult();
     }
-    public function findFilteredMasters($peginator = false, $onPage = 1, $region)
+    public function findFilteredMasters($peginator = false, $onPage = 1, $region = false)
     {
       $request = Request::createFromGlobals();
       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
@@ -30,11 +30,13 @@ class MasterRepository extends EntityRepository
       $category = ($request->get('category')) ? " AND c.id = '" . $request->get('category') ."'" : "";
       $serviceType = ($request->get('service-type')) ? " AND m.serviceType = '" . $request->get('service-type') ."'" : "";
       $city = ($request->get('city')) ? " AND l.locality = '" . $request->get('city') ."'" : "";
-      $query = $this->_em->createQuery("SELECT m, c  FROM LaNetLaNetBundle:Master m 
+      $query = $this->_em->createQuery("SELECT m, c, u  FROM LaNetLaNetBundle:Master m 
                                                     LEFT JOIN m.category c     
                                                     LEFT JOIN m.location l     
-                                                    WHERE " . $whereRegion . " (m.firstName LIKE :like OR m.lastName LIKE :like)".$category.$serviceType.$city)
+                                                    LEFT JOIN m.user u     
+                                                    WHERE " . $whereRegion . " (m.firstName LIKE :like OR m.lastName LIKE :like)".$category.$serviceType.$city. "ORDER BY m.inTop DESC, u.created DESC")
                           ->setParameters(array('like' => '%'.$searchterm.'%'));
+                          
       if ($peginator) {
         $page = $request->query->get('page', 1);
         return $peginator->paginate($query, $page, $onPage);
@@ -46,23 +48,22 @@ class MasterRepository extends EntityRepository
     
     public function findListMasters($period='')
     {
-      
-                 
+                      
       switch ($period) {
         case "day":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
              
         break;
      
         case "week":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
     
         case "month":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
             
         case "":
@@ -70,7 +71,10 @@ class MasterRepository extends EntityRepository
         break;
              }
                          
- $query = $this->_em->createQuery("SELECT u FROM LaNetLaNetBundle:User u WHERE u.roles LIKE '%ROLE_SPECIALIST%'" .$wherePeriod);
+ $query = $this->_em->createQuery("SELECT m, u FROM LaNetLaNetBundle:Master m 
+                                                    LEFT JOIN m.user u     
+                                                   ".$wherePeriod. "ORDER BY m.inTop DESC, u.created DESC");
+                                                    
  return $query->getResult();
     }
 

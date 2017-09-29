@@ -1,0 +1,29 @@
+la_net_admin_tests:
+    pattern:  /tests
+    defaults: { _controller: LaNetAdminBundle:Tests:testsList }
+    options:
+        expose: true
+    
+la_net_admin_tests_add:
+    pattern:  /tests/create
+    defaults: { _controller: LaNetAdminBundle:Tests:edit }
+    options:
+        expose: true
+        
+la_net_admin_tests_edit:
+    pattern:  /tests/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Tests:edit }
+    options:
+        expose: true
+
+la_net_admin_tests_delete:
+    pattern:  /ajax/tests/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:Tests:delete }
+    options:
+        expose: true   
+
+la_net_admin_tests_remove_image:
+    pattern:  /ajax/tests/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:Tests:removeImage }
+    options:
+        expose: true

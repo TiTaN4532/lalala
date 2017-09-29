@@ -1,0 +1,29 @@
+la_net_admin_trusts:
+    pattern:  /trusts
+    defaults: { _controller: LaNetAdminBundle:Trusts:trustsList }
+    options:
+        expose: true
+    
+la_net_admin_trusts_add:
+    pattern:  /trusts/create
+    defaults: { _controller: LaNetAdminBundle:Trusts:edit }
+    options:
+        expose: true
+        
+la_net_admin_trusts_edit:
+    pattern:  /trusts/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Trusts:edit }
+    options:
+        expose: true
+
+la_net_admin_trusts_delete:
+    pattern:  /ajax/trusts/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:Trusts:delete }
+    options:
+        expose: true   
+
+la_net_admin_trusts_remove_image:
+    pattern:  /ajax/trusts/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:Trusts:removeImage }
+    options:
+        expose: true

@@ -48,4 +48,22 @@ class SalonController extends BaseController
         return new JsonResponse(1);
     }
     
+      public function inTopAction(Request $request, $id)
+    {
+        $salon = $this->manager->getRepository('LaNetLaNetBundle:Salon')->find($id);
+       
+       if ($salon-> getinTop() == NULL){
+            $salon-> setInTop(new \DateTime());
+        }
+         else{
+            $salon-> setInTop();
+         }
+      
+        $this->manager->persist($salon);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
+    
 }

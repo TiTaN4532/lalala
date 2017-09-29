@@ -41,6 +41,11 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $gender;
     
     /**
+     * @ORM\Column(type="datetime", nullable = true)
+     */
+    protected $inTop = NULL;
+    
+    /**
      * @ORM\Column(type="array")
      */
     protected $serviceType;
@@ -653,6 +658,30 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     {
         return $this->schedule;
     }
+         
+    /**
+     * Set inTop
+     *
+     * @param \DateTime $inTop
+     * @return Master
+     */
+    public function setinTop($inTop = NULL)
+    {
+        $this->inTop = $inTop;
+    
+        return $this;
+    }
+
+    /**
+     * Get inTop
+     *
+     * @return \DateTime 
+     */
+    public function getinTop()
+    {
+        return $this->inTop;
+    }
+
 
   
     /**

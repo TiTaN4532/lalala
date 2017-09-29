@@ -29,23 +29,27 @@
             {#<div class="image col col_1_of_6 tablet_1_of_3 mobile_1_of_1"><img src="{{ asset(master.getWebPath) | imagine_filter('my_master_thumb_medium') }}"></div>#}
           <div class="col col_2_of_6 tablet_1_of_3 mobile_1_of_1">
                 Email: <br />
-                <span>{{ master.email }}</span>
+                <span>{{ master.user.email }}</span>
             </div>  
           <div class="col col_2_of_6 tablet_1_of_3 mobile_1_of_1">
                 ФИО: <br />
-                <span>{{ master.userInfo.firstName }} {{ master.userInfo.lastName }}</span>
+                <span>{{ master.firstName }} {{ master.lastName }}</span>
             </div> 
           <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
                 Дата регистрации: <br />
-                <span> {{ master.created|date("m/d/Y") }}</span>
+                <span> {{ master.user.created|date("m/d/Y") }}</span>
             </div> 
                                      
             <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
-                <a href="javascript:void(0)" class="remove-master button" data="{{ master.id }}">Удалить</a>
-                {#<a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>#}
+                <a href="javascript:void(0)" class="remove-master button" data="{{ master.user.id }}">Удалить</a>
+                <a href="{{ path('la_net_admin_ajax_inTop_master', {'id': master.id} ) }}" class="update-post button">{% if master.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a>
+                {#<a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>
+            </div>
+            <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
+               <a href="{{ path('la_net_admin_ajax_inTop_master', {'id': master.userInfo.id} ) }}" class="update-post button">{% if master.userInfo.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a>
+               {#<a href="{{ path('la_net_admin_ajax_inTop_master', {'id': master.userInfo.id} ) }}" class="update-post button">{% if master.userInfo.id %}{{master.userInfo.inTop | date('Y-m-d', false)}}{% else %}Вывести в ТОП{% endif %}</a>#}
             </div>
         </div>
-            
         <div class="clear"></div>
                     <hr>
 
@@ -53,4 +57,26 @@
     {{ knp_pagination_render(masters) }}
         
     </div>
+     
+  <script type="text/javascript">
+      $(document).ready(function() {
+       
+          $('.update-post').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    
+                    if (element.text() == "Вывести в ТОП"){
+                            element.text('Удалить из ТОП')
+            
+                    } else {
+                            element.text('Вывести в ТОП')
+                    }
+                }
+            });
+          });
+      });
+  </script>
 {% endblock content %}

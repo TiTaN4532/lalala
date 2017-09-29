@@ -1,0 +1,23 @@
+la_net_admin_adverts:
+    pattern:  /adverts
+    defaults: { _controller: LaNetAdminBundle:Adverts:advertsList }
+    options:
+        expose: true
+    
+la_net_admin_adverts_add:
+    pattern:  /adverts/create
+    defaults: { _controller: LaNetAdminBundle:Adverts:edit }
+    options:
+        expose: true
+        
+la_net_admin_adverts_edit:
+    pattern:  /adverts/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Adverts:edit }
+    options:
+        expose: true
+
+la_net_admin_adverts_delete:
+    pattern:  /ajax/adverts/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:Adverts:delete }
+    options:
+        expose: true   

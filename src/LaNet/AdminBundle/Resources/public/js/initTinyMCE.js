@@ -1,6 +1,7 @@
 	tinyMCE.init({
 		// General options
-		mode : "specific_textareas",
+		
+                mode : "specific_textareas",
                 editor_selector : "TextEditor",
 		theme : "modern",
 		plugins : "autolink,lists,pagebreak,layer,table,save,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,template,wordcount,advlist,autosave,visualblocks",
@@ -37,3 +38,6 @@
 
 
 	});
+        
+        
+

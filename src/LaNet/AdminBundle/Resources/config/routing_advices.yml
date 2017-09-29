@@ -1,0 +1,29 @@
+la_net_admin_advices:
+    pattern:  /advices
+    defaults: { _controller: LaNetAdminBundle:Advices:advicesList }
+    options:
+        expose: true
+    
+la_net_admin_advices_add:
+    pattern:  /advices/create
+    defaults: { _controller: LaNetAdminBundle:Advices:edit }
+    options:
+        expose: true
+        
+la_net_admin_advices_edit:
+    pattern:  /advices/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Advices:edit }
+    options:
+        expose: true
+
+la_net_admin_advices_delete:
+    pattern:  /ajax/advices/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:Advices:delete }
+    options:
+        expose: true   
+
+la_net_admin_advices_remove_image:
+    pattern:  /ajax/advices/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:Advices:removeImage }
+    options:
+        expose: true

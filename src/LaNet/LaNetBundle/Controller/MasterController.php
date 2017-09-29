@@ -182,7 +182,10 @@ class MasterController extends BaseController
       $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 10, $region);
       $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
 
-      return $this->render('LaNetLaNetBundle:Master:masterList.html.twig', array('masters' => $masters, 
+      $masterOrder = $this->manager->getRepository('LaNetLaNetBundle:Master')-> findBy(array(), array ('inTop' => 'DESC'));
+      
+      
+      return $this->render('LaNetLaNetBundle:Master:masterList.html.twig', array('masters' =>  $masters, 
                                                                                  'masterCategory' => $masterCategory, 
                                                                                  'cities' => $cities,
                                                                                   ));

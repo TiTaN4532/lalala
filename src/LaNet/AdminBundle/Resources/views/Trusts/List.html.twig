@@ -1,0 +1,59 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h3>Статьи раздела "Им доверяют"</h3>
+  <button id="add-trusts-btn">Добавить статью</button>
+        {% for flashMessage in app.session.flashbag.get('notice_trusts') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+ {% if pagination.count %}
+        <table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                    <th>Удалить статью</th>
+                    <th>Редактировать статью</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in pagination %}
+                    <tr>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.isdraft ? 'Draft' : 'Published' }}</td>
+                        <td>{{ post.created|date("l j-F-y g:ia") }}</td>
+                        <td><a href="{{ path('la_net_admin_trusts_delete', {'id': post.id}) }}" class="delete-post">Удалить</a></td>
+                        <td><a href="{{ path('la_net_admin_trusts_edit', {'id': post.id}) }}">Редактировать</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            На данный момент статей нет.
+        </div>
+    {% endif %}
+   
+    {{ knp_pagination_render(pagination) }}
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#add-trusts-btn').click(function() {
+              window.location = Routing.generate('la_net_admin_trusts_add')
+          });
+          $('.delete-post').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                  if(data.success) 
+                    element.parent().parent().remove();
+            }
+            });
+          });
+      });
+  </script>
+{% endblock %}

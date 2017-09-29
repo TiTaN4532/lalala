@@ -1,5 +1,12 @@
 {% extends "LaNetAdminBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+      {{ parent() }}
+        <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
+        <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+  {% endblock %}
+
 {% block content %}
   <h3>Новости</h3>
   <button id="add-news-post-btn">Добавить новость</button>
@@ -38,9 +45,9 @@
     {% endif %}
     {{ knp_pagination_render(pagination) }}
   <script type="text/javascript">
-      $(document).ready(function() {
+      $(document).ready(function() {         
           $('#add-news-post-btn').click(function() {
-              window.location = Routing.generate('la_net_admin_news_post_add')
+        window.location = Routing.generate('la_net_admin_news_post_add')
           });
           $('.delete-post').click(function(event) {
             event.preventDefault();

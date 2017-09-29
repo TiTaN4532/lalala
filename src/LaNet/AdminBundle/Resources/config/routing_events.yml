@@ -1,0 +1,29 @@
+la_net_admin_events:
+    pattern:  /events
+    defaults: { _controller: LaNetAdminBundle:Events:eventsList }
+    options:
+        expose: true
+    
+la_net_admin_events_add:
+    pattern:  /events/create
+    defaults: { _controller: LaNetAdminBundle:Events:edit }
+    options:
+        expose: true
+        
+la_net_admin_events_edit:
+    pattern:  /events/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Events:edit }
+    options:
+        expose: true
+
+la_net_admin_events_delete:
+    pattern:  /ajax/events/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:Events:delete }
+    options:
+        expose: true   
+
+la_net_admin_events_remove_image:
+    pattern:  /ajax/events/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:Events:removeImage }
+    options:
+        expose: true

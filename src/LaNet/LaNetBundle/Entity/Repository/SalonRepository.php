@@ -20,33 +20,35 @@ class SalonRepository extends EntityRepository
       switch ($period) {
         case "day":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
              
         break;
      
         case "week":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
     
         case "month":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
            
         case "":
               $wherePeriod = "";
         break;
              }
-                         
- $query = $this->_em->createQuery("SELECT u FROM LaNetLaNetBundle:User u WHERE u.roles LIKE '%ROLE_SALON%'" .$wherePeriod);
-  
+   
+   $query = $this->_em->createQuery("SELECT s, u FROM LaNetLaNetBundle:Salon s 
+                                                    LEFT JOIN s.user u     
+                                                    ".$wherePeriod. "ORDER BY s.inTop DESC, u.created DESC");
+              
 
  return $query->getResult();
     }    
     
     
-    public function findFilteredSalons($peginator = false, $onPage = 1, $region)
+    public function findFilteredSalons($peginator = false, $onPage = 1, $region = false)
     {
       $request = Request::createFromGlobals();
       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
@@ -58,8 +60,9 @@ class SalonRepository extends EntityRepository
       $city = ($request->get('city')) ? " AND l.locality = '" . $request->get('city') ."'" : "";
       $query = $this->_em->createQuery("SELECT m, c  FROM LaNetLaNetBundle:Salon m 
                                                     LEFT JOIN m.category c     
-                                                    LEFT JOIN m.location l     
-                                                    WHERE " . $whereRegion . "  (m.name LIKE :like)".$category.$city)
+                                                    LEFT JOIN m.location l
+                                                    LEFT JOIN m.user u 
+                                                    WHERE " . $whereRegion . "  (m.name LIKE :like)".$category.$city. "ORDER BY m.inTop DESC, u.created DESC")
                           ->setParameters(array('like' => '%'.$searchterm.'%'));
       if ($peginator) {
         $page = $request->query->get('page', 1);
