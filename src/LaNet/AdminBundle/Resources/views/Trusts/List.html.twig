@@ -1,7 +1,7 @@
 {% extends "LaNetAdminBundle::layout.html.twig" %}
 
 {% block content %}
-  <h3>Статьи раздела "Им доверяют"</h3>
+  <h3>Им доверяют</h3>
   <button id="add-trusts-btn">Добавить статью</button>
         {% for flashMessage in app.session.flashbag.get('notice_trusts') %}
           <div class="flash-notice success">

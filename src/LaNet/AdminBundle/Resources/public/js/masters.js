@@ -24,8 +24,7 @@ function bindRemoveAction(type)
     clearResultsMessages();
     var el = $(this);
     
-    console.log('1231');
-    $.ajax({
+      $.ajax({
       url         : el.attr( 'href' ),
       success     : function(data) {
         $('#' + type + '-wrapper .result.removing').html(data.msg);        

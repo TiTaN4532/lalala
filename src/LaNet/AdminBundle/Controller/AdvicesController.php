@@ -61,7 +61,8 @@ class AdvicesController extends BaseController
             );
           if(!$advicesPost->getId()) {
             $this->manager->flush();
-            return $this->redirect($this->generateUrl('la_net_admin_advices_edit', array( 'id' => $advicesPost->getId())));
+            return $this->redirect($this->generateUrl('la_net_admin_advices'));
+           // return $this->redirect($this->generateUrl('la_net_admin_advices_edit', array( 'id' => $advicesPost->getId())));
           } else {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_advices'));

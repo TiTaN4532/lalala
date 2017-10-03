@@ -15,15 +15,14 @@ class MainController extends BaseController {
 
     public function indexAction() {
         $advices = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'advice', 'is_draft' => NULL),array('updated' => 'DESC'), 8);
-        $tests = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'test', 'is_draft' => NULL),array('updated' => 'DESC'), 6);
+        $tests = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'test', 'is_draft' => NULL),array('inTop' => 'DESC', 'updated' => 'DESC'), 6);
         $trusts = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'trust', 'is_draft' => NULL),array('updated' => 'DESC'), 3);
-        $events = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'event', 'is_draft' => NULL),array('updated' => 'DESC'), 4);
-        $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findBy(array(), array('updated' => 'DESC'), 7);
+        $events = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'event', 'is_draft' => NULL),array('updated' => 'DESC'), 7);
+        //$news = $this->manager->getRepository('LaNetLaNetBundle:News')->findBy(array(), array('updated' => 'DESC'), 7);
         $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 5);
         $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalons($this->paginator, 3);
       
-        return $this->render('LaNetLaNetBundle::layout.html.twig', array('news' => $news,
-                                                                         'advices' => $advices,
+        return $this->render('LaNetLaNetBundle::layout.html.twig', array('advices' => $advices,
                                                                          'tests' => $tests,
                                                                          'trusts' => $trusts,
                                                                          'masters' => $masters,

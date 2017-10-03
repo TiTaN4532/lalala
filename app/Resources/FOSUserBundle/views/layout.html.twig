@@ -13,7 +13,7 @@
       <script src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
       
-        <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
+{#        <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />#}
       <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
 {#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -52,6 +52,26 @@
                        <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
                    {% endif %}
                 </div>
+                 <div>
+                                 <ul class="social-links">
+                                <li class="mail">
+                                    <a href="#" id="notifications-modal-btn" data-toggle="modal" data-target="#myModal">
+                                        <i class="icon icon-mail"></i>
+                                        <span>Подписаться на новости</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com/groups/LaLook/">
+                                        <i class="icon icon-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon icon-youtube"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            </div>
                 {#<div  id="form2">
                   <form action="http://lalook.net/formdata.php" method="POST" name="form">
                     <input type="text" name="search" placeholder="Поиск" id="search">

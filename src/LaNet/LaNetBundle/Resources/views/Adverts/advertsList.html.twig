@@ -9,11 +9,11 @@
   {% endblock %}
 
 {% block slider %}
-{% endblock %}
+    {% endblock %}
 {% block content %}
    
     
- <h1 style="float:left; padding-bottom: 10px; margin-right: 10px;">Объявления</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="7" color="#AAA" />
+ {#<h1 style="float:left; padding-bottom: 10px; margin-right: 10px;">Объявления</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="7" color="#AAA" />#}
             
    <div id="adverts" style="display: none">
        <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
@@ -23,10 +23,11 @@
             {{ form_row(form.post) }}
             {{ form_row(form.phone) }}
             {{ form_row(form.mail) }}
-
+ <a href="#" class="button" id="hide-advert-btn">Скрыть</a>
             {{ form_widget(form.add_post) }}
             {{ form_row(form._token) }}
-
+            
+ 
         </form>
     </div>    
         
@@ -35,6 +36,8 @@
                         <div class="text-center">
                             <a href="#" class="btn" id="add-advert-btn">Новое объявление</a>
                         </div>
+                        <hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+        
   {% for post in advertsList %}
                         <div class="advert">
                             <div class="advert-holder">
@@ -48,8 +51,8 @@
                                            {{ post.post }}
                                         </div>
                                         <div class="advert-contacts">
-                                            <a href="#">{{ post.phone }}</a>
-                                            <a href="#">{{ post.mail }}</a>
+                                           <a>{{ post.mail }}</a>
+                                           <a>{{ post.phone }}</a>
                                         </div>
                                     </div>
                                     <a href="#" class="opener">&#8897;</a>
@@ -58,38 +61,10 @@
                             </div>
                         </div>
 {% endfor %}
-                                         <div class="advert">
-                            <div class="advert-holder">
-                                <div class="advert-area clearfix">
-                                    <div class="advert-img">
-                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-03.png" alt="placeholder">
-                                    </div>
-                                    <div class="advert-info">
-                                        <h3>Ищу мастера маникюра в салон красоты г.Харьков</h3>
-                                        <div class="advert-descr">
-                                            <p>Команда Lak Nails Bar (Пушкинский вьезд.4) ищет мастера
-                                            ногтевого сервиса.На постоянную стабильную работу в молодой,
-                                            интересный коллектив.Требования:опыт работы от 6 месяцев,
-                                            работа с аппаратом,классический,комбинированный маникюр и
-                                            педикюр.Работа с дизайнами гель лаками.</p>
-
-                                            <p>Посменный график с 10-20 Заработная плата ежедневно,процент
-                                            Все материалы нашей студии,от Вас только желание и умение
-                                            выполнять работу на 5+</p>
-                                        </div>
-                                        <div class="advert-contacts">
-                                            <a href="#">+380 (12) 345 67 89</a>
-                                            <a href="#">mail123@mail.ru</a>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="opener">&#8897;</a>
-                                    <a href="#" class="closer">&#8896;</a>
-                                </div>
-                            </div>
-                        </div>
+                                  
 
                     
-                        <div class="row clear pagination">
+                        {#<div class="row clear pagination">
                             <div class="pagination">
                                 <span class="current">1</span>
                                 <span class="page">
@@ -111,12 +86,15 @@
                                     <a href="/club/master?page=10">&gt;&gt;</a>
                                 </span>
                             </div>
-                          </div>
+                          </div>#}
                     </div>
                 </section>
 
     
-    
+     
+  <div class="row clear pagination">
+  {{ knp_pagination_render(advertsList) }}
+  </div>
     
     
     
@@ -126,6 +104,11 @@
             
             $('#adverts').show();  
             $('#add-advert-btn').hide();  
+            });
+          $('#hide-advert-btn').click(function() {
+            
+            $('#adverts').hide();  
+            $('#add-advert-btn').show();  
             });
         });  
    </script>         

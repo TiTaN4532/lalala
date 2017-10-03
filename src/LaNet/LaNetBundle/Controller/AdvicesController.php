@@ -10,7 +10,10 @@ class AdvicesController extends BaseController
     public function advicesListAction()
     {
         $advices = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'advice', 'is_draft' => NULL),array('updated' => 'DESC'), 3);
-        return $this->render('LaNetLaNetBundle:Advices:advicesList.html.twig', array('advices' => $advices));
+        $pagination = $this->paginator->paginate(
+               $advices, $this->getRequest()->query->get('page', 1), 10
+        );
+        return $this->render('LaNetLaNetBundle:Advices:advicesList.html.twig', array('advices' =>  $pagination));
     }
     
     public function advicesIdAction($slug)

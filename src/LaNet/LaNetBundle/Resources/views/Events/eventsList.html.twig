@@ -1,13 +1,18 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
+ 
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+{% endblock %}
 
 {% block slider %}
-{% endblock %}
+   {% endblock %}
 {% block content %}
- <h1 style="float:left;margin-right: 10px;">События</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
-              {% for post in events %}
+               {% for post in events %}
               {% if not loop.first %} <hr /> {% endif %}
               <div class="row">
-                <div class="col col_1_of_3" style='margin-bottom: 20px;'><img src="{{ post.getWebPath | imagine_filter('my_news_big')}}" style="width:100%;" /></div>
+                <div class="col col_1_of_3" style='margin-bottom: 20px;'><img src="{{ asset(post.getWebPath)}}" style="width:100%;" /></div>
                 <div class="col col_2_of_3" style="font-weight: 900">{{ post.title }}</div>
                 <div class="col col_2_of_3">{{ post.description | raw }} <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}" class="blue-link">Подробнее</a>
                 </div>
@@ -26,4 +31,9 @@
               {% else %}
                 Пока статей нет
               {% endfor %}
+              
+  <div class="row clear pagination">
+  {{ knp_pagination_render(events) }}
+  </div>
+    
 {% endblock %}

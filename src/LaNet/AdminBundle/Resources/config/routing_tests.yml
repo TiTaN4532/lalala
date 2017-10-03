@@ -10,6 +10,11 @@ la_net_admin_tests_add:
     options:
         expose: true
         
+la_net_admin_ajax_inTop_test:
+    pattern:  /ajax/inTop_test/{id}
+    defaults: { _controller: LaNetAdminBundle:Tests:inTop }
+   
+        
 la_net_admin_tests_edit:
     pattern:  /tests/edit/{id}
     defaults: { _controller: LaNetAdminBundle:Tests:edit }

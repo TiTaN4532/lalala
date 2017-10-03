@@ -1,7 +1,7 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
 
 {% block slider %}
-{% endblock %}      
+    {% endblock %}      
 
 {% block content %}
 <a href="{{ path('la_net_la_net_master_list') }}" class="tabs">Поиск мастера</a><a href="{{ path('la_net_la_net_salon_list') }}" class="tabs active">Поиск салона</a>
@@ -43,44 +43,50 @@
                     }  
                     google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
+        <hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+<section class="holder">
+              <div class="row-fluid">
+                  <div class="span7">
+
+                      <div class="masters">
+
+
+                
 {% for salon in salons %}
-  <div class="row clear">
+
       {% if salon.location is not empty and salon.location.lat is not empty and salon.location.lang is not empty %}
-      <script type="text/javascript">
-          google.maps.event.addDomListener(window, 'load', function() {
-              var marker = new google.maps.Marker({
-                position: new google.maps.LatLng({{ salon.location.lat }}, {{ salon.location.lang }}),
-                map: map,
-                title:"{{ salon.name }}" 
+        <script type="text/javascript">
+            google.maps.event.addDomListener(window, 'load', function() {
+                var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng({{ salon.location.lat }}, {{ salon.location.lang }}),
+                  map: map,
+                  title:"{{ salon.name }}" 
+              });
             });
-          });
-          
-              </script>
-      {% endif %}
-    <hr style="margin-left: 3%;" />
-    <div class="col col_1_of_4" style="text-align: center;"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
-    <div class="col col_3_of_4">
-      <h3><a href="{{ path('la_net_la_net_salon_id', {'id': salon.id }) }}" class="black-link">{{ salon.name }}</a></h3>
-      {% if salon.category is not empty %}
-        <div class="row">
-          <div class="col col_1_of_3 blue">Специальность:</div>
-          <div class="col col_2_of_3">{% for item in salon.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
-        </div>
-      {% endif %}
-      
-      {% if salon.location is not empty and salon.location.locality %}
-        <div class="row">
-          <div class="col col_1_of_3 blue">Адрес:</div>
-          <div class="col col_2_of_3">{{ salon.location.locality }} {{ salon.location.route }} {{ salon.location.streetNumber }}
-          </div>
-        </div>
-      {% endif %}
-      <a style="float:right;" href="{{ path('la_net_la_net_salon_id', {'id': salon.id }) }}" class="blue-link">Подробнее</a>
-    </div>
-  </div>
-{% else %}
+
+        </script>
+     {% endif %}
+            <div class="masters-item clearfix">
+                <div class="masters-item-img">
+                    <img src="{{ asset(salon.getWebPath)}}" />
+                </div>
+                <div class="masters-item-info">
+                   <h3 class="masters-item-title {% if salon.inTop != NULL%} starred {% endif%}">{{ salon.name }}</h3>
+                        {% if salon.category is not empty %}
+                            <div class="masters-item-profession">{% for item in salon.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+                        {% endif %}
+                    <a href="{{ path('la_net_la_net_master_id', {'id': salon.id })}}" class="read-more">Читать полностью...</a>
+                </div>
+            </div>
+ {% else %}
   Салонов нет
 {% endfor %}
+  </div>
+       </div>
+     </div>
+</section>
+  
+  
   <div class="row clear pagination">
   {{ knp_pagination_render(salons) }}
   </div>

@@ -16,7 +16,7 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
             <script src="{{ asset('js/slick.min.js') }}"></script>
             
-            <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />
+{#            <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />#}
             <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
             <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
             {#      <link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
@@ -71,7 +71,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="https://www.facebook.com/groups/LaLook/">
                                         <i class="icon icon-facebook"></i>
                                     </a>
                                 </li>
@@ -112,8 +112,8 @@
                 <nav>
                     <div class="container">
                         <ul>
-                          {#<li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> #}
-                          <li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>  
+                          <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
+                          {#<li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>#}  
                           {#<li><a id="drop_custom" href="{{ path('la_net_la_net_master_list') }}" data-toggle="dropdown" >Бренд-инфо</a>
                                 <div id="main_custom" style="display:none;" class="sub_menu"> 
                                     <ul>                     
@@ -121,7 +121,7 @@
                                     </ul>   
                                 </div> 
                             </li> #}       
-                             <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб</a>
+                             <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб профессионалов</a>
                                 <ul class="dropdown-menu pull-rigth">
                                     <li><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' %} class="active"{% endif %}>Поиск мастера</a></li>
                                     <li><a href="{{ path('la_net_la_net_salon_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %} class="active"{% endif %}>Поиск салона</a></li>
@@ -129,10 +129,10 @@
                             </li>
                             
                             {#<li><a href="{{ path('la_net_la_net_trusts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_trusts_list' %} class="active"{% endif %}>Им доверяют</a></li>#}
-                            <li><a href="{{ path('la_net_la_net_tests_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_tests_list' %} class="active"{% endif %}>Бренд-инфо</a></li>
+                            <li><a href="{{ path('la_net_la_net_tests_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_tests_list' %} class="active"{% endif %}>Бренд инфо</a></li>
                             {#<li><a href="{{ path('la_net_la_net_advices_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %} class="active"{% endif %}>Советы красоты</a></li>#}
                             <li><a href="{{ path('la_net_la_net_adverts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %} class="active"{% endif %}>Объявления</a></li>
-                            <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Events</a></li>
+                            <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Lalook инфо</a></li>
                             
                             {#<li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренды</a></li>#}
 
@@ -147,8 +147,8 @@
                                                 <li><a href="">Обучение</a></li>
                                                 <li><a href="">Литератур</a></li>
                                                 <li><a href="">Форум</a></li>#}
-                            <li><a href="{{ path('la_net_la_net_contact') }}" {% if app.request.attributes.get('_route') == 'la_net_la_net_contact' %} class="active" {% endif %}>Обратная связь</a></li>
-                            <li><a href="{{ path('la_net_la_net_about') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_about' %} class="active"{% endif %}>О портале</a></li>
+                            <li><a href="{{ path('la_net_la_net_contact') }}" {% if app.request.attributes.get('_route') == 'la_net_la_net_contact' %} class="active" {% endif %}>Контакты</a></li>
+                             {#<li><a href="{{ path('la_net_la_net_about') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_about' %} class="active"{% endif %}>О портале</a></li>#}
                         </ul>
                     </div>
                 </nav>
@@ -165,16 +165,18 @@
                 <ul>
                     <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
                         {#                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
-                    <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб</a></li>
-                    <li><a href="{{ path('la_net_la_net_brands_list') }}">Бренды</a></li>
-                    <li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>
+                    <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб профессионалов</a></li>
+                    <li><a href="{{ path('la_net_la_net_tests_list') }}">Бренд инфо</a></li>
+                    <li><a href="{{ path('la_net_la_net_adverts_list') }}">Объявления</a></li>
+                    <li><a href="{{ path('la_net_la_net_events_list') }}">Lalook инфо</a></li>
+                    {#<li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>#}
                         {# <li><a href="">Косметика</a></li>
                          <li><a href="">Магазаны</a></li>
                          <li><a href="">Обучение</a></li>
                          <li><a href="">Литератур</a></li>
                          <li><a href="">Форум</a></li>#}
-                    <li><a href="{{ path('la_net_la_net_contact') }}">Обратная связь</a></li>
-                    <li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>
+                    <li><a href="{{ path('la_net_la_net_contact') }}">Контакты</a></li>
+                    {#<li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>#}
                 </ul>
             </nav>
             {#<div class="social">
@@ -185,7 +187,7 @@
                 <li id="vk"><a href="" ><img src="{{ asset('images/vk.png') }}" height="17" width="28"/></a></li>
             </ul>
             </div>#}
-            <p>© 2013-2016 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.
+            <p>© 2013-2017 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.
                 <br />E-mail: lalooknet@gmail.com</p>
 
             <p> <!-- Yandex.Metrika informer -->
@@ -500,7 +502,7 @@
     
         $(document).ready(function(){
             
-          $('.gallery').slick({
+          $('.gallery-slider').slick({
               infinite: true,
               slidesToShow: 5,
               slidesToScroll: 1
@@ -508,32 +510,48 @@
 
             $(".advert-holder").height('115px');
 
-            $('.opener').click(function () {
+            $('.opener').click(function (event) {
                 event.preventDefault();
                 var height = $(this).parent(".advert-area").outerHeight()+20;
-                $(this).parent().parent('.advert-holder').animate({
+                $(this).parents('.advert-holder').animate({
                     height: height
                 }, 200);
-                $(this).parent().parent('.advert-holder').addClass('opened');
+                $(this).parents('.advert-holder').addClass('opened');
             });
 
-            $('.closer').click(function () {
+            $('.closer').click(function (event) {
                 event.preventDefault();
-                $(this).parent().parent('.advert-holder').animate({
+                $(this).parents('.advert-holder').animate({
                     height: '115px'
                 }, 200);
-                $(this).parent().parent('.advert-holder').removeClass('opened');
+                $(this).parents('.advert-holder').removeClass('opened');
             });
 
            /*      var x = $('#drop_custom').offset().left;
             $('#main_custom').offset({left:x});
             $('.sub_menu').hide();*/
+        
+        
+        
         });
-                
-
     </script>    
-                       
-                       
+       
+    
+    
+    
+    <div id="fb-root"></div>
+    <script>
+    //Facebook
+        (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.10";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
     <script>  
       /*         
             function pos(){

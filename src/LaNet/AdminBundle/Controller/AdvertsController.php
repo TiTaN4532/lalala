@@ -13,11 +13,12 @@ class AdvertsController extends BaseController
     public function advertsListAction(Request $request)
     {
             $advertsPosts = $this->manager->getRepository('LaNetLaNetBundle:Adverts')
-                ->findBy(array(), array('is_draft' => 'DESC'));
+                ->findBy(array(), array('is_draft' => 'DESC', 'created' => 'DESC'));
         
             $pagination = $this->paginator->paginate(
             $advertsPosts, $this->getRequest()->query->get('page', 1), 12
         );
+           
 
         return $this->render('LaNetAdminBundle:Adverts:List.html.twig', array('pagination' => $pagination));
     }

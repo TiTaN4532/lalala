@@ -13,7 +13,9 @@ class EventsController extends BaseController
     public function eventsListAction(Request $request)
     {
             $eventsPosts = $this->manager->getRepository('LaNetLaNetBundle:Articles')
-                ->findByType('event');
+                ->findBy(array('type' => 'event'),array('is_draft' => 'DESC', 'updated' => 'DESC'));
+            
+           
         
             $pagination = $this->paginator->paginate(
             $eventsPosts, $this->getRequest()->query->get('page', 1), 12

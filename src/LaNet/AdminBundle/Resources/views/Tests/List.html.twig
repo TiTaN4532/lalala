@@ -1,7 +1,7 @@
 {% extends "LaNetAdminBundle::layout.html.twig" %}
 
 {% block content %}
-  <h3>Статьи раздела "Тестирование продуктов"</h3>
+  <h3>Бренд инфо</h3>
   <button id="add-tests-btn">Добавить статью</button>
         {% for flashMessage in app.session.flashbag.get('notice_tests') %}
           <div class="flash-notice success">
@@ -17,6 +17,7 @@
                     <th>Дата</th>
                     <th>Удалить статью</th>
                     <th>Редактировать статью</th>
+                    <th>Позиция в ТОП</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                         <td>{{ post.created|date("l j-F-y g:ia") }}</td>
                         <td><a href="{{ path('la_net_admin_tests_delete', {'id': post.id}) }}" class="delete-post">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_tests_edit', {'id': post.id}) }}">Редактировать</a></td>
+                        <td><a href="{{ path('la_net_admin_ajax_inTop_test', {'id': post.id} ) }}" class="update-post button">{% if post.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -55,5 +57,26 @@
             });
           });
       });
+  </script>
+  
+   <script type="text/javascript">
+    
+          $('.update-post').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    
+                    if (element.text() == "Вывести в ТОП"){
+                            element.text('Удалить из ТОП')
+            
+                    } else {
+                            element.text('Вывести в ТОП')
+                    }
+                }
+            });
+          });
+     
   </script>
 {% endblock %}

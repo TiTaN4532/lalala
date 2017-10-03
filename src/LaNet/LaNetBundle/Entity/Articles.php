@@ -61,6 +61,12 @@ class Articles extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="boolean", nullable = true)
      */
     protected $is_draft;
+    
+    /**
+     * @ORM\Column(type="datetime", nullable = true)
+     */
+    protected $inTop = NULL;
+    
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -230,7 +236,7 @@ class Articles extends \LaNet\LaNetBundle\Model\UploadImages
      * Add portfolio
      *
      * @param \LaNet\LaNetBundle\Entity\Image $portfolio
-     * @return Master
+     * @return Aticles
      */
     public function addPortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
     {
@@ -407,5 +413,28 @@ class Articles extends \LaNet\LaNetBundle\Model\UploadImages
     public function getDescription()
     {
         return $this->description;
+    }
+    
+     /**
+     * Set inTop
+     *
+     * @param \DateTime $inTop
+     * @return Articles
+     */
+    public function setinTop($inTop = NULL)
+    {
+        $this->inTop = $inTop;
+    
+        return $this;
+    }
+
+    /**
+     * Get inTop
+     *
+     * @return \DateTime 
+     */
+    public function getinTop()
+    {
+        return $this->inTop;
     }
 }

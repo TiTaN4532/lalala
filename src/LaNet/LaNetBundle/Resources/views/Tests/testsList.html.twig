@@ -1,9 +1,50 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
 
 {% block slider %}
-{% endblock %}
+   {% endblock %}
 {% block content %}
- <h1 style="float:left;margin-right: 10px;">Тестирование продуктов</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
+   
+    <div style="margin-bottom: 20px; border-color: #2d93b2;" ><form action=""><input placeholder="Введите текст" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input style="margin-left:10px;" type="submit" value="Найти"></form></div>
+    
+      
+           
+                          <section class="holder">
+                    <h2 class="section-title"><a>Тестирование продуктов</a></h2>
+                    <div class="row-fluid">
+                        <section class="holder">
+                    <div class="gallery-wrap">
+                        <div class="gallery-slider">
+              
+                               
+                           {% for post in testsTop %} 
+                            <article class="top-news-item">
+                                <a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath)}}"</a>
+                                <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
+                                <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>
+                            </article>
+                           {% endfor %}     
+                        </div>
+                    </div>
+                </section>
+                         
+                      
+                        <div class="span10">
+                            {% for post in tests %}  
+                                        <div class="info-block clearfix"><article class="top-news-item is-horizontal clearfix">
+                                        <a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath)}}" alt="placeholder"></a>
+                                        <h3 class="item-title" style="margin-left: 40%;"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+                                        </article>  </div>
+                                  {% else %}
+                                Статей нет                        
+                            {% endfor %}                            
+                        </div>
+                                     
+                         
+              
+                    </div>
+                </section>
+     
+ {#<h1 style="float:left;margin-right: 10px;">Тестирование продуктов</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
               {% for post in tests %}
               {% if not loop.first %} <hr /> {% endif %}
                 <div class="row">
@@ -18,9 +59,18 @@
                 </div>#}
                 {#<div class="col col_1_of_2" style="color:#2d93b2;">
                     Отправить:
-                </div>#}
+                </div>
               </div>
               {% else %}
                 Пока статей нет
-              {% endfor %}
+                
+                
+              {% endfor %} #}
+                
+               
+               
+                 <div class="row clear pagination">
+  {{ knp_pagination_render(tests) }}
+  </div>
+                 
 {% endblock %}

@@ -11,7 +11,19 @@ class AdvertsController extends BaseController
 {
     public function advertsListAction(Request $request)
     {
-        $advertsList = $this->manager->getRepository('LaNetLaNetBundle:Adverts')->findBy(array('is_draft' => NULL),array('updated' => 'DESC'));
+        $advertsList = $this->manager->getRepository('LaNetLaNetBundle:Adverts')->findBy(array('is_draft' => NULL),array('created' => 'DESC'));
+       
+       
+            $pagination = $this->paginator->paginate(
+             $advertsList, $this->getRequest()->query->get('page', 1), 5
+        );
+            
+           /*  
+             $page = $request->query->get('page', 1);
+        $pagination = $peginator->paginate($advertsPosts, $page, 1);
+            
+            */
+        
         $advertsPost = new LaEntity\Adverts();
         
       
@@ -40,7 +52,7 @@ class AdvertsController extends BaseController
          
            
            
-        return $this->render('LaNetLaNetBundle:Adverts:advertsList.html.twig', array('advertsList' => $advertsList, 'form' => $advertsForm->createView()));
+        return $this->render('LaNetLaNetBundle:Adverts:advertsList.html.twig', array('advertsList' => $pagination, 'form' => $advertsForm->createView()));
     }
     
     public function contactAction(Request $request) {

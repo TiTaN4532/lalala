@@ -1,8 +1,8 @@
 {% extends "LaNetAdminBundle::layout.html.twig" %}
 
 {% block content %}
-  <h3>События</h3>
-  <button id="add-events-btn">Добавить событие</button>
+  <h3>Lalook инфо</h3>
+  <button id="add-events-btn">Добавить статью</button>
         {% for flashMessage in app.session.flashbag.get('notice_events') %}
           <div class="flash-notice success">
               {{ flashMessage }}

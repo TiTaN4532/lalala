@@ -1,38 +1,59 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
 
-{% block slider %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 {% endblock %}
+
+{% block slider %}
+    {% endblock %}
+
 {% block content %}
+    
 <a href="{{ path('la_net_la_net_events_list') }}" class="button grey" style="margin-top: 20px;">Назад к списку</a>
             
   <div class="row">
-    <h3 style="color:#2d93b2;text-align: center;">{{ events.title | upper}}</h3>
-    <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ events.getWebPath | imagine_filter('my_news_big')}}" style="width:100%;" /></div>
+        <div class="col col_1_of_1"><h4>{{ events.title}}</h4></div>
+    <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ asset(events.getWebPath)}}" style="width:100%;" /></div>
     <div class="col col_1_of_1">
         {{ events.post | raw}}
     </div>
-     <div class="col col_1_of_1">{%if events.video %}{{ events.video | raw}}{% endif%}</div>
+    <div class="col col_1_of_1" align="center">{%if events.video %}{{ events.video | raw}}{% endif%}</div>
     {#<div class="col col_1_of_2" style="color:#2d93b2;">
         Добавлена на сайт {{ events.updated | localizeddate('long', 'short')}}
     </div>#}
     {#<div class="col col_1_of_2" style="color:#2d93b2;">
         Отправить:
     </div>#}
-    {% if events.portfolio is not empty %}
-    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">{{ "Галерея:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-    <div class="gallery">
-        <div class="row clear">
-        {% for image in events.portfolio%}
-          
-          <div class="col col_1_of_5">
-            <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_thumb_portfolio') }}" /></a>
-          </div>
-          {% if loop.index % 5 == 0 %}
-             </div><div class="row clear">
-          {% endif %}
-        {% endfor %}
+     
+   {% if events.portfolio is not empty %}
+    <h5 style="float:left;margin-right: 10px; margin-top: 20px; color:#c2d9b1;" class="clear"></h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
+  
+        <div class="gallery2" style="padding-top: 30px">
+            <div class="row clear">
+            {% for image in events.portfolio%}
+
+              <div class="col col_1_of_5">
+                <a href="{{ asset(image.getWebPath)}}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ asset(image.getWebPath)}}" /></a>
+              </div>
+              {% if loop.index % 5 == 0 %}
+                 </div> <br> <div class="row clear">
+              {% endif %}
+            {% endfor %}
+            </div>
         </div>
-    </div>
+   
+        
   {% endif %}
   </div>
+  
+  <script>
+    $(document).ready(function() {
+	$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
+  </script>
 {% endblock %}

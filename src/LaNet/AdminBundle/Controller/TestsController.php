@@ -13,7 +13,7 @@ class TestsController extends BaseController
     public function testsListAction(Request $request)
     {
             $testsPosts = $this->manager->getRepository('LaNetLaNetBundle:Articles')
-                ->findByType('test');
+                    ->findBy(array('type' => 'test'), array('is_draft' => 'DESC', 'inTop' => 'DESC', 'updated' => 'DESC'));
         
             $pagination = $this->paginator->paginate(
             $testsPosts, $this->getRequest()->query->get('page', 1), 12
@@ -93,4 +93,22 @@ class TestsController extends BaseController
       $this->manager->flush();
       return new JsonResponse( 1 );
     }
+    
+    public function inTopAction(Request $request, $id)
+    {
+        $tests = $this->manager->getRepository('LaNetLaNetBundle:Articles')->find($id);
+       
+       if ($tests-> getinTop() == NULL){
+            $tests-> setInTop(new \DateTime());
+        }
+         else{
+            $tests-> setInTop();
+         }
+      
+        $this->manager->persist($tests);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
 }

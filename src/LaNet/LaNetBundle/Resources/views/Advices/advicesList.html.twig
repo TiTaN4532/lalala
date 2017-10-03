@@ -1,9 +1,30 @@
 {% extends "LaNetLaNetBundle::layout.html.twig" %}
 
 {% block slider %}
-{% endblock %}
+   {% endblock %}
 {% block content %}
- <h1 style="float:left;margin-right: 10px;">Советы красоты</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
+    
+    
+     
+    
+      <section class="holder">
+                   <div class="row-fluid">
+                        <div class="span10">
+                            {% for post in advices %}  
+                                        <div class="info-block clearfix"><article class="top-news-item is-horizontal clearfix">
+                                        <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath)}}" alt="placeholder"></a>
+                                        <h3 class="item-title" style="margin-left: 40%;"><a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+                                        </article>  </div>
+                                {% else %}
+                                   Пока статей нет                          
+                            {% endfor %}                            
+                        </div>
+                                     
+                        
+                    </div>
+                </section>
+ 
+ {#<h1 style="float:left;margin-right: 10px;">Советы красоты</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
               {% for post in advices %}
               {% if not loop.first %} <hr /> {% endif %}
                 <div class="row">
@@ -15,9 +36,10 @@
                 </div>#}
                 {#<div class="col col_1_of_2" style="color:#2d93b2;">
                     Отправить:
-                </div>#}
-              </div>
-              {% else %}
-                Пока статей нет
-              {% endfor %}
+                </div>
+              </div>#}
+                         
+                 <div class="row clear pagination">
+  {{ knp_pagination_render(advices) }}
+  </div>
 {% endblock %}
