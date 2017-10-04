@@ -3,7 +3,7 @@
 {% block stylesheets %}
       {{ parent() }}
         <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
-        <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
+       <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
       <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
        <script src="{{ asset('bundles/lanetlanet/js/mastersPortfolio.js') }}"></script>
   {% endblock %}
@@ -48,8 +48,12 @@
     </div>
     {{ form_rest(form) }}
   </form>
-  <script>
-      $(document).ready(function(){
+<script>
+     
+    
+    
+    $(document).ready(function(){
+     
           $('#cancel-tests-btn').click(function() {
                window.location = Routing.generate('la_net_admin_tests');
             });
@@ -72,13 +76,10 @@
         window.onload = function () {
             var id_tiny = tinymce.editors[0].id;
             tinymce.get(id_tiny).setContent('');
-          
-            var id_tiny2 = tinymce.editors[1].id;         
-            tinymce.get(id_tiny2).setContent('');
-
-                   };
+               };
                         {% endif %}
-        
+                            
+                     
   </script>
 {% endblock %}
 

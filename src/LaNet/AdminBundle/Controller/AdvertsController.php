@@ -41,10 +41,14 @@ class AdvertsController extends BaseController
 
         $form->bind($request);
        
-        
         if ($form->isValid()) {
-          if ($form->get('public')->isClicked()) {
+         
+         if ($form->get('public')->isClicked()) {
               $advertsPost->setIsDraft(NULL);
+          }
+          
+           if ($form->get('draft')->isClicked()) {
+              $advertsPost->setIsDraft(1);
           }
               
           $this->manager->persist($advertsPost);

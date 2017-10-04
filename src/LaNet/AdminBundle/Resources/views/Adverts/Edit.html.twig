@@ -34,11 +34,14 @@
     {{ form_row(form.phone) }}
     {{ form_row(form.mail) }}
   
-      <button id="cancel-adverts-btn">Назад</button>
-    {{ form_widget(form.public) }}
-    {{ form_widget(form.add_post) }}
-      {{ form_rest(form) }}
+    <button id="cancel-adverts-btn">Назад</button>
+    
+    {% if adverts.getIsDraft() == '1' %} {{ form_widget(form.public) }}  {% do form.draft.setRendered %}{% endif %}
+    {% if adverts.getIsDraft() == NULL %} {{ form_widget(form.draft) }}  {% do form.public.setRendered %} {% endif %}
    
+    {{ form_widget(form.add_post) }}
+     {{ form_rest(form) }} 
+  
   </form>
   <script>
       $(document).ready(function(){

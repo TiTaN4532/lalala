@@ -21,7 +21,8 @@ class AdvertsType extends AbstractType
             ->add('phone', 'text', array('label' => 'Телефон:', 'required' => false))
             ->add('mail', 'email', array('label' => 'Email адрес'))
             ->add('add_post', 'submit', array('label' => 'Сохранить'))
-            ->add('public', 'submit', array('label' => 'Опубликовать'));
+            ->add('public', 'submit', array('label' => 'Опубликовать'))
+            ->add('draft', 'submit', array('label' => 'Скрыть'));
             ;
 
     }

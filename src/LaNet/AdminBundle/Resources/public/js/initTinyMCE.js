@@ -17,9 +17,9 @@
 		theme_advanced_resizing : true,
 
 		// Example content CSS (should be your site CSS)
-		content_css : "../css/main.css",
-
-		// Drop lists for link/image/media/template dialogs
+		content_css : main_css,
+		
+	 	// Drop lists for link/image/media/template dialogs
 		template_external_list_url : "lists/template_list.js",
 		external_link_list_url : "lists/link_list.js",
 		external_image_list_url : "lists/image_list.js",
@@ -38,6 +38,3 @@
 
 
 	});
-        
-        
-
