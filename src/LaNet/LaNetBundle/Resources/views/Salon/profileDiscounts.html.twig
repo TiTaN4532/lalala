@@ -1,0 +1,110 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
+
+
+{% block menu %}
+  {% include "LaNetLaNetBundle:Salon:menu.html.twig" %}
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {#
+  <script src="{{ asset('bundles/lanetlanet/js/mastersServicePrice.js') }}"></script>#}
+{% endblock %}
+      
+{% block profile_content %}
+ 
+    <button id="add-discount-btn">Добавить новую скидку</button>
+    
+<h1>Список скидок</h1>
+
+{#<table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Описание</th>
+                    <th>Статус</th>
+                    <th>Удалить скидку</th>
+                    <th>Редактировать скидку</th>
+                    <th>Позиция в ТОП</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in discounts %}
+                    <tr>
+                        <td>{{ post.description }}</td>
+                        <td>{{ post.isdraft ? 'Draft' : 'Published' }}</td>
+                        <td><a href="#" class="delete-post">Удалить</a></td>
+                        <td><a href="#">Редактировать</a></td>
+                        <td><a href="#" class="update-post button">{% if post.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>#}
+           
+ {% for discount in discounts %}
+ 
+  <div class="row clear">
+    {% if not loop.first %} <hr /> {% endif %}
+    <div class="col col_1_of_3"><img src="{{ discount.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div class="col col_1_of_3">
+        <div class="row">
+           <div class="col col_2_of_2">{{ discount.description }}</div>
+        </div>
+       
+    </div>
+      <div align="left" class="col col_1_of_3">
+          <a href="{{ path('la_net_la_net_salon_profile_discounts_isDraft', {'id': discount.id} ) }}" class="update-post button">{% if discount.getIsDraft == 1 %}Активировать{% else %}Деактивировать{% endif %}</a>
+          <a href="{{ path('la_net_la_net_salon_profile_discounts_edit', {'id': discount.id} ) }}" class="button">Редактировать</a>
+          <a href="{{ path('la_net_la_net_salon_profile_discounts_delete', {'id': discount.id} ) }}" class="delete-discount button">Удалить</a>
+      </div>
+  </div>
+          
+       
+{% else %}
+  Список скидок пуст
+{% endfor %}        
+            
+<script type="text/javascript">
+      $(document).ready(function() {
+          $('#add-discount-btn').click(function() {
+              window.location = Routing.generate('la_net_la_net_salon_profile_discounts_add')
+          });
+          $('.delete-discount').click(function(event) {
+            event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
+                var element = $(this);
+                $.ajax({
+                    url         : element.attr('href'),
+                    success     : function(data) {
+                      if(data.success) 
+                          console.log('123');
+                        element.parent().parent().remove();
+                }
+                });
+            }
+        });
+        
+        $('.update-post').click(function(event) {
+            event.preventDefault();
+           
+            var element = $(this);
+             console.log(element.text());
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                
+                   
+                    if (element.text() == "Активировать"){
+                            element.text('Деактивировать')
+            
+                    } else {
+                            element.text('Активировать')
+                    }
+                
+            }
+            });
+          });
+      });
+      
+  </script>
+ 
+{% endblock %}

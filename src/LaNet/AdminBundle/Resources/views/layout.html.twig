@@ -8,6 +8,8 @@
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
       <link rel="stylesheet" href="{{ asset('bundles/lanetadmin/css/main.css') }}">
       
+      <script src="{{ asset('js/toastr/toastr.js')}}"></script>
+     <link rel="stylesheet" href="{{ asset('js/toastr/toastr.css')}}" >
       <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
   {% endblock %}
 
@@ -19,7 +21,7 @@
       <div class="col col_1_of_5 tablet_1_of_3 mobile_1_of_2">
           <ul id="left-menu">
              {# <li><a href="{{ path('la_net_admin_homepage') }}">Details</a></li>#}
-              {#<li><a href="{{ path('la_net_admin_news_posts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_news_posts' %} class="active"{% endif %}>Новости</a></li>#}
+              <li><a href="{{ path('la_net_admin_news_posts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_news_posts' %} class="active"{% endif %}>Новости</a></li>
               <li><a href="{{ path('la_net_admin_events') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_events' %} class="active"{% endif %}>LaLook инфо</a></li>
               <li><a href="{{ path('la_net_admin_trusts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_trusts' %} class="active"{% endif %}>Им доверяют</a></li>
               <li><a href="{{ path('la_net_admin_tests') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_tests' %} class="active"{% endif %}>Тестирование продуктов</a></li>
@@ -28,6 +30,7 @@
               <li><a href="{{ path('la_net_admin_consumers') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_consumers' %} class="active"{% endif %}>Потребители</a></li>
               <li><a href="{{ path('la_net_admin_masters') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_masters' %} class="active"{% endif %}>Мастера</a></li>
               <li><a href="{{ path('la_net_admin_salons') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_salons' %} class="active"{% endif %}>Салоны</a></li> 
+              <li><a href="{{ path('la_net_admin_discounts_main') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_discounts_main' %} class="active"{% endif %}>Скидки</a></li> 
               <li><a href="{{ path('la_net_admin_agancy') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_agancy' %} class="active"{% endif %}>Представительства</a></li>
               {#<li><a href="{{ path('la_net_admin_salons') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_salons' %} class="active"{% endif %}>Салоны</a></li>
               <li><a href="{{ path('la_net_admin_shops') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_shops' %} class="active"{% endif %}>Магазины</a></li>
@@ -36,6 +39,7 @@
               <li><a href="{{ path('la_net_admin_product_category_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_category_list' %} class="active"{% endif %}>Категории товаров</a></li>
               <li><a href="{{ path('la_net_admin_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_list' %} class="active"{% endif %}>Товары</a></li>
               <li><a href="{{ path('la_net_admin_send_mail') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_send_mail' %} class="active"{% endif %}>Отправить письмо</a></li>
+              <li><a href="{{ path('la_net_admin_site_settings')}}"{% if app.request.attributes.get('_route') == 'la_net_admin_site_settings' %} class="active"{% endif %}>Настройки сайта</a></li>
               <li><a href="{{ path('la_net_admin_banners') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_banners' %} class="active"{% endif %}>Баннеры</a></li>
           </ul>
       </div>
@@ -49,6 +53,43 @@
     {% endfor %}
     
 {% endblock content %}
+     
+      <script>
+     
+    
+    
+    $(document).ready(function(){
+      toastr.options = {"closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": true,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "7000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                      }
+                      
+          $('#articles_add_post').click(function(event) {
+            if (tinymce.get(tinymce.editors[0].id).getContent() == ""){
+            event.preventDefault();
+            toastr.error ('Поле "Текст" не может быть пустым!');
+                    }
+            });
+          $('#articles_save_draft').click(function(event) {
+            if (tinymce.get(tinymce.editors[0].id).getContent() == ""){
+            event.preventDefault();
+            toastr.error ('Поле "Текст" не может быть пустым!');
+                    }
+            });
+        });
+      </script> 
       </div>
     </div>
   </div>

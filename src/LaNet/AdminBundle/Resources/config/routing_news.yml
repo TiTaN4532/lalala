@@ -9,6 +9,10 @@ la_net_admin_news_post_add:
     defaults: { _controller: LaNetAdminBundle:News:edit }
     options:
         expose: true
+
+la_net_admin_ajax_inTop_news:
+    pattern:  /ajax/inTop_news/{id}
+    defaults: { _controller: LaNetAdminBundle:News:inTop }
         
 la_net_admin_news_post_edit:
     pattern:  /news_posts/edit/{id}

@@ -24,6 +24,32 @@ la_net_la_net_salon_profile_portfolio:
     pattern:  /salon/profile/portfolio
     defaults: { _controller: LaNetLaNetBundle:Salon:profilePortfolio }
     
+la_net_la_net_salon_profile_discounts:
+    pattern:  /salon/profile/discounts
+    defaults: { _controller: LaNetLaNetBundle:Salon:discounts }
+    
 la_net_la_net_salon_profile_service_price:
     pattern:  /salon/profile/service_price
     defaults: { _controller: LaNetLaNetBundle:Salon:profileServicePrice }
+    
+la_net_la_net_salon_profile_discounts_isDraft:
+    pattern:  /ajax/salon/profile/isDraft/{id}
+    defaults: { _controller: LaNetLaNetBundle:Salon:isDraft }
+        
+la_net_la_net_salon_profile_discounts_edit:
+    pattern:  /salon/profile/edit/{id}
+    defaults: { _controller: LaNetLaNetBundle:Salon:edit }
+    options:
+        expose: true
+
+la_net_la_net_salon_profile_discounts_delete:
+    pattern:  /ajax/salon/profile/delete/{id}
+    defaults: { _controller: LaNetLaNetBundle:Salon:delete }
+    options:
+        expose: true   
+
+la_net_la_net_salon_profile_discounts_add:
+    pattern:  /salon/profile/create
+    defaults: { _controller: LaNetLaNetBundle:Salon:edit }
+    options:
+        expose: true

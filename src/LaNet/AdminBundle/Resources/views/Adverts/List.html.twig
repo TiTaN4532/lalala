@@ -17,6 +17,7 @@
                     <th>Дата</th>
                     <th>Удалить объявление</th>
                     <th>Редактировать объявление</th>
+                    <th>Позиция в ТОП</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                         <td>{{ post.created|date("l j-F-y g:ia") }}</td>
                         <td><a href="{{ path('la_net_admin_adverts_delete', {'id': post.id}) }}" class="delete-post">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_adverts_edit', {'id': post.id}) }}">Редактировать</a></td>
+                        <td><a href="{{ path('la_net_admin_ajax_inTop_advert', {'id': post.id} ) }}" class="update-post button">{% if post.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -43,15 +45,37 @@
       $(document).ready(function() {
          $('.delete-post').click(function(event) {
             event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
+                var element = $(this);
+                $.ajax({
+                    url         : element.attr('href'),
+                    success     : function(data) {
+                      if(data.success) 
+                        element.parent().parent().remove();
+                }
+                });
+            }
+          });
+      });
+  </script>
+   <script type="text/javascript">
+    
+          $('.update-post').click(function(event) {
+            event.preventDefault();
             var element = $(this);
             $.ajax({
                 url         : element.attr('href'),
                 success     : function(data) {
-                  if(data.success) 
-                    element.parent().parent().remove();
-            }
+                    
+                    if (element.text() == "Вывести в ТОП"){
+                            element.text('Удалить из ТОП')
+            
+                    } else {
+                            element.text('Вывести в ТОП')
+                    }
+                }
             });
           });
-      });
+     
   </script>
 {% endblock %}

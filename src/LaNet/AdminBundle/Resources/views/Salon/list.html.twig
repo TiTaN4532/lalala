@@ -2,6 +2,13 @@
   
 {% block content %}
     <a href="{{ path('la_net_admin_salons') }}"> < Назад</a>
+     <div>
+        <form action="">
+            <input placeholder="Поиск салона" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+            <input style="display:none;" type="text" name="period" {% if app.request.query.get('period') %}value="{{ app.request.query.get('period') }}"{% endif %}>
+            <input style="margin-left:10px;" type="submit" value="Найти">
+        </form>
+    </div>
     <h1>Салоны:</h1>
     <div class="results">
         {% for flashMessage in app.session.flashbag.get('notice_salon') %}
@@ -53,14 +60,17 @@
     <script>
     $(document).ready(function() {
 
-        $('a.remove-salon').click(function() {
-            var link = $(this);
-            $.ajax({
-              url: Routing.generate('la_net_admin_ajax_delete_salon', {'id':link.attr('data')}),
-              success     : function(data) {
-                      link.parents('.user-item').remove();
-                   }
-              });
+        $('a.remove-salon').click(function(event) {
+            event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
+                var link = $(this);
+                $.ajax({
+                  url: Routing.generate('la_net_admin_ajax_delete_salon', {'id':link.attr('data')}),
+                  success     : function(data) {
+                          link.parents('.user-item').remove();
+                       }
+                  });
+            }
           });
 
         $('.update-post').click(function(event) {

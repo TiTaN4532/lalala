@@ -14,39 +14,77 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class SalonRepository extends EntityRepository
 {
-    public function findListSalons($period='')
+    public function findListSalons($period ='', $name = '')
     {
-             
+       
+     $searchterm = '';   
+        
+      if ($name){
+          $searchterm = preg_replace('/_|%/', '\$1', $name);
+        }
+        
       switch ($period) {
         case "day":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
              
         break;
      
         case "week":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
     
         case "month":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
-           
+            
         case "":
-              $wherePeriod = "";
+              $wherePeriod = " ";
         break;
              }
-   
-   $query = $this->_em->createQuery("SELECT s, u FROM LaNetLaNetBundle:Salon s 
+                         
+ $query = $this->_em->createQuery("SELECT s, u FROM LaNetLaNetBundle:Salon s 
                                                     LEFT JOIN s.user u     
-                                                    ".$wherePeriod. "ORDER BY s.inTop DESC, u.created DESC");
-              
+                                                    WHERE (s.name LIKE :like OR u.email LIKE :like)".$wherePeriod."ORDER BY s.inTop DESC, u.created DESC")
+                    ->setParameters(array('like' => '%'.$searchterm.'%'));
+                             
 
  return $query->getResult();
     }    
     
+    public function findFilteredSalonsOnMainPage($limit='')
+    {
+      $query = $this->_em->createQuery("SELECT s FROM LaNetLaNetBundle:Salon s
+                                                   LEFT JOIN s.user u    
+                                                   WHERE s.inTop IS NOT NULL ORDER BY s.inTop DESC, s.name ASC");
+            if ($limit){
+                $query->setMaxResults($limit);    
+            }
+        return $query->getResult();
+     
+    }
+    
+    public function findDiscountsBySalon()
+    {
+      $query = $this->_em->createQuery("SELECT s.name, s.id, COUNT (d.id) as cnt FROM LaNetLaNetBundle:Discounts d
+                                                   LEFT JOIN d.salon s    
+                                                   GROUP BY s.name ORDER BY s.name DESC");
+           
+        return $query->getResult();
+     
+    }
+    
+    public function findDiscountsByOneSalon($id)
+    {
+      $query = $this->_em->createQuery("SELECT s, d FROM LaNetLaNetBundle:Discounts d
+                                                   LEFT JOIN d.salon s    
+                                                   WHERE s.id = '" .$id. "' ORDER BY s.name DESC");
+           
+        return $query->getResult();
+     
+    }
     
     public function findFilteredSalons($peginator = false, $onPage = 1, $region = false)
     {
@@ -58,11 +96,11 @@ class SalonRepository extends EntityRepository
       } 
       $category = ($request->get('category')) ? " AND c.id = '" . $request->get('category') ."'" : "";
       $city = ($request->get('city')) ? " AND l.locality = '" . $request->get('city') ."'" : "";
-      $query = $this->_em->createQuery("SELECT m, c  FROM LaNetLaNetBundle:Salon m 
-                                                    LEFT JOIN m.category c     
-                                                    LEFT JOIN m.location l
-                                                    LEFT JOIN m.user u 
-                                                    WHERE " . $whereRegion . "  (m.name LIKE :like)".$category.$city. "ORDER BY m.inTop DESC, u.created DESC")
+      $query = $this->_em->createQuery("SELECT s, c  FROM LaNetLaNetBundle:Salon s 
+                                                    LEFT JOIN s.category c     
+                                                    LEFT JOIN s.location l
+                                                    LEFT JOIN s.user u 
+                                                    WHERE " . $whereRegion . "  (s.name LIKE :like)".$category.$city. "ORDER BY s.inTop DESC, s.name ASC")
                           ->setParameters(array('like' => '%'.$searchterm.'%'));
       if ($peginator) {
         $page = $request->query->get('page', 1);

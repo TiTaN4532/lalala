@@ -7,7 +7,11 @@ la_net_admin_brand_create:
     defaults: { _controller: LaNetAdminBundle:Brand:edit }
     options:
         expose: true
-    
+
+la_net_admin_ajax_inTop_brand:
+    pattern:  /ajax/inTop_brand/{id}
+    defaults: { _controller: LaNetAdminBundle:Brand:inTop }
+            
 la_net_admin_brand_edit:
     pattern:  /brand/edit/{id}
     defaults: { _controller: LaNetAdminBundle:Brand:edit }

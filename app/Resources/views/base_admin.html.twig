@@ -5,10 +5,11 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     {% block stylesheets %}
+     
      <script src="{{ asset('js/jquery-1.10.1.min.js') }}"></script>
-      <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-      <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+     <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     
     <script type="text/javascript">main_css = "{{ asset('css/style.css') }}, {{ asset('css/custom_styles.css') }} "</script>
     {% endblock %}

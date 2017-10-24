@@ -10,6 +10,10 @@ la_net_admin_events_add:
     options:
         expose: true
         
+la_net_admin_ajax_inTop_event:
+    pattern:  /ajax/inTop_events/{id}
+    defaults: { _controller: LaNetAdminBundle:Events:inTop }
+                
 la_net_admin_events_edit:
     pattern:  /events/edit/{id}
     defaults: { _controller: LaNetAdminBundle:Events:edit }

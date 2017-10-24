@@ -191,6 +191,17 @@ class MasterController extends BaseController
                                                                                   ));
     }
     
+    public function mainListAction(Request $request)
+    {
+     
+      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')-> findListMasters();
+      
+      $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage();
+      
+      return $this->render('LaNetLaNetBundle::clubMain.html.twig', array('masters' =>  $masters, 
+                                                                                 'salons' =>  $salons));
+    }
+    
     public function masterIdAction(Request $request, $id)
     {
       $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);

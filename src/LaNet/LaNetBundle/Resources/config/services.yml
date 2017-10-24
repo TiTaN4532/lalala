@@ -44,4 +44,8 @@ services:
         class: LaNet\LaNetBundle\ImagineFilter\Loader\MySquareFilterLoader
         tags:
           - { name: liip_imagine.filter.loader, loader: my_square_filter }
+    liip_imagine.filter.loader.my_square_full_filter:
+        class: LaNet\LaNetBundle\ImagineFilter\Loader\MySquareFullFilterLoader
+        tags:
+          - { name: liip_imagine.filter.loader, loader: my_square_full_filter }
             

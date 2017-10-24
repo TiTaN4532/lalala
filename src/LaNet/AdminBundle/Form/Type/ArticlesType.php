@@ -13,7 +13,7 @@ class ArticlesType extends AbstractType
   {
     $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
              -> add('title', 'text', array('label' => 'Заголовок:'))
-             -> add('description', 'textarea', array('label' => 'Краткое описание:', 'required' => false))
+             -> add('description', 'textarea', array('label' => 'Краткое описание:'))
              -> add('video', 'textarea', array('label' => 'Вставка видео:', 'required' => false))
              -> add('portfolio', 'collection', array(
                                 'by_reference' => false,

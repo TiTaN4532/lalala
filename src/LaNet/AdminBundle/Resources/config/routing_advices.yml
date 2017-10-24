@@ -10,6 +10,10 @@ la_net_admin_advices_add:
     options:
         expose: true
         
+la_net_admin_ajax_inTop_advice:
+    pattern:  /ajax/inTop_advices/{id}
+    defaults: { _controller: LaNetAdminBundle:Advices:inTop }
+        
 la_net_admin_advices_edit:
     pattern:  /advices/edit/{id}
     defaults: { _controller: LaNetAdminBundle:Advices:edit }

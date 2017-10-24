@@ -46,14 +46,14 @@
     {{ form_widget(form.save_draft) }}
     {{ form_widget(form.add_post) }}
     </div>
-    {{ form_rest(form) }}
+     {# {{ form_rest(form) }} #}
+     {{ form_row(form._token) }}
   </form>
 <script>
      
     
     
     $(document).ready(function(){
-     
           $('#cancel-tests-btn').click(function() {
                window.location = Routing.generate('la_net_admin_tests');
             });

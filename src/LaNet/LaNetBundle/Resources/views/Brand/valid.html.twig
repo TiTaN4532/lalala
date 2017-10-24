@@ -1,0 +1,19 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+
+{% block slider %}
+{% endblock %}
+{% block content %}
+<a href="{{ path('la_net_la_net_brands_list') }}" class="button" style="margin-top: 20px;">К списку брендов</a>
+
+{% if validStatus == 1 %} 
+  <div  align="center">
+   <div style="padding-top: 40px; width: 400px;"><h5 style='border-style: double; border-color: #6cb55d; padding: 10px;'>Регистрация бренда прошла успешно. Бренд будет опубликован после проверки модератором.</h5></div>
+  </div> 
+  {% else %} 
+  <div  align="center">
+   <div style="padding-top: 40px; width: 400px;"><h5 style='border-style: double; border-color: red; padding: 10px;'>В процессе регистрации произошла ошибка. Повторите регистрацию.</h5></div>
+  </div> 
+  {% endif %}
+   
+{% endblock %}

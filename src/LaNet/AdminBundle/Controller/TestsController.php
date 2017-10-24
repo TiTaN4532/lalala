@@ -12,9 +12,11 @@ class TestsController extends BaseController
 {
     public function testsListAction(Request $request)
     {
+            $name = $request->get('name');
+            
             $testsPosts = $this->manager->getRepository('LaNetLaNetBundle:Articles')
-                    ->findBy(array('type' => 'test'), array('is_draft' => 'DESC', 'inTop' => 'DESC', 'updated' => 'DESC'));
-        
+                ->findListArticles('test', $name);
+            
             $pagination = $this->paginator->paginate(
             $testsPosts, $this->getRequest()->query->get('page', 1), 12
         );
@@ -50,23 +52,31 @@ class TestsController extends BaseController
         if ($form->isValid()) {
           if ($form->get('save_draft')->isClicked()) {
               $testsPost->setIsDraft(1);
-          }
-          if ($form->get('add_post')->isClicked()) {
-              $testsPost->setIsDraft(NULL);
-          }
-        
-          $this->manager->persist($testsPost);
-          $this->get('session')->getFlashBag()->add(
+              $this->get('session')->getFlashBag()->add(
                 'notice_tests',
                 'Ваши изменения были сохранены'
             );
-          if(!$testsPost->getId()) {
+          }
+          if ($form->get('add_post')->isClicked()) {
+              $testsPost->setIsDraft(NULL);
+              $this->get('session')->getFlashBag()->add(
+                'notice_tests',
+                'Ваши изменения были сохранены'
+            );
+          }
+        
+          $this->manager->persist($testsPost);
+         
+          /*if(!$testsPost->getId()) {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_tests_edit', array( 'id' => $testsPost->getId())));
           } else {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_tests'));
-          }
+          }*/
+          
+          $this->manager->flush();
+          return $this->redirect($this->generateUrl('la_net_admin_tests'));
         }
       }
 

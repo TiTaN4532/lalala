@@ -1,0 +1,11 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+
+  <div class="admin-main-menu">
+ <ul>
+  <li><a href="{{ path('la_net_admin_discounts_list') }}">Список всех скидок</a></li>
+  <li><a href="{{ path('la_net_admin_discounts_list_by_salon') }}">Список скидок по салонам</a></li>
+</ul>
+  </div> 
+{% endblock content %}

@@ -8,6 +8,12 @@
               {{ flashMessage }}
           </div>
         {% endfor %}
+        
+        <form action="">
+            <input placeholder="Поиск статьи" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+            <input style="margin-left:10px;" type="submit" value="Найти">
+        </form>
+            
  {% if pagination.count %}
         <table class="projects-table">
             <thead>
@@ -17,6 +23,7 @@
                     <th>Дата</th>
                     <th>Удалить событие</th>
                     <th>Редактировать событие</th>
+                    <th>Позиция в ТОП</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +34,7 @@
                         <td>{{ post.created|date("l j-F-y g:ia") }}</td>
                         <td><a href="{{ path('la_net_admin_events_delete', {'id': post.id}) }}" class="delete-post">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_events_edit', {'id': post.id}) }}">Редактировать</a></td>
+                        <td><a href="{{ path('la_net_admin_ajax_inTop_event', {'id': post.id} ) }}" class="update-post button">{% if post.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -46,15 +54,39 @@
           });
           $('.delete-post').click(function(event) {
             event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
+                var element = $(this);
+                $.ajax({
+                    url         : element.attr('href'),
+                    success     : function(data) {
+                      if(data.success) 
+                        element.parent().parent().remove();
+                }
+                });
+            }
+          });
+      });
+  </script>
+   <script type="text/javascript">
+    
+          $('.update-post').click(function(event) {
+            event.preventDefault();
+             console.log('123')
             var element = $(this);
             $.ajax({
                 url         : element.attr('href'),
                 success     : function(data) {
-                  if(data.success) 
-                    element.parent().parent().remove();
-            }
+                    console.log(data)
+                    if (element.text() == "Вывести в ТОП"){
+                            element.text('Удалить из ТОП')
+            
+                    } else {
+                            element.text('Вывести в ТОП')
+                    }
+               }
+                
             });
           });
-      });
+     
   </script>
 {% endblock %}

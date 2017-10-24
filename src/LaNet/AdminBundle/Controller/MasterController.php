@@ -28,10 +28,11 @@ class MasterController extends BaseController
     {
           
         $period = $request->get('period');
+        $name = $request->get('name');
         
         $page = $request->query->get('page', 1);
              
-        $result = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters($period);
+        $result = $this->manager->getRepository('LaNetLaNetBundle:Master')->findListMasters($period, $name);
          
         $paginator = $this->paginator->paginate($result, $page, 10);
      

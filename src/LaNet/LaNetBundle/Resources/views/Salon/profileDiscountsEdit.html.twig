@@ -1,0 +1,44 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
+{% form_theme form 'LaNetLaNetBundle:Form:fields_profile.html.twig' %}
+
+{% block menu %}
+  {% include "LaNetLaNetBundle:Salon:menu.html.twig" %}
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+ {{ parent() }}
+            
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+       <script src="{{ asset('bundles/lanetlanet/js/mastersPortfolio.js') }}"></script>{% endblock %}
+      
+{% block profile_content %}
+ 
+    
+<form style="padding-top: 40px;" action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
+        <div class="row errors">
+            {{ form_errors(form) }}
+        </div>
+       <div class="row">
+            <div class="col col_1_of_2">{{ form_widget(form.file) }}</div>
+             <div class="row">
+            <div style="padding-top: 30px;" class="col col_2_of_2">
+                <div class="row">
+                    <div class="col col_1_of_1">
+                        {{ form_widget(form.description) }}
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        </div>
+                      
+      <div> <a href="{{ path('la_net_la_net_salon_profile_discounts') }}" class="button">Назад</a>
+       {{ form_row(form.save) }}
+       </div>    
+
+        {{ form_row(form._token) }}
+             
+</form>
+                    
+{% endblock %}

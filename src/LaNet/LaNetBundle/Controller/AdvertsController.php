@@ -15,7 +15,7 @@ class AdvertsController extends BaseController
        
        
             $pagination = $this->paginator->paginate(
-             $advertsList, $this->getRequest()->query->get('page', 1), 5
+            $advertsList, $this->getRequest()->query->get('page', 1), 5
         );
             
            /*  
@@ -25,24 +25,29 @@ class AdvertsController extends BaseController
             */
         
         $advertsPost = new LaEntity\Adverts();
-        
-      
         $advertsForm = $this->createForm(new LaForm\AdvertsType(), $advertsPost);
        
+        $newMail = new LaEntity\Notifications();
+
             
         if ('POST' == $request->getMethod()) {
 
         $advertsForm->bind($request);
 
             if ($advertsForm->isValid()) {
-             
-              $advertsPost->setIsDraft(1);
-            
+             $advertsPost->setIsDraft(1);
+                
+                $newMail-> setMail($advertsForm->getData()->getMail());
+                $newMail-> setName($advertsForm->getData()->getName());
+                $newMail-> setActive(0);
+                             
+              $this->manager->persist($newMail);
+              
               $this->manager->persist($advertsPost);
-             /* $this->get('session')->getFlashBag()->add(
+              $this->get('session')->getFlashBag()->add(
                     'notice_adverts',
-                    'Ваши изменения были сохранены'             
-                      );*/
+                    'Ваше объявление сохранено и будет опубликовано после проверки модератором'             
+                      );
               $this->manager->flush();
             
             }

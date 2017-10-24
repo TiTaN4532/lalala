@@ -150,7 +150,7 @@
         {% for image in master.portfolio%}
           
           <div class="col col_1_of_5">
-            <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_thumb_portfolio') }}" /></a>
+            <a href="{{ asset(image.getWebPath | imagine_filter('my_thumb_portfolio_large3')) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_thumb_portfolio') }}" /></a>
           </div>
           {% if loop.index % 5 == 0 %}
              </div><div class="row clear">

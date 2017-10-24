@@ -19,6 +19,7 @@ class AdvertsType extends AbstractType
             ->add('title', 'text', array('label' => 'Заголовок'))
             ->add('post', 'textarea', array('label' => 'Текст объявления'))
             ->add('phone', 'text', array('label' => 'Телефон:', 'required' => false))
+            ->add('name', 'text', array('label' => 'Имя:'))
             ->add('mail', 'email', array('label' => 'Email адрес'))
             ->add('add_post', 'submit', array('label' => 'Сохранить'))
             ->add('public', 'submit', array('label' => 'Опубликовать'))

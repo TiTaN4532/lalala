@@ -12,8 +12,10 @@ class AdvicesController extends BaseController
 {
     public function advicesListAction(Request $request)
     {
+            $name = $request->get('name');
+            
             $advicesPosts = $this->manager->getRepository('LaNetLaNetBundle:Articles')
-                ->findByType('advice');
+                ->findListArticles('advice', $name);
         
             $pagination = $this->paginator->paginate(
             $advicesPosts, $this->getRequest()->query->get('page', 1), 12
@@ -49,24 +51,31 @@ class AdvicesController extends BaseController
         if ($form->isValid()) {
           if ($form->get('save_draft')->isClicked()) {
               $advicesPost->setIsDraft(1);
+              $this->get('session')->getFlashBag()->add(
+                'notice_advices',
+                'Ваши изменения были сохранены'
+            );
           }
           if ($form->get('add_post')->isClicked()) {
+              $this->get('session')->getFlashBag()->add(
+                'notice_advices',
+                'Ваши изменения были сохранены'
+            );
               $advicesPost->setIsDraft(NULL);
           }
           
           $this->manager->persist($advicesPost);
-          $this->get('session')->getFlashBag()->add(
-                'notice_advices',
-                'Ваши изменения были сохранены'
-            );
-          if(!$advicesPost->getId()) {
+                    
+          /*if(!$advicesPost->getId()) {
             $this->manager->flush();
-            return $this->redirect($this->generateUrl('la_net_admin_advices'));
-           // return $this->redirect($this->generateUrl('la_net_admin_advices_edit', array( 'id' => $advicesPost->getId())));
+            return $this->redirect($this->generateUrl('la_net_admin_advices_edit', array( 'id' => $advicesPost->getId())));
           } else {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_advices'));
-          }
+          }*/
+          
+           $this->manager->flush();
+           return $this->redirect($this->generateUrl('la_net_admin_advices'));
         }
       }
 
@@ -93,4 +102,22 @@ class AdvicesController extends BaseController
       $this->manager->flush();
       return new JsonResponse( 1 );
     }
+    
+     public function inTopAction(Request $request, $id)
+    {
+        $article = $this->manager->getRepository('LaNetLaNetBundle:Articles')->find($id);
+       
+       if ($article-> getinTop() == NULL){
+           $article-> setInTop(new \DateTime());
+        }
+         else{
+            $article-> setInTop();
+         }
+      
+        $this->manager->persist($article);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
 }

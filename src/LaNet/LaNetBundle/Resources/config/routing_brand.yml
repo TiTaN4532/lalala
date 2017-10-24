@@ -5,3 +5,7 @@ la_net_la_net_brands_list:
 la_net_la_net_brands_id:
     pattern:  /brands/{slug}
     defaults: { _controller: LaNetLaNetBundle:Brand:brandId }
+    
+la_net_la_net_brands_validation:
+    pattern:  /brands/validation/{uniqId}
+    defaults: { _controller: LaNetLaNetBundle:Brand:validation, uniqId: default_uniqId  }

@@ -1,0 +1,63 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block slider %}
+   {% endblock %}      
+
+{% block content %}
+<a href="{{ path('la_net_la_net_master_list') }}" class="tabs">Поиск мастера</a><a href="{{ path('la_net_la_net_salon_list') }}" class="tabs">Поиск салона</a><a href="{{ path('la_net_la_net_salon_list') }}" class="tabs">Обучение</a>
+
+<hr style="margin:7px 0 20px 0;" class="clear" />
+
+<div style="padding-bottom:20px;">
+    <form action="">
+        <input placeholder="Поиск" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+        <input style="margin-left:10px;" type="submit" value="Найти">
+    </form>
+</div>
+     
+    <section class="holder">
+        <h2 class="section-title"><a href="{{ path('la_net_la_net_salon_list') }}">Салоны</a></h2>
+        <div class="row-fluid">
+            <section class="holder">
+                <div class="gallery-wrap">
+                    <div class="gallery-slider">
+                        {% for post in salons %} 
+                        <article class="top-news-item">
+                            <a href="{{ path('la_net_la_net_salon_id', {'id': post.id })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"</a>
+                            <h3 class="item-title"><a href="{{ path('la_net_la_net_salon_id', {'id': post.id })}}">{{ post.name}}</a></h3>
+                        </article>
+                       {% endfor %}     
+                    </div>
+                </div>
+            </section>
+        </div>
+   </section>                       
+       
+   <section class="holder">
+    <h2 class="section-title"><a href="{{ path('la_net_la_net_master_list') }}">Мастера</a></h2>
+    <div class="row-fluid">
+        <div class="span7">
+            <div class="masters">
+                {% for master in masters %}
+                  <div class="masters-item clearfix">
+                      <div class="masters-item-img">
+                          <img src="{{ asset(master.getWebPath| imagine_filter('my_masters_list'))}}" />
+                      </div>
+                      <div class="masters-item-info">
+                         <h3 class="masters-item-title {% if master.inTop != NULL%} starred {% endif%}">{{ master.firstName }} {{ master.lastName }}</h3>
+                         <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}" class="read-more">Читать полностью...</a>
+                      </div>
+                  </div>
+                {% else %}
+                  Мастеров нет
+                {% endfor %}
+            </div>  
+        </div>
+    </div>
+   </section>
+
+  {#<div class="row clear pagination">
+  {{ knp_pagination_render(masters) }}
+  </div>#}
+  
+{% endblock %}

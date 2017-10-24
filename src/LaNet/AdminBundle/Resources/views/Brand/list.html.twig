@@ -8,21 +8,33 @@
               {{ flashMessage }}
           </div>
         {% endfor %}
+        
+         <form action="">
+            <input placeholder="Поиск бренда" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+            <input style="margin-left:10px;" type="submit" value="Найти">
+        </form>
+        
   {% if pagination.count %}
         <table>
             <thead>
                 <tr>
                     <th>Название</th>
+                    <th>Статус</th>
+                    <th>Валидация</th>
                     <th>Удалить бренд</th>
                     <th>Редактировать бренд</th>
+                    <th>Позиция в ТОП</th>
                 </tr>
             </thead>
             <tbody>
                 {% for brand in pagination %}
                     <tr>
                         <td>{{ brand.name }}</td>
+                        <td>{{ brand.isdraft ? 'Draft' : 'Published' }}</td>
+                        <td>{{ brand.validation == 1 ? 'Valid' : 'Invalid' }}</td>
                         <td><a href="{{ path('la_net_admin_brand_delete', {'id': brand.id}) }}" class="delete-brand">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_brand_edit', {'id': brand.id}) }}">Редактировать</a></td>
+                        <td><a href="{{ path('la_net_admin_ajax_inTop_brand', {'id': brand.id} ) }}" class="update-post button">{% if brand.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -40,6 +52,7 @@
           });
           $('.delete-brand').click(function(event) {
             event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
             var element = $(this);
             $.ajax({
                 url         : element.attr('href'),
@@ -50,7 +63,29 @@
                     alert('Probably there are products related to this brand');
             }
             });
+        }
           });
       });
+  </script>
+  
+   <script type="text/javascript">
+    
+          $('.update-post').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    
+                    if (element.text() == "Вывести в ТОП"){
+                            element.text('Удалить из ТОП')
+            
+                    } else {
+                            element.text('Вывести в ТОП')
+                    }
+                }
+            });
+          });
+     
   </script>
 {% endblock %}

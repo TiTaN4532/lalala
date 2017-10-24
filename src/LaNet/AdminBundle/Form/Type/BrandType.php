@@ -13,9 +13,11 @@ class BrandType extends AbstractType
   {
     $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
              -> add('name', 'text', array('label' => 'Название:'))
-             -> add('country', 'text', array('label' => 'Страна производитель:'))
-             -> add('link', 'text', array('label' => 'Сайт:'))
+             -> add('country', 'text', array('label' => 'Страна производитель:', 'required' => false))
+             -> add('link', 'text', array('label' => 'Сайт:', 'required' => false))
              -> add('description', 'textarea', array('label' => 'Описание:'))
+             ->add('phone', 'text', array('label' => 'Телефон:', 'required' => false))
+             ->add('mail', 'email', array('label' => 'Email адрес', 'required' => false)) 
              ->add('category', 'collection', array( 'type'         => new BrandCategoryType(),
                                                     'allow_add'    => true,
                                                     'allow_delete'    => true,
@@ -29,7 +31,9 @@ class BrandType extends AbstractType
                   'multiple'     => true,
                   'expanded' => true
                 )) 
-             -> add('save', 'submit', array('label' => 'Сохранить'));
+             -> add('save', 'submit', array('label' => 'Сохранить'))
+             -> add('add_brand', 'submit', array('label' => 'Опубликовать'))
+             -> add('is_draft', 'submit', array('label' => 'Скрыть'));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)

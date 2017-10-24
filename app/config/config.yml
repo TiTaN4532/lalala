@@ -100,6 +100,10 @@ liip_imagine:
             quality:              100
             filters:
                 relative_resize: { widen: 700 }
+        my_event_id2:
+            quality:              100
+            filters:
+                relative_resize: { widen: 333 }
         my_master_thumb_medium:
                     quality:              100
                     filters:
@@ -108,10 +112,27 @@ liip_imagine:
                     quality:              100
                     filters:
                         my_square_filter: { size: 120 }
+                        
+        my_thumb_portfolio_large:
+                    quality:              100
+                    filters:
+                        my_square_full_filter: { size: 800 }
+        
+        my_thumb_portfolio_large3:
+                    quality:              100
+                    filters:
+                        my_square_full_filter: { size: 800 }
+                        
+        my_thumb_portfolio_large2:
+                    quality:              100
+                    filters:
+                        my_square_full_filter: { size: 422 }
+                        
         my_master_thumb_small:
                     quality:              100
                     filters:
                         thumbnail: { size: [60, 60], mode: inset }
+       
         my_master_thumb_large:
                     quality:              100
                     filters:
@@ -121,6 +142,59 @@ liip_imagine:
                     quality:              100
                     filters:
                         thumbnail: { size: [240, 240], mode: inset }
+        my_slider:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [30], mode: inset  }                
+        my_slider2:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [106, 60], mode: outbound  }                
+        my_slider3:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [108, 61], mode: outbound }                
+        my_main_page_event_big:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [340, 192], mode: outbound }                
+        my_main_page_event_small:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [108, 61], mode: outbound }                
+     
+        my_main_page_test:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [130, 130], mode: outbound } 
+                        
+        my_main_page_advice:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [50, 50], mode: outbound } 
+                        
+        my_main_page_trust:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [110, 110], mode: outbound }                
+                       
+        my_main_page_master:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [110, 110], mode: outbound }   
+                        
+        my_masters_list:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [110, 110], mode: outbound }                
+                       
+        my_adverts_list:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [110, 110], mode: outbound }                
+                       
+     
+                         
 services:
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl

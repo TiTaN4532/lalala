@@ -39,9 +39,9 @@
                             <div id="logo"><a href="{{ path('la_net_la_net_homepage') }}"><img src="{{ asset('images/logo2.png') }}" height="72" width="192"></a></div>
                         </div>
                         <div class="span5">
-                            <form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
+                            {#<form action="{{ path('la_net_lanet_set_regions') }}" method="POST" id="form-regions">
                                 {{ render(controller('LaNetLaNetBundle:Location:getRegions')) }}
-                            </form>
+                            </form>#}
                         </div>
                         <div class="span4">
                             <div id="login">
@@ -91,28 +91,14 @@
                         </div>
                     </div>
                 </div>   
-                    <div id="myModal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header"><button class="close" type="button" id="close-btn" data-dismiss="modal">×</button>
-                        <h4 class="modal-title">Введите адресс электронной почты</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" id="notifications" style="width:100%;"/>
-                        <span id="valid"></span>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default notifications-confirm" type="button" >Подписаться</button>
-                    </div>
-                </div>
-            </div>
-        </div>          
+                   
                             
                             
                 <nav>
                     <div class="container">
                         <ul>
                           <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
+                          <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
                           {#<li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>#}  
                           {#<li><a id="drop_custom" href="{{ path('la_net_la_net_master_list') }}" data-toggle="dropdown" >Бренд-инфо</a>
                                 <div id="main_custom" style="display:none;" class="sub_menu"> 
@@ -121,15 +107,15 @@
                                     </ul>   
                                 </div> 
                             </li> #}       
-                             <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб профессионалов</a>
+                            {# <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб профессионалов</a>
                                 <ul class="dropdown-menu pull-rigth">
                                     <li><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' %} class="active"{% endif %}>Поиск мастера</a></li>
                                     <li><a href="{{ path('la_net_la_net_salon_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %} class="active"{% endif %}>Поиск салона</a></li>
                                 </ul>
-                            </li>
+                            </li>#}
                             
                             {#<li><a href="{{ path('la_net_la_net_trusts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_trusts_list' %} class="active"{% endif %}>Им доверяют</a></li>#}
-                            <li><a href="{{ path('la_net_la_net_tests_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_tests_list' %} class="active"{% endif %}>Бренд инфо</a></li>
+                            <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
                             {#<li><a href="{{ path('la_net_la_net_advices_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %} class="active"{% endif %}>Советы красоты</a></li>#}
                             <li><a href="{{ path('la_net_la_net_adverts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %} class="active"{% endif %}>Объявления</a></li>
                             <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Lalook инфо</a></li>
@@ -160,13 +146,29 @@
  </div>
     <footer>
         <div class="footerLine"></div>
+         <div id="myModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><button class="close" type="button" id="close-btn" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">Введите адресс электронной почты</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="notifications" style="width:100%;"/>
+                        <span id="valid"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default notifications-confirm" type="button" >Подписаться</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
         <div class="container">  
             <nav>
                 <ul>
                     <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
-                        {#                <li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
-                    <li><a href="{{ path('la_net_la_net_master_list') }}">Клуб профессионалов</a></li>
-                    <li><a href="{{ path('la_net_la_net_tests_list') }}">Бренд инфо</a></li>
+                    {#<li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
+                    <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
+                    <li><a href="{{ path('la_net_la_net_brands_list') }}">Бренд инфо</a></li>
                     <li><a href="{{ path('la_net_la_net_adverts_list') }}">Объявления</a></li>
                     <li><a href="{{ path('la_net_la_net_events_list') }}">Lalook инфо</a></li>
                     {#<li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>#}
@@ -522,7 +524,13 @@
   <script>
        
     $(document).ready(function(){
-      toastr.options = {"closeButton": false,
+      
+        $("#myModal").css({
+            display: "none",
+            visibility: "hidden"
+        });
+
+        toastr.options = {"closeButton": false,
                         "debug": false,
                         "newestOnTop": false,
                         "progressBar": false,
@@ -539,7 +547,18 @@
                         "hideMethod": "fadeOut"
                       }
   
+        $('#close-btn').click(function(){
+              $("#myModal").css({
+                display: "none",
+                visibility: "hidden"
+              });
+        });           
+  
         $('#notifications-modal-btn').click(function(){
+             $("#myModal").css({
+                display: "display",
+                visibility: "visible"
+              });
             document.getElementById('notifications').value = '';
             $('#notifications').css({'border' : '1px solid #c5c5c5'});
         });
@@ -567,7 +586,11 @@
                                 }
                              
                         }else{ toastr.error('Произошла ошибка. Повторите попытку');}
-                              $('#myModal').modal("hide");
+                            //  $('#myModal').modal("hide");
+                              $("#myModal").css({
+                                display: "none",
+                                visibility: "hidden"
+                              });
                      }
                        });
                             

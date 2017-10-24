@@ -1,0 +1,32 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+ 
+{% block stylesheets %}
+      {{ parent() }}
+        <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
+        <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
+       {% endblock %}
+      
+
+{% block content %}
+    
+      {% for flashMessage in app.session.flashbag.get('notice_site_settings') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+    
+    
+  <h2>Настройки сайта</h2> 
+ 
+  <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
+       
+    {{ form_row(form.description) }}
+     
+    {{ form_widget(form.save) }}
+   
+        {# {{ form_rest(form) }} #}
+        {{ form_row(form._token) }}
+  </form>
+  
+{% endblock %}
+

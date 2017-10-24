@@ -12,7 +12,7 @@
                {% for post in events %}
               {% if not loop.first %} <hr /> {% endif %}
               <div class="row">
-                <div class="col col_1_of_3" style='margin-bottom: 20px;'><img src="{{ asset(post.getWebPath)}}" style="width:100%;" /></div>
+                <div class="col col_1_of_3" style='margin-bottom: 20px;'><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_big'))}}" style="width:100%;" /></div>
                 <div class="col col_2_of_3" style="font-weight: 900">{{ post.title }}</div>
                 <div class="col col_2_of_3">{{ post.description | raw }} <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}" class="blue-link">Подробнее</a>
                 </div>
@@ -32,6 +32,23 @@
                 Пока статей нет
               {% endfor %}
               
+        {% for key, post in newArray %}      
+         <h2 class="section-title"><a href="#">{{key}}</a></h2>
+             <section class="holder">
+                    <div class="gallery-wrap">
+                        <div class="gallery-slider">
+                            {% for event in  post %}
+                              <article class="top-news-item">
+                                <a href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}"><img src="{{ asset(event.getWebPath  | imagine_filter('my_main_page_event_small'))}}"</a>
+                                <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}">{{ event.title}}</a></h3>
+                                <div class="top-news-date">{{ event.updated | date ('d.m.Y')}}</div>
+                              </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}     
+            
   <div class="row clear pagination">
   {{ knp_pagination_render(events) }}
   </div>

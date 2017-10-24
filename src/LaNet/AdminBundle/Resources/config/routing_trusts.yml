@@ -9,6 +9,10 @@ la_net_admin_trusts_add:
     defaults: { _controller: LaNetAdminBundle:Trusts:edit }
     options:
         expose: true
+
+la_net_admin_ajax_inTop_trust:
+    pattern:  /ajax/inTop_trusts/{id}
+    defaults: { _controller: LaNetAdminBundle:Trusts:inTop }
         
 la_net_admin_trusts_edit:
     pattern:  /trusts/edit/{id}

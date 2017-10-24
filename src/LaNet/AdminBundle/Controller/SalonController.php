@@ -25,11 +25,12 @@ class SalonController extends BaseController
     
   public function listAction(Request $request)
     {
-      $period= $request->get('period');
+      $period = $request->get('period');
+      $name = $request->get('name');
       
       $page = $request->query->get('page', 1);
                 
-        $result= $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons($period);
+        $result= $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons($period, $name);
                
         $paginator = $this->paginator->paginate($result, $page, 10);
         

@@ -1,0 +1,71 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+   
+    <a href="{{ path ('la_net_admin_discounts_list_by_salon')}}" class="btn">Назад</a>
+ 
+    <h3>Скидки салона {{ pagination[0].salon.getName }}</h3>
+        
+        <table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Описание</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                    <th>Удалить</th>
+                    <th>Позиция в ТОП</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in pagination %}
+                    <tr>
+                        <td>{{ post.description }}</td>
+                        <td>{{ post.created|date("d/m/Y G:H:s") }}</td>
+                        <td>{{ post.isdraft ? 'Draft' : 'Published' }}</td>
+                        <td><a href="{{ path('la_net_la_net_salon_profile_discounts_delete', {'id': post.id} ) }}" class="delete-post">Удалить</a></td>
+                        <td><a href="{{path ('la_net_admin_ajax_inTop_discounts', {'id': post.id})}}" class="update-post button">{% if post.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      
+    {{ knp_pagination_render(pagination) }}
+  <script type="text/javascript">
+      $(document).ready(function() {
+           $('.delete-post').click(function(event) {
+            event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
+                var element = $(this);
+                $.ajax({
+                    url         : element.attr('href'),
+                    success     : function(data) {
+                      if(data.success) 
+                        element.parent().parent().remove();
+                }
+                });
+            }
+        });
+      });
+  </script>
+  
+   <script type="text/javascript">
+    
+          $('.update-post').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    
+                    if (element.text() == "Вывести в ТОП"){
+                            element.text('Удалить из ТОП')
+            
+                    } else {
+                            element.text('Вывести в ТОП')
+                    }
+                }
+            });
+          });
+     
+  </script>
+{% endblock %}

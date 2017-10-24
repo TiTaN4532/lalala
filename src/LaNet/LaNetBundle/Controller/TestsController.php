@@ -12,11 +12,7 @@ class TestsController extends BaseController
        // $testsTop = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'test', 'is_draft' => NULL, 'inTop' => () ), array('inTop' => 'DESC', 'updated' => 'DESC'));
         
         $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
-        /*if ( $searchterm) {
-        print_r ($searchterm);
-        exit();
-        }*/
-        
+                
         $qb =  $this->manager->createQueryBuilder(); 
         $testsTop = $qb->select("t")
         ->from("LaNetLaNetBundle:Articles", "t")
@@ -28,10 +24,6 @@ class TestsController extends BaseController
                 
         ->getQuery()->getResult();
         
-        
-        
-        
-          
         $qb =  $this->manager->createQueryBuilder(); 
         $tests = $qb->select("t")
         ->from("LaNetLaNetBundle:Articles", "t")

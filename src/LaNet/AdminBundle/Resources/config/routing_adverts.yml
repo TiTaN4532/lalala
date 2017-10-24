@@ -10,6 +10,10 @@ la_net_admin_adverts_add:
     options:
         expose: true
         
+la_net_admin_ajax_inTop_advert:
+    pattern:  /ajax/inTop_adverts/{id}
+    defaults: { _controller: LaNetAdminBundle:Adverts:inTop }
+        
 la_net_admin_adverts_edit:
     pattern:  /adverts/edit/{id}
     defaults: { _controller: LaNetAdminBundle:Adverts:edit }

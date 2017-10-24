@@ -61,6 +61,11 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\OneToMany(targetEntity="Image", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
      */
     protected $portfolio;
+            
+    /**
+     * @ORM\OneToMany(targetEntity="Discounts", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $discounts;
     
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="consumerInfo")
@@ -422,6 +427,41 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
     public function getinTop()
     {
         return $this->inTop;
+    }
+    
+    /**
+     * Add discounts
+     *
+     * @param \LaNet\LaNetBundle\Entity\Discounts $discounts
+     * @return Salon
+     */
+    public function addDiscounts(\LaNet\LaNetBundle\Entity\Discounts $discounts)
+    {
+        $discounts->setSalon($this);
+        $this->discounts[] = $discounts;
+    
+        return $this;
+    }
+
+    /**
+     * Remove discounts
+     *
+     * @param \LaNet\LaNetBundle\Entity\Phone $discounts
+     */
+    public function removeDiscounts(\LaNet\LaNetBundle\Entity\Discounts $discounts)
+    {
+        
+        $this->phone->removeElement($discounts);
+    }
+
+    /**
+     * Get discounts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDiscounts()
+    {
+        return $this->discounts;
     }
 
 }

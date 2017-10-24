@@ -22,10 +22,20 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $id;
     
-     /**
+    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
+    
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    protected $validation = 1;
+    
+    /**
+     * @ORM\Column(type="datetime", nullable = true)
+     */
+    protected $inTop = NULL;
     
     /**
      * @Gedmo\Slug(fields={"name"}, updatable=false, separator="-")
@@ -34,12 +44,12 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     protected $slug;
     
      /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable = true)
      */
     protected $country;
     
      /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable = true)
      */
     protected $link;
     
@@ -76,6 +86,22 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\OneToMany(targetEntity="AgancyBrand", mappedBy="brand")
      */
     protected $agancyBrand;
+    
+     /**
+     * @ORM\Column(type="string", length=100, nullable = true)
+     */
+    protected $phone;
+    
+    /**
+     * @ORM\Column(type="string", length=100, nullable = true)
+     */
+    protected $mail;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $is_draft;
+    
   
     /**
      * Constructor
@@ -116,6 +142,29 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     public function getName()
     {
         return $this->name;
+    }
+    
+    /**
+     * Set name
+     *
+     * @param string $validation
+     * @return Brand
+     */
+    public function setValidation($validation)
+    {
+        $this->validation = $validation;
+    
+        return $this;
+    }
+
+    /**
+     * Get validation
+     *
+     * @return string 
+     */
+    public function getValidation()
+    {
+        return $this->validation;
     }
 
     /**
@@ -422,4 +471,95 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     {
         return $this->agancyBrand;
     }
+    
+    /**
+     * Set $phone
+     *
+     * @param string $phone
+     * @return Brand
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+    /**
+     * Set $mail
+     *
+     * @param string $mail
+     * @return Brand
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+    
+        return $this;
+    }
+
+    /**
+     * Get mail
+     *
+     * @return string 
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+    
+     /**
+     * Set is_draft
+     *
+     * @return Brand
+     */
+    public function setIsDraft($value)
+    {
+        $this->is_draft = $value;
+    
+        return $this;
+    }
+
+    /**
+     * Get is_draft
+     *
+     * @return boolean 
+     */
+    public function getIsDraft()
+    {
+        return $this->is_draft;
+    }
+    
+    /**
+     * Set inTop
+     *
+     * @param \DateTime $inTop
+     * @return Brand
+     */
+    public function setinTop($inTop = NULL)
+    {
+        $this->inTop = $inTop;
+    
+        return $this;
+    }
+
+    /**
+     * Get inTop
+     *
+     * @return \DateTime 
+     */
+    public function getinTop()
+    {
+        return $this->inTop;
+    }
+
 }

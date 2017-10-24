@@ -12,11 +12,11 @@ class EventsController extends BaseController
 {
     public function eventsListAction(Request $request)
     {
-            $eventsPosts = $this->manager->getRepository('LaNetLaNetBundle:Articles')
-                ->findBy(array('type' => 'event'),array('is_draft' => 'DESC', 'updated' => 'DESC'));
+           $name = $request->get('name');
             
+            $eventsPosts = $this->manager->getRepository('LaNetLaNetBundle:Articles')
+                ->findListArticles('event', $name);
            
-        
             $pagination = $this->paginator->paginate(
             $eventsPosts, $this->getRequest()->query->get('page', 1), 12
         );
@@ -51,23 +51,31 @@ class EventsController extends BaseController
         if ($form->isValid()) {
           if ($form->get('save_draft')->isClicked()) {
               $eventsPost->setIsDraft(1);
-          }
-          if ($form->get('add_post')->isClicked()) {
-              $eventsPost->setIsDraft(NULL);
-          }
-         
-          $this->manager->persist($eventsPost);
-          $this->get('session')->getFlashBag()->add(
+              $this->get('session')->getFlashBag()->add(
                 'notice_events',
                 'Ваши изменения были сохранены'
             );
-          if(!$eventsPost->getId()) {
+          }
+          if ($form->get('add_post')->isClicked()) {
+              $eventsPost->setIsDraft(NULL);
+              $this->get('session')->getFlashBag()->add(
+                'notice_events',
+                'Ваши изменения были сохранены'
+            );
+          }
+         
+          $this->manager->persist($eventsPost);
+          
+         /* if(!$eventsPost->getId()) {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_events_edit', array( 'id' => $eventsPost->getId())));
           } else {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_events'));
-          }
+          }*/
+          
+          $this->manager->flush();
+          return $this->redirect($this->generateUrl('la_net_admin_events'));
         }
       }
 
@@ -93,5 +101,22 @@ class EventsController extends BaseController
       $eventsPost->setImage(null);
       $this->manager->flush();
       return new JsonResponse( 1 );
+    }
+    
+     public function inTopAction(Request $request, $id)
+    {
+        $article = $this->manager->getRepository('LaNetLaNetBundle:Articles')->find($id);
+       
+       if ($article-> getinTop() == NULL){
+           $article-> setInTop(new \DateTime());
+        }
+         else{
+            $article-> setInTop();
+         }
+      
+        $this->manager->persist($article);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
     }
 }

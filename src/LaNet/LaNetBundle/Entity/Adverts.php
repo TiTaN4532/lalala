@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\AdvertsRepository")
  * @ORM\Table(name="adverts")v
  * @ORM\HasLifecycleCallbacks()
   */
@@ -38,6 +38,11 @@ class Adverts extends \LaNet\LaNetBundle\Model\UploadImages
     /**
      * @ORM\Column(type="string", length=100, nullable = true)
      */
+    protected $name;
+    
+    /**
+     * @ORM\Column(type="string", length=100, nullable = true)
+     */
     protected $mail;
     
     /**
@@ -45,6 +50,11 @@ class Adverts extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $is_draft;
 
+    /**
+     * @ORM\Column(type="datetime", nullable = true)
+     */
+    protected $inTop = NULL;
+    
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
@@ -118,6 +128,29 @@ class Adverts extends \LaNet\LaNetBundle\Model\UploadImages
     public function getPhone()
     {
         return $this->phone;
+    }
+    
+    /**
+     * Set $name
+     *
+     * @param string $name
+     * @return Adverts
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
     /**
      * Set $mail
@@ -261,7 +294,7 @@ class Adverts extends \LaNet\LaNetBundle\Model\UploadImages
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/images/news';
+        return 'uploads/images/adverts';
     }
         
  
@@ -329,6 +362,28 @@ class Adverts extends \LaNet\LaNetBundle\Model\UploadImages
         return $this;
     }
 
+    /**
+     * Set inTop
+     *
+     * @param \DateTime $inTop
+     * @return Adverts
+     */
+    public function setinTop($inTop = NULL)
+    {
+        $this->inTop = $inTop;
     
+        return $this;
+    }
+
+    /**
+     * Get inTop
+     *
+     * @return \DateTime 
+     */
+    public function getinTop()
+    {
+        return $this->inTop;
+    }
+
    
 }

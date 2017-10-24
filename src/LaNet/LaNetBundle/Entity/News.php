@@ -45,7 +45,12 @@ class News extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="boolean", nullable = true)
      */
     protected $is_draft;
-
+    
+    /**
+     * @ORM\Column(type="datetime", nullable = true)
+     */
+    protected $inTop = NULL;
+    
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
@@ -312,4 +317,28 @@ class News extends \LaNet\LaNetBundle\Model\UploadImages
     {
         return $this->description;
     }
+    
+    /**
+     * Set inTop
+     *
+     * @param \DateTime $inTop
+     * @return News
+     */
+    public function setinTop($inTop = NULL)
+    {
+        $this->inTop = $inTop;
+    
+        return $this;
+    }
+
+    /**
+     * Get inTop
+     *
+     * @return \DateTime 
+     */
+    public function getinTop()
+    {
+        return $this->inTop;
+    }
+
 }

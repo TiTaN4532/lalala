@@ -48,11 +48,20 @@
         {% endfor %}
     </ul>#}
     {{ form_row(form.link) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.mail) }}
     {{ form_row(form.description) }}
+   
+    
     {{ form_row(form._token) }}
     <div>
       <button id="cancel-brand-btn">Назад</button>
-    {{ form_widget(form.save) }}
+     
+      {% if brand.getIsDraft() == '1' %} {{ form_widget(form.add_brand) }}  {% do form.is_draft.setRendered %}{% endif %}
+      {% if brand.getIsDraft() == NULL %} {{ form_widget(form.is_draft) }}  {% do form.add_brand.setRendered %} {% endif %}
+   
+      {{ form_widget(form.save) }}
+    
     </div>
   </form>
   <script>

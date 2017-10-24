@@ -7,6 +7,7 @@ use Doctrine\ORM\Query\Expr;
 use Symfony\Component\HttpFoundation\Request;
 use LaNet\LaNetBundle\Entity as LaEntity;
 use LaNet\LaNetBundle\Form\Type as LaForm;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SalonController extends BaseController
 {
@@ -37,6 +38,89 @@ class SalonController extends BaseController
       
         return $this->render('LaNetLaNetBundle:Salon:profile.html.twig', array('form' => $form->createView()));
     }
+    
+    public function discountsAction(Request $request)
+    {
+      
+        $discounts = $this->manager->getRepository('LaNetLaNetBundle:Discounts')->findBy(array('salon' => $this->user->getUserInfo()->getId()));
+         
+        return $this->render('LaNetLaNetBundle:Salon:profileDiscounts.html.twig', array('discounts' => $discounts));
+               
+       }
+    
+    public function editAction(Request $request, $id = null)
+    {
+      $salon = $this->user->getUserInfo();
+      $discountRepo = $this->manager->getRepository('LaNetLaNetBundle:Discounts');
+     
+      
+      if (is_null($id)) {
+        $discount = new LaEntity\Discounts();
+      } else {
+        $discount = $discountRepo->find($id);
+        if (!$discount) {
+          throw $this->createNotFoundException('Advices not found!');
+        }
+      }
+      
+      $form = $this->createForm(new LaForm\DiscountsType(), $discount);
+        
+        if ('POST' == $request->getMethod()) {
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $discount->setSalon($salon);
+            $this->manager->persist($discount);
+          
+          
+           $this->manager->flush();
+           return $this->redirect($this->generateUrl('la_net_la_net_salon_profile_discounts'));
+        }
+      }
+
+        return $this->render('LaNetLaNetBundle:Salon:profileDiscountsEdit.html.twig', array('discount' => $discount, 'form' => $form->createView()));
+    }
+
+    public function deleteAction(Request $request, $id)
+    {
+      $discount = $this->manager->getRepository("LaNetLaNetBundle:Discounts")->findOneById($id);
+      
+      if (!$discount)
+        return new JsonResponse( 1 );
+
+      $this->manager->remove($discount);
+      $this->manager->flush();
+      $response['success'] = true;
+      return new JsonResponse( $response );
+    }
+
+    public function removeImageAction(Request $request, $id) 
+    {
+      $discount = $this->manager->getRepository('LaNetLaNetBundle:Discounts')->find($id);
+      unlink($discount->getAbsolutePath());
+      $discount->setImage(null);
+      $this->manager->flush();
+      return new JsonResponse( 1 );
+    }
+    
+     public function isDraftAction(Request $request, $id)
+    {
+        $discount = $this->manager->getRepository('LaNetLaNetBundle:Discounts')->find($id);
+       
+       if ($discount-> getIsDraft() == 1){
+           $discount-> setIsDraft(0);
+        }
+         else{
+            $discount-> setIsDraft(1);
+         }
+      
+        $this->manager->persist($discount);
+        $this->manager->flush();
+
+        return new JsonResponse( 1 );
+    }
+       
     
      public function profileWorkAction(Request $request)
     {

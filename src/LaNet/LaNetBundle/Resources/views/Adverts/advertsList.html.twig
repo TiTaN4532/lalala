@@ -11,9 +11,8 @@
 {% block slider %}
     {% endblock %}
 {% block content %}
-   
-    
- {#<h1 style="float:left; padding-bottom: 10px; margin-right: 10px;">Объявления</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="7" color="#AAA" />#}
+ 
+   {#<h1 style="float:left; padding-bottom: 10px; margin-right: 10px;">Объявления</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="7" color="#AAA" />#}
             
    <div id="adverts" style="display: none">
        <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
@@ -21,6 +20,7 @@
             {{ form_widget(form.file) }}
             {{ form_row(form.title) }}
             {{ form_row(form.post) }}
+            {{ form_row(form.name) }}
             {{ form_row(form.phone) }}
             {{ form_row(form.mail) }}
  <a href="#" class="button" id="hide-advert-btn">Скрыть</a>
@@ -36,6 +36,15 @@
                         <div class="text-center">
                             <a href="#" class="btn" id="add-advert-btn">Новое объявление</a>
                         </div>
+                        
+    <div id="advert-success-message">  
+       {% for flashMessage in app.session.flashbag.get('notice_adverts') %}
+            <div class="flash-notice success">
+               <h4> {{ flashMessage }} </h4>
+            </div>
+        {% endfor %}
+    </div>
+    
                         <hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
         
   {% for post in advertsList %}
@@ -43,7 +52,7 @@
                             <div class="advert-holder">
                                 <div class="advert-area clearfix">
                                     <div class="advert-img">
-                                       <img src="{{ asset(post.getWebPath)}}" />
+                                       <img src="{{ asset(post.getWebPath| imagine_filter('my_adverts_list'))}}" />
                                     </div>
                                     <div class="advert-info">
                                         <h3>{{ post.title }}</h3>
@@ -104,6 +113,7 @@
             
             $('#adverts').show();  
             $('#add-advert-btn').hide();  
+            $('#advert-success-message').hide();  
             });
           $('#hide-advert-btn').click(function() {
             

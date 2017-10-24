@@ -45,35 +45,54 @@ class MasterRepository extends EntityRepository
         return $query->getResult();
       }
     }
-    
-    public function findListMasters($period='')
+   
+    public function findFilteredMastersOnMainPage($limit='')
     {
-                      
+      $query = $this->_em->createQuery("SELECT m FROM LaNetLaNetBundle:Master m
+                                                   LEFT JOIN m.user u    
+                                                   WHERE m.inTop IS NOT NULL ORDER BY m.inTop DESC, u.created DESC");
+        if ($limit){
+        $query->setMaxResults($limit);    
+        }
+        return $query->getResult();
+     
+    }
+    
+    public function findListMasters($period='', $name='')
+    {
+      
+     $searchterm = '';   
+        
+      if ($name){
+          $searchterm = preg_replace('/_|%/', '\$1', $name);
+        }
+        
       switch ($period) {
         case "day":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
              
         break;
      
         case "week":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
     
         case "month":
             $date= new \DateTime('-1'.$period );
-            $wherePeriod =" WHERE u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
         break;
             
         case "":
-              $wherePeriod = "";
+              $wherePeriod = " ";
         break;
              }
                          
  $query = $this->_em->createQuery("SELECT m, u FROM LaNetLaNetBundle:Master m 
                                                     LEFT JOIN m.user u     
-                                                   ".$wherePeriod. "ORDER BY m.inTop DESC, u.created DESC");
+                                                    WHERE (m.firstName LIKE :like OR m.lastName LIKE :like OR u.email LIKE :like)".$wherePeriod."ORDER BY m.inTop DESC, u.created DESC")
+                    ->setParameters(array('like' => '%'.$searchterm.'%'));
                                                     
  return $query->getResult();
     }

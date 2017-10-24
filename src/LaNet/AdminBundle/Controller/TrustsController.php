@@ -12,9 +12,11 @@ class TrustsController extends BaseController
 {
     public function trustsListAction(Request $request)
     {
-            $trustsPosts = $this->manager->getRepository('LaNetLaNetBundle:Articles')
-                ->findByType('trust');
-        
+            $name = $request->get('name');
+            
+             $trustsPosts = $this->manager->getRepository('LaNetLaNetBundle:Articles')
+                ->findListArticles('trust', $name);
+            
             $pagination = $this->paginator->paginate(
             $trustsPosts, $this->getRequest()->query->get('page', 1), 12
         );
@@ -49,29 +51,32 @@ class TrustsController extends BaseController
         if ($form->isValid()) {
           if ($form->get('save_draft')->isClicked()) {
               $trustsPost->setIsDraft(1);
+              $this->get('session')->getFlashBag()->add(
+                'notice_trusts',
+                'Ваши изменения были сохранены'
+            );
           } 
           
            if ($form->get('add_post')->isClicked()) {
               $trustsPost->setIsDraft(NULL);
-         } 
-         /*
-          else {  
-                 $trustsPost->setIsDraft(0);
-             }
-        */
-          
-          $this->manager->persist($trustsPost);
-          $this->get('session')->getFlashBag()->add(
+              $this->get('session')->getFlashBag()->add(
                 'notice_trusts',
                 'Ваши изменения были сохранены'
             );
-          if(!$trustsPost->getId()) {
+         } 
+                 
+          $this->manager->persist($trustsPost);
+         
+          /*if(!$trustsPost->getId()) {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_trusts_edit', array( 'id' => $trustsPost->getId())));
           } else {
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_trusts'));
-          }
+          }*/
+          
+           $this->manager->flush();
+           return $this->redirect($this->generateUrl('la_net_admin_trusts'));
         }
       }
 
@@ -97,5 +102,22 @@ class TrustsController extends BaseController
       $trustsPost->setImage(null);
       $this->manager->flush();
       return new JsonResponse( 1 );
+    }
+    
+     public function inTopAction(Request $request, $id)
+    {
+        $article = $this->manager->getRepository('LaNetLaNetBundle:Articles')->find($id);
+       
+       if ($article-> getinTop() == NULL){
+           $article-> setInTop(new \DateTime());
+        }
+         else{
+            $article-> setInTop();
+         }
+      
+        $this->manager->persist($article);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
     }
 }

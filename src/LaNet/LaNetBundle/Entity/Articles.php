@@ -7,9 +7,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\ArticlesRepository")
  * @ORM\Table(name="articles")
-  * @ORM\HasLifecycleCallbacks()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Articles extends \LaNet\LaNetBundle\Model\UploadImages
 {
@@ -339,7 +339,7 @@ class Articles extends \LaNet\LaNetBundle\Model\UploadImages
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/images/news';
+        return 'uploads/images/articles';
     }
         
  

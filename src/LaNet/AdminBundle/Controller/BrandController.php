@@ -12,9 +12,10 @@ class BrandController extends BaseController
 {
     public function listAction(Request $request)
     {
-        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')
-                ->findAll();
-        $pagination = $this->paginator->paginate(
+        $name = $request->get('name');
+            
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrand($name); 
+            $pagination = $this->paginator->paginate(
             $brands, $this->getRequest()->query->get('page', 1), 1000
         );
 
@@ -40,11 +41,32 @@ class BrandController extends BaseController
         $form->bind($request);
 
         if ($form->isValid()) {
-          $this->manager->persist($brand);
-          $this->get('session')->getFlashBag()->add(
+            
+          if ($form->get('add_brand')->isClicked()) {
+            $brand->setIsDraft(NULL);  
+            $this->get('session')->getFlashBag()->add(
                 'notice_brand',
                 'Ваши изменения были сохранены'
             );
+          }
+          
+          if ($form->get('is_draft')->isClicked()) {
+             $brand->setIsDraft(1);  
+             $this->get('session')->getFlashBag()->add(
+                'notice_brand',
+                'Ваши изменения были сохранены'
+            );
+          }
+          if ($form->get('save')->isClicked()) {
+             $this->get('session')->getFlashBag()->add(
+                'notice_brand',
+                'Ваши изменения были сохранены'
+            );
+          }
+            
+          $this->manager->persist($brand);
+         
+          
           
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_brand_list'));
@@ -77,4 +99,22 @@ class BrandController extends BaseController
       $this->manager->flush();
       return new JsonResponse( 1 );
     }
+    
+     public function inTopAction(Request $request, $id)
+    {
+        $brand = $this->manager->getRepository('LaNetLaNetBundle:Brand')->find($id);
+       
+       if ($brand-> getinTop() == NULL){
+            $brand-> setInTop(new \DateTime());
+        }
+         else{
+            $brand-> setInTop();
+         }
+      
+        $this->manager->persist($brand);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
 }

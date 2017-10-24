@@ -30,6 +30,11 @@ class Notifications
      * @ORM\Column(type="boolean", nullable = true)
      */
     protected $active;
+    
+    /**
+     * @ORM\Column(type="string", length=100, nullable = true)
+     */
+    protected $name;
 
     /**
      * Get id
@@ -86,5 +91,28 @@ class Notifications
     public function getActive()
     {
         return $this->active;
+    }
+    
+    /**
+     * Set $name
+     *
+     * @param string $name
+     * @return Notifications
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

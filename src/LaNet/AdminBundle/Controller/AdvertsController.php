@@ -13,7 +13,7 @@ class AdvertsController extends BaseController
     public function advertsListAction(Request $request)
     {
             $advertsPosts = $this->manager->getRepository('LaNetLaNetBundle:Adverts')
-                ->findBy(array(), array('is_draft' => 'DESC', 'created' => 'DESC'));
+                ->findBy(array(), array('is_draft' => 'DESC', 'inTop' => 'DESC', 'created' => 'DESC'));
         
             $pagination = $this->paginator->paginate(
             $advertsPosts, $this->getRequest()->query->get('page', 1), 12
@@ -81,4 +81,21 @@ class AdvertsController extends BaseController
       return new JsonResponse( $response );
     }
 
+    public function inTopAction(Request $request, $id)
+    {
+        $master = $this->manager->getRepository('LaNetLaNetBundle:Adverts')->find($id);
+       
+       if ($master-> getinTop() == NULL){
+            $master-> setInTop(new \DateTime());
+        }
+         else{
+            $master-> setInTop();
+         }
+      
+        $this->manager->persist($master);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
 }

@@ -1,0 +1,25 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+    <a href="{{ path ('la_net_admin_discounts_main')}}" class="btn">Назад</a>
+    
+  <h3>Список скидок по салонам</h3>
+        
+        <table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Название салона</th>
+                    <th>Количество скидок</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in salons %}
+                    <tr>
+                        
+                        <td><a href="{{ path('la_net_admin_discounts_list_by_one_salon', {'id': post.id} ) }}">{{ post.name}}</a></td>
+                        <td>{{ post.cnt }}</td>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+{% endblock %}

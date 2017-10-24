@@ -5,6 +5,10 @@ la_net_la_net_homepage:
 la_net_la_net_contact:
     pattern:  /contact
     defaults: { _controller: LaNetLaNetBundle:Main:contact }
+
+la_net_la_net_validation:
+    pattern:  /validation/{uniqId}
+    defaults: { _controller: LaNetLaNetBundle:Brand:validation, uniqId: default_uniqId  }
     
 la_net_la_net_banner:
     pattern:  /banner/{id}

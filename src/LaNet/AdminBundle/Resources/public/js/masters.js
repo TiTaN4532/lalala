@@ -21,7 +21,7 @@ function bindRemoveAction(type)
 {
   $('a.remove-' + type).click(function(e){
     e.preventDefault();
-    clearResultsMessages();
+        clearResultsMessages();
     var el = $(this);
     
       $.ajax({
@@ -77,13 +77,16 @@ function hideShowInput () {
 $(document).ready(function(){
   
     $('a.remove-master').click(function() {
-      var link = $(this);
-      $.ajax({
-        url: Routing.generate('la_net_admin_ajax_delete_master', {'id':link.attr('data')}),
-        success     : function(data) {
-                link.parents('.user-item').remove();
-             }
-        });
+      event.preventDefault();
+      if(confirm("Уверены что хотите удалить?")) {
+        var link = $(this);
+        $.ajax({
+          url: Routing.generate('la_net_admin_ajax_delete_master', {'id':link.attr('data')}),
+          success     : function(data) {
+                  link.parents('.user-item').remove();
+               }
+          });
+      }
     });
     
     $('a.inTop-master').click(function() {

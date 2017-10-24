@@ -42,11 +42,12 @@
          {% endfor %}
        </ul>
     <div>
-      <button id="cancel-events-btn">Назад</button>
-    {{ form_widget(form.save_draft) }}
-    {{ form_widget(form.add_post) }}
-          {{ form_rest(form) }}
-   
+        <button id="cancel-events-btn">Назад</button>
+      {{ form_widget(form.save_draft) }}
+      {{ form_widget(form.add_post) }}
+    </div>
+         {# {{ form_rest(form) }} #}
+         {{ form_row(form._token) }}
   </form>
   <script>
       $(document).ready(function(){
