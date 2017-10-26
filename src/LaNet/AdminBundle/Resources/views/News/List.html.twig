@@ -15,6 +15,12 @@
               {{ flashMessage }}
           </div>
         {% endfor %}
+        
+        
+          <form action="">
+            <input placeholder="Поиск новости" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+            <input style="margin-left:10px;" type="submit" value="Найти">
+        </form>
   {% if pagination.count %}
         <table class="projects-table">
             <thead>
@@ -52,6 +58,7 @@
         window.location = Routing.generate('la_net_admin_news_post_add')
           });
           $('.delete-post').click(function(event) {
+            if(confirm("Уверены что хотите удалить?")) {
             event.preventDefault();
             var element = $(this);
             $.ajax({
@@ -61,6 +68,7 @@
                     element.parent().parent().remove();
             }
             });
+        }
           });
       });
   </script>

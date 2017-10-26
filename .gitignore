@@ -27,6 +27,10 @@ web/uploads/images/brands/*
 !default.png
 web/uploads/images/salons/*
 !default.png
+web/uploads/images/schools/*
+!default.png
+web/uploads/images/articles/*
+!default.png
 web/uploads/images/brand_category
 !default.png
 web/uploads/images/agancy

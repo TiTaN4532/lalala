@@ -19,7 +19,7 @@ function addImageForm(collectionHolder, $newLinkLi) {
 }
 
 function addImageFormDeleteLink($tagFormLi) {
-    var $removeFormA = $('<a href="" class="blue-link">Удалить фото</a>');
+    var $removeFormA = $('<a href="" class="blue-link delete-image-from-portfolio">Удалить фото</a>');
     $tagFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {
@@ -34,7 +34,7 @@ $(document).ready(function(){
   
   var collectionImageHolder = $('ul.images');
     // setup an "add a tag" link
-    var $addImageLink = $('<a href="" class="blue-link">Добавить фото</a>');
+    var $addImageLink = $('<a href="" id="add-new-image" class="blue-link">Добавить фото</a>');
     var $newImageLinkLi = $('<li></li>').append($addImageLink);
     
     collectionImageHolder.find('li').each(function() {

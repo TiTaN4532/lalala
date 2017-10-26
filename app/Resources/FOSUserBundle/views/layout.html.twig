@@ -76,6 +76,11 @@
                                         <i class="icon icon-youtube"></i>
                                     </a>
                                 </li>
+                                 <li>
+                                    <a href="#">
+                                        <i class="icon icon-instagram"></i>
+                                    </a>
+                                </li>
                             </ul>
                             </div>
                 {#<div  id="form2">
@@ -87,7 +92,7 @@
               </div>
             </div>
           </div>
-          <nav>
+          <nav class="nav">
                     <div class="container">
                         <ul>
                           <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
@@ -135,30 +140,16 @@
       </header>
       <div class="container">
           {% block fos_user_content %}{% endblock %}
-      </div>
-      <div class="clear-bottom"></div>
+     <div class="clear-bottom"></div>
+
     </div>
-    <footer>
-            <div class="footerLine"></div>
-             <div id="myModal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header"><button class="close" type="button" id="close-btn" data-dismiss="modal">×</button>
-                        <h4 class="modal-title">Введите адресс электронной почты</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" id="notifications" style="width:100%;"/>
-                        <span id="valid"></span>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default notifications-confirm" type="button" >Подписаться</button>
-                    </div>
-                </div>
-            </div>
-        </div>        
-       <div class="container">  
-        <nav>
-                <ul>
+    <footer class="footer">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="footer-left">
+                    <div class="footer-area">
+                        <nav class="footer-nav">
+                            <ul>
                     <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
                     {#<li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
                     <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
@@ -173,19 +164,37 @@
                          <li><a href="">Форум</a></li>#}
                     <li><a href="{{ path('la_net_la_net_contact') }}">Контакты</a></li>
                     {#<li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>#}
-                </ul>
-            </nav>
-        {#<div class="social">
-        <ul class="soc_group">
-            <li id="f"><a href="" ><img src="{{ asset('images/f.png') }}" height="20" width="10"/></a></li>
-            <li id="in"><a href="" ><img src="{{ asset('images/in.png') }}" height="19" width="21"/></a></li>
-            <li id="tw"><a href="" ><img src="{{ asset('images/tw.png') }}" height="16" width="18"/></a></li>
-            <li id="vk"><a href="" ><img src="{{ asset('images/vk.png') }}" height="17" width="28"/></a></li>
-        </ul>
-        </div>#}
-        <p>© 2013-2017 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.
-        <br />E-mail: lalooknet@gmail.com</p>
-        
+               </ul>
+                        </nav>
+                        <div class="footer-info">
+                            <span class="footer-copy">© 2013-2016 lalook.net.</span>
+                            <span class="footer-email">E-mail: lalooknet@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <p>© 2013-2016 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.</p>
+                </div>
+            </div>
+            
+            <div id="myModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><button class="close" type="button" id="close-btn" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">Введите адресс электронной почты</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="notifications" style="width:100%;"/>
+                        <span id="valid"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default notifications-confirm" type="button" >Подписаться</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+            
+            </div>
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -286,7 +295,6 @@
    
             </script>    
       
-       </div>
-    </footer>
+         </footer>
   </body>
 </html>

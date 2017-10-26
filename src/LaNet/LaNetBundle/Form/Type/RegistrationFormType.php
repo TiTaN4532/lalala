@@ -158,7 +158,8 @@ class RegistrationFormType extends AbstractType
     protected function _buildFormSchoolCenter(FormBuilderInterface $builder)
     {
         $this->_buildFormMain($builder);
-        $builder->add('userInfo', new SchoolCenterType(), array('label' => ' '));
+        $builder->add('userInfo', new SchoolType(), array('label' => ' '))
+                ->add('newsNotify', 'checkbox', array('label' => 'Подписаться на новости сайта', 'required' => false));
     }
 
    public function setDefaultOptions(OptionsResolverInterface $resolver)

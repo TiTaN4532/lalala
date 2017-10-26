@@ -37,6 +37,11 @@ class MasterCategory
      */
     private $salon;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="School", mappedBy="categorySchool")
+     */
+    private $school;
+    
         /**
      * @ORM\ManyToMany(targetEntity="Agancy", mappedBy="category")
      */
@@ -169,6 +174,39 @@ class MasterCategory
         return $this->master;
     }
 
+    /**
+     * Add salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     * @return MasterCategory
+     */
+    public function addSchool(\LaNet\LaNetBundle\Entity\School $school)
+    {
+        $this->school[] = $school;
+    
+        return $this;
+    }
+
+    /**
+     * Remove salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     */
+    public function removeSchool(\LaNet\LaNetBundle\Entity\School $school)
+    {
+        $this->school->removeElement($school);
+    }
+
+    /**
+     * Get salon
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
+    
     /**
      * Add salon
      *

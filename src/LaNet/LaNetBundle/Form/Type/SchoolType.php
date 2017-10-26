@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SchoolCenterType extends AbstractType
+class SchoolType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,16 +16,21 @@ class SchoolCenterType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'Название:'))
+            ->add('link', 'text', array('required'  => false, 'label' => 'Сайт:'))
+            ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
+             
             ->add('category', 'entity', array(
                   'attr' => array('class' => 'category-list'),
-                  'label' => 'Специализация:',
-                  'class' => 'LaNet\LaNetBundle\Entity\SchoolCenterCategory',
+                  'label' => 'Специализация мастеров:',
+                  'class' => 'LaNet\LaNetBundle\Entity\MasterCategory',
                   'property'     => 'name',
-                  'multiple'     => false,
-                  'expanded' => false,
-                  'empty_value' => 'None'
+                  'multiple'     => true,
+                  'expanded' => true,
                 ))  
-            ;
+            ->add('location', new LocationType(), array(
+                                                    'by_reference' => false,
+                                                    'label' => 'Адрес:'
+                                                  ));
 
     }
     
@@ -44,6 +49,6 @@ class SchoolCenterType extends AbstractType
      */
     public function getName()
     {
-        return 'lanet_school_center';
+        return 'lanet_school';
     }
 }

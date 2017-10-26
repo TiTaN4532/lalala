@@ -32,6 +32,11 @@ class Service
     private $salon;
     
     /**
+     * @ORM\ManyToOne(targetEntity="School", inversedBy="services")
+     */
+    private $school;
+    
+    /**
      * @ORM\Column(type="string")
      */
     protected $name;
@@ -126,6 +131,29 @@ class Service
         return $this->endPrice;
     }
 
+    /**
+     * Set salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     * @return SalonService
+     */
+    public function setSchool(\LaNet\LaNetBundle\Entity\School $school = null)
+    {
+        $this->school = $school;
+    
+        return $this;
+    }
+
+    /**
+     * Get salon
+     *
+     * @return \LaNet\LaNetBundle\Entity\Salon 
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
+    
     /**
      * Set salon
      *

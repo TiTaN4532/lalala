@@ -45,6 +45,33 @@
        {% block content %}
                 
         {% if events %}
+            <h2 class="section-title"><a href="{{ path('la_net_la_net_events_list') }}">Репортажи</a></h2>
+                <section class="top-news is-bigger">
+                    <div class="top-news-img">
+                        {% for post in events %}
+                         {% if loop.index == 1 %}
+                              <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_big'))}}" alt="placeholder"></a>
+                          {% endif %}
+                        {% endfor %}  
+                      </div>
+                    <div class="row-fluid">
+                        {% for post in events %}
+                                   {% if loop.index <= 5 and loop.index > 1 %}
+                        <div class="span3">
+                            <article class="top-news-item">
+                            <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" alt="placeholder"></a>
+                                <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+                                <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>
+                            </article>
+                        </div>
+                         {% endif %}
+                        {% endfor %}
+                     </div>
+                </section>
+            
+            
+            
+            
             <h2 class="section-title"><a href="{{ path('la_net_la_net_events_list') }}">TOP Новости</a></h2>
                 <section class="top-news">
                     <div class="row-fluid">
@@ -400,12 +427,149 @@
                   
               </div>
           
-                  <div class="span4">
+                  {#<div class="span4">
                                          {{ render(controller('LaNetAdminBundle:Banners:bannersShuffle'))}}
                     {#<a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
-                    <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>#}
-                  </div>
+                    <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
+                  </div>#}
+                  <div class="span4">
+                      <aside class="sidebar">
+                        <div class="sidebar-section">
+                            <div class="sidebar-section-title">
+                                <h2>Новости В2В</h2>
+                            </div>
+                            <div class="sidebar-section-content">
+                                <div class="top-news">
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <div class="top-news-item-text">
+                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                        </div>
+                                    </article>
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <div class="top-news-item-text">
+                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                        </div>
+                                    </article>
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <div class="top-news-item-text">
+                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                        </div>
+                                    </article>
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <div class="top-news-item-text">
+                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                        </div>
+                                    </article>
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <div class="top-news-item-text">
+                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="see-all-row">
+                                    <a href="#" class="read-more">Смотреть всё</a>
+                                </div>
+                                <div class="sidebar-ad">
+                                    <img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">
+                                </div>
+                            </div>
 
+                            <div class="sidebar-section-title">
+                                <h2>Ближайшие события</h2>
+                            </div>
+                            <div class="sidebar-section-content">
+                                <div class="top-news">
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущпршрмгт гмрогшуцк гомц тмцукме г номуцгпм пмшпгргргищыомпщ рщишршщр гморгырмгомщмрыщпк</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                    </article>
+                                </div>
+                                <div class="see-all-row">
+                                    <a href="#" class="read-more">Смотреть всё</a>
+                                </div>
+                                <div class="sidebar-ad">
+                                    <img src="./Всеукраинский портал индустрии красоты и здоровья_files/cenzor-img.jpg" alt="placeholder">
+                                </div>
+                                <div class="sidebar-ad">
+                                    <img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">
+                                </div>
+                            </div>
+
+                            <div class="sidebar-section-title">
+                                <h2>Горячие предложения</h2>
+                            </div>
+                            <div class="sidebar-section-content">
+                                <div class="top-news">
+                                    <article class="top-news-item clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-05.jpg" alt="placeholder"></a>
+                                        <h3 class="item-title"><a href="#">Ртмшук рмшгурь умеугкцшь</a></h3>
+                                            <div class="top-news-date">21.09.2017</div>
+                                    </article>
+                                    <article class="top-news-item clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-05.jpg" alt="placeholder"></a>
+                                        <h3 class="item-title"><a href="#">Ртмшук рмшгурь умеугкцшь</a></h3>
+                                            <div class="top-news-date">21.09.2017</div>
+                                    </article>
+                                    <article class="top-news-item clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-05.jpg" alt="placeholder"></a>
+                                        <h3 class="item-title"><a href="#">Ртмшук рмшгурь умеугкцшь</a></h3>
+                                            <div class="top-news-date">21.09.2017</div>
+                                    </article>
+                                </div>
+                                <div class="sidebar-ad">
+                                    <img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">
+                                </div>
+                            </div>
+
+                            <div class="sidebar-section-title">
+                                <h2>Актуальные объявления</h2>
+                            </div>
+                            <div class="sidebar-section-content">
+                                <div class="top-news">
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <div class="top-news-item-text">
+                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                        </div>
+                                    </article>
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <div class="top-news-item-text">
+                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                        </div>
+                                    </article>
+                                    <article class="top-news-item is-horizontal clearfix">
+                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
+                                        <div class="top-news-item-text">
+                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
+                                            <div class="top-news-date">10.09.2017</div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="see-all-row">
+                                    <a href="#" class="read-more">Смотреть всё</a>
+                                </div>
+                            </div>
+
+                        </div>
+                      </aside>
+
+
+
+                                      </div>
          </div>
     </div>
 </div>

@@ -3,6 +3,8 @@
 namespace LaNet\LaNetBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use LaNet\LaNetBundle\Entity;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * SchoolCenterRepository
@@ -12,4 +14,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class SchoolCenterRepository extends EntityRepository
 {
+    
+     public function findFilteredSchools($peginator = false, $onPage = 1, $region = false)
+    {
+      $request = Request::createFromGlobals();
+      $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
+      $whereRegion = '';
+      if($region) {
+          $whereRegion = "l.administrative_area LIKE '%" . trim($region, '.') . "%' AND";
+      } 
+      $category = ($request->get('category')) ? " AND c.id = '" . $request->get('category') ."'" : "";
+      $city = ($request->get('city')) ? " AND l.locality = '" . $request->get('city') ."'" : "";
+      $query = $this->_em->createQuery("SELECT s, c  FROM LaNetLaNetBundle:School s 
+                                                    LEFT JOIN s.category c     
+                                                    LEFT JOIN s.location l
+                                                    LEFT JOIN s.user u 
+                                                    WHERE " . $whereRegion . "  (s.name LIKE :like)".$category.$city. "ORDER BY s.inTop DESC, s.name ASC")
+                          ->setParameters(array('like' => '%'.$searchterm.'%'));
+      if ($peginator) {
+        $page = $request->query->get('page', 1);
+        return $peginator->paginate($query, $page, $onPage);
+      }
+      else {
+        return $query->getResult();
+      }
+    }
 }

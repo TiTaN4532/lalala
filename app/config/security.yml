@@ -31,6 +31,8 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/master/profile, role: ROLE_SPECIALIST }
         - { path: ^/master/change_password, role: ROLE_SPECIALIST }
+        - { path: ^/school/profile, role: ROLE_SCHOOL_CENTER }
+        - { path: ^/school/change_password, role: ROLE_SCHOOL_CENTER }
         - { path: ^/salon/profile, role: ROLE_SALON }
         - { path: ^/salon/change_password, role: ROLE_SALON }
         - { path: ^/agancy/profile, role: ROLE_AGANCY }

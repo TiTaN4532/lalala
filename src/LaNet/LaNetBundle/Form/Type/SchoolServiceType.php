@@ -6,8 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SchoolCenterType extends AbstractType
+class SchoolServiceType extends AbstractType
 {
+    
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,18 +16,15 @@ class SchoolCenterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('label' => 'Название:'))
-            ->add('category', 'entity', array(
-                  'attr' => array('class' => 'category-list'),
-                  'label' => 'Специализация:',
-                  'class' => 'LaNet\LaNetBundle\Entity\SchoolCenterCategory',
-                  'property'     => 'name',
-                  'multiple'     => false,
-                  'expanded' => false,
-                  'empty_value' => 'None'
-                ))  
+            ->add('services', 'collection', array(
+                              'label' => 'Список услуг:',
+                             'by_reference' => false,
+                             'type'         => new ServiceType(),
+                             'allow_add'    => true,
+                             'allow_delete'    => true,
+                  ))
+            ->add('save', 'submit', array('label' => 'Сохранить'))
             ;
-
     }
     
     /**
@@ -44,6 +42,6 @@ class SchoolCenterType extends AbstractType
      */
     public function getName()
     {
-        return 'lanet_school_center';
+        return 'lanet_school_profile_service_price';
     }
 }

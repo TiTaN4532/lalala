@@ -32,6 +32,11 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     private $article;
     
    /**
+     * @ORM\ManyToOne(targetEntity="School", inversedBy="portfolio")
+     */
+    private $school;
+    
+   /**
      * @ORM\ManyToOne(targetEntity="Salon", inversedBy="portfolio")
      */
     private $salon;
@@ -211,6 +216,29 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->description;
     }
 
+    /**
+     * Set salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     * @return Image
+     */
+    public function setSchool(\LaNet\LaNetBundle\Entity\School $school = null)
+    {
+        $this->school = $school;
+    
+        return $this;
+    }
+
+    /**
+     * Get salon
+     *
+     * @return \LaNet\LaNetBundle\Entity\School 
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
+    
     /**
      * Set salon
      *

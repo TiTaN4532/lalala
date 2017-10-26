@@ -77,6 +77,11 @@ class Location
      * @ORM\OneToOne(targetEntity="Salon", inversedBy="location")
      */
     private $salonInfo;
+            
+     /**
+     * @ORM\OneToOne(targetEntity="School", inversedBy="location")
+     */
+    private $schoolInfo;
     
      /**
      * @ORM\OneToOne(targetEntity="Agancy", inversedBy="location")
@@ -328,6 +333,29 @@ class Location
         return $this->lat;
     }
 
+    /**
+     * Set salonInfo
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salonInfo
+     * @return Location
+     */
+    public function setSchoolInfo(\LaNet\LaNetBundle\Entity\School $schoolInfo = null)
+    {
+        $this->schoolInfo = $schoolInfo;
+    
+        return $this;
+    }
+
+    /**
+     * Get salonInfo
+     *
+     * @return \LaNet\LaNetBundle\Entity\Salon 
+     */
+    public function getSchoolInfo()
+    {
+        return $this->schoolInfo;
+    }
+    
     /**
      * Set salonInfo
      *

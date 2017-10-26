@@ -1,0 +1,30 @@
+la_net_la_net_school_list:
+    pattern:  /school
+    defaults: { _controller: LaNetLaNetBundle:School:list }
+
+la_net_la_net_school_id:
+    pattern:  /school/{id}
+    defaults: { _controller: LaNetLaNetBundle:School:schoolId }
+    requirements:
+        id:  \d+
+    
+la_net_la_net_school_profile:
+    pattern:  /school/profile
+    defaults: { _controller: LaNetLaNetBundle:School:profile }
+
+la_net_la_net_school_change_pass:
+    pattern:  /school/change_password
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+
+la_net_la_net_school_profile_work:
+    pattern:  /school/profile/work
+    defaults: { _controller: LaNetLaNetBundle:School:profileWork }
+
+la_net_la_net_school_profile_portfolio:
+    pattern:  /school/profile/portfolio
+    defaults: { _controller: LaNetLaNetBundle:School:profilePortfolio }
+       
+la_net_la_net_school_profile_service_price:
+    pattern:  /school/profile/service_price
+    defaults: { _controller: LaNetLaNetBundle:School:profileServicePrice }
+   

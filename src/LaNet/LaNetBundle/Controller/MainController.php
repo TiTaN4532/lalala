@@ -22,7 +22,7 @@ class MainController extends BaseController {
         $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrandOnMainPage(4);
         
 
-        //$news = $this->manager->getRepository('LaNetLaNetBundle:News')->findBy(array(), array('updated' => 'DESC'), 7);
+        $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findListNewsOnMainPage(5);
         $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMastersOnMainPage(4);
         $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage(4);
       
@@ -32,7 +32,13 @@ class MainController extends BaseController {
                                                                          'masters' => $masters,
                                                                          'salons' => $salons,
                                                                          'events' => $events,
+                                                                         'news' => $news,
                                                                          'adverts' => $adverts));
+    }
+    
+    public function unavailableAction() {
+       
+        return $this->render('LaNetLaNetBundle::unavailable.html.twig');
     }
 
     public function generateCsrfTokenAction() {

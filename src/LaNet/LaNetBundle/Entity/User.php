@@ -48,9 +48,9 @@ class User extends BaseUser
     private $shopInfo;
     
     /**
-     * @ORM\OneToOne(targetEntity="SchoolCenter", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="School", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
-    private $schoolCenterInfo;
+    private $schoolInfo;
 
 
     /**
@@ -129,8 +129,8 @@ class User extends BaseUser
             $this->agancyInfo = $userInfo;
         } elseif ($userInfo instanceof LaEntity\Shop) {
             $this->shopInfo = $userInfo;
-        } elseif ($userInfo instanceof LaEntity\SchoolCenter) {
-            $this->schoolCenterInfo = $userInfo;
+        } elseif ($userInfo instanceof LaEntity\School) {
+            $this->schoolInfo = $userInfo;
         }
         $userInfo->setUser($this);
         
@@ -150,7 +150,7 @@ class User extends BaseUser
         } elseif ($this->hasRole('ROLE_SHOP')) {
             return $this->shopInfo;
         } elseif ($this->hasRole('ROLE_SCHOOL_CENTER')) {
-            return $this->schoolCenterInfo;
+            return $this->schoolInfo;
         }
     }
 
@@ -199,6 +199,29 @@ class User extends BaseUser
         return $this->consumerInfo;
     }
 
+    /**
+     * Set salonInfo
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salonInfo
+     * @return User
+     */
+    public function setSchoolInfo(\LaNet\LaNetBundle\Entity\School $schoolInfo = null)
+    {
+        $this->schoolInfo = $schoolInfo;
+    
+        return $this;
+    }
+
+    /**
+     * Get salonInfo
+     *
+     * @return \LaNet\LaNetBundle\Entity\Salon 
+     */
+    public function getSchoolInfo()
+    {
+        return $this->schoolInfo;
+    }
+    
     /**
      * Set salonInfo
      *
@@ -291,35 +314,6 @@ class User extends BaseUser
         return $this->shopInfo;
     }
 
-    /**
-     * Set schoolCenterInfo
-     *
-     * @param \LaNet\LaNetBundle\Entity\SchoolCenter $schoolCenterInfo
-     * @return User
-     */
-    public function setSchoolCenterInfo(\LaNet\LaNetBundle\Entity\SchoolCenter $schoolCenterInfo = null)
-    {
-        $this->schoolCenterInfo = $schoolCenterInfo;
-    
-        return $this;
-    }
-
-    /**
-     * Get schoolCenterInfo
-     *
-     * @return \LaNet\LaNetBundle\Entity\SchoolCenter 
-     */
-    public function getSchoolCenterInfo()
-    {
-        return $this->schoolCenterInfo;
-    }
-
-    /**
-     * Add phone
-     *
-     * @param \LaNet\LaNetBundle\Entity\Phone $phone
-     * @return User
-     */
     public function addPhone(\LaNet\LaNetBundle\Entity\Phone $phone)
     {
         $phone->setUser($this);

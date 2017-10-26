@@ -7,13 +7,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\SalonRepository")
- * @ORM\Table(name="salon_info")
+ * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\SchoolCenterRepository")
+ * @ORM\Table(name="school_center_info")
  * @ORM\HasLifecycleCallbacks()
  */
-class Salon extends \LaNet\LaNetBundle\Model\UploadImages
+class School extends \LaNet\LaNetBundle\Model\UploadImages
 {
+      
+       
     /**
+     * @ORM\ManyToMany(targetEntity="MasterCategory", inversedBy="school")
+     * @ORM\JoinTable(name="schools_categories")
+     */
+    protected $category;
+    
+     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -40,45 +48,35 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $inTop = NULL;
     
-    /**
-     * @ORM\ManyToMany(targetEntity="MasterCategory", inversedBy="salon")
-     * @ORM\JoinTable(name="salons_categories")
-     */
-    protected $category;
+    
     
     /**
-     * @ORM\OneToOne(targetEntity="Location", mappedBy="salonInfo", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Location", mappedBy="schoolInfo", cascade={"persist"}, orphanRemoval=true)
      */
     protected $location;
 
     
     /**
-     * @ORM\OneToMany(targetEntity="SalonWorkShcedule", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="SchoolWorkShcedule", mappedBy="school", cascade={"persist"}, orphanRemoval=true)
      */
     protected $schedule;
     
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="school", cascade={"persist"}, orphanRemoval=true)
      */
     protected $portfolio;
-            
+     
     /**
-     * @ORM\OneToMany(targetEntity="Discounts", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
-     */
-    protected $discounts;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="salonInfo")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="schoolInfo")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
     
     /**
-     * @ORM\OneToMany(targetEntity="Service", mappedBy="salon", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="school", cascade={"persist"}, orphanRemoval=true)
      */
     protected $services;
 
-    
     /**
      * Get id
      *
@@ -162,7 +160,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/images/salons';
+        return 'uploads/images/schools';
     }
         
  
@@ -265,7 +263,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function setLocation(\LaNet\LaNetBundle\Entity\Location $location = null)
     {
-        $location->setSalonInfo($this);
+        $location->setSchoolInfo($this);
         $this->location = $location;
     
         return $this;
@@ -287,7 +285,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      * @param \LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule
      * @return Salon
      */
-    public function addSchedule(\LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule)
+    public function addSchedule(\LaNet\LaNetBundle\Entity\SchoolWorkShcedule $schedule)
     {
         $this->schedule[] = $schedule;
     
@@ -299,7 +297,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      *
      * @param \LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule
      */
-    public function removeSchedule(\LaNet\LaNetBundle\Entity\SalonWorkShcedule $schedule)
+    public function removeSchedule(\LaNet\LaNetBundle\Entity\SchoolWorkShcedule $schedule)
     {
         $this->schedule->removeElement($schedule);
     }
@@ -322,7 +320,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function addPortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
     {
-        $portfolio->setSalon($this);
+        $portfolio->setSchool($this);
         $this->portfolio[] = $portfolio;
     
         return $this;
@@ -357,7 +355,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function addService(\LaNet\LaNetBundle\Entity\Service $services)
     {
-        $services->setSalon($this);
+        $services->setSchool($this);
         $this->services[] = $services;
     
         return $this;
@@ -437,7 +435,7 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function addDiscounts(\LaNet\LaNetBundle\Entity\Discounts $discounts)
     {
-        $discounts->setSalon($this);
+        $discounts->setSchool($this);
         $this->discounts[] = $discounts;
     
         return $this;
@@ -464,4 +462,5 @@ class Salon extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->discounts;
     }
 
-}
+
+ }

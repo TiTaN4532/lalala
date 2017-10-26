@@ -2,7 +2,7 @@
 
 
 {% block menu %}
-  {% include "LaNetLaNetBundle:Master:menu.html.twig" %}
+  {% include "LaNetLaNetBundle:School:menu.html.twig" %}
 {% endblock %}
         
 
@@ -13,7 +13,7 @@
         <div>
           <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
         </div>
-        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Выбрать файл</a>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Выберите файл</a>
         <input type="file" {{ block('widget_attributes') }} style="display:none"/>
         <script type="text/javascript">
             $("#{{id}}").change(function(){
@@ -45,36 +45,8 @@
            </li>
          {% endfor %}
        </ul>
+       {{ form_row(form._token) }}
        {{ form_row(form.save) }}
-        {{ form_row(form._token) }}
         
 </form>
- <script>       
-    $(document).ready(function(){ 
-        
-        
-        if (($('ul.images li').size()-1) > 9){
-             $('#add-new-image').hide()       
-        }
-                    
-        $('.delete-image-from-portfolio').click(function(event) {
-        if (($('ul.images li').size()-1) > 9){
-             $('#add-new-image').hide()       
-        }
-            else {
-                $('#add-new-image').show()      
-            }
-        });
-                
-        $('#add-new-image').click(function(event) {
-        if (($('ul.images li').size()-1) > 9){
-             $('#add-new-image').hide()       
-            }
-            else {
-                $('#add-new-image').show()      
-            }
-        });
-    });
-  </script>      
-        
 {% endblock %}

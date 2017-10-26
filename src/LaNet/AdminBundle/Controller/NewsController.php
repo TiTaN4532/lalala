@@ -11,9 +11,11 @@ use LaNet\AdminBundle\Form\Type as LaForm;
 class NewsController extends BaseController
 {
     public function postsListAction(Request $request)
-    {
+    {   
+        $name = $request->get('name');
         $newsPosts = $this->manager->getRepository('LaNetLaNetBundle:News')
-                ->findAll();
+                ->findListNews($name);
+        
         $pagination = $this->paginator->paginate(
             $newsPosts, $this->getRequest()->query->get('page', 1), 12
         );
@@ -42,24 +44,23 @@ class NewsController extends BaseController
         if ($form->isValid()) {
           if ($form->get('save_draft')->isClicked()) {
               $newsPost->setIsDraft(1);
-          }
-          if ($form->get('add_post')->isClicked()) {
-              $newsPost->setIsDraft(NULL);
-          }
-         
-        
-          $this->manager->persist($newsPost);
-          $this->get('session')->getFlashBag()->add(
+              $this->get('session')->getFlashBag()->add(
                 'notice_news',
                 'Ваши изменения были сохранены'
             );
-          if(!$newsPost->getId()) {
-            $this->manager->flush();
-            return $this->redirect($this->generateUrl('la_net_admin_news_post_edit', array( 'id' => $newsPost->getId())));
-          } else {
-            $this->manager->flush();
-            return $this->redirect($this->generateUrl('la_net_admin_news_posts'));
           }
+          if ($form->get('add_post')->isClicked()) {
+              $this->get('session')->getFlashBag()->add(
+                'notice_news',
+                'Ваши изменения были сохранены'
+            );
+              $newsPost->setIsDraft(NULL);
+          }
+          
+          $this->manager->persist($newsPost);
+                   
+           $this->manager->flush();
+           return $this->redirect($this->generateUrl('la_net_admin_news_posts'));
         }
       }
 
@@ -86,4 +87,22 @@ class NewsController extends BaseController
       $this->manager->flush();
       return new JsonResponse( 1 );
     }
+    
+     public function inTopAction(Request $request, $id)
+    {
+        $post = $this->manager->getRepository('LaNetLaNetBundle:News')->find($id);
+       
+       if ($post-> getinTop() == NULL){
+           $post-> setInTop(new \DateTime());
+        }
+         else{
+            $post-> setInTop();
+         }
+      
+        $this->manager->persist($post);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
 }

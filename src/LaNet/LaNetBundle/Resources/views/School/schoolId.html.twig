@@ -10,31 +10,31 @@
 {% endblock %}
       
 {% block content %}
-<div class="salon-id">
+<div class="school-id">
   <div class="row">
     <div class="col col_1_of_3">
-        <a href="{{ asset(salon.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ salon.name | upper }}"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
+        <a href="{{ asset(school.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ school.name | upper }}"><img src="{{ school.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
     </div>
       <div class="col col_2_of_3">
-        <h2 style="color:#578fac;">{{ salon.name | upper }}</h2>
+        <h2 style="color:#578fac;">{{ school.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">{{ "Основная информация:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-        {% if salon.category is not empty %} 
+        {% if school.category is not empty %} 
             <div class="row">
               <div class="col col_1_of_3 blue">специальность:</div>
-              <div class="col col_2_of_3">{% for item in salon.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+              <div class="col col_2_of_3">{% for item in school.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
             </div>
         {% endif %}
-        {% if (salon.location and salon.location.locality) %}
+        {% if (school.location and school.location.locality) %}
             <div class="row">
               <div class="col col_1_of_3 blue">город:</div>
-              <div class="col col_2_of_3">{{ salon.location.locality }} {{ salon.location.administrativearea }}</div>
+              <div class="col col_2_of_3">{{ school.location.locality }} {{ school.location.administrativearea }}</div>
             </div>
         {% endif %}
-        {% if salon.user.hasPhones %}
+        {% if school.user.hasPhones %}
         <div class="row">
             <div class="col col_1_of_3 blue">телефон:</div>
             <div class="col col_2_of_3">
-                {% for item in salon.user.phone %}
+                {% for item in school.user.phone %}
                     {% if item.showPhone  %}
                         <p>+38 ({{ item.operator }}) - {{ item.number }}</p>
                     {% endif %}
@@ -42,11 +42,11 @@
             </div>
           </div>
         {% endif %}
-        {% if salon.user.hasMails %}
+        {% if school.user.hasMails %}
           <div class="row">
             <div class="col col_1_of_3 blue">email:</div>
             <div class="col col_2_of_3">
-                {% for item in salon.user.mail %}
+                {% for item in school.user.mail %}
                     {% if item.showMail  %}
                         <p>{{ item.name }}</p>
                     {% endif %}
@@ -56,7 +56,7 @@
         {% endif %}
     </div>
   </div>
-  {% if (salon.location and salon.location.lat) %}
+  {% if (school.location and school.location.lat) %}
   <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">{{ "Работа:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
   <div id="map" style="width:100%;height:150px; margin-bottom: 20px;"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
@@ -64,8 +64,8 @@
                     function initialize() {
                         var map_canvas = document.getElementById('map');
                         var myLatlng = new google.maps.LatLng(
-                                   {{ salon.location.lat }},
-                                   {{ salon.location.lang }});
+                                   {{ school.location.lat }},
+                                   {{ school.location.lang }});
                         var map_options = {
                             center:myLatlng,
                             zoom: 17
@@ -81,29 +81,29 @@
                     google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
   {% endif %}
-  {% if (salon.location and salon.location.locality) %}
+  {% if (school.location and school.location.locality) %}
     <div class="row clear">
       <div class="col col_1_of_3 blue">адрес:</div>
-      <div class="col col_2_of_3">{{ salon.location.locality }}, {{ salon.location.sublocality }}, {{ salon.location.route }} {{ salon.location.streetNumber }}</div>
+      <div class="col col_2_of_3">{{ school.location.locality }}, {{ school.location.sublocality }}, {{ school.location.route }} {{ school.location.streetNumber }}</div>
     </div> 
   {% endif %}
-  {% if salon.schedule is not empty %}              
+  {% if school.schedule is not empty %}              
     <div class="row clear">
       <div class="col col_1_of_3 blue">график работы:</div>
-      <div class="col col_2_of_3">{% for item in salon.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
+      <div class="col col_2_of_3">{% for item in school.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
     </div> 
   {% endif %}
-  {% if salon.services is not empty %}
+  {% if school.services is not empty %}
     <div class="row clear">
       <div class="col col_1_of_3 blue">услуги и цены:</div>
-      <div class="col col_2_of_3">{% for item in salon.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
+      <div class="col col_2_of_3">{% for item in school.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
     </div> 
   {% endif %}
-  {% if salon.portfolio is not empty %}
+  {% if school.portfolio is not empty %}
     <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">{{ "Портфолио:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
     <div class="gallery">
         <div class="row clear">
-        {% for image in salon.portfolio%}
+        {% for image in school.portfolio%}
           
           <div class="col col_1_of_5">
             <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_thumb_portfolio') }}" /></a>
@@ -116,28 +116,6 @@
     </div>
   {% endif %}
   
-  {% if discounts is not empty %}
-    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">{{ "Скидки:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-    <div class="discounts">
-  {% for discount in discounts %}
-    {% if discount.isDraft() == 0 %}
-  <div class="row clear">
-    {% if not loop.first %} <hr /> {% endif %}
-    <div class="col col_1_of_3"><img src="{{ discount.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
-    <div class="col col_1_of_3">
-        <div class="row">
-           <div class="col col_2_of_2">{{ discount.description }}</div>
-        </div>
-       
-    </div>
-        </div>
-      {% endif %}    
-       
-{% else %}
-  Список нет
-{% endfor %}  
-</div>
-  {% endif %}
 </div>
   <script>
     $(document).ready(function() {

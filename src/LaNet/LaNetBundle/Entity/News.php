@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\NewsRepository")
  * @ORM\Table(name="news")
   * @ORM\HasLifecycleCallbacks()
  */

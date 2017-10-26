@@ -8,4 +8,5 @@
  <a href="{{ path('la_net_la_net_agancy_id', { 'id' : app.user.userinfo.id }) }}"><img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></a>
 {% elseif is_granted('ROLE_SHOP') %}
 {% elseif is_granted('ROLE_SCHOOL_CENTER') %}
+<a href="{{ path('la_net_la_net_school_id', { 'id' : app.user.userinfo.id }) }}"><img src="{{ app.user.getUserInfo.getWebPath | imagine_filter('my_master_thumb_small') }}"  /></a>
 {% endif %}

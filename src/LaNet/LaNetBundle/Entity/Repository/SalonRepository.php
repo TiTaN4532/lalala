@@ -80,7 +80,7 @@ class SalonRepository extends EntityRepository
     {
       $query = $this->_em->createQuery("SELECT s, d FROM LaNetLaNetBundle:Discounts d
                                                    LEFT JOIN d.salon s    
-                                                   WHERE s.id = '" .$id. "' ORDER BY s.name DESC");
+                                                   WHERE s.id = '" .$id. "' ORDER BY d.inTop DESC");
            
         return $query->getResult();
      

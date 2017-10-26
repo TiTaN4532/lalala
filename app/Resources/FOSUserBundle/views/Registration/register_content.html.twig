@@ -50,21 +50,21 @@
 {% if not app.request.get('type') %}
   <h5 class="clear" style="color: #AAA;">1. ВЫ РЕГИСТРИРУЕТЕСЬ КАК:</h5>
   <div id="registration">
-    <div class="item"><img src="{{ asset('images/reg_consumer.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a></div>
+    {#<div class="item"><img src="{{ asset('images/reg_consumer.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a></div>#}
     <div class="item"><img src="{{ asset('images/reg_master.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'specialist'}) }}">Мастер индустрии красоты</a></div>
     <div class="item"><img src="{{ asset('images/reg_salon.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'salon'}) }}">Салон красоты, студия, парикмахерская...</a></div>
-    <div class="item" style="margin: 80px 0 0 425px;"><img src="{{ asset('images/reg_agancy.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'agancy'}) }}">Представительство производителей товаров для индустрии красоты</a></div>
+   {# <div class="item" style="margin: 80px 0 0 425px;"><img src="{{ asset('images/reg_agancy.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'agancy'}) }}">Представительство производителей товаров для индустрии красоты</a></div>
     {#<a href="{{ path('fos_user_registration_register', {'type': 'shop'}) }}">Магазин</a>#}
-    <div class="item"><img src="{{ asset('images/reg_salon.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'school_center'}) }}">Учебный центр</a></div>
+    <div class="item"><img src="{{ asset('images/reg_school.jpg' | imagine_filter('my_school_registration')) }}"><a href="{{ path('fos_user_registration_register', {'type': 'school_center'}) }}">Учебный центр</a></div>
     
   </div>
 {% else %}
   <h5 class="clear" style="color: #AAA;">2. ВЫ РЕГИСТРИРУЕТЕСЬ КАК
         {% if app.request.get('type') == 'specialist' %} {{ 'мастер индустрии красоты.' | upper }}
-        {% elseif app.request.get('type') == 'consumer' %} ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ.
+        {#{% elseif app.request.get('type') == 'consumer' %} ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ.#}
         {% elseif app.request.get('type') == 'salon' %} {{ 'Салон красоты, студия, парикмахерская...' | upper }}
-        {% elseif app.request.get('type') == 'agancy' %} {{ 'Представительство производителей товаров для индустрии красоты' | upper }}
-        {% elseif app.request.get('type') == 'shop' %} МАГАЗИН.
+       {# {% elseif app.request.get('type') == 'agancy' %} {{ 'Представительство производителей товаров для индустрии красоты' | upper }}
+       {% elseif app.request.get('type') == 'shop' %} МАГАЗИН.#}
         {% elseif app.request.get('type') == 'school_center' %} ОБУЧАЮЩИЙ ЦЕНТР.
         {% endif %}</h5>
   
@@ -660,12 +660,12 @@
         {{ form_row(form.userInfo.name) }}
     {% elseif app.request.get('type') == 'school_center' %}   
         {{ form_row(form.userInfo.name) }}
-        {{ form_row(form.userInfo.category) }}
+       {# {{ form_row(form.userInfo.category) }}#}
     {% endif %}
         <hr />
     <div class="row">
         <div class="col col_1_of_1">
-            {#<div>{{ form_widget(form.newsNotify, { 'attr' : {'checked' : 'checked'}} ) }}{{ form_label(form.newsNotify) }}</div>#}
+            <div>{{ form_widget(form.newsNotify, { 'attr' : {'checked' : 'checked'}} ) }}{{ form_label(form.newsNotify) }}</div>
 {#            <div>{{ form_widget(form.termsConditions) }}{{ form_label(form.termsConditions) }} <a href="" class="blue-link">пользовательским соглашением</a></div>#}
         </div>
     </div>

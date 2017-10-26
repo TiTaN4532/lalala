@@ -168,6 +168,11 @@ liip_imagine:
                     filters:
                         thumbnail: { size: [130, 130], mode: outbound } 
                         
+        my_school_registration:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [150, 150], mode: outbound } 
+                        
         my_main_page_advice:
                     quality:              100
                     filters:
