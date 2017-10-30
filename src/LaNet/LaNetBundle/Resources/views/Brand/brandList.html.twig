@@ -65,6 +65,8 @@
     </form>
 </div>
      
+        
+        {% if testTop%}
     <section class="holder">
             <h2 class="section-title"> <a href="{{ path('la_net_la_net_tests_list')}}">Тестирование продуктов</a></h2>
             <div class="row-fluid">
@@ -85,6 +87,8 @@
                 </section>  
             </div>
     </section>
+     {% endif %}                   
+                        
  <h1 style="float:left;margin-right: 10px;">Бренды</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
 {% for item in brands %}
  {% if not loop.first %} <hr /> {% endif %}

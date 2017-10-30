@@ -22,13 +22,15 @@ class MainController extends BaseController {
         
         $linkNew='';
         
-        $link = $events[0]->getVideo();
+        if ($events){
+           $link = $events[0]->getVideo();
+  
         if ($link) {
             $pattern ='%embed[^? | "]+%';
             preg_match($pattern, $link, $matches);
             $linkNew = mb_strcut ($matches[0], 6);
         }
-        
+        }
         $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMastersOnMainPage(4);
         $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage(4);
         $schools = $this->manager->getRepository('LaNetLaNetBundle:School')->findFilteredSchoolsOnMainPage(4);

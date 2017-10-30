@@ -63,7 +63,7 @@
                 {% for master in masters %}
                   <div class="masters-item clearfix">
                       <div class="masters-item-img">
-                          <img src="{{ asset(master.getWebPath| imagine_filter('my_masters_list'))}}" />
+                          <img src="{{ asset(master.getWebPath | imagine_filter('my_masters_list'))}}" />
                       </div>
                       <div class="masters-item-info">
                          <h3 class="masters-item-title {% if master.inTop != NULL%} starred {% endif%}">{{ master.firstName }} {{ master.lastName }}</h3>

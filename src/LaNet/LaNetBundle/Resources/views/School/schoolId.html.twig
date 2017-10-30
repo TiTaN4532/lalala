@@ -101,12 +101,12 @@
   {% endif %}
   {% if school.portfolio is not empty %}
     <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">{{ "Портфолио:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-    <div class="gallery">
+    <div class="gallery-portfolio">
         <div class="row clear">
         {% for image in school.portfolio%}
           
           <div class="col col_1_of_5">
-            <a href="{{ asset(image.getWebPath) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_thumb_portfolio') }}" /></a>
+            <a href="{{ asset(image.getWebPath | imagine_filter('my_thumb_portfolio_large')) }}" rel="group1" class="fancybox" title="{{ image.description }}"><img src="{{ image.getWebPath | imagine_filter('my_thumb_portfolio') }}" /></a>
           </div>
           {% if loop.index % 5 == 0 %}
              </div><div class="row clear">
