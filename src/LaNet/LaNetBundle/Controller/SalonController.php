@@ -42,7 +42,7 @@ class SalonController extends BaseController
     public function discountsAction(Request $request)
     {
       
-        $discounts = $this->manager->getRepository('LaNetLaNetBundle:Discounts')->findBy(array('salon' => $this->user->getUserInfo()->getId()));
+        $discounts = $this->manager->getRepository('LaNetLaNetBundle:Discounts')->findBy(array('salon' => $this->user->getUserInfo()->getId()), array ('created' => 'DESC'));
          
         return $this->render('LaNetLaNetBundle:Salon:profileDiscounts.html.twig', array('discounts' => $discounts));
                
@@ -70,6 +70,7 @@ class SalonController extends BaseController
         $form->bind($request);
 
         if ($form->isValid()) {
+            $discount->setIsDraft(1);
             $discount->setSalon($salon);
             $this->manager->persist($discount);
           

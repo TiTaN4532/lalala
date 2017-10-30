@@ -31,7 +31,7 @@ class NewsRepository extends EntityRepository
     {
                               
    $query = $this->_em->createQuery("SELECT n FROM LaNetLaNetBundle:News n 
-                                                   WHERE n.is_draft is NULL AND n.inTop IS NOT NULL ORDER BY n.inTop DESC, n.updated DESC");
+                                                   WHERE n.is_draft is NULL ORDER BY n.inTop DESC, n.updated DESC");
         if ($limit){
         $query->setMaxResults($limit);    
         }

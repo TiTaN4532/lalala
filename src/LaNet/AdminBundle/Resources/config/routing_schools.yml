@@ -1,0 +1,31 @@
+la_net_admin_schools:
+    pattern:  /schools
+    defaults: { _controller: LaNetAdminBundle:School:main }
+    
+la_net_admin_schools_list:
+    pattern:  /schools/list
+    defaults: { _controller: LaNetAdminBundle:School:list }
+    
+la_net_admin_schools_edit_profile:
+    pattern: /schools/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Master:edit }
+    
+la_net_admin_schools_ajax:
+    pattern:  /ajax/schools
+    defaults: { _controller: LaNetAdminBundle:Master:listAjax }
+    options:
+        expose: true
+
+la_net_admin_ajax_inTop_school:
+    pattern:  /ajax/inTop_school/{id}
+    defaults: { _controller: LaNetAdminBundle:School:inTop }
+    options:
+        expose: true
+       
+la_net_admin_ajax_delete_school:
+    pattern:  /ajax/delete_school/{id}
+    defaults: { _controller: LaNetAdminBundle:School:delete }
+    options:
+        expose: true
+
+

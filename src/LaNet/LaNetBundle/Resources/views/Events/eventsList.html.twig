@@ -9,8 +9,8 @@
 {% block slider %}
    {% endblock %}
 {% block content %}
-               {% for post in events %}
-              {% if not loop.first %} <hr /> {% endif %}
+               {# {% for post in events %}
+             {% if not loop.first %} <hr /> {% endif %}
               <div class="row">
                 <div class="col col_1_of_3" style='margin-bottom: 20px;'><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_big'))}}" style="width:100%;" /></div>
                 <div class="col col_2_of_3" style="font-weight: 900">{{ post.title }}</div>
@@ -26,13 +26,41 @@
                 </div>#}
                 {#<div class="col col_1_of_2" style="color:#2d93b2;">
                     Отправить:
-                </div>#}
-              </div>
-              {% else %}
+                </div>
+              </div>#}
+               
+              
+                <div class="media">
+                     {% for key, post in newArray %}  
+                            <h2 class="section-title">{{key}}</h2>
+                            <div class="media-slider">
+                                 {% for event in  post %}
+                                <article class="media-slider-item">
+                                    <a class="media-slider-img" href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}">
+                                       <img src="{{ asset(event.getWebPath  | imagine_filter('my_slider_event'))}}">
+                                    </a>
+                                    <div class="media-slider-content">
+                                        <h3 class="media-slider-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}">{{ event.title}}</a></h3>
+                                        <p class="media-slider-text">{{ event.description}}</p>
+                                        <div class="media-slider-bottom clearfix">
+                                            <div class="media-slider-date">{{ event.updated | date ('d.m.Y')}}</div>
+                                            <div class="media-slider-share">
+                                                <i class="icon icon-share"></i><a href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}">Подробнее</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                {% endfor %}            
+                            </div>
+                             {% else %}
                 Пока статей нет
               {% endfor %}
+                </div>
+                
+                
+             
               
-        {% for key, post in newArray %}      
+        {#{% for key, post in newArray %}      
          <h2 class="section-title"><a href="#">{{key}}</a></h2>
              <section class="holder">
                     <div class="gallery-wrap">
@@ -47,7 +75,7 @@
                         </div>
                     </div>
                 </section>
-            {% endfor %}     
+            {% endfor %}     #}
             
   <div class="row clear pagination">
   {{ knp_pagination_render(events) }}

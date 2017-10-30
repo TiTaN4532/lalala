@@ -35,12 +35,17 @@ class BrandController extends BaseController
                $data = ($brandForm->getData());
                              
                $message = \Swift_Message::newInstance()
-                    ->setSubject('validation')
+                    ->setSubject('Подтверждение регистрации бренда')
                     //->setSubject($data['subject'])
                     ->setFrom('info@lalook.net')
                     ->setTo($data->getMail())
-                    ->setBody(
-                        $this->renderView('LaNetAdminBundle:Sendmail:validation.html.twig', array('uniqId' => $uniqId)), 'text/html');
+                    ->setBody("Здравствуйте!
+                               Вы зарегестрировали бренд на сайте http://lalook.net
+                               
+                               Для завершения регистрации перейдите по ссылке ниже
+                               http://lalook.net/brands/validation/.$uniqId
+                                ");
+                        //$this->renderView('LaNetAdminBundle:Sendmail:validation.html.twig', array('uniqId' => $uniqId)), 'text/html');
                
                 $this->manager->flush();
               
@@ -50,7 +55,9 @@ class BrandController extends BaseController
               $this->get('mailer')->send($message);
               $this->get('session')->getFlashBag()->add(
                     'notice_brand_main',
-                    'На указанную вами почту выслано письмо с подтверждением регистрации. Для активации нужно перейти по ссылке указаной в письме '             
+                    'На указанную вами почту выслано письмо с подтверждением регистрации. Для активации нужно перейти по ссылке указаной в письме.
+                     Обратите внимание: письмо может попасть в папку "Спам", рекомендуем обязательно её проверить.
+                     Регистрация считается завершенной после того, как вы активируете ваш аккаунт, перейдя по ссылке из письма.'             
                       );
              $this->manager->flush();
             

@@ -88,4 +88,15 @@ class BrandRepository extends EntityRepository
     }
      
     
+      public function findBrandCategoryOnMainPage ($limit='')
+   
+    {   $query = $this->_em->createQuery("SELECT DISTINCT mc.name, mc.id FROM LaNetLaNetBundle:MasterCategory mc 
+                                                   LEFT JOIN mc.brand b");
+         if ($limit){
+                $query->setMaxResults($limit);    
+              }
+        return $query->getResult();
+    }
+     
+    
 }   

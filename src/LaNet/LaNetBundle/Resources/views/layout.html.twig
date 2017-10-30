@@ -12,16 +12,18 @@
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_club_main' %}<h1 id="main">Клуб профессионалов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %}<h1 id="main">Клуб профессионалов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_salon_id' %}<h1 id="main">Клуб профессионалов</h1>
-        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_events_list' %}<h1 id="main">LaLook инфо</h1>
-        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_events_id' %}<h1 id="main">LaLook инфо</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_school_list' %}<h1 id="main">Клуб профессионалов</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_school_id' %}<h1 id="main">Клуб профессионалов</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_events_list' %}<h1 id="main">Медиа</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_events_id' %}<h1 id="main">Медиа</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_tests_list' %}<h1 id="main">Тестирование продуктов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_tests_id' %}<h1 id="main">Тестирование продуктов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_brand_list' %}<h1 id="main">Бренд инфо</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_brand_id' %}<h1 id="main">Бренд инфо</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %}<h1 id="main">Объявления</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_adverts_id' %}<h1 id="main">Объявления</h1>
-        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %}<h1 id="main">Им доверяют</h1>
-        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_id' %}<h1 id="main">Им доверяют</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %}<h1 id="main">Эксперты</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_id' %}<h1 id="main">Эксперты</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_trusts_list' %}<h1 id="main">Советы красоты</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_trusts_id' %}<h1 id="main">Советы красоты</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_contact' %}<h1 id="main">Контакты</h1>
@@ -50,8 +52,15 @@
                     <div class="top-news-img">
                         {% for post in events %}
                          {% if loop.index == 1 %}
-                              <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_big'))}}" alt="placeholder"></a>
-                          {% endif %}
+                              {% if post.video is not empty %}
+                                  <div class="video-responsive">
+                                  <iframe width="auto" height="auto" src="https://www.youtube.com/embed/{{linkNew}}?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+                                  </div>
+                                  <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+                                {%else%}
+                                   <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_big'))}}" alt="placeholder"></a>
+                               {% endif %}
+                             {% endif %}
                         {% endfor %}  
                       </div>
                     <div class="row-fluid">
@@ -68,11 +77,57 @@
                         {% endfor %}
                      </div>
                 </section>
+              {% endif %}
+              
+        {% if tests %}             
+            <section class="holder">
+            <h2 class="section-title"> <a href="{{ path('la_net_la_net_tests_list')}}">Тестирование продуктов</a></h2>
+            <div class="row-fluid">
+                <section class="holder">
+                    <div class="gallery-wrap">
+                        <div class="gallery">
+              {% for post in tests %} 
+                            <article class="top-news-item">
+                                <a {% if post.video is not empty %}class="video-content"{% endif %} href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"></a>
+                                <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
+                               {# <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>#}
+                            </article>
+                           {% endfor %}     
+                        </div>
+                    </div>
+                </section>  
+            </div>
+    </section>
+        {% endif %}    
+        
+        {% if brandCat %}             
+            <section class="holder">
+            <h2 class="section-title"> <a href="{{ path('la_net_la_net_brands_list')}}">Каталог брендов</a></h2>
+            <div class="row-fluid">
+                <section class="holder">
+                    <div class="gallery-wrap">
+                        <div class="gallery">
+              {% for post in brandCat %} 
+                            <article class="top-news-item">
+                                <div align="center" class="brand-category-on-main-page">
+                                <h3 align="center" class="item-title"><a style="color:#FFFFFF;" href="{{ path('la_net_la_net_brands_list', { 'category' : post.id })}}">{{ post.name}}</a></h3>
+                               
+                                </div>
+                                {#<a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"></a>
+                                <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
+                               {# <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>#}
+                            </article>
+                           {% endfor %}     
+                        </div>
+                    </div>
+                </section>  
+            </div>
+    </section>
+        {% endif %}   
+        
+        
             
-            
-            
-            
-            <h2 class="section-title"><a href="{{ path('la_net_la_net_events_list') }}">TOP Новости</a></h2>
+           {# <h2 class="section-title"><a href="{{ path('la_net_la_net_events_list') }}">TOP Новости</a></h2>
                 <section class="top-news">
                     <div class="row-fluid">
                        
@@ -116,9 +171,9 @@
                         </div>               
                     </div>
                 </section>
-            {% endif %}                
+            {% endif %}        #}        
                 
-            {% if tests %}
+           {# {% if tests %}
                  <section class="holder">
                     <h2 class="section-title"><a href="{{ path('la_net_la_net_tests_list') }}">Тестирование продуктов</a></h2>
                     <div class="row-fluid">
@@ -159,12 +214,13 @@
                         <a href="{{ path('la_net_la_net_tests_list') }}" class="btn">Ещё</a>
                     </div>
                 </section>
-            {% endif %}
+            {% endif %}#}
             
-            {% if masters %}        
+                
                 <section class="holder">
                     <div class="row-fluid">
                         <div class="span7">
+                            {% if masters %}    
                             <h2 class="section-title"><a href="{{ path('la_net_la_net_master_list') }}">TOP мастера</a></h2>
                             <div class="masters">
                               {% for master in masters %}
@@ -182,9 +238,11 @@
                                 </div>
                               {% endfor%}    
                             </div>
+                            {% endif %}
                         </div>
                         <div class="span5">
                             <div class="discount-section">
+                                {% if salons %}     
                                 <h2 class="section-title labeled"><a href="{{ path('la_net_la_net_salon_list') }}">ТОП салонов      </a>{#<span class="title-label">Выгодно</span>#}</h2>
                                 {% for salon in salons %}
                                     <div class="discounts-item">
@@ -195,17 +253,20 @@
                                         <a href="{{ path('la_net_la_net_salon_id', {'id': salon.id })}}" class="readmore">Читать полностью...</a>
                                     </div>
                                {% endfor%}  
+                               {% endif %}
                             </div>
                         </div>
                     </div>
                 </section>
-            {% endif %}
+            
                                
-            {% if trusts %}    
+             
                 <section class="holder">
-                    <h2 class="section-title"><a href="{{ path('la_net_la_net_trusts_list') }}">Им доверяют</a></h2>
+                    
                     <div class="row-fluid">
                         <div class="span7">
+                             {% if trusts %}    
+                            <h2 class="section-title"><a href="{{ path('la_net_la_net_trusts_list') }}">Эксперты</a></h2>
                             <div class="masters">
                             {% for post in trusts %}  
                                 
@@ -222,41 +283,32 @@
                             {% endfor %}  
                                
                             </div>
+                             {% endif %}
                         </div>
+                      
                         
-                      {#  <div class="span5">
-                            <div class="discount-section">
-                                <div class="discounts-item">
-                                    <div class="discounts-item-img">
-                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/salon-logo-05.jpg" alt="placeholder">
+                         
+                        <div class="span5">
+                             {% if schools %}   
+                             <h2 class="section-title"><a href="{{ path('la_net_la_net_school_list') }}">Обучение</a></h2>
+                    <div class="row-fluid">
+                            {% for post in schools %}  
+                                <div class="discount-section">
+                                    <div class="discounts-item">
+                                        <div class="discounts-item-img">
+                                           <img src="{{ asset(post.getWebPath | imagine_filter('my_school_main'))}}" />
+                                        <h3 class="item-title"><a href="{{ path('la_net_la_net_school_id', { 'id' : post.id })}}">{{ post.name}}</a></h3>
+                                     </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="discount-section">
-                                <div class="discounts-item">
-                                    <div class="discounts-item-img">
-                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/salon-logo-06.jpg" alt="placeholder">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="discount-section">
-                                <div class="discounts-item">
-                                    <div class="discounts-item-img">
-                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/salon-logo-07.jpg" alt="placeholder">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="discount-section">
-                                <div class="discounts-item">
-                                    <div class="discounts-item-img">
-                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/salon-logo-08.jpg" alt="placeholder">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>#}
+                            {% endfor %}  
+                        </div>
+                          {% endif %}
+                    </div>
                     </div>
                 </section>
-            {% endif %}
+            
+          
                             
             {% if advices %}
                 <section class="holder">
@@ -432,146 +484,10 @@
                     {#<a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
                     <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
                   </div>#}
-                  <div class="span4">
-                      <aside class="sidebar">
-                        <div class="sidebar-section">
-                            <div class="sidebar-section-title">
-                                <h2>Новости В2В</h2>
-                            </div>
-                            <div class="sidebar-section-content">
-                                <div class="top-news">
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                        </div>
-                                    </article>
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                        </div>
-                                    </article>
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                        </div>
-                                    </article>
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                        </div>
-                                    </article>
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="see-all-row">
-                                    <a href="#" class="read-more">Смотреть всё</a>
-                                </div>
-                                <div class="sidebar-ad">
-                                    <img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">
-                                </div>
-                            </div>
-
-                            <div class="sidebar-section-title">
-                                <h2>Ближайшие события</h2>
-                            </div>
-                            <div class="sidebar-section-content">
-                                <div class="top-news">
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущпршрмгт гмрогшуцк гомц тмцукме г номуцгпм пмшпгргргищыомпщ рщишршщр гморгырмгомщмрыщпк</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                    </article>
-                                </div>
-                                <div class="see-all-row">
-                                    <a href="#" class="read-more">Смотреть всё</a>
-                                </div>
-                                <div class="sidebar-ad">
-                                    <img src="./Всеукраинский портал индустрии красоты и здоровья_files/cenzor-img.jpg" alt="placeholder">
-                                </div>
-                                <div class="sidebar-ad">
-                                    <img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">
-                                </div>
-                            </div>
-
-                            <div class="sidebar-section-title">
-                                <h2>Горячие предложения</h2>
-                            </div>
-                            <div class="sidebar-section-content">
-                                <div class="top-news">
-                                    <article class="top-news-item clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-05.jpg" alt="placeholder"></a>
-                                        <h3 class="item-title"><a href="#">Ртмшук рмшгурь умеугкцшь</a></h3>
-                                            <div class="top-news-date">21.09.2017</div>
-                                    </article>
-                                    <article class="top-news-item clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-05.jpg" alt="placeholder"></a>
-                                        <h3 class="item-title"><a href="#">Ртмшук рмшгурь умеугкцшь</a></h3>
-                                            <div class="top-news-date">21.09.2017</div>
-                                    </article>
-                                    <article class="top-news-item clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-05.jpg" alt="placeholder"></a>
-                                        <h3 class="item-title"><a href="#">Ртмшук рмшгурь умеугкцшь</a></h3>
-                                            <div class="top-news-date">21.09.2017</div>
-                                    </article>
-                                </div>
-                                <div class="sidebar-ad">
-                                    <img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">
-                                </div>
-                            </div>
-
-                            <div class="sidebar-section-title">
-                                <h2>Актуальные объявления</h2>
-                            </div>
-                            <div class="sidebar-section-content">
-                                <div class="top-news">
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                        </div>
-                                    </article>
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                        </div>
-                                    </article>
-                                    <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущ пршрмгт гмрогшуцк гомц тмцукме г номуцг</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="see-all-row">
-                                    <a href="#" class="read-more">Смотреть всё</a>
-                                </div>
-                            </div>
-
-                        </div>
-                      </aside>
-
-
-
-                                      </div>
+                   {{ render(controller('LaNetLaNetBundle:Main:sideBar'))}}
          </div>
     </div>
-</div>
+</div> 
+         
   
 {% endblock %}

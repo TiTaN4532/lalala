@@ -9,6 +9,7 @@ class EventsController extends BaseController
 {
     public function eventsListAction()
     {
+        setlocale(LC_ALL, "ru_RU.utf8", "ru_RU");
         
         $newArray = array();
         $currentMonth = '';
@@ -16,14 +17,16 @@ class EventsController extends BaseController
         $events = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'event', 'is_draft' => NULL),array('created' => 'DESC'));
        
         foreach ($events as $event ) {
-            if ($event->getCreated()->format('F') ==  $currentMonth){
-                
+            $date = $event->getCreated();
+            $month = strftime("%B", $date->getTimestamp());
+            if ($month ==  $currentMonth){
+               
                 $currentYear = $event->getCreated()->format('Y');
                 $newArray[$currentMonth.'-'. $currentYear][] = $event;
-                $currentMonth = $event->getCreated()->format('F');
+                $currentMonth = $month;
             } 
             else {
-                $currentMonth = $event->getCreated()->format('F');
+                $currentMonth = $month;
                 $currentYear = $event->getCreated()->format('Y');
                 $newArray[$currentMonth.'-'. $currentYear][] = $event;
             }

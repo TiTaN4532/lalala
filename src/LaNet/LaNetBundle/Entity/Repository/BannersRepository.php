@@ -37,5 +37,14 @@ class BannersRepository extends EntityRepository {
         }
     }
 
-    
+    public function bannersShuffleAction() {
+        $array = $this->_em->getRepository('LaNetLaNetBundle:Banners')->findAll();
+        $keys = array_keys($array);
+        shuffle($keys);
+        $result = array();
+        foreach ($keys as $key)
+            $result[$key] = $array[$key];
+
+        return $result;
+    }
 }

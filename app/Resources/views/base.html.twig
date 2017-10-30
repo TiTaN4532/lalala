@@ -71,7 +71,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.facebook.com/groups/LaLook/">
+                                    <a href="https://www.facebook.com/LaLook.info">
                                         <i class="icon icon-facebook"></i>
                                     </a>
                                 </li>
@@ -123,7 +123,7 @@
                             <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
                             {#<li><a href="{{ path('la_net_la_net_advices_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %} class="active"{% endif %}>Советы красоты</a></li>#}
                             <li><a href="{{ path('la_net_la_net_adverts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %} class="active"{% endif %}>Объявления</a></li>
-                            <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Lalook инфо</a></li>
+                            <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Медиа</a></li>
                             
                             {#<li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренды</a></li>#}
 
@@ -161,7 +161,7 @@
                     <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
                     <li><a href="{{ path('la_net_la_net_brands_list') }}">Бренд инфо</a></li>
                     <li><a href="{{ path('la_net_la_net_adverts_list') }}">Объявления</a></li>
-                    <li><a href="{{ path('la_net_la_net_events_list') }}">Lalook инфо</a></li>
+                    <li><a href="{{ path('la_net_la_net_events_list') }}">Медиа</a></li>
                     {#<li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>#}
                         {# <li><a href="">Косметика</a></li>
                          <li><a href="">Магазаны</a></li>
@@ -173,7 +173,7 @@
                </ul>
                         </nav>
                         <div class="footer-info">
-                            <span class="footer-copy">© 2013-2016 lalook.net.</span>
+                            <span class="footer-copy">© 2013-2017 lalook.net.</span>
                             <span class="footer-email">E-mail: lalooknet@gmail.com</span>
                         </div>
                     </div>
@@ -203,6 +203,16 @@
             </div>
             
             
+               <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.10';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+               
+               
             <script>
                 (function (i, s, o, g, r, a, m) {
                     i['GoogleAnalyticsObject'] = r;
@@ -474,13 +484,13 @@
     
         $(document).ready(function(){
          
-          $('.gallery-slider').slick({
+          $('.gallery').slick({
               infinite: true,
-              slidesToShow: 5,
+              slidesToShow: 4,
               slidesToScroll: 1
             });
-            
-             $('.media-slider').slick({
+
+            $('.media-slider').slick({
               infinite: true,
               slidesToShow: 2,
               slidesToScroll: 1

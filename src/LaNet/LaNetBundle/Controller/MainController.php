@@ -15,25 +15,47 @@ class MainController extends BaseController {
 
     public function indexAction() {
         $advices = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('advice', 8);
-        $tests = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('test', 4);
+        $tests = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('test');
         $trusts = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('test', 3);
         $events = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('event', 5);
-        $adverts = $this->manager->getRepository('LaNetLaNetBundle:Adverts')->findListAdvertsOnMainPage(3);
-        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrandOnMainPage(4);
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findBrandCategoryOnMainPage();
         
-
-        $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findListNewsOnMainPage(5);
+        $linkNew='';
+        
+        $link = $events[0]->getVideo();
+        if ($link) {
+            $pattern ='%embed[^? | "]+%';
+            preg_match($pattern, $link, $matches);
+            $linkNew = mb_strcut ($matches[0], 6);
+        }
+        
         $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMastersOnMainPage(4);
         $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage(4);
+        $schools = $this->manager->getRepository('LaNetLaNetBundle:School')->findFilteredSchoolsOnMainPage(4);
       
         return $this->render('LaNetLaNetBundle::layout.html.twig', array('advices' => $advices,
                                                                          'tests' => $tests,
                                                                          'trusts' => $trusts,
+                                                                         'linkNew' => $linkNew,
                                                                          'masters' => $masters,
                                                                          'salons' => $salons,
-                                                                         'events' => $events,
-                                                                         'news' => $news,
-                                                                         'adverts' => $adverts));
+                                                                         'brandCat' => $brands,
+                                                                         'schools' => $schools,
+                                                                         'events' => $events));
+    }
+    
+    public function sideBarAction() {
+        $adverts = $this->manager->getRepository('LaNetLaNetBundle:Adverts')->findListAdvertsOnMainPage(3);
+        $banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')->bannersShuffleAction();
+        $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findListNewsOnMainPage(5);
+        $discounts = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findDiscountsOnMainPage(3);
+      
+        
+      
+        return $this->render('LaNetLaNetBundle::sideBar.html.twig', array('bannersSideBar' => $banners,
+                                                                         'newsSideBar' => $news,
+                                                                         'discountsSideBar' => $discounts,
+                                                                         'advertsSideBar' => $adverts));
     }
     
     public function unavailableAction() {

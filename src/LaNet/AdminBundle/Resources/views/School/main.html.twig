@@ -1,0 +1,19 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+
+<div class="admin-main-menu">
+ <ul>
+  <li><a href="{{ path('la_net_admin_salons_list') }}">Список салонов</a></li>
+</ul>
+  </div> 
+
+   <div class="admin-main-menu-period"> 
+ <ul>
+    <li><a href="{{ path('la_net_admin_salons_list', {'period': 'day'}) }}">Добавленные за день ({{day}})</a></li>
+    <li><a href="{{ path('la_net_admin_salons_list', {'period': 'week'}) }}">Добавленные за неделю ({{week}})</a></li>
+    <li><a href="{{ path('la_net_admin_salons_list', {'period': 'month'}) }}">Добавленные за месяц ({{month}})</a></li>
+    <li><a href="{{ path('la_net_admin_salons_list') }}">Добавленные за все время ({{all}})</a></li>
+ </ul>
+   </div>
+{% endblock content %}

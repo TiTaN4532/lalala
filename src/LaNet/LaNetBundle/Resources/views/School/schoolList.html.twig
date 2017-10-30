@@ -4,11 +4,11 @@
     {% endblock %}      
 
 {% block content %}
-<a href="{{ path('la_net_la_net_master_list') }}" class="tabs">Поиск мастера</a><a href="{{ path('la_net_la_net_school_list') }}" class="tabs active">Поиск салона</a>
+<a href="{{ path('la_net_la_net_master_list') }}" class="tabs">Поиск мастера</a><a href="{{ path('la_net_la_net_salon_list') }}" class="tabs">Поиск салона</a><a href="{{ path('la_net_la_net_school_list') }}" class="tabs active">Обучение</a>
 <hr style="margin:7px 0 20px 0;" class="clear" />
-<div><form action=""><input placeholder="Найдите салон по названию" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input style="margin-left:10px;" type="submit" value="Найти"></form></div>
+<div><form action=""><input placeholder="Поиск по названию" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input style="margin-left:10px;" type="submit" value="Найти"></form></div>
 
-<div> <div style="margin:10px 0 ;">{{ "Подбор Салона согласно вашим критериям:" | upper }}</div><form action="">
+<div> <div style="margin:10px 0 ;">{{ "Подбор Обучения согласно вашим критериям:" | upper }}</div><form action="">
         <select name="category"class="half">
           <option value="0">Выберите специальность</option>
           {% for item in masterCategory %}
@@ -68,7 +68,7 @@
      {% endif %}
             <div class="masters-item clearfix">
                 <div class="masters-item-img">
-                    <img src="{{ asset(school.getWebPath)}}" />
+                    <img src="{{ asset(school.getWebPath | imagine_filter('my_masters_list'))}}" />
                 </div>
                 <div class="masters-item-info">
                    <h3 class="masters-item-title {% if school.inTop != NULL%} starred {% endif%}">{{ school.name }}</h3>
@@ -79,7 +79,7 @@
                 </div>
             </div>
  {% else %}
-  Салонов нет
+  Центров обучения нет
 {% endfor %}
   </div>
        </div>

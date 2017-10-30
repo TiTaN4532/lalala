@@ -1,6 +1,10 @@
 la_net_la_net_brands_list:
     pattern:  /brands
     defaults: { _controller: LaNetLaNetBundle:Brand:brandList }
+
+la_net_la_net_brands_list_category:
+    pattern:  /brands/{id}
+    defaults: { _controller: LaNetLaNetBundle:Brand:brandList }
     
 la_net_la_net_brands_id:
     pattern:  /brands/{slug}

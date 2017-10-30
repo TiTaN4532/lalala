@@ -86,6 +86,19 @@ class SalonRepository extends EntityRepository
      
     }
     
+    public function findDiscountsOnMainPage($limit='')
+    {
+      $query = $this->_em->createQuery("SELECT s, d FROM LaNetLaNetBundle:Discounts d
+                                                   LEFT JOIN d.salon s    
+                                                   WHERE d.inTop IS NOT NULL AND d.is_draft = 0 ORDER BY d.inTop DESC");
+           
+      if ($limit){
+                $query->setMaxResults($limit);    
+            }  
+      return $query->getResult();
+     
+    }
+    
     public function findFilteredSalons($peginator = false, $onPage = 1, $region = false)
     {
       $request = Request::createFromGlobals();

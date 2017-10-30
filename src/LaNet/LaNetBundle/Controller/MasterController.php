@@ -194,12 +194,13 @@ class MasterController extends BaseController
     public function mainListAction(Request $request)
     {
      
-      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')-> findListMasters();
-      
+      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 10);
       $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage();
+      $schools = $this->manager->getRepository('LaNetLaNetBundle:School')->findFilteredSchoolsOnMainPage();
       
       return $this->render('LaNetLaNetBundle::clubMain.html.twig', array('masters' =>  $masters, 
-                                                                                 'salons' =>  $salons));
+                                                                         'salons' =>  $salons,
+                                                                         'schools' =>  $schools));
     }
     
     public function masterIdAction(Request $request, $id)

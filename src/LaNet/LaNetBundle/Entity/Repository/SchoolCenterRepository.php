@@ -39,4 +39,33 @@ class SchoolCenterRepository extends EntityRepository
         return $query->getResult();
       }
     }
+    
+     public function findFilteredSchoolsOnMainPage($limit='')
+    {
+      $query = $this->_em->createQuery("SELECT s FROM LaNetLaNetBundle:School s
+                                                   LEFT JOIN s.user u    
+                                                   WHERE s.inTop IS NOT NULL ORDER BY s.inTop DESC");
+            if ($limit){
+                $query->setMaxResults($limit);    
+            }
+        return $query->getResult();
+     
+    }
+    public function findListSchools($name = '')
+    {
+     $searchterm = '';   
+      if ($name){
+          $searchterm = preg_replace('/_|%/', '\$1', $name);
+      }
+       
+     $query = $this->_em->createQuery("SELECT s, u FROM LaNetLaNetBundle:School s 
+                                                           LEFT JOIN s.user u     
+                                                           WHERE (s.name LIKE :like OR u.email LIKE :like) ORDER BY s.inTop DESC, u.created DESC")
+                           ->setParameters(array('like' => '%'.$searchterm.'%'));
+
+      return $query->getResult();
+           
+        
+    }  
+    
 }

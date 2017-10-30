@@ -45,6 +45,10 @@ la_net_admin_masters_routes:
 la_net_admin_salons_routes:
   resource: "routing_salons.yml"
   prefix: /
+  
+la_net_admin_schools_routes:
+  resource: "routing_schools.yml"
+  prefix: /
 
 la_net_admin_consumers_routes:
   resource: "routing_consumers.yml"

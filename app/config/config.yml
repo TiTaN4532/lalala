@@ -150,6 +150,11 @@ liip_imagine:
                     quality:              100
                     filters:
                         thumbnail: { size: [106, 60], mode: outbound  }                
+       
+        my_slider_event:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [320, 180], mode: outbound  }                
         my_slider3:
                     quality:              100
                     filters:
@@ -177,6 +182,11 @@ liip_imagine:
                     quality:              100
                     filters:
                         thumbnail: { size: [50, 50], mode: outbound } 
+        
+        my_main_page_discounts:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [280], mode: outbound } 
                         
         my_main_page_trust:
                     quality:              100
@@ -197,6 +207,10 @@ liip_imagine:
                     quality:              100
                     filters:
                         thumbnail: { size: [110, 110], mode: outbound }                
+        my_school_main:
+                    quality:              100
+                    filters:
+                        thumbnail: { size: [145, 81], mode: outbound }                
                        
      
                          
