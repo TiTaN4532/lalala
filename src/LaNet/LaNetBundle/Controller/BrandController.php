@@ -13,7 +13,7 @@ class BrandController extends BaseController
     public function brandListAction(Request $request)
     {
        
-        $testsTop = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('test');
+        $testsSlider = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('test');
         $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrandByMasterCat($request->get('name'), $request->get('category'));
         $SiteSettings = $this->manager->getRepository('LaNetLaNetBundle:SiteSettings')->findBy(array('name' => 'LaLook'));
         $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
@@ -73,7 +73,7 @@ class BrandController extends BaseController
         
         return $this->render('LaNetLaNetBundle:Brand:brandList.html.twig', array('brands' => $pagination,
                                                                                  'SiteSettings' => $SiteSettings,
-                                                                                 'testsTop' => $testsTop,
+                                                                                 'testsSlider' => $testsSlider,
                                                                                  'masterCategory' => $masterCategory,
                                                                                  'form' => $brandForm->createView()));
     }

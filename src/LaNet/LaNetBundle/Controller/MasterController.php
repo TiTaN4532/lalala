@@ -194,7 +194,7 @@ class MasterController extends BaseController
     public function mainListAction(Request $request)
     {
      
-      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMasters($this->paginator, 10);
+      $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMastersOnClub(10);
       $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage();
       $schools = $this->manager->getRepository('LaNetLaNetBundle:School')->findFilteredSchoolsOnMainPage();
       

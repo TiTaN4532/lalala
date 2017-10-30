@@ -58,6 +58,18 @@ class MasterRepository extends EntityRepository
      
     }
     
+    public function findFilteredMastersOnClub($limit='')
+    {
+      $query = $this->_em->createQuery("SELECT m FROM LaNetLaNetBundle:Master m
+                                                   LEFT JOIN m.user u    
+                                                   ORDER BY m.inTop DESC, u.created DESC");
+        if ($limit){
+        $query->setMaxResults($limit);    
+        }
+        return $query->getResult();
+     
+    }
+    
     public function findListMasters($period='', $name='')
     {
       

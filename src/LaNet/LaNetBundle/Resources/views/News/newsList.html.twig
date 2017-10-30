@@ -10,7 +10,7 @@
                     <div class="row">
                         
                      <h3 style="color:#2d93b2;text-align: center;">{{ post.title | upper}}</h3>
-                     <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ post.getWebPath }}" style="width:100%;" /></div>
+                     <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_big'))}}" style="width:100%;" /></div>
                      <div class="col col_1_of_1">  
                          {{ post.description | raw }} <a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}" class="blue-link">Подробнее</a>
                      </div>
