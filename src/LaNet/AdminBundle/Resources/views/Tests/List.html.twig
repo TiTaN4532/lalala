@@ -30,7 +30,7 @@
                 {% for post in pagination %}
                     <tr>
                         <td>{{ post.title }}</td>
-                        <td>{{ post.isdraft ? 'Draft' : 'Published' }}</td>
+                        <td>{{ post.isdraft ? 'Скрыто' : 'Опубликовано'}}</td>
                         <td>{{ post.created|date("l j-F-y g:ia") }}</td>
                         <td><a href="{{ path('la_net_admin_tests_delete', {'id': post.id}) }}" class="delete-post">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_tests_edit', {'id': post.id}) }}">Редактировать</a></td>

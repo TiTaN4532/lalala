@@ -13,7 +13,7 @@ class NewsPostsType extends AbstractType
   {
     $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
              -> add('title', 'text', array('label' => 'Заголовок:'))
-             -> add('description', 'textarea', array('label' => 'Краткое описание:', 'required' => false, 'attr' => array('class' => "TextEditor")))
+             -> add('description', 'textarea', array('label' => 'Краткое описание:', 'required' => false))
              -> add('post', 'textarea', array('label' => 'Текст:', 'required' => false, 'attr' => array('class' => "TextEditor")))
              -> add('save_draft', 'submit', array('label' => 'Сохранить как черновик'))
              -> add('add_post', 'submit', array('label' => 'Сохранить'));

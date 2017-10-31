@@ -12,6 +12,8 @@
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_club_main' %}<h1 id="main">Клуб профессионалов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %}<h1 id="main">Клуб профессионалов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_salon_id' %}<h1 id="main">Клуб профессионалов</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_news_list' %}<h1 id="main">Новости</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_news_id' %}<h1 id="main">Новости</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_school_list' %}<h1 id="main">Клуб профессионалов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_school_id' %}<h1 id="main">Клуб профессионалов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_events_list' %}<h1 id="main">Медиа</h1>
@@ -109,10 +111,11 @@
                         <div class="gallery">
               {% for post in brandCat %} 
                             <article class="top-news-item">
-                                <div align="center" class="brand-category-on-main-page">
-                                <h3 align="center" class="item-title"><a style="color:#FFFFFF;" href="{{ path('la_net_la_net_brands_list', { 'category' : post.id })}}">{{ post.name}}</a></h3>
+                                <a href="{{ path('la_net_la_net_brands_list', { 'category' : post.id })}}">
+                                    <div align="center" class="brand-category-on-main-page">
+                                <h3 style="color:#FFFFFF;" align="center" class="item-title">{{ post.name}}</h3>
                                
-                                </div>
+                                </div></a>
                                 {#<a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"></a>
                                 <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
                                {# <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>#}
@@ -243,7 +246,7 @@
                         <div class="span5">
                             <div class="discount-section">
                                 {% if salons %}     
-                                <h2 class="section-title labeled"><a href="{{ path('la_net_la_net_salon_list') }}">ТОП салоны      </a>{#<span class="title-label">Выгодно</span>#}</h2>
+                                <h2 class="section-title labeled"><a href="{{ path('la_net_la_net_salon_list') }}">ТОП салоны</a>{#<span class="title-label">Выгодно</span>#}</h2>
                                 {% for salon in salons %}
                                     <div class="discounts-item">
                                         <div class="discounts-item-img">

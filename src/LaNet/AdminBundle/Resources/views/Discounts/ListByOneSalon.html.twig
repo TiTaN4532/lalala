@@ -21,7 +21,7 @@
                     <tr>
                         <td>{{ post.description }}</td>
                         <td>{{ post.created|date("d/m/Y G:H:s") }}</td>
-                        <td>{{ post.isdraft ? 'Draft' : 'Published' }}</td>
+                        <td>{{ post.isdraft ? 'Скрыто' : 'Опубликовано'}}</td>
                         <td><a href="{{ path('la_net_la_net_salon_profile_discounts_delete', {'id': post.id} ) }}" class="delete-post">Удалить</a></td>
                         <td><a href="{{path ('la_net_admin_ajax_inTop_discounts', {'id': post.id})}}" class="update-post button">{% if post.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
                     </tr>

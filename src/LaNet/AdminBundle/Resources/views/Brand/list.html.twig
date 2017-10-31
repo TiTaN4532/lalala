@@ -30,8 +30,8 @@
                 {% for brand in pagination %}
                     <tr>
                         <td>{{ brand.name }}</td>
-                        <td>{{ brand.isdraft ? 'Draft' : 'Published' }}</td>
-                        <td>{{ brand.validation == 1 ? 'Valid' : 'Invalid' }}</td>
+                        <td>{{ brand.isdraft ? 'Скрыто' : 'Опубликовано'}}</td>
+                        <td>{{ brand.validation == 1 ? 'Подтвержден' : 'Не подтвержден' }}</td>
                         <td><a href="{{ path('la_net_admin_brand_delete', {'id': brand.id}) }}" class="delete-brand">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_brand_edit', {'id': brand.id}) }}">Редактировать</a></td>
                         <td><a href="{{ path('la_net_admin_ajax_inTop_brand', {'id': brand.id} ) }}" class="update-post button">{% if brand.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
