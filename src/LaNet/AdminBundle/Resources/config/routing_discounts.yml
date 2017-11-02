@@ -10,6 +10,18 @@ la_net_admin_discounts_list:
     options:
         expose: true
         
+la_net_admin_discounts_add:
+    pattern:  /discounts/create
+    defaults: { _controller: LaNetAdminBundle:Discounts:edit }
+    options:
+        expose: true
+        
+la_net_admin_discounts_edit:
+    pattern:  /discounts/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Discounts:edit }
+    options:
+        expose: true
+
 la_net_admin_discounts_list_by_salon:
     pattern:  /discounts/listBySalon
     defaults: { _controller: LaNetAdminBundle:Discounts:listBySalon }
@@ -25,4 +37,4 @@ la_net_admin_discounts_list_by_one_salon:
 la_net_admin_ajax_inTop_discounts:
     pattern:  /ajax/inTop_discounts/{id}
     defaults: { _controller: LaNetAdminBundle:Discounts:inTop }
-                
+                        

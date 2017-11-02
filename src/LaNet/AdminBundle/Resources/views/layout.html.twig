@@ -27,15 +27,12 @@
               <li><a href="{{ path('la_net_admin_tests') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_tests' %} class="active"{% endif %}>Тестирование продуктов</a></li>
               <li><a href="{{ path('la_net_admin_advices') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_advices' %} class="active"{% endif %}>Советы красоты</a></li>
               <li><a href="{{ path('la_net_admin_adverts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_daverts' %} class="active"{% endif %}>Объявления</a></li>
-              <li><a href="{{ path('la_net_admin_consumers') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_consumers' %} class="active"{% endif %}>Потребители</a></li>
+              {#<li><a href="{{ path('la_net_admin_consumers') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_consumers' %} class="active"{% endif %}>Потребители</a></li>#}
               <li><a href="{{ path('la_net_admin_masters') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_masters' %} class="active"{% endif %}>Мастера</a></li>
               <li><a href="{{ path('la_net_admin_salons') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_salons' %} class="active"{% endif %}>Салоны</a></li> 
               <li><a href="{{ path('la_net_admin_schools_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_schools_list' %} class="active"{% endif %}>Обучение</a></li> 
               <li><a href="{{ path('la_net_admin_discounts_main') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_discounts_main' %} class="active"{% endif %}>Скидки</a></li> 
-              <li><a href="{{ path('la_net_admin_agancy') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_agancy' %} class="active"{% endif %}>Представительства</a></li>
-              {#<li><a href="{{ path('la_net_admin_salons') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_salons' %} class="active"{% endif %}>Салоны</a></li>
-              <li><a href="{{ path('la_net_admin_shops') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_shops' %} class="active"{% endif %}>Магазины</a></li>
-              <li><a href="{{ path('la_net_admin_school_centers') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_school_centers' %} class="active"{% endif %}>Учебные центры</a></li>#}
+              {#<li><a href="{{ path('la_net_admin_agancy') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_agancy' %} class="active"{% endif %}>Представительства</a></li>#}
               <li><a href="{{ path('la_net_admin_brand_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_brand_list' %} class="active"{% endif %}>Брeнды</a></li>
               <li><a href="{{ path('la_net_admin_product_category_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_category_list' %} class="active"{% endif %}>Категории товаров</a></li>
               <li><a href="{{ path('la_net_admin_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_list' %} class="active"{% endif %}>Товары</a></li>

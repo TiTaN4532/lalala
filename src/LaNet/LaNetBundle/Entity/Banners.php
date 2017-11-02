@@ -41,6 +41,16 @@ class Banners extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $click;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $priority;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $is_draft;
         
     /**
      * @ORM\OneToMany(targetEntity="Banners", mappedBy="clickStat", cascade={"all"}, orphanRemoval=true  )
@@ -116,7 +126,35 @@ class Banners extends \LaNet\LaNetBundle\Model\UploadImages
      */
     public function getClick()
     {
+        
         return $this->click;
+        
+    }
+    
+     /**
+     * Set click
+     *
+     * @param string $experience
+     * @return Banners
+     */
+    public function setPriority($value)
+    {
+        
+        $this->priority = $value;
+    
+        return $this;
+    }
+
+    /**
+     * Get click
+     *
+     * @return integer 
+     */
+    public function getPriority()
+    {
+        
+        return $this->priority;
+        
     }
     
     
@@ -251,4 +289,25 @@ class Banners extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->clickStat;
     }
     
+    /**
+     * Set is_draft
+     *
+     * @return Banners
+     */
+    public function setIsDraft($value)
+    {
+        $this->is_draft = $value;
+    
+        return $this;
+    }
+
+    /**
+     * Get is_draft
+     *
+     * @return boolean 
+     */
+    public function getIsDraft()
+    {
+        return $this->is_draft;
+    }
 }

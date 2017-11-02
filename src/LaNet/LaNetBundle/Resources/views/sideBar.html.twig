@@ -24,7 +24,7 @@
                                     <a href="{{ path('la_net_la_net_news_list') }}" class="read-more">Смотреть всё</a>
                                 </div>
                                 {% endif %}
-                                 {% if bannersSideBar[1] %} 
+                                 {% if bannersSideBar and bannersSideBar[0] is defined %} 
                                 <div class="sidebar-ad">
                                     <a href="{{ path('la_net_la_net_banner', {'id': bannersSideBar[0].id})}}"><img src="{{ asset(bannersSideBar[0].getWebPath)}}" alt="{{bannersSideBar[0].name}}" class="reklama"></a>
                                      {#<img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">#}
@@ -50,7 +50,7 @@
                                 <div class="sidebar-ad">
                             <div class="fb-page" data-href="https://www.facebook.com/LaLook.info" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/LaLook.info" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/LaLook.info">LaLook Портал индустрии красоты и здоровья</a></blockquote></div>    
                             </div>
-                               {% if bannersSideBar[1] %} 
+                               {% if bannersSideBar and bannersSideBar[1] is defined %} 
                                 <div class="sidebar-ad">
                                     <a href="{{ path('la_net_la_net_banner', {'id': bannersSideBar[1].id})}}"><img src="{{ asset(bannersSideBar[1].getWebPath)}}" alt="{{bannersSideBar[1].name}}" class="reklama"></a>
                                     {#<img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">#}
@@ -76,13 +76,14 @@
                                 </div>
                                   {% endif %}
                                  
-                                 
-                                 {% if bannersSideBar[2] %} 
+                                
+                                 {% if bannersSideBar  and bannersSideBar[2] is defined %} 
                                 <div class="sidebar-ad">
                                      <a href="{{ path('la_net_la_net_banner', {'id': bannersSideBar[2].id})}}"><img src="{{ asset(bannersSideBar[2].getWebPath)}}" alt="{{bannersSideBar[2].name}}" class="reklama"></a>
                                     {#<img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">#}
                                 </div>
                                   {% endif %} 
+                                 
                             </div>
                                
                                  

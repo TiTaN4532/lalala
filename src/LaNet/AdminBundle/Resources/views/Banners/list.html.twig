@@ -8,16 +8,20 @@
             <thead>
                 <tr>
                     <th>Название</th>
+                    <th>Приоритет</th>
                     <th>Удалить баннер</th>
                     <th>Редактировать баннер</th>
+                    <th>Статус</th>
                 </tr>
             </thead>
             <tbody>
                 {% for banners in pagination %}
                     <tr>
                         <td>{{ banners.name }}</td>
+                        <td>{{ banners.priority == NULL ? 'отстутствует' : banners.priority}}</td>
                         <td><a href="{{ path('la_net_admin_banners_delete', {'id': banners.id}) }}" class="delete-banners">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_banners_edit', {'id': banners.id}) }}">Редактировать</a></td>
+                        <td><a href="{{ path('la_net_admin_banners_isDraft', {'id': banners.id} ) }}" class="update-post button">{% if banners.getIsDraft == 1 %}Активировать{% else %}Деактивировать{% endif %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -47,5 +51,28 @@
             });
           });
       });
+      
+       $('.update-post').click(function(event) {
+            event.preventDefault();
+           
+            var element = $(this);
+             console.log(element.text());
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                
+                   
+                    if (element.text() == "Активировать"){
+                            element.text('Деактивировать')
+            
+                    } else {
+                            element.text('Активировать')
+                    }
+                
+            }
+            });
+          });
+   
+       
   </script>
 {% endblock %}

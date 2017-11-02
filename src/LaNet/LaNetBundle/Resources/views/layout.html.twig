@@ -54,7 +54,7 @@
                     <div class="top-news-img">
                         {% for post in events %}
                          {% if loop.index == 1 %}
-                              {% if post.video is not empty %}
+                              {% if post.video is not empty and not linkNew == false %}
                                   <div class="video-responsive">
                                   <iframe width="auto" height="auto" src="https://www.youtube.com/embed/{{linkNew}}?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
                                   </div>
@@ -483,14 +483,12 @@
               </div>
           
                   {#<div class="span4">
-                                         {{ render(controller('LaNetAdminBundle:Banners:bannersShuffle'))}}
+                    {{ render(controller('LaNetAdminBundle:Banners:bannersShuffle'))}}
                     {#<a href=""><img src="{{ asset('images/reklama2.jpg') }}" height="174" width="330" class="reklama" /></a>
                     <a href=""><img src="{{ asset('images/reklama1.jpg') }}" height="176" width="331" class="reklama" /></a>
                   </div>#}
                    {{ render(controller('LaNetLaNetBundle:Main:sideBar'))}}
          </div>
     </div>
-</div> 
-         
-  
+</div>
 {% endblock %}

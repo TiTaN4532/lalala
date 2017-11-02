@@ -47,4 +47,27 @@ class BannersRepository extends EntityRepository {
 
         return $result;
     }
+    
+    public function findBannersOnMainPage($limit='') {
+            
+    $query = $this->_em->createQuery("SELECT b FROM LaNetLaNetBundle:Banners b 
+                                                   WHERE b.is_draft IS NULL ORDER BY b.priority DESC");
+        if ($limit){
+            
+        $query->setMaxResults($limit);    
+        }
+        
+        
+ return $query->getResult();
+    }
+    
+     public function findAllBanners() {
+            
+    $query = $this->_em->createQuery("SELECT b FROM LaNetLaNetBundle:Banners b 
+                                                   ORDER BY b.is_draft ASC, b.priority DESC");
+        
+        
+ return $query->getResult();
+    }
+    
 }

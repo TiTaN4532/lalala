@@ -14,23 +14,28 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class MainController extends BaseController {
 
     public function indexAction() {
+        
         $advices = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('advice', 8);
         $tests = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('test');
-        $trusts = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('test', 3);
+        $trusts = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('trust', 3);
         $events = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('event', 5);
         $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findBrandCategoryOnMainPage();
         
-        $linkNew='';
+        $linkNew=false;
         
         if ($events){
            $link = $events[0]->getVideo();
   
-        if ($link) {
-            $pattern ='%embed[^? | "]+%';
-            preg_match($pattern, $link, $matches);
-            $linkNew = mb_strcut ($matches[0], 6);
+            if ($link) {
+                $pattern ='%embed[^? | "]+%';
+                preg_match($pattern, $link, $matches);
+
+                if ($matches){
+                    $linkNew = mb_strcut ($matches[0], 6);
+                }
+            }
         }
-        }
+        
         $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMastersOnMainPage(4);
         $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage(4);
         $schools = $this->manager->getRepository('LaNetLaNetBundle:School')->findFilteredSchoolsOnMainPage(4);
@@ -47,13 +52,21 @@ class MainController extends BaseController {
     }
     
     public function sideBarAction() {
+        
         $adverts = $this->manager->getRepository('LaNetLaNetBundle:Adverts')->findListAdvertsOnMainPage(3);
-        $banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')->bannersShuffleAction();
+        $banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')->findBannersOnMainPage(3);
         $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findListNewsOnMainPage(5);
         $discounts = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findDiscountsOnMainPage(3);
       
-        
-      
+        /*$newArr = array();
+        foreach ($banners as $value) {
+            
+           $newArr[] = $value->getName();
+            
+        }
+        print_r ($newArr);
+        exit();
+       */
         return $this->render('LaNetLaNetBundle::sideBar.html.twig', array('bannersSideBar' => $banners,
                                                                          'newsSideBar' => $news,
                                                                          'discountsSideBar' => $discounts,

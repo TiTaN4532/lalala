@@ -17,8 +17,9 @@
                     <th>Описание</th>
                     <th>Салон</th>
                     <th>Дата</th>
-                    <th>Статус</th>
+                    <th>Редактировать</th>
                     <th>Удалить</th>
+                    <th>Статус</th>
                     <th>ТОП</th>
                 </tr>
             </thead>
@@ -28,8 +29,9 @@
                         <td>{{ post.description }}</td>
                         <td>{{ post.salon.getName}}</td>
                         <td>{{ post.created|date("d/m/Y G:H:s") }}</td>
-                        <td>{{ post.isdraft ? 'Скрыто' : 'Опубликовано'}}</td>
+                        <td><a href="{{ path('la_net_admin_discounts_edit', {'id': post.id} ) }}">Редактировать</a></td>
                         <td><a href="{{ path('la_net_la_net_salon_profile_discounts_delete', {'id': post.id} ) }}" class="delete-post">Удалить</a></td>
+                        <td><a href="{{ path('la_net_la_net_salon_profile_discounts_isDraft', {'id': post.id} ) }}" class="active-post button">{% if post.getIsDraft == 1 %}Активировать{% else %}Деактивировать{% endif %}</a></td>
                         <td><a href="{{path ('la_net_admin_ajax_inTop_discounts', {'id': post.id})}}" class="update-post button">{% if post.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
                     </tr>
                 {% endfor %}
@@ -74,5 +76,25 @@
             });
           });
      
+         $('.active-post').click(function(event) {
+            event.preventDefault();
+           
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                
+                   
+                    if (element.text() == "Активировать"){
+                            element.text('Деактивировать')
+            
+                    } else {
+                            element.text('Активировать')
+                    }
+                
+            }
+            });
+          });
+           
   </script>
 {% endblock %}

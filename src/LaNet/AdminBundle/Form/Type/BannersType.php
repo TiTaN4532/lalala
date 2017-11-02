@@ -13,6 +13,7 @@ class BannersType extends AbstractType
   {
     $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
              -> add('name', 'text', array('label' => 'Название:'))
+             -> add('priority', 'integer', array('label' => 'Приоритет(больше лучше):',  'required' => false))
              -> add('link', 'text', array('label' => 'Сайт:'))
              -> add('save', 'submit', array('label' => 'Сохранить'));
   }

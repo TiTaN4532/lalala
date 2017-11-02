@@ -15,12 +15,12 @@
             <option value="{{ item.id }}" {% if app.request.query.get('category') == item.id  %} selected="selected"{% endif %}>{{ item.name }}</option>
           {% endfor %}
         </select>
-        <select name="service-type"  class="half">
+        {#<select name="service-type"  class="half">
           <option value="0">Тип обслуживания</option>
             <option value="home" {% if app.request.query.get('service-type') == 'home' %} selected="selected"{% endif %}>На дому</option>
             <option value="salon" {% if app.request.query.get('service-type') == 'salon' %} selected="selected"{% endif %}>В салоне</option>
             <option value="salon-home" {% if app.request.query.get('service-type') == 'salon-home' %} selected="selected"{% endif %}>Выезд на дом</option>
-        </select>
+        </select>#}
         {% if cities | length %}
             <select name="city"  class="half">
               <option value="0">Выберите город</option>

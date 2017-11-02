@@ -26,6 +26,12 @@ la_net_admin_banners_delete:
     options:
         expose: true
         
+la_net_admin_banners_isDraft:
+    pattern:  /ajax/banners/isDraft/{id}
+    defaults: { _controller: LaNetAdminBundle:Banners:isDraft }
+    options:
+        expose: true
+        
 la_net_admin_banners_remove_image:
     pattern:  /ajax/banners/remove_image/{id}
     defaults: { _controller: LaNetAdminBundle:Banners:removeImage }

@@ -28,6 +28,44 @@ class DiscountsController extends BaseController
         return $this->render('LaNetAdminBundle:Discounts:List.html.twig', array('pagination' => $pagination));
     }
     
+    
+   public function editAction(Request $request, $id = null)
+    {
+      $discountRepo = $this->manager->getRepository('LaNetLaNetBundle:Discounts');
+      $salonCategory = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findAll();
+     
+      if (is_null($id)) {
+        $discount = new LaEntity\Discounts();
+      } else {
+        $discount = $discountRepo->find($id);
+        if (!$discount) {
+          throw $this->createNotFoundException('Discounts not found!');
+        }
+      }
+      
+      $form = $this->createForm(new LaForm\DiscountsType(), $discount);
+        
+        if ('POST' == $request->getMethod()) {
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $discount->setIsDraft(1);
+            
+            $salon = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findOneById($request->get('salonCategory'));
+            $discount->setSalon($salon);
+            
+            $this->manager->persist($discount);
+          
+          
+           $this->manager->flush();
+           return $this->redirect($this->generateUrl('la_net_admin_discounts_main'));
+        }
+      }
+
+        return $this->render('LaNetAdminBundle:Discounts:Edit.html.twig', array('discount' => $discount, 'salonCategory' => $salonCategory, 'form' => $form->createView()));
+    }
+    
     public function listBySalonAction(Request $request)
     {
             $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')
@@ -76,6 +114,23 @@ class DiscountsController extends BaseController
         $this->manager->flush();
 
         return new JsonResponse(1);
+    }
+    
+     public function isDraftAction(Request $request, $id)
+    {
+        $discount = $this->manager->getRepository('LaNetLaNetBundle:Discounts')->find($id);
+       
+       if ($discount-> getIsDraft() == 1){
+           $discount-> setIsDraft(0);
+        }
+         else{
+            $discount-> setIsDraft(1);
+         }
+      
+        $this->manager->persist($discount);
+        $this->manager->flush();
+
+        return new JsonResponse( 1 );
     }
     
 }

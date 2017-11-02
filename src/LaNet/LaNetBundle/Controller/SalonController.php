@@ -59,7 +59,7 @@ class SalonController extends BaseController
       } else {
         $discount = $discountRepo->find($id);
         if (!$discount) {
-          throw $this->createNotFoundException('Advices not found!');
+          throw $this->createNotFoundException('Discounts not found!');
         }
       }
       

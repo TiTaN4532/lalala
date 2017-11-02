@@ -26,25 +26,23 @@
 {% endblock %}
   
 {% block content %}
-  <h2>{% if advices.getId %}Обновить "{{ advices.title }}"{% else %}Создать статью{% endif %}</h2>
+  <h2>{% if discount.getId %}Обновить скидку{% else %}Создать скидку{% endif %}</h2>
   <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
         {{ form_widget(form.file) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.post) }}
-    {{ form_row(form.video) }}
-      <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
-         {% for image in form.portfolio %}
-           <li>
-              {{ form_widget(image.file) }}
-              {{ form_row(image.description) }}
-           </li>
-         {% endfor %}
-       </ul>
+       <div>
+        <div><label for="salonCategory">Скидка для салона:</label></div>
+        <select name="salonCategory" required id="salonCategory" class="half">
+          <option value="">Выберите салон</option>
+          {% for salon in salonCategory %}
+            <option value="{{ salon.id }}" {% if discount.getId %}{% if discount.salon.id == salon.id  %} selected="selected"{% endif %} {% endif%}>{{ salon.name }}</option>
+          {% endfor %}
+        </select>
+        </div>
+         {{ form_row(form.description) }}
     <div>
-      <button id="cancel-advices-btn">Назад</button>
-    {{ form_widget(form.save_draft) }}
-    {{ form_widget(form.add_post) }}
+      <button id="cancel-discounts-btn">Назад</button>
+    {{ form_widget(form.save) }}
+  
     </div>
          {# {{ form_rest(form) }} #}
          {{ form_row(form._token) }}
@@ -52,15 +50,15 @@
   </form>
   <script>
       $(document).ready(function(){
-        $('#cancel-advices-btn').click(function() {
-               window.location = Routing.generate('la_net_admin_advices');
+        $('#cancel-discounts-btn').click(function() {
+               window.location = Routing.generate('la_net_admin_discounts_main');
             });
-        {% if advices.id %}
+        {% if discount.id %}
         $('.remove-image').click(function(event) {
         event.preventDefault();
           var el = $(this);
           $.ajax({
-              url         : Routing.generate('la_net_admin_advices_remove_image', {'id': {{ advices.id }}}),
+              url         : Routing.generate('la_net_admin_discounts_remove_image', {'id': {{ discount.id }}}),
               success     : function(data) {
                 if(data) { 
                   el.prev('img').remove();
@@ -69,13 +67,7 @@
       })
       {% endif %}
         });
-          {% if not advices.id %}
-        window.onload = function () {
-            var id_tiny = tinymce.editors[0].id;
-            tinymce.get(id_tiny).setContent('');
-         };
-                        {% endif %}
-        
+          
         
   </script>
 {% endblock %}

@@ -28,7 +28,7 @@ class BannersController extends BaseController {
 
     public function listAction(Request $request) {
         $banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')
-                ->findAll();
+                ->findAllBanners();
         $pagination = $this->paginator->paginate(
                 $banners, $this->getRequest()->query->get('page', 1), 1000
         );
@@ -122,4 +122,22 @@ class BannersController extends BaseController {
         return $this->redirect($banner->getLink());
     }
 
+    public function isDraftAction(Request $request, $id)
+    {
+        $banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')->find($id);
+       
+       if ($banners-> getIsDraft() == 1){
+           $banners-> setIsDraft(NULL);
+        }
+         else{
+            $banners-> setIsDraft(1);
+         }
+      
+        $this->manager->persist($banners);
+        $this->manager->flush();
+
+        return new JsonResponse( 1 );
+    }
+       
+    
 }

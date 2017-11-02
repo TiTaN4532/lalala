@@ -69,7 +69,7 @@ textarea {
   border-radius: 0;
   box-sizing: border-box;
   width: 100%;
-  font-family: 'Comfortaa';
+  font-family: 'Comfortaa Regular';
 }
 input[type="text"].half, input.half[type="password"],
 input.half[type="email"],
