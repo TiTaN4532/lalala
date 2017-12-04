@@ -1,11 +1,69 @@
 la_net_la_net_brands_list:
-    pattern:  /brands
+    pattern:  /brands/list
     defaults: { _controller: LaNetLaNetBundle:Brand:brandList }
    
 la_net_la_net_brands_id:
-    pattern:  /brands/{slug}
+    pattern:  /brands/brand/{slug}
     defaults: { _controller: LaNetLaNetBundle:Brand:brandId }
     
 la_net_la_net_brands_validation:
     pattern:  /brands/validation/{uniqId}
     defaults: { _controller: LaNetLaNetBundle:Brand:validation, uniqId: default_uniqId  }
+    
+la_net_la_net_brands_profile:
+    pattern:  /brands/profile
+    defaults: { _controller: LaNetLaNetBundle:Brand:profile }
+
+la_net_la_net_brands_change_pass:
+    pattern:  /brands/change_password
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+
+la_net_la_net_brands_profile_product_category:
+    pattern:  /brands/profile/productCategory
+    defaults: { _controller: LaNetLaNetBundle:Brand:listCategoryProfile }
+ 
+la_net_la_net_brands_profile_product_category_create:
+    pattern:  /brands/profile/productCategory/create
+    defaults: { _controller: LaNetLaNetBundle:Brand:editCategoryProfile }
+    
+la_net_la_net_brands_profile_product_category_edit:
+    pattern:  /brands/profile/productCategory/{id}
+    defaults: { _controller: LaNetLaNetBundle:Brand:editCategoryProfile }
+
+la_net_la_net_brands_profile_product_category_delete:
+    pattern:  /ajax/brands/profile/productCategory/delete/{id}
+    defaults: { _controller: LaNetLaNetBundle:Brand:deleteCategoryProfile }
+    options:
+        expose: true
+        
+la_net_la_net_brands_profile_products:
+    pattern:  /brands/profile/products
+    defaults: { _controller: LaNetLaNetBundle:Brand:listProductsProfile }
+        
+la_net_la_net_brands_profile_products_create:
+    pattern:  /brands/profile/products/create
+    defaults: { _controller: LaNetLaNetBundle:Brand:editProductsProfile }
+    options:
+        expose: true
+    
+la_net_la_net_brands_profile_products_edit:
+    pattern:  /brands/profile/products/edit/{id}
+    defaults: { _controller: LaNetLaNetBundle:Brand:editProductsProfile }
+    
+la_net_la_net_brands_profile_products_delete:
+    pattern:  /ajax/brands/profile/products/delete/{id}
+    defaults: { _controller: LaNetLaNetBundle:Brand:deleteProductsProfile }
+    options:
+        expose: true
+ 
+la_net_la_net_news_product_image:
+    pattern:  /ajax/brands/profile/products/remove_image/{id}
+    defaults: { _controller: LaNetLaNetBundle:Brand:removeImageProductsProfile }
+    options:
+        expose: true
+        
+la_net_la_net_ajax_brands_profile_products_select_category:
+    pattern:  /ajax/brands/profile/products/select_category/{id}
+    defaults: { _controller: LaNetLaNetBundle:Brand:ajaxProductsProfileSelectCategory }
+    options:
+        expose: true    

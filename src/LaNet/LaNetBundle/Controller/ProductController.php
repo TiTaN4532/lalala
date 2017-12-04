@@ -11,9 +11,9 @@ class ProductController extends BaseController
     {
         $request = Request::createFromGlobals();
         
-        $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
+        $brandCategory = $this->manager->getRepository('LaNetLaNetBundle:BrandsCategory')->findAll();
         
-        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->getBrandOnMasterCategory();
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->getBrandOnBrandsCategory();
              
         $product_cat = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->getProductsCategory();
         
@@ -32,7 +32,7 @@ class ProductController extends BaseController
          
         }
         return $this->render('LaNetLaNetBundle:Product:list.html.twig', array('products' => $products,
-                                                                              'masterCategory' => $masterCategory,  
+                                                                              'masterCategory' => $brandCategory,  
                                                                               'brands' => $brands,
                                                                               'product_cat' => $product_cat,
                                                                               'product_sub_cat' => $product_sub_cat,

@@ -1,0 +1,33 @@
+la_net_admin_upcoming_events:
+    pattern:  /upcomingEvents
+    defaults: { _controller: LaNetAdminBundle:UpcomingEvents:eventsList }
+    options:
+        expose: true
+    
+la_net_admin_upcoming_events_add:
+    pattern:  /upcomingEvents/create
+    defaults: { _controller: LaNetAdminBundle:UpcomingEvents:edit }
+    options:
+        expose: true
+        
+la_net_admin_ajax_inTop_upcoming_event:
+    pattern:  /ajax/inTop_upcomingEvents/{id}
+    defaults: { _controller: LaNetAdminBundle:UpcomingEvents:inTop }
+                
+la_net_admin_upcoming_events_edit:
+    pattern:  /upcomingEvents/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:UpcomingEvents:edit }
+    options:
+        expose: true
+
+la_net_admin_upcoming_events_delete:
+    pattern:  /ajax/upcomingEvents/delete/{id}
+    defaults: { _controller: LaNetAdminBundle:UpcomingEvents:delete }
+    options:
+        expose: true   
+
+la_net_admin_upcoming_events_remove_image:
+    pattern:  /ajax/upcomingEvents/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:UpcomingEvents:removeImage }
+    options:
+        expose: true

@@ -1,0 +1,29 @@
+la_net_admin_brands_categories_list:
+    pattern:  /brands/category
+    defaults: { _controller: LaNetAdminBundle:BrandsCategory:list }
+
+la_net_back_admin_delete_brands_category:
+    pattern:  /ajax/delete_brands_category/{id}
+    defaults: { _controller: LaNetAdminBundle:BrandsCategory:DeleteCategory }
+    options:
+        expose: true
+    requirements:
+      id: \d+
+      
+la_net_admin_brands_categories_add:
+    pattern:  /brands/category/create
+    defaults: { _controller: LaNetAdminBundle:BrandsCategory:edit }
+    options:
+        expose: true
+        
+la_net_admin_brands_categories_edit:
+    pattern:  /brands/category/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:BrandsCategory:edit }
+    options:
+        expose: true
+        
+la_net_admin_brands_categories_remove_image:
+    pattern:  /ajax/brands/category/remove_image/{id}
+    defaults: { _controller: LaNetAdminBundle:Brand:removeImage }
+    options:
+        expose: true

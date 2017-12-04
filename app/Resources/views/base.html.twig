@@ -3,6 +3,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
+        <meta property="fb:app_id" content="1540865079331046" />
         <meta name="description" content="Всеукраинский портал индустрии красоты и здоровья"/>
         <title>{% block title %}Lalook{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -16,6 +17,9 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
             <script src="{{ asset('js/slick.min.js') }}"></script>
             
+            <link rel="stylesheet" href="{{ asset('css/jquery.rating.css') }}">
+            <script type="text/javascript" src="{{ asset('js/rating/jquery.rating-2.0.min.js') }}"></script>
+            
 {#            <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />#}
             <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
             <link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">
@@ -24,7 +28,7 @@
             <script src="{{ asset('js/toastr/toastr.js')}}"></script>
             <link rel="stylesheet" href="{{ asset('js/toastr/toastr.css')}}" >
             <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-
+            <script type="text/javascript">main_css = "{{ asset('css/style.css') }}, {{ asset('css/custom_styles.css') }} "</script>
 
 
         {% endblock %}
@@ -634,7 +638,43 @@
         });
     });
    
-            </script>           
+            </script>     
+            
+<script>
+  $(document).ready(function(){
+       
+    function Banner (id, time) {
+    var i=1;
+    var id = id;   
+    
+        function ShowBanner() {
+            if (i>$("#banners-group-"+id+"").children('div').length){
+                i=1;
+                $("#banners-group-"+id+"").children('[banner-index]').hide();
+                $("#banners-group-"+id+"").children('[banner-index= '+i+']').show();
+              }
+            else {
+                $("#banners-group-"+id+"").children('[banner-index]').hide();
+                $("#banners-group-"+id+"").children('[banner-index= '+i+']').show();
+              }  
+                i++;
+            }
+
+    function start() {
+       setInterval(ShowBanner, time);
+    }
+     start(); 
+    }     
+   
+   Banner (1, 10000);
+   Banner (2, 10000);
+   Banner (3, 10000);
+    
+  });
+  
+</script>
+       
+            
          
     <script>
 

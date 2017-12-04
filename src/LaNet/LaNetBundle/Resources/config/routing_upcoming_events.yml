@@ -1,0 +1,8 @@
+la_net_la_net_upcoming_events_list:
+    pattern:  /upcomingEvents
+    defaults: { _controller: LaNetLaNetBundle:UpcomingEvents:eventsList }
+    
+la_net_la_net_upcoming_events_id:
+    pattern:  /upcomingEvents/{slug}
+    defaults: { _controller: LaNetLaNetBundle:UpcomingEvents:eventsId }
+    

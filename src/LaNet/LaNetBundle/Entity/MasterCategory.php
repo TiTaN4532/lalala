@@ -27,11 +27,7 @@ class MasterCategory
      */
     private $master;
     
-    /**
-     * @ORM\ManyToMany(targetEntity="Brand", mappedBy="masterCategory")
-     */
-    private $brand;
-    
+       
         /**
      * @ORM\ManyToMany(targetEntity="Salon", mappedBy="category")
      */

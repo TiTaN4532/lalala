@@ -68,6 +68,10 @@ la_net_la_net_Events_routes:
   resource: "routing_events.yml"
   prefix: /
   
+la_net_la_net_Upcoming_Events_routes:
+  resource: "routing_upcoming_events.yml"
+  prefix: /
+  
 la_net_la_net_Tests_routes:
   resource: "routing_tests.yml"
   prefix: /

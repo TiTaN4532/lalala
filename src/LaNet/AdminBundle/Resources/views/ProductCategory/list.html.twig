@@ -14,11 +14,11 @@
           </div>
         {% endfor %} 
     <h2>Список категорий</h2>
-    <a href="{{ path('la_net_admin_product_category_create') }}">Добавить категорию</a>
+    <a href="{{ path('la_net_admin_product_category_create') }}?id_brand={{brand}}">Добавить категорию</a>
       <ul>
         {% for category in categories %}
             <li>
-              <a href="{{ path('la_net_admin_product_category_edit', {'id': category.id}) }}">{{ category.name }}</a><a class="float-right delete-category" href="{{ path('la_net_admin_product_category_delete', {'id' : category.id })}}">Удалить</a>
+              <a href="{{ path('la_net_admin_product_category_edit', {'id': category.id}) }}?id_brand={{brand}}">{{ category.name }}</a><a class="float-right delete-category" href="{{ path('la_net_admin_product_category_delete', {'id' : category.id })}}">Удалить</a>
               <hr />
             </li>
         {% endfor %}

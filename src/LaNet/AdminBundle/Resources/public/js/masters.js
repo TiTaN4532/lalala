@@ -76,7 +76,7 @@ function hideShowInput () {
 
 $(document).ready(function(){
   
-    $('a.remove-master').click(function() {
+    $('a.remove-master').click(function(event) {
       event.preventDefault();
       if(confirm("Уверены что хотите удалить?")) {
         var link = $(this);

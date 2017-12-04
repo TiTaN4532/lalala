@@ -81,6 +81,12 @@ class Articles extends \LaNet\LaNetBundle\Model\UploadImages
     protected $updated;
     
     /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $date;
+    
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $image;
@@ -436,5 +442,27 @@ class Articles extends \LaNet\LaNetBundle\Model\UploadImages
     public function getinTop()
     {
         return $this->inTop;
+    }
+     /**
+     * Set inTop
+     *
+     * @param \DateTime $date
+     * @return Articles
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    
+        return $this;
+    }
+
+    /**
+     * Get inTop
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

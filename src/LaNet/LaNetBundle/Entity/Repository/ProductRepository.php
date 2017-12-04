@@ -10,19 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductRepository extends EntityRepository
 {
    
-    public function findFilteredProducts($peginator = false, $onPage = 1)
+    public function findFilteredProducts($peginator = false, $onPage = 1, $brand='')
     {
       $request = Request::createFromGlobals();
       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));      
-      $masterCategory ='';
+      $brandCategory ='';
       $product_sub_cat = "";
       $product_cat = "";
         
       if ($request->get('category')){
-        $masterCategory = "p.masterCategory ='" . $request->get('category') ."' AND ";
+        $brandCategory = "p.brandCategory ='" . $request->get('category') ."' AND ";
       }     
       
-      $brand = ($request->get('brand')) ? " AND p.brand ='" . $request->get('brand') ."'" : "";
+      $brand = ($brand) ? " AND p.brand ='" . $brand ."'" : "";
            
             if ($request->get('product_sub_cat')) 
                 {
@@ -59,7 +59,7 @@ class ProductRepository extends EntityRepository
      
      
            
-      $query = $this->_em->createQuery("SELECT p FROM LaNetLaNetBundle:Product p WHERE " .$masterCategory."(p.name LIKE :like)".$brand.$product_cat.$product_sub_cat)
+      $query = $this->_em->createQuery("SELECT p FROM LaNetLaNetBundle:Product p WHERE " .$brandCategory."(p.name LIKE :like)".$brand.$product_cat.$product_sub_cat)
                                      ->setParameters(array('like' => '%'.strtolower($searchterm).'%'));
       if ($peginator) {                 
         $page = $request->query->get('page', 1);
@@ -68,6 +68,15 @@ class ProductRepository extends EntityRepository
       else {
         return $query->getResult();
       }
+    }
+    
+    public function findFilteredProductsByBrand($brand)
+    {
+        if($brand){
+            
+        $query = $this->_em->createQuery("SELECT p FROM LaNetLaNetBundle:Product p WHERE p.brand = $brand");
+        return $query->getResult();
+        }
     }
     
     

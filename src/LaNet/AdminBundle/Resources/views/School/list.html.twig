@@ -48,7 +48,8 @@
                 <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
                     <a href="javascript:void(0)" class="remove-school button" data="{{ school.user.id }}">Удалить</a>
                      <a href="{{ path('la_net_admin_ajax_inTop_school', {'id': school.id} ) }}" class="update-post button">{% if school.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a>
-                    {#<a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>#}
+                    <a href="{{ path('la_net_admin_ajax_premium_school', {'id': school.id} ) }}" class="premium button">{% if school.getUser.premium == NULL %}Добавить премиум{% else %}Удалить премиум{% endif %}</a>
+                     {#<a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>#}
                 </div>
             </div>
            <div class="clear"></div>
@@ -85,6 +86,23 @@
 
                     } else {
                             element.text('Вывести в ТОП')
+                    }
+                }
+            });
+          });
+          
+            $('.premium').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    
+                    if (element.text() == "Добавить премиум"){
+                            element.text('Удалить премиум')
+            
+                    } else {
+                            element.text('Добавить премиум')
                     }
                 }
             });

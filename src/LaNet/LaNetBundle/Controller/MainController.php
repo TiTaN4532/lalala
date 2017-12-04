@@ -20,8 +20,40 @@ class MainController extends BaseController {
         $trusts = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('trust', 3);
         $events = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('event', 5);
         $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findBrandCategoryOnMainPage();
+        $gallery = $this->manager->getRepository('LaNetLaNetBundle:Image')->findBy(array('gallery' => 1));
         
-        $linkNew=false;
+        if ($gallery){
+            foreach ($gallery as $image){
+                
+                $event = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findOneBy(array('id' => $image->getArticle()->getId()));
+                $image->slug = $event->getSlug();
+                        
+                $gallery[] = $image;
+            }
+        }
+        
+        $gallery = $this->shuffle_assoc($gallery);
+                   
+        
+        if ($events){
+            foreach ($events as $event){
+                $link = $event->getVideo();
+                if ($link) {
+                    $pattern ='%embed[^? | "]+%';
+                    preg_match($pattern, $link, $matches);
+
+                    if ($matches){
+                        $linkNew = mb_strcut ($matches[0], 6);
+                        $event->newLink = $linkNew;
+
+                    }
+                }
+                $events[]=$event;
+            }
+        }
+        
+        
+        /*$linkNew=false;
         
         if ($events){
            $link = $events[0]->getVideo();
@@ -35,6 +67,11 @@ class MainController extends BaseController {
                 }
             }
         }
+        */
+        
+        
+        
+        
         
         $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMastersOnMainPage(4);
         $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage(4);
@@ -43,32 +80,55 @@ class MainController extends BaseController {
         return $this->render('LaNetLaNetBundle::layout.html.twig', array('advices' => $advices,
                                                                          'tests' => $tests,
                                                                          'trusts' => $trusts,
-                                                                         'linkNew' => $linkNew,
+                                                                         //'linkNew' => $linkNew,
                                                                          'masters' => $masters,
                                                                          'salons' => $salons,
                                                                          'brandCat' => $brands,
                                                                          'schools' => $schools,
+                                                                         'gallery' => $gallery,
                                                                          'events' => $events));
     }
     
     public function sideBarAction() {
         
         $adverts = $this->manager->getRepository('LaNetLaNetBundle:Adverts')->findListAdvertsOnMainPage(3);
-        $banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')->findBannersOnMainPage(3);
+        //$banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')->findBannersOnMainPage(3);
         $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findListNewsOnMainPage(5);
         $discounts = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findDiscountsOnMainPage(3);
+        $eventsSideBar = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findUpcomingEventsOnMainPage(1);
       
-        /*$newArr = array();
-        foreach ($banners as $value) {
-            
-           $newArr[] = $value->getName();
+                
+        $bannersGroup1 = $this->manager->getRepository('LaNetLaNetBundle:Banners')->findBannersByGroup(1);
+        $bannersGroup2 = $this->manager->getRepository('LaNetLaNetBundle:Banners')->findBannersByGroup(2);
+        $bannersGroup3 = $this->manager->getRepository('LaNetLaNetBundle:Banners')->findBannersByGroup(3);
+        
+        $banners = array();
+
+            if ($bannersGroup1){
+                $banners[1] = $bannersGroup1;
+            }
+            if ($bannersGroup2){
+                $banners[2] = $bannersGroup2;
+            }
+            if ($bannersGroup3){
+                $banners[3] = $bannersGroup3;
+            }
+        
+        /*foreach ($bannersGroup as $value) {
+           
+           foreach ($value as $banner)
+           
+           
+           $newArr[] = $banner->getName();
             
         }
         print_r ($newArr);
         exit();
-       */
+        */
+       
         return $this->render('LaNetLaNetBundle::sideBar.html.twig', array('bannersSideBar' => $banners,
                                                                          'newsSideBar' => $news,
+                                                                         'EventsSideBar' => $eventsSideBar,
                                                                          'discountsSideBar' => $discounts,
                                                                          'advertsSideBar' => $adverts));
     }
@@ -171,5 +231,21 @@ class MainController extends BaseController {
               }
        }
     }
+    
+    
+     public function shuffle_assoc ($list) 
+             { 
+    if (!is_array($list)) return $list; 
+
+        $keys = array_keys($list); 
+        shuffle($keys); 
+        $random = array(); 
+           
+        foreach ($keys as $key){ 
+                 $random[$key] = $list[$key]; 
+               }  
+               
+    return $random; 
+} 
 
 }

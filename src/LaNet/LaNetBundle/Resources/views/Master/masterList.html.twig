@@ -29,7 +29,7 @@
               {% endfor %}
             </select>
         {% endif %}
-        <div><input type="submit" value="Фильтровать"></div>
+        <div><input type="submit" value="Поиск"></div>
     </form>
 </div>
 
@@ -80,14 +80,13 @@
                             
                                 <div class="masters-item clearfix">
                                     <div class="masters-item-img">
-                                        <img src="{{ asset(master.getWebPath| imagine_filter('my_masters_list'))}}" />
+                                        <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}"><img src="{{ asset(master.getWebPath| imagine_filter('my_masters_list'))}}" /></a>
                                     </div>
                                     <div class="masters-item-info">
-                                       <h3 class="masters-item-title {% if master.inTop != NULL%} starred {% endif%}">{{ master.firstName }} {{ master.lastName }}</h3>
+                                        <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}"><h3 class="masters-item-title {% if master.inTop != NULL%} starred {% endif%}">{{ master.firstName }} {{ master.lastName }}</h3></a>
                                             {% if master.category is not empty %}
                                                 <div class="masters-item-profession">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
                                             {% endif %}
-                                        <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}" class="read-more">Читать полностью...</a>
                                     </div>
                                 </div>
                            

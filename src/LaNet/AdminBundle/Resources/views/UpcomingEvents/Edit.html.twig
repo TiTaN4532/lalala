@@ -1,0 +1,74 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+ 
+{% block stylesheets %}
+      {{ parent() }}
+        <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
+        <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+       <script src="{{ asset('bundles/lanetlanet/js/mastersPortfolio.js') }}"></script>
+  {% endblock %}
+      
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div class="float-left">
+          <img id="{{id}}_image" style="width:400px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+  
+{% block content %}
+  <h2>{% if events.getId %}Обновить "{{ events.title }}"{% else %}Создать событие{% endif %}</h2>
+  <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
+        {{ form_widget(form.file) }}
+    {{ form_row(form.title) }}
+    
+    {{ form_row(form.post) }}
+   
+   
+        <button id="cancel-events-btn">Назад</button>
+    {% if events.getIsDraft() == '1' %} {{ form_widget(form.public) }}  {% do form.draft.setRendered %}{% endif %}
+    {% if events.getIsDraft() == NULL %} {{ form_widget(form.draft) }}  {% do form.public.setRendered %} {% endif %}
+   
+    {{ form_widget(form.add_post) }}
+     {{ form_rest(form) }} 
+  
+  </form>
+  <script>
+      $(document).ready(function(){
+          $('#cancel-events-btn').click(function() {
+               window.location = Routing.generate('la_net_admin_upcoming_events');
+            });
+        {% if events.id %}
+        $('.remove-image').click(function(event) {
+        event.preventDefault();
+          var el = $(this);
+          $.ajax({
+              url         : Routing.generate('la_net_admin_upcoming_events_remove_image', {'id': {{ events.id }}}),
+              success     : function(data) {
+                if(data) { 
+                  el.prev('img').remove();
+                  el.remove(); } }
+          })
+      })
+      {% endif %}
+            });
+            
+              {% if not events.id %}
+        window.onload = function () {
+            var id_tiny = tinymce.editors[0].id;
+            tinymce.get(id_tiny).setContent('');
+         };
+                        {% endif %}
+        
+  </script>
+{% endblock %}
+

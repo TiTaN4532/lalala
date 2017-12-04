@@ -8,11 +8,7 @@ use Doctrine\ORM\EntityRepository;
 class UserRepository extends EntityRepository
 {
     
-    public function __construct()
-    {
-        print 123;
-        exit();
-    }
+    
     public function findByyRole($like)
     {
       if($like)

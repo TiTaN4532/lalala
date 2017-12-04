@@ -30,7 +30,7 @@
 {% endblock %}
       
 {% block profile_content %}
-<h1>Портфолио</h1>
+<h1>Портфолио {{ premium }} </h1>
 
 <form action="" {{ form_enctype(form) }} method="POST">
         <div class="row errors">
@@ -42,16 +42,23 @@
            <li>
               {{ form_widget(image.file) }}
               {{ form_row(image.description) }}
+              {{ form_widget(image.gallery, { 'attr': {'class': 'hidden-row'} }) }}
            </li>
          {% endfor %}
        </ul>
        {{ form_row(form.save) }}
         {{ form_row(form._token) }}
         
+        
 </form>
- <script>       
+ {% if premium == 1 %} 
+  
+ {% else %}
+     
+        <script>       
     $(document).ready(function(){ 
         
+        console.log('123');
         
         if (($('ul.images li').size()-1) > 9){
              $('#add-new-image').hide()       
@@ -77,4 +84,5 @@
     });
   </script>      
         
+{% endif %}
 {% endblock %}

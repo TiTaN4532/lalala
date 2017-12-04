@@ -1,0 +1,76 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %} 
+
+
+{% block stylesheets %}
+      {{ parent() }}
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/productCategory.js') }}"></script>
+  {% endblock %}
+ 
+ 
+        
+      
+{% block content %}
+    {% block menu %}
+  {% include "LaNetLaNetBundle:Brand:menu.html.twig" %}
+{% endblock %}
+  {% for flashMessage in app.session.flashbag.get('notice_product_category') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %} 
+    <h2>Список категорий</h2>
+    <a class="btn" href="{{ path('la_net_la_net_brands_profile_product_category_create') }}">Добавить категорию</a>
+      <ul style="padding-top: 20px;">
+          
+          {% for category in categories %}
+ 
+  <div class="row clear">
+    {% if not loop.first %} <hr /> {% endif %}
+    <div class="col col_1_of_3"><a href="{{ path('la_net_la_net_brands_profile_product_category_edit', {'id': category.id}) }}">{{ category.name }}</a></div>
+    
+     
+    
+    
+      <div align="right" class="col col_3_of_3">
+          {#<a href="{{ path('la_net_la_net_salon_profile_discounts_isDraft', {'id': discount.id} ) }}" class="update-post button">{% if discount.getIsDraft == 1 %}Активировать{% else %}Деактивировать{% endif %}</a>#}
+          <a href="{{ path('la_net_la_net_brands_profile_product_category_edit', {'id': category.id}) }}" class="button">Редактировать</a>
+         <a href="{{ path('la_net_la_net_brands_profile_product_category_delete', {'id' : category.id })}}" class="delete-category button">Удалить</a>
+      </div>
+  </div>
+          
+       
+{% else %}
+  Список пуст
+{% endfor %}        
+          
+          
+          
+          
+          
+        
+      <script>
+                $(document).ready(function() {
+                $('.delete-category').click(function(event) {
+              event.preventDefault();
+            if (confirm("Вы уверены что хотите удалить эту категорию?")) {
+            var element = $(this);
+              $.ajax({
+                  url         : element.attr('href'),
+                  success     : function(data) {
+                    if(data.success) 
+                      element.parent().remove();
+                    else 
+                      alert('Probably there are products related to this category');
+              }
+              });
+            }
+              
+            });
+            
+             
+         })
+    
+             
+      </script>   
+{% endblock %}

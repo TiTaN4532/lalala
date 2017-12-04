@@ -14,7 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
              -> add('name', 'text', array('label' => 'Название:'))
              -> add('country', 'text', array('label' => 'Страна производитель:', 'required' => false))
              -> add('link', 'text', array('label' => 'Сайт:', 'required' => false))
-             -> add('description', 'textarea', array('label' => 'Описание:'))
+             -> add('linkAdd', 'text', array('label' => 'Дополнительный сайт:', 'required' => false))
+             -> add('description', 'textarea', array('label' => 'Описание:', 'required' => false, 'attr' => array('class' => "TextEditor")))
              ->add('phone', 'text', array('label' => 'Телефон:', 'required' => false))
              ->add('mail', 'email', array('label' => 'Email адрес'))
              /*->add('category', 'collection', array( 'type'         => new BrandCategoryType(),
@@ -30,6 +31,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
                   'multiple'     => true,
                   'expanded' => true
                 )) */
+            ->add('brandsCategory', 'entity', array(
+                  'attr' => array('class' => 'category-list'),
+                  'label' => 'Категории бренда:',
+                  'class' => 'LaNet\LaNetBundle\Entity\BrandsCategory',
+                  'property'     => 'name',
+                  'multiple'     => true,
+                  'expanded' => true
+                ))
              -> add('save', 'submit', array('label' => 'Сохранить'))
              -> add('add_brand', 'submit', array('label' => 'Сохранить'));
   }

@@ -1,0 +1,23 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block slider %}
+{% endblock %}
+{% block content %}
+<a href="{{ path('la_net_la_net_upcoming_events_list') }}" class="button grey" style="margin-top: 20px;">Назад к списку событий</a>
+            
+  <div class="row">
+    <h3 style="color:#2d93b2;text-align: center;">{{ events.title | upper}}</h3>
+    <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ events.getWebPath | imagine_filter('my_news_big')}}" style="width:100%;" /></div>
+    <div class="col col_1_of_1">
+        {{ events.post | raw}}
+    </div>
+     
+    {#<div class="col col_1_of_2" style="color:#2d93b2;">
+        Добавлена на сайт {{ events.updated | localizeddate('long', 'short')}}
+    </div>#}
+    {#<div class="col col_1_of_2" style="color:#2d93b2;">
+        Отправить:
+    </div>#}
+    
+  </div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+ 
+{% block stylesheets %}
+      {{ parent() }}
+      <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/brand_category_collection.js') }}"></script>
+  {% endblock %}
+      
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div>
+          <img id="{{id}}_image" style="width:200px;" src="{% if image_url is empty %}{{ asset('uploads/images/default.png') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Выберите файл</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+        
+  {% macro category_prototype(mail) %}
+   {{ form_widget(mail.file) }}
+   {{ form_row(mail.name) }}
+   {{ form_row(mail.description) }}
+{% endmacro %}
+
+{% form_theme form 'LaNetLaNetBundle:Form:fields.html.twig' %}
+
+  
+{% block content %}
+  <h2>{% if brand.getId %}Обновить "{{ brand.name }}"{% else %}Создать {% endif %} бренд</h2>
+  <form action="" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form.file) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.country) }}
+    {{ form_row(form.brandsCategory) }}
+     {#<label>Линейки:</label>
+    <ul style="padding:0px;" class="category" data-prototype="{{ _self.category_prototype(form.category.vars.prototype)|e }}">
+        {% for item in form.category %}
+            <li>{{ form_widget(item.file) }}
+                {{ form_row(item.name) }}
+                {{ form_row(item.description) }}</li>
+        {% endfor %}
+    </ul>#}
+    {{ form_row(form.link) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.mail) }}
+    {{ form_row(form.description) }}
+   
+    
+    {{ form_row(form._token) }}
+    <div>
+      <button id="cancel-brand-btn">Назад</button>
+     
+           {{ form_widget(form.save) }}
+    
+    </div>
+  </form>
+  <script>
+      $(document).ready(function(){
+          $('#cancel-brand-btn').click(function() {
+             window.location = Routing.generate('la_net_admin_brand');
+            });
+        {% if brand.id %}
+        $('.remove-image').click(function(event) {
+        event.preventDefault();
+          var el = $(this);
+          $.ajax({
+              url         : Routing.generate('la_net_admin_brand_remove_image', {'id': {{ brand.id }}}),
+              success     : function(data) {
+                if(data) { 
+                  el.prev('img').remove();
+                  el.remove(); } }
+          })
+      })
+      {% endif %}
+        });
+        
+        
+          {% if not brand.id %}
+        window.onload = function () {
+            var id_tiny = tinymce.editors[0].id;
+            tinymce.get(id_tiny).setContent('');
+         };
+                        {% endif %}
+  </script>
+{% endblock %}

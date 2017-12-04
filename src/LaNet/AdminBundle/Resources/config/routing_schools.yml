@@ -16,6 +16,10 @@ la_net_admin_schools_ajax:
     options:
         expose: true
 
+la_net_admin_ajax_premium_school:
+    pattern:  /ajax/premium_school/{id}
+    defaults: { _controller: LaNetAdminBundle:School:premium }
+
 la_net_admin_ajax_inTop_school:
     pattern:  /ajax/inTop_school/{id}
     defaults: { _controller: LaNetAdminBundle:School:inTop }

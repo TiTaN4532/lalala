@@ -48,6 +48,13 @@ class Banners extends \LaNet\LaNetBundle\Model\UploadImages
     protected $priority;
     
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $group_id;
+    
+    
+    
+    /**
      * @ORM\Column(type="boolean", nullable = true)
      */
     protected $is_draft;
@@ -154,6 +161,31 @@ class Banners extends \LaNet\LaNetBundle\Model\UploadImages
     {
         
         return $this->priority;
+        
+    }
+     /**
+     * Set group_id
+     *
+     * @param string $group_id
+     * @return Banners
+     */
+    public function setGroupId($value)
+    {
+        
+        $this->group_id = $value;
+    
+        return $this;
+    }
+
+    /**
+     * Get group_id
+     *
+     * @return integer 
+     */
+    public function getGroupId()
+    {
+        
+        return $this->group_id;
         
     }
     

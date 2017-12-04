@@ -92,7 +92,11 @@ class MasterController extends BaseController
     
     public function profilePortfolioAction(Request $request)
     {
-        $master = $this->user->getMasterInfo();
+        
+        $master = $this->user->getMasterInfo(); 
+        $premium = $this->user->getPremium();
+       
+        
         $form = $this->createForm(new LaForm\MasterPortfolioType(), $master);
         
         if ('POST' == $request->getMethod()) {
@@ -111,7 +115,7 @@ class MasterController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_master_profile_portfolio'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Master:profilePortfolio.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Master:profilePortfolio.html.twig', array('premium' => $premium, 'form' => $form->createView()));
     }
     
     public function profileServicePriceAction(Request $request)
@@ -205,7 +209,9 @@ class MasterController extends BaseController
     
     public function masterIdAction(Request $request, $id)
     {
-      $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
+        
+     
+     $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
       if (!$master) {
           throw $this->createNotFoundException('Master not found!');
         }

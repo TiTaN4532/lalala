@@ -1,0 +1,116 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+{% form_theme form 'LaNetLaNetBundle:Form:fields_profile.html.twig' %}
+
+{% block stylesheets %}
+      {{ parent() }}
+            
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+       <script src="{{ asset('bundles/lanetlanet/js/mastersPortfolio.js') }}"></script>
+  {% endblock %}
+
+{% block slider %}
+    {% endblock %}
+{% block content %}
+ 
+       
+   <div id="adverts" style="display: none">
+       <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
+        <div class="row errors">{{ form_errors(form) }}</div>
+            {{ form_widget(form.file) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.post) }}
+           
+ <a href="#" class="button" id="hide-advert-btn">Скрыть</a>
+            {{ form_widget(form.add_post) }}
+            {{ form_row(form._token) }}
+            
+ 
+        </form>
+    </div>    
+        
+    <section class="holder">
+                    <div class="advert-wrap">
+                        <div class="text-center">
+                            <a href="#" class="btn" id="add-advert-btn">Создать событие</a>
+                        </div>
+                        
+    <div id="advert-success-message">  
+       {% for flashMessage in app.session.flashbag.get('notice_upcoming_events') %}
+            <div class="flash-notice success">
+               <h4> {{ flashMessage }} </h4>
+            </div>
+        {% endfor %}
+    </div>
+    
+                        <hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
+        
+ <section class="holder">
+                   
+                    <div class="row-fluid">
+                        <div class="span10">
+                            {% for post in eventsList %}  
+                                        <div class="info-block clearfix"><article class="top-news-item is-horizontal clearfix">
+                                        <a href="{{ path('la_net_la_net_upcoming_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath)}}" alt="placeholder"></a>
+                                        <h3 class="item-title" style="margin-left: 40%;"><a href="{{ path('la_net_la_net_upcoming_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+                                        </article>  </div>
+                            {% else %}
+                                 Пока событий нет                      
+                            {% endfor %}                            
+                        </div>
+                     </div>
+                </section>
+                                  
+
+                    
+                        {#<div class="row clear pagination">
+                            <div class="pagination">
+                                <span class="current">1</span>
+                                <span class="page">
+                                        <a href="/club/master?page=2">2</a>
+                                    </span>
+                                                <span class="page">
+                                        <a href="/club/master?page=3">3</a>
+                                    </span>
+                                                <span class="page">
+                                        <a href="/club/master?page=4">4</a>
+                                    </span>
+                                                <span class="page">
+                                        <a href="/club/master?page=5">5</a>
+                                    </span>
+                                    <span class="next">
+                                    <a href="/club/master?page=2">&gt;</a>
+                                </span>
+                                    <span class="last">
+                                    <a href="/club/master?page=10">&gt;&gt;</a>
+                                </span>
+                            </div>
+                          </div>#}
+                    </div>
+                </section>
+
+    
+     
+  <div class="row clear pagination">
+  {{ knp_pagination_render(eventsList) }}
+  </div>
+    
+    
+    
+<script>
+      $(document).ready(function(){
+          $('#add-advert-btn').click(function() {
+            
+            $('#adverts').show();  
+            $('#add-advert-btn').hide();  
+            $('#advert-success-message').hide();  
+            });
+          $('#hide-advert-btn').click(function() {
+            
+            $('#adverts').hide();  
+            $('#add-advert-btn').show();  
+            });
+        });  
+   </script>         
+{% endblock %}
+
+            

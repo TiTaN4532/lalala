@@ -30,6 +30,10 @@ la_net_admin_ajax_inTop_master:
     pattern:  /ajax/inTop_master/{id}
     defaults: { _controller: LaNetAdminBundle:Master:inTop }
    
+la_net_admin_ajax_premium_master:
+    pattern:  /ajax/premium_master/{id}
+    defaults: { _controller: LaNetAdminBundle:Master:premium }
+   
         
 la_net_admin_masters_change_password:
     pattern:  /changepassword/{id}

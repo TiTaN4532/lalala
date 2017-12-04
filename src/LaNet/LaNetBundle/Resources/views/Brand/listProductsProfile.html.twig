@@ -1,0 +1,69 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
+
+
+     {% block content %}
+          {% block menu %}
+  {% include "LaNetLaNetBundle:Brand:menu.html.twig" %}
+{% endblock %}
+    
+{% if premium == 1 %} 
+
+  <h3>Товары</h3>
+  <div style="padding-bottom: 30px;"><button id="add-product-btn">Добавить товар</button></div>
+        {% for flashMessage in app.session.flashbag.get('notice_product') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+      
+    {% for product in pagination %}
+ 
+  <div class="row clear">
+    {% if not loop.first %} <hr /> {% endif %}
+    <div class="col col_1_of_3"><img src="{{ product.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+    <div class="col col_1_of_3">
+        <div class="row">
+           <div class="col col_1_of_2">{{ product.name }}</div>
+        </div>
+       
+    </div>
+      <div align="left" class="col col_1_of_3">
+          {#<a href="{{ path('la_net_la_net_salon_profile_discounts_isDraft', {'id': discount.id} ) }}" class="update-post button">{% if discount.getIsDraft == 1 %}Активировать{% else %}Деактивировать{% endif %}</a>#}
+          <a href="{{ path('la_net_la_net_brands_profile_products_edit', {'id': product.id}) }}" class="button">Редактировать</a>
+         <a href="{{ path('la_net_la_net_brands_profile_products_delete', {'id': product.id}) }}" class="delete-product button">Удалить</a>
+      </div>
+  </div>
+          
+       
+{% else %}
+  Список товаров пуст
+{% endfor %}        
+    
+ {{ knp_pagination_render(pagination) }}   
+    
+ {% else %}
+    
+      <h4>Данный раздел доступен только для премиум-брендов. Для активации премиум статуса свяжитесь с администраторами сайта.</h4>
+     
+    {% endif %}
+    
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('#add-product-btn').click(function() {
+              window.location = Routing.generate('la_net_la_net_brands_profile_products_create')
+          });
+          $('.delete-product').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                  if(data.success) 
+                    element.parent().parent().remove();
+            }
+            });
+          });
+      });
+  </script>
+{% endblock %}

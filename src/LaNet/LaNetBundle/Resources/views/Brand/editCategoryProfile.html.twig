@@ -1,0 +1,171 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %} 
+
+{% block stylesheets %}
+      {{ parent() }}
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/productCategory.js') }}"></script>
+  {% endblock %}
+  
+{% macro recursiveCategory(category) %}
+    
+        <div>{{ form_label(category.name) }}</div>
+       
+        <div><a class="toggle-category open2" href="">+</a>{{ form_widget(category.name) }} {#<a href="" class="toggle-desc open2">Показать описание</a>#}</div>
+        
+        {#<div class="category-desc">
+            
+            <ul class="category-desc" data-prototype="{{ form_widget(category.descriptionItem.vars.prototype)|e }}">
+                {% for item in category.descriptionItem %}
+                    <li>{{ form_row(item.name) }}</li>
+                     {% endfor %}
+            </ul>
+        </div>#}
+        
+           <div class="children-category"> 
+             <ul {% if not category.parent %} class="categories" data-prototype='<div id="product_category_children___name__">
+                                                                                    <div><label for="product_category_children___name___name" class="required">Название</label></div>
+                                                                                    <div class="input-wrapper">
+                                                                                      <a class="toggle-category open2" href="">+</a>
+                                                                                      <input type="text" class="half " id="product_category_children___name___name" name="product_category[children][__name__][name]" required="required" />
+                                                                                      {#<a href="" class="toggle-desc open2">Показать описание</a>#}
+                                                                                    </div>
+                                                                                   {# <div class="category-desc">
+                                                                                       <ul class="category-desc" data-prototype=&apos;<div id="product_category_children___name___descriptionItem___descr-name__"><div><label for="product_category_children___name___descriptionItem___descr-name___name" class="required"></label><input type="text" id="product_category_children___name___descriptionItem___descr-name___name" name="product_category[children][__name__][descriptionItem][__descr-name__][name]" required="required"    class="half" /></div></div>&apos;>
+                                                                                          <li><a href="#" class="add_item_link">Добавить описание</a></li>
+                                                                                       </ul>
+                                                                                    </div>#}
+                                                                                    <div class="children-category" id="product_category_children___name___children">
+                                                                                      <ul class="sub-categories"><li><a href="#" class="add_tag_link">Добавить категорию</a></li></ul>
+                                                                                    </div>
+                                                                                 </div>
+                                                                                 '{% else %} class="sub-categories"{% endif %}>
+                {% if category.children|length %}
+                  {% for child in category.children %}
+                      <li>{{ _self.recursiveCategory(child) }}</li>
+                  {% endfor %}
+                {% endif %}
+             </ul>
+           </div>
+        
+{% endmacro %}
+      
+      
+{% block content %}
+    {% block menu %}
+  {% include "LaNetLaNetBundle:Brand:menu.html.twig" %}
+{% endblock %}
+    
+    
+  <h2 style="padding-bottom: 20px;">Список категорий</h2>  
+  <form action="" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form)}}
+            
+    {#{{ form_row(form.brandCategory) }}  #}
+    
+    <input style="display:none;" type="text" name="brand" value="{{ brand.id }}">
+    
+    
+      {#{% if brandList is not empty %}
+        <div id="brand" style="padding-top: 10px; padding-bottom: 10px;">
+          <label for="curentBrand" class="required">Бренд</label>
+            <select name="brand" required="required" id="brand-select">
+                {% for brand in  brandList %}
+                    <option value="{{ brand.id}}"{% if brandId == brand.id %} selected="selected"  {% endif %}>{{ brand.name }}</option> 
+                {% endfor %}       
+            </select> 
+        </div>
+       {% else %}     
+         <div id="brand" style="padding-top: 10px; padding-bottom: 10px;">
+          <label for="curentBrand" class="required">Бренд</label>
+            <select name="brand" required="required" id="brand-select">
+                <option value="">Выберите бренд</option>
+            </select> 
+        </div>  
+            
+      {% endif%} #}
+      
+    {{ _self.recursiveCategory(form) }}
+    {{ form_row(form.save) }}
+    {{ form_row(form._token) }}
+  </form>
+
+  {#<script>
+  $(document).ready(function(){
+      {% if currentBrandCategory is not empty %}
+        $("#product_category_masterCategory select").val('{{currentBrandCategory}}');
+        {% endif %}
+});     
+  </script>#}
+                     
+
+  
+  {#<script>
+  $(document).ready(function(){
+       
+     var SelectedMasterCat = $("#product_category_masterCategory option:selected").val();
+     var n = $('#brand').length;
+     
+       if (typeof SelectedMasterCat != "undefined" && SelectedMasterCat !='0' && n == '0'){ 
+           
+       var val = $("#product_category_masterCategory").val(); 
+          
+        if (val != '0') {  
+            $.ajax({
+                url: Routing.generate('la_net_la_net_ajax_menu_getBrand'),
+                data: {id: val},
+                success: function (response) {
+
+                    if (response.length != 0) {
+                    var data = (response);
+                    var new_options =  '<div id="brand"><label for="brand-select">Бренд:</label><div><select name="brand" required="required" id="brand-select"><option value="">Выберите бренд</option><div>';
+                    $.each(data, function (index, value) {
+                        new_options += '<option value="'+ value.id +'">'+ value.name +'</option>';
+
+                    });
+
+                      new_options += '</select></div>';
+                  $("#product_category_masterCategory").after(new_options);
+
+                    }
+                    else {
+                        var new_options =  '<div id="brand"><label for="brand-select" class="required">Бренд:</label><div><select name="brand" required="required" id="brand-select"><option value="">Выберите бренд</option><div>';
+                         new_options += '</select></div>';
+                         $("#product_category_masterCategory").after(new_options);
+                    }
+
+    }})}}
+                     
+    $(document).on('change', '#product_category_masterCategory', function(){
+        $('#brand').remove();
+        $('#brand-form').remove();
+        $('#product_category_brand').remove();
+        var val = $("#product_category_masterCategory").val(); 
+          
+        if (val != '0') {  
+            $.ajax({
+                url: Routing.generate('la_net_la_net_ajax_menu_getBrand'),
+                data: {id: val},
+                success: function (response) {
+
+                    if (response.length != 0) {
+                    var data = (response);
+                    var new_options =  '<div id="brand"><label for="brand-select" class="required">Бренд:</label><div><select name="brand" required="required" id="brand-select"><option value="">Выберите бренд</option><div>';
+                    $.each(data, function (index, value) {
+                        new_options += '<option value="'+ value.id +'">'+ value.name +'</option>';
+
+                    });
+
+                      new_options += '</select></div>';
+                  $("#product_category_masterCategory").after(new_options);
+       
+                    }  
+                    else {
+                        var new_options =  '<div id="brand"><label for="brand-select" class="required">Бренд:</label><div><select name="brand" required="required" id="brand-select"><option value="">Выберите бренд</option><div>';
+                         new_options += '</select></div>';
+                         $("#product_category_masterCategory").after(new_options);
+                        }
+}});  }
+      
+   })});    
+    </script>#}
+{% endblock %}

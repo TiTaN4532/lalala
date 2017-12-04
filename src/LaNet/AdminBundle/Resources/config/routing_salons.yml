@@ -16,6 +16,10 @@ la_net_admin_salons_ajax:
     options:
         expose: true
 
+la_net_admin_ajax_premium_salons:
+    pattern:  /ajax/premium_salons/{id}
+    defaults: { _controller: LaNetAdminBundle:Salon:premium }
+
 la_net_admin_ajax_inTop_salon:
     pattern:  /ajax/inTop_salon/{id}
     defaults: { _controller: LaNetAdminBundle:Salon:inTop }

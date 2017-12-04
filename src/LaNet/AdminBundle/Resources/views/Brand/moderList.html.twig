@@ -1,0 +1,43 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h3>Измененные бренды</h3>
+  
+         
+        
+  {% if pagination.count %}
+      
+      <form action="">
+            <input placeholder="Поиск бренда" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+            <input style="margin-left:10px;" type="submit" value="Найти">
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Статус</th>
+                    <th>Валидация</th>
+                    <th>Редактировать бренд</th>
+                 </tr>
+            </thead>
+            <tbody>
+                {% for brand in pagination %}
+                    <tr>
+                        <td>{{ brand.name }}</td>
+                        <td>{{ brand.isdraft ? 'Скрыто' : 'Опубликовано'}}</td>
+                        <td>{{ brand.validation == 1 ? 'Подтвержден' : 'Не подтвержден' }}</td>
+                        <td><a href="{{ path('la_net_admin_brand_moderation_edit', {'id': brand.id}) }}">Редактировать</a></td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            На данный момент нет измененных брeндов.
+        </div>
+    {% endif %}
+    {{ knp_pagination_render(pagination) }}
+ 
+  
+{% endblock %}

@@ -10,18 +10,157 @@ use LaNet\AdminBundle\Form\Type as LaForm;
 
 class ProductController extends BaseController
 {
+    public function brandListAction(Request $request)
+    {
+        $name = $request->get('name');
+            
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrand($name); 
+            $pagination = $this->paginator->paginate(
+            $brands, $this->getRequest()->query->get('page', 1), 1000
+        );
+
+        return $this->render('LaNetAdminBundle:Product:BrandList.html.twig', array('pagination' => $pagination));
+    }
+    
     public function ListAction(Request $request)
     {
-        $products = $this->manager->getRepository('LaNetLaNetBundle:Product')
+        /*$products = $this->manager->getRepository('LaNetLaNetBundle:Product')
                 ->findBy(array(), array('id' => 'DESC'));
         $pagination = $this->paginator->paginate(
             $products, $this->getRequest()->query->get('page', 1), 12
-        );
+        );*/
+        $id = $request->get('id_brand');
+        
+        $products = $this->manager->getRepository('LaNetLaNetBundle:Product')->findFilteredProductsByBrand($id);
+        
+        $pagination = $this->paginator->paginate(
+            $products, $this->getRequest()->query->get('page', 1), 12);
+        
 
-        return $this->render('LaNetAdminBundle:Product:List.html.twig', array('pagination' => $pagination));
+        return $this->render('LaNetAdminBundle:Product:List.html.twig', array('pagination' => $pagination, 'brand' => $id));
     }
 
     public function editAction(Request $request, $id = null)
+    {        
+      $brandId = $request->get('id_brand');
+      $productRepo = $this->manager->getRepository('LaNetLaNetBundle:Product');
+      $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('parent' => NULL, 'brand' => $brandId));
+      $brandCategory = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findBrandCategoryByBrand ($brandId);
+      $brand = $this->manager->getRepository('LaNetLaNetBundle:Brand')->find($brandId);
+      $categoryTree = array();
+      
+      if (is_null($id)) {
+        $product = new LaEntity\Product();
+         /* if($this->session->has('master_category')) {
+          $brandList = $this->manager->getRepository('LaNetLaNetBundle:Brand')->getBrandList ($this->session->get('master_category'));    
+         
+          if($this->session->has('brand')) {
+          
+          if($this->session->has('product_category')) {
+          $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($this->session->get('product_category'));
+          $product->setCategory($category);
+          print_r ($this->session->get('product_category'));
+          $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('masterCategory' => $this->session->get('master_category'), 'brand' => $this->session->get('brand')));
+          $parentCategory = $product->getCategory();
+          $categoryTree[] = $parentCategory = $product->getCategory();
+            while($parentCategory->getParent() != null) {
+              $categoryTree[] = $parentCategory = $parentCategory->getParent();
+            }
+            $categoryTree = array_reverse($categoryTree);
+           }
+        }
+          
+          
+          }
+          */
+      } else {
+        $product = $productRepo->find($id);
+        if (!$product) {
+          throw $this->createNotFoundException('post not found!');
+        }
+        
+        $MasterCategory = $product->getBrandsCategory();
+              
+        $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('brand' => $product->getBrand()));
+        //$brandList = $this->manager->getRepository('LaNetLaNetBundle:Brand')->getBrandList ($MasterCategory->getId());
+        $categoryTree[] = $parentCategory = $product->getCategory();
+       
+        while($parentCategory->getParent() != null) {
+          $categoryTree[] = $parentCategory = $parentCategory->getParent();
+        }
+        $categoryTree = array_reverse($categoryTree);
+      }
+            
+      $form = $this->createForm(new LaForm\ProductType(), $product);
+
+      if ('POST' == $request->getMethod()) {
+
+        $form->bind($request);
+        if ($form->isValid()) {
+          
+          $category = $request->get('category') ? $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($request->get('category')) : ""; 
+          $brandCategory_session = $request->get('brandCategory') ? $this->manager->getRepository('LaNetLaNetBundle:BrandsCategory')->find($request->get('brandCategory')) : ""; 
+          $brand = $request->get('brand') ? $this->manager->getRepository('LaNetLaNetBundle:Brand')->find($request->get('brand')) : ""; 
+              
+        if ((empty($brandCategory_session)) or (empty($brand)) or (empty($category))) {
+              
+              $this->session->getFlashBag()->add(
+                'notice_product_fail',
+                'Товар не добавлен. Форма заполнена не полностью!'
+            );
+            $this->manager->flush(); 
+        }
+               
+        else {
+                  
+          /*if($request->request->has('descr-items'))
+          {
+              foreach($request->get('descr-items') as $key => $value) {
+                  $item = $this->manager->getRepository('LaNetLaNetBundle:ProductCategoryDescriptionItem')->find($key);
+                  if($itemName = $product->hasDescriptionItem($item)) {
+                      $itemName->setName($value);
+                      $this->manager->persist($itemName);
+                  } else {
+                      $itemName = new LaEntity\ProductCategoryDescriptionName();
+                      $itemName->setName($value);
+                      $itemName->setDescriptionItem($item);
+                      $itemName->setProduct($product);
+                      $this->manager->persist($itemName);
+                      $product->addDescriptionName($itemName);
+                  } 
+              }
+          }*/
+         
+          $product->setBrandsCategory($brandCategory_session);
+          $product->setBrand($brand);
+          $product->setCategory($category);
+          $this->manager->persist($product);
+          
+          /*$this->session->set('brand_category', $brandCategory_session->getId());
+          $this->session->set('product_category', $category->getId());
+          $this->session->set('brand', $brand->getId());
+           */
+          $this->session->getFlashBag()->add(
+                'notice_product',
+                'Ваши изменения были сохранены'
+            );
+            $this->manager->flush();
+            return $this->redirect($this->generateUrl('la_net_admin_product_list', array('id_brand' => $brandId)));
+        }
+       /*else {
+          print_r($form->getErrorsAsString());
+      }*/
+      }}
+
+        return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('product' => $product, 
+                                                                              'categoryTree' => $categoryTree, 
+                                                                              'categories' => $categories,
+                                                                              'brand' => $brand,
+                                                                              'brandCategory' => $brandCategory,
+                                                                              'form' => $form->createView()));
+    }
+    
+    /*public function editAction(Request $request, $id = null)
     {
 
       $productRepo = $this->manager->getRepository('LaNetLaNetBundle:Product');
@@ -108,7 +247,7 @@ class ProductController extends BaseController
                       $product->addDescriptionName($itemName);
                   } 
               }
-          }*/
+          }
          
           $product->setMasterCategory($masterCategory_session);
           $product->setBrand($brand);
@@ -125,9 +264,7 @@ class ProductController extends BaseController
             $this->manager->flush();
             return $this->redirect($this->generateUrl('la_net_admin_product_list'));
         }
-       /*else {
-          print_r($form->getErrorsAsString());
-      }*/
+      
       }}
 
         return $this->render('LaNetAdminBundle:Product:Edit.html.twig', array('product' => $product, 
@@ -136,7 +273,7 @@ class ProductController extends BaseController
                                                                               'brandList' => $brandList,
                                                                               'masterCategory' => $masterCategory,
                                                                               'form' => $form->createView()));
-    }
+    }*/
 
     public function deleteAction(Request $request, $id)
     {

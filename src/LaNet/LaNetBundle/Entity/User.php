@@ -28,6 +28,11 @@ class User extends BaseUser
     private $masterInfo;
     
     /**
+     * @ORM\OneToOne(targetEntity="Brand", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     */
+    private $brandInfo;
+    
+    /**
      * @ORM\OneToOne(targetEntity="Consumer", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
      */
     private $consumerInfo;
@@ -63,6 +68,17 @@ class User extends BaseUser
      */
     protected $mail;
     
+    
+    /**
+     * @ORM\Column(type="string", length=10, nullable = true)
+     */
+    protected $votes;
+    
+    /**
+     * @ORM\Column(type="string", length=5, nullable = true)
+     */
+    protected $rating;
+    
   
      /**
      * @Gedmo\Timestampable(on="create")
@@ -74,6 +90,11 @@ class User extends BaseUser
      * @ORM\Column(type="boolean", nullable = true)
      */
     protected $termsConditions;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $premium;
     
     /**
      * @ORM\Column(type="boolean", nullable = true)
@@ -129,6 +150,8 @@ class User extends BaseUser
             $this->agancyInfo = $userInfo;
         } elseif ($userInfo instanceof LaEntity\Shop) {
             $this->shopInfo = $userInfo;
+        } elseif ($userInfo instanceof LaEntity\Brand) {
+            $this->brandInfo = $userInfo;
         } elseif ($userInfo instanceof LaEntity\School) {
             $this->schoolInfo = $userInfo;
         }
@@ -149,6 +172,8 @@ class User extends BaseUser
             return $this->agancyInfo;
         } elseif ($this->hasRole('ROLE_SHOP')) {
             return $this->shopInfo;
+        } elseif ($this->hasRole('ROLE_BRAND')) {
+            return $this->brandInfo;
         } elseif ($this->hasRole('ROLE_SCHOOL_CENTER')) {
             return $this->schoolInfo;
         }
@@ -290,6 +315,29 @@ class User extends BaseUser
     {
         return $this->agancyInfo;
     }
+    
+    /**
+     * Set agancyInfo
+     *
+     * @param \LaNet\LaNetBundle\Entity\Agancy $agancyInfo
+     * @return User
+     */
+    public function setBrandInfo(\LaNet\LaNetBundle\Entity\Brand $brandInfo = null)
+    {
+        $this->brandInfo = $brandInfo;
+    
+        return $this;
+    }
+
+    /**
+     * Get agancyInfo
+     *
+     * @return \LaNet\LaNetBundle\Entity\Agancy 
+     */
+    public function getBrandInfo()
+    {
+        return $this->brandInfo;
+    }
 
     /**
      * Set shopInfo
@@ -386,6 +434,73 @@ class User extends BaseUser
     public function setTermsConditions($termsConditions)
     {
         $this->termsConditions = $termsConditions;
+    
+        return $this;
+    }
+
+    /**
+     * Get premium
+     *
+     * @return boolean 
+     */
+    
+    public function getPremium()
+    {
+        return $this->premium;
+    }
+    /**
+     * Set premium
+     *
+     * @param boolean $premium
+     * @return User
+     */
+    public function setPremium($premium)
+    {
+        $this->premium = $premium;
+    
+        return $this;
+    }
+    /**
+     * Get votes
+     *
+     * @return string 
+     */
+    
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+    /**
+     * Set votes
+     *
+     * @param string $votes
+     * @return User
+     */
+    public function setVotes($votes)
+    {
+        $this->votes = $votes;
+    
+        return $this;
+    }
+    /**
+     * Get rating
+     *
+     * @return string 
+     */
+    
+    public function getRating()
+    {
+        return $this->rating;
+    }
+    /**
+     * Set rating
+     *
+     * @param string $rating
+     * @return User
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
     
         return $this;
     }

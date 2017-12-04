@@ -96,7 +96,7 @@
   {% if salon.services is not empty %}
     <div class="row clear">
       <div class="col col_1_of_3 blue">услуги и цены:</div>
-      <div class="col col_2_of_3">{% for item in salon.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }}</p>{% endfor %}</div>
+      <div class="col col_2_of_3">{% for item in salon.services %}<p>{{ item.name }}{% if item.startPrice is not empty %} :  {{ item.startPrice }} {% endif %} {% if item.endPrice is not empty %} - {{ item.endPrice }}{% endif %} {% if item.startPrice is not empty %} грн {% endif %}</p>{% endfor %}</div>
     </div> 
   {% endif %}
   {% if salon.portfolio is not empty %}

@@ -15,7 +15,7 @@ class BrandType extends AbstractType
              -> add('name', 'text', array('label' => 'Название:'))
              -> add('country', 'text', array('label' => 'Страна производитель:', 'required' => false))
              -> add('link', 'text', array('label' => 'Сайт:', 'required' => false))
-             -> add('description', 'textarea', array('label' => 'Описание:'))
+             -> add('description', 'textarea', array('label' => 'Описание:', 'required' => false, 'attr' => array('class' => "TextEditor")))
              ->add('phone', 'text', array('label' => 'Телефон:', 'required' => false))
              ->add('mail', 'email', array('label' => 'Email адрес', 'required' => false)) 
              ->add('category', 'collection', array( 'type'         => new BrandCategoryType(),
@@ -23,10 +23,10 @@ class BrandType extends AbstractType
                                                     'allow_delete'    => true,
                                                     'by_reference' => false,
                     ))
-            ->add('masterCategory', 'entity', array(
+            ->add('brandsCategory', 'entity', array(
                   'attr' => array('class' => 'category-list'),
-                  'label' => 'Товары для мастеров:',
-                  'class' => 'LaNet\LaNetBundle\Entity\MasterCategory',
+                  'label' => 'Категории бренда:',
+                  'class' => 'LaNet\LaNetBundle\Entity\BrandsCategory',
                   'property'     => 'name',
                   'multiple'     => true,
                   'expanded' => true

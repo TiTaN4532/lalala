@@ -32,6 +32,7 @@ class EventsController extends BaseController
       
       if (is_null($id)) {
         $eventsPost = new LaEntity\Articles();
+        $eventsPost->setDate(new \DateTime());
       } else {
         $eventsPost = $eventsRepo->find($id);
         if (!$eventsPost) {
@@ -39,8 +40,11 @@ class EventsController extends BaseController
         }
       }
       
+      
+      
       $form = $this->createForm(new LaForm\ArticlesType(), $eventsPost);
     
+      
       $eventsPost->setType('event');
       
            
@@ -63,7 +67,7 @@ class EventsController extends BaseController
                 'Ваши изменения были сохранены'
             );
           }
-         
+                 
           $this->manager->persist($eventsPost);
           
          /* if(!$eventsPost->getId()) {

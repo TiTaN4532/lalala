@@ -37,6 +37,8 @@ security:
         - { path: ^/salon/change_password, role: ROLE_SALON }
         - { path: ^/agancy/profile, role: ROLE_AGANCY }
         - { path: ^/agancy/change_password, role: ROLE_AGANCY }
+        - { path: ^/brand/profile, role: ROLE_BRAND }
+        - { path: ^/brand/change_password, role: ROLE_BRAND }
         - { path: ^/consumer/profile, role: ROLE_CONSUMER }
         - { path: ^/consumer/change_password, role: ROLE_CONSUMER }
         - { path: ^/admin/, role: ROLE_ADMIN }

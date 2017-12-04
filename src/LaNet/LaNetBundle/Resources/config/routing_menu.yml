@@ -20,4 +20,10 @@ la_net_la_net_ajax_menu_getParentId:
     pattern:  /ajax/master/getParentId
     defaults: { _controller: LaNetLaNetBundle:Menu:getParentId } 
     options:
+        expose: true      
+        
+la_net_la_net_ajax_menu_rating:
+    pattern:  /ajax/rating
+    defaults: { _controller: LaNetLaNetBundle:Menu:rating } 
+    options:
         expose: true         

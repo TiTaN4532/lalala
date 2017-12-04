@@ -1,6 +1,29 @@
 {% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  
+
+  <link rel="stylesheet" href="{{ asset('js/fancybox/jquery.fancybox.css') }}">
+  <script type="text/javascript" src="{{ asset('js/fancybox/jquery.fancybox.pack.js') }}"></script>
+            
+
+
+{% endblock %}
+
+
 {% block title %}Всеукраинский портал индустрии красоты и здоровья{% endblock %}
 {% block body %}
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>    
+           
 <div class="wrapper">
   {% for flashMessage in app.session.flashbag.get('notice') %}
         <div class="flash-notice success">
@@ -18,16 +41,18 @@
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_school_id' %}<h1 id="main">Клуб профессионалов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_events_list' %}<h1 id="main">Медиа</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_events_id' %}<h1 id="main">Медиа</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_upcoming_events_list' %}<h1 id="main">Ближайшие события</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_upcoming_events_id' %}<h1 id="main">Ближайшие события</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_tests_list' %}<h1 id="main">Тестирование продуктов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_tests_id' %}<h1 id="main">Тестирование продуктов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_brand_list' %}<h1 id="main">Бренд инфо</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_brand_id' %}<h1 id="main">Бренд инфо</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %}<h1 id="main">Объявления</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_adverts_id' %}<h1 id="main">Объявления</h1>
-        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %}<h1 id="main">Эксперты</h1>
-        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_id' %}<h1 id="main">Эксперты</h1>
-        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_trusts_list' %}<h1 id="main">Советы красоты</h1>
-        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_trusts_id' %}<h1 id="main">Советы красоты</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %}<h1 id="main">Советы красоты</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_id' %}<h1 id="main">Советы красоты</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_trusts_list' %}<h1 id="main">Эксперты</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_trusts_id' %}<h1 id="main">Эксперты</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_contact' %}<h1 id="main">Контакты</h1>
         {% else %}<h1 id="main">ПОРТАЛ ИНДУСТРИИ КРАСОТЫ И ЗДОРОВЬЯ</h1>{% endif %}
        
@@ -47,30 +72,32 @@
           <div class="row-fluid">
               <div class="span8">
        {% block content %}
-                
+         
         {% if events %}
             <h2 class="section-title"><a href="{{ path('la_net_la_net_events_list') }}">Репортажи</a></h2>
                 <section class="top-news is-bigger">
                     <div class="top-news-img">
                         {% for post in events %}
                          {% if loop.index == 1 %}
-                              {% if post.video is not empty and not linkNew == false %}
+                             <div id="main-event-video" data-img="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" event-id="{{post.id}}">
+                             {% if post.video is not empty and post.newLink is defined %}
                                   <div class="video-responsive">
-                                  <iframe width="auto" height="auto" src="https://www.youtube.com/embed/{{linkNew}}?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+                                  <iframe width="auto" height="auto" src="https://www.youtube.com/embed/{{post.newLink}}?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
                                   </div>
                                   <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
                                 {%else%}
                                    <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_big'))}}" alt="placeholder"></a>
                                {% endif %}
+                             </div> 
                              {% endif %}
                         {% endfor %}  
                       </div>
                     <div class="row-fluid">
                         {% for post in events %}
                                    {% if loop.index <= 5 and loop.index > 1 %}
-                        <div class="span3">
+                        <div video-event="{% if post.newLink is defined %}{{post.newLink}} {% endif %}" event-id="{{post.id}}" class="span3">
                             <article class="top-news-item">
-                            <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" alt="placeholder"></a>
+                            <a {% if post.video is not empty %}class="video-content"{% endif %} href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" alt="placeholder"></a>
                                 <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
                                 <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>
                             </article>
@@ -111,11 +138,9 @@
                         <div class="gallery">
               {% for post in brandCat %} 
                             <article class="top-news-item">
-                                <a href="{{ path('la_net_la_net_brands_list', { 'category' : post.id })}}">
-                                    <div align="center" class="brand-category-on-main-page">
-                                <h3 style="color:#FFFFFF;" align="center" class="item-title">{{ post.name}}</h3>
+                                <a href="{{ path('la_net_la_net_brands_list', { 'category' : post.id })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"></a>
+                                   <h3 class="item-title"><a href="{{ path('la_net_la_net_brands_list', { 'category' : post.id })}}">{{ post.name}}</a></h3>
                                
-                                </div></a>
                                 {#<a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"></a>
                                 <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
                                {# <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>#}
@@ -229,14 +254,13 @@
                               {% for master in masters %}
                                 <div class="masters-item clearfix">
                                     <div class="masters-item-img">
-                                        <img src="{{ asset(master.getWebPath | imagine_filter('my_main_page_master'))}}" />
+                                        <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}"><img src="{{ asset(master.getWebPath | imagine_filter('my_main_page_master'))}}" /></a>
                                     </div>
                                     <div class="masters-item-info">
-                                       <h3 class="masters-item-title {% if master.inTop != NULL%} starred {% endif%}">{{ master.firstName }} {{ master.lastName }}</h3>
+                                        <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}"><h3 class="masters-item-title {% if master.inTop != NULL%} starred {% endif%}">{{ master.firstName }} {{ master.lastName }}</h3></a>
                                             {% if master.category is not empty %}
                                                 <div class="masters-item-profession">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
                                             {% endif %}
-                                        <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}" class="read-more">Читать полностью...</a>
                                     </div>
                                 </div>
                               {% endfor%}    
@@ -250,10 +274,10 @@
                                 {% for salon in salons %}
                                     <div class="discounts-item">
                                         <div class="discounts-item-img">
-                                             <img src="{{ asset(salon.getWebPath)}}" />
+                                            <a href="{{ path('la_net_la_net_salon_id', {'id': salon.id })}}"><img src="{{ asset(salon.getWebPath)}}" /></a>
                                         </div>
                                         {#<div class="discounts-item-description">-30% на вторую процедуру</div>#}
-                                        <a href="{{ path('la_net_la_net_salon_id', {'id': salon.id })}}" class="readmore">Читать полностью...</a>
+                                        
                                     </div>
                                {% endfor%}  
                                {% endif %}
@@ -354,6 +378,41 @@
                 </section>
             {% endif %}
 
+            
+            {% if gallery is not empty %}
+    <h5 style="float:left;margin-right: 10px; margin-top: 20px; color:#c2d9b1;" class="clear"></h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
+  
+        <div class="gallery-main" style="padding-top: 30px">
+            <div class="row clear">
+            {% for image in gallery %}
+
+              <div class="col col_1_of_5">
+                <a href="{{ asset(image.getWebPath)}}" rel="group1" class="fancybox" title="<a href='{{ path('la_net_la_net_events_id', { 'slug' : image.slug } ) }}'>{{ image.slug }}</a>"><img src="{{ asset(image.getWebPath)}}" /></a>
+              </div>
+              {% if loop.index % 5 == 0 %}
+                 </div> <br> <div class="row clear">
+              {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+   
+        
+  {% endif %}
+            
+            
+         <script>
+    $(document).ready(function() {
+	$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
+  </script>   
+            
+            
+            
+            
+            
                                 {#<section class="holder">
                     <div class="advert-wrap">
                         <div class="text-center">
@@ -491,4 +550,92 @@
          </div>
     </div>
 </div>
+                   
+    <script type="text/javascript">
+   /*document.onclick = function( event )
+    {
+            event.preventDefault();
+        alert( event.target.tagName );
+    }  */
+        
+        
+        
+        
+     $(document).ready(function() {
+          $('[event-id] a img').click(function(event) {
+              event.preventDefault();
+                
+                var link = $(event.target).parent();
+            
+                if (link.hasClass("video-content")){
+                
+                //div куда выводим содержимое с видео
+                var main_div = $("#main-event-video");    
+                var main_id = main_div.attr("event-id");
+                var main_img = main_div.attr("data-img");
+                var main_title = main_div.find('h3').html();
+                var main_href = main_div.find('a').attr("href");
+                
+                console.log(main_href);
+                //откуда берем данные
+                var div = $(event.target).parents("div:first");
+            
+                var event_id = div.attr("event-id");
+                div.attr("event-id", main_div);
+                main_div.attr("event-id", event_id)
+                
+                var video_event = $.trim(div.attr("video-event"));
+                console.log(video_event);
+                var title = $(event.target).parent().next().html();
+                
+                main_div.html('<div class="video-responsive"><iframe width="auto" height="auto" src="https://www.youtube.com/embed/'+video_event+'?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe></div><h3 class="item-title">'+title+'</h3>');
+                   
+                $.ajax({
+                    url: Routing.generate('la_net_la_net_ajax_events_getEventWithVideo'),
+                    data: {id: main_id},
+                    success     : function(respons) {
+                      if (respons.length != 0){
+                          var data = (respons);
+                       console.log('success');
+                       console.log(data['video']);
+                       console.log(data['date']);
+                       
+                       var href = link.attr("href");
+                      
+                       var event_div = div;
+                       event_div.attr("video-event", data['video']);
+                       event_div.html('<article class="top-news-item"><a class="video-content" href="'+main_href+'"><img src="'+main_img+'"><h3 class="item-title">'+main_title+'</h3><div class="top-news-date">'+data["date"]+'</div></article>');
+                       
+                       
+                       
+                       
+                       
+                       //main_div.html('<div class="video-responsive"><iframe width="auto" height="auto" src="https://www.youtube.com/embed/'+video_event+'?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe></div><h3 class="item-title">'+title+'</h3>');
+                   
+                }
+                    }
+            })
+                }
+                else{
+                    console.log('321')
+                }
+             
+          });
+          /*$('.delete-post').click(function(event) {
+            event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
+                var element = $(this);
+                $.ajax({
+                    url         : element.attr('href'),
+                    success     : function(data) {
+                      if(data.success) 
+                        element.parent().parent().remove();
+                }
+                });
+            }
+        });*/
+       
+    });
+  </script>               
+                   
 {% endblock %}

@@ -10,16 +10,31 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductCategoryRepository extends EntityRepository
 {
    
+    public function getProductsCategoryOnBrand($brand='')
+    {
+        $request = Request::createFromGlobals();
+        $brandCategory = ($request->get('category')) ? " AND brandCategory_id ='" . $request->get('category') ."'" : "";
+      
+        $brand = ($brand) ? " AND brand_id ='" . $brand ."'" : "";
+                
+        $connection = $this->_em->getConnection();
+        $statement = $connection->prepare("SELECT name, id FROM product_category WHERE parent_id IS NULL". $brandCategory.$brand);
+        $statement->execute();
+        $result = $statement->fetchAll();    
+    
+        return $result;
+      }
+      
     public function getProductsCategory()
     {
         
         $request = Request::createFromGlobals();
-        $masterCategory = ($request->get('category')) ? " AND masterCategory_id ='" . $request->get('category') ."'" : "";
+        $brandCategory = ($request->get('category')) ? " AND brandCategory_id ='" . $request->get('category') ."'" : "";
       
         $brand = ($request->get('brand')) ? " AND brand_id ='" . $request->get('brand') ."'" : "";
                 
         $connection = $this->_em->getConnection();
-        $statement = $connection->prepare("SELECT name, id FROM product_category WHERE parent_id IS NULL". $masterCategory.$brand);
+        $statement = $connection->prepare("SELECT name, id FROM product_category WHERE parent_id IS NULL". $brandCategory.$brand);
         $statement->execute();
         $result = $statement->fetchAll();    
     
@@ -90,6 +105,16 @@ public function getAllSubCat($parentId)
                 
         $connection = $this->_em->getConnection();
         $statement = $connection->prepare("SELECT name, id FROM product_category WHERE parent_id IS NULL". $masterCategory.$brand);
+        $statement->execute();
+        $result = $statement->fetchAll();    
+    
+        return $result;
+      }
+      
+ public function getBrandCategoryByCategory($CategoryId)
+    {      
+        $connection = $this->_em->getConnection();
+        $statement = $connection->prepare("SELECT * FROM product_category WHERE parent_id IS NULL AND id = $CategoryId");
         $statement->execute();
         $result = $statement->fetchAll();    
     

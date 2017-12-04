@@ -142,11 +142,11 @@ $(document).ready(function() {
         event.preventDefault();
         var element = $(this);
         element.parent().nextAll('div[class="children-category"]').toggle();
-        if(element.hasClass('open')) {
-            element.removeClass('open').addClass('close');
+        if(element.hasClass('open2')) {
+            element.removeClass('open2').addClass('close2');
             element.html('-');
         } else {
-            element.removeClass('close').addClass('open');
+            element.removeClass('close2').addClass('open2');
             element.html('+');
         }
     });
@@ -154,11 +154,11 @@ $(document).ready(function() {
         event.preventDefault();
         var element = $(this);
         element.parent().nextAll('div[class="category-desc"]').toggle();
-        if(element.hasClass('open')) {
-            element.removeClass('open').addClass('close');
+        if(element.hasClass('open2')) {
+            element.removeClass('open2').addClass('close2');
             element.html('Cкрыть описние');
         } else {
-            element.removeClass('close').addClass('open');
+            element.removeClass('close2').addClass('open2');
             element.html('Показать описание');
         }
     });

@@ -1,0 +1,86 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h3>Брeнды</h3>
+  {#<button id="add-brand-btn">Добавить брeнд</button>#}
+        {% for flashMessage in app.session.flashbag.get('notice_brand') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+        
+         <form action="">
+            <input placeholder="Поиск бренда" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+            <input style="margin-left:10px;" type="submit" value="Найти">
+        </form>
+        
+  {% if pagination.count %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Статус</th>
+                    <th>Валидация</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for brand in pagination %}
+                    <tr>
+                        <td><a href="{{ path('la_net_admin_product_list', {'id_brand': brand.id}) }}">{{ brand.name }}</a></td>
+                        <td>{{ brand.isdraft ? 'Скрыто' : 'Опубликовано'}}</td>
+                        <td>{{ brand.validation == 1 ? 'Подтвержден' : 'Не подтвержден' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            На данный момент нет брeндов.
+        </div>
+    {% endif %}
+    {{ knp_pagination_render(pagination) }}
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#add-brand-btn').click(function() {
+              window.location = Routing.generate('la_net_admin_brand_create')
+          });
+          $('.delete-brand').click(function(event) {
+            event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                  if(data.success) 
+                    element.parent().parent().remove();
+                  else 
+                    alert('Probably there are products related to this brand');
+            }
+            });
+        }
+          });
+      });
+  </script>
+  
+   <script type="text/javascript">
+    
+          $('.update-post').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    
+                    if (element.text() == "Вывести в ТОП"){
+                            element.text('Удалить из ТОП')
+            
+                    } else {
+                            element.text('Вывести в ТОП')
+                    }
+                }
+            });
+          });
+     
+  </script>
+{% endblock %}

@@ -7,7 +7,7 @@ la_net_la_net_club_main:
     defaults: { _controller: LaNetLaNetBundle:Master:mainList }
 
 la_net_la_net_master_id:
-    pattern:  /master/{id}
+    pattern:  /master/{id}/
     defaults: { _controller: LaNetLaNetBundle:Master:masterId }
     requirements:
         id:  \d+

@@ -5,3 +5,9 @@ la_net_la_net_events_list:
 la_net_la_net_events_id:
     pattern:  /events/{slug}
     defaults: { _controller: LaNetLaNetBundle:Events:eventsId }
+    
+la_net_la_net_ajax_events_getEventWithVideo:
+    pattern:  /ajax/events/getEventWithVideo
+    defaults: { _controller: LaNetLaNetBundle:Events:getEventWithVideo } 
+    options:
+        expose: true

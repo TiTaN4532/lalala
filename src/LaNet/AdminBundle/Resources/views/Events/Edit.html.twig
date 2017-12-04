@@ -1,5 +1,6 @@
 {% extends "LaNetAdminBundle::layout.html.twig" %}
- 
+ {% form_theme form 'LaNetLaNetBundle:Form:fields_profile.html.twig' %}
+
 {% block stylesheets %}
       {{ parent() }}
         <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
@@ -32,12 +33,14 @@
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
     {{ form_row(form.post) }}
+    {{ form_row(form.date) }}    
     {{ form_row(form.video) }}
       <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
          {% for image in form.portfolio %}
            <li>
               {{ form_widget(image.file) }}
               {{ form_row(image.description) }}
+              {{ form_row(image.gallery) }}
            </li>
          {% endfor %}
        </ul>
@@ -51,6 +54,10 @@
   </form>
   <script>
       $(document).ready(function(){
+          
+          $("#articles_date").prop('readonly', true);
+
+          
           $('#cancel-events-btn').click(function() {
                window.location = Routing.generate('la_net_admin_events');
             });
@@ -76,6 +83,40 @@
          };
                         {% endif %}
         
+        
+        
+        
+  </script>
+  
+   <script>jQuery(function($){
+        $.datepicker.regional['ru'] = {
+                closeText: 'Закрыть',
+                prevText: '&#x3c;Пред',
+                nextText: 'След&#x3e;',
+                currentText: 'Сегодня',
+                monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+                monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+                'Июл','Авг','Сен','Окт','Ноя','Дек'],
+                dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+                dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+                dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+                weekHeader: 'Не',
+                dateFormat: 'dd-mm-yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
+});
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: 'dd-mm-yy',
+      yearRange: "-100:+11",
+    });
+  });
   </script>
 {% endblock %}
 

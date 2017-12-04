@@ -34,7 +34,10 @@
                         <td>{{ brand.validation == 1 ? 'Подтвержден' : 'Не подтвержден' }}</td>
                         <td><a href="{{ path('la_net_admin_brand_delete', {'id': brand.id}) }}" class="delete-brand">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_brand_edit', {'id': brand.id}) }}">Редактировать</a></td>
-                        <td><a href="{{ path('la_net_admin_ajax_inTop_brand', {'id': brand.id} ) }}" class="update-post button">{% if brand.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
+                        <td>
+                            <a href="{{ path('la_net_admin_ajax_inTop_brand', {'id': brand.id} ) }}" class="update-post button">{% if brand.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a>
+                            {% if brand.getUser.premium is defined %}<a href="{{ path('la_net_admin_ajax_premium_brand', {'id': brand.id} ) }}" class="premium button">{% if brand.getUser.premium == NULL %}Добавить премиум{% else %}Удалить премиум{% endif %}</a>{% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -82,6 +85,23 @@
             
                     } else {
                             element.text('Вывести в ТОП')
+                    }
+                }
+            });
+          });
+          
+          $('.premium').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    
+                    if (element.text() == "Добавить премиум"){
+                            element.text('Удалить премиум')
+            
+                    } else {
+                            element.text('Добавить премиум')
                     }
                 }
             });

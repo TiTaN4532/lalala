@@ -1,12 +1,20 @@
 la_net_admin_brand_list:
-    pattern:  /brand
+    pattern:  /brands/list
     defaults: { _controller: LaNetAdminBundle:Brand:list }
+    
+la_net_admin_brands:
+    pattern:  /brands
+    defaults: { _controller: LaNetAdminBundle:Brand:main }
     
 la_net_admin_brand_create:
     pattern:  /brand/create
     defaults: { _controller: LaNetAdminBundle:Brand:edit }
     options:
         expose: true
+        
+la_net_admin_ajax_premium_brand:
+    pattern:  /ajax/premium_brand/{id}
+    defaults: { _controller: LaNetAdminBundle:Brand:premium }
 
 la_net_admin_ajax_inTop_brand:
     pattern:  /ajax/inTop_brand/{id}
@@ -28,3 +36,10 @@ la_net_admin_brand_remove_image:
     options:
         expose: true
 
+la_net_admin_brand_moderation_list:
+    pattern:  /brands/moderation/list
+    defaults: { _controller: LaNetAdminBundle:Brand:moderList }
+    
+la_net_admin_brand_moderation_edit:
+    pattern:  /brand/moderation/edit/{id}
+    defaults: { _controller: LaNetAdminBundle:Brand:moderEdit }

@@ -45,6 +45,11 @@ class ProductCategory
      * @ORM\ManyToOne(targetEntity="Brand", inversedBy="productCategory")
      */
     protected $brand;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="BrandsCategory", inversedBy="brandCategory")
+     */
+    protected $brandCategory;
         
     
     /**
@@ -289,6 +294,29 @@ class ProductCategory
     public function getMasterCategory()
     {
         return $this->masterCategory;
+    }
+    
+    /**
+     * Set masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     * @return ProductCategory
+     */
+    public function setBrandCategory(\LaNet\LaNetBundle\Entity\BrandsCategory $brandCategory = null)
+    {
+        $this->brandCategory = $brandCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get masterCategory
+     *
+     * @return \LaNet\LaNetBundle\Entity\MasterCategory 
+     */
+    public function getBrandCategory()
+    {
+        return $this->brandCategory;
     }
     
     

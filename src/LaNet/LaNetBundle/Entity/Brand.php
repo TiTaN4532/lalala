@@ -53,6 +53,11 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $link;
     
+     /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    protected $linkAdd;
+    
     
     
     /**
@@ -77,10 +82,10 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     protected $category;
     
      /**
-     * @ORM\ManyToMany(targetEntity="MasterCategory", inversedBy="brand")
-     * @ORM\JoinTable(name="brands_categories")
+     * @ORM\ManyToMany(targetEntity="BrandsCategory", inversedBy="brand")
+     * @ORM\JoinTable(name="brandsS_categories")
      */
-    protected $masterCategory;
+    protected $brandsCategory;
     
     /**
      * @ORM\OneToMany(targetEntity="AgancyBrand", mappedBy="brand")
@@ -101,6 +106,18 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="boolean", nullable = true)
      */
     protected $is_draft;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $moderation;
+    
+         
+    /**
+     * @ORM\OneToOne(targetEntity="User", inversedBy="brandInfo")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
     
   
     /**
@@ -348,6 +365,29 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     {
         return $this->link;
     }
+    
+    /**
+     * Set linkAdditional
+     *
+     * @param string $link
+     * @return Brand
+     */
+    public function setLinkAdd($linkAdd)
+    {
+        $this->linkAdd = $linkAdd;
+    
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLinkAdd()
+    {
+        return $this->linkAdd;
+    }
 
     /**
      * Set slug
@@ -412,9 +452,9 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
      * @return Brand
      */
-    public function addMasterCategory(\LaNet\LaNetBundle\Entity\MasterCategory $masterCategory)
+    public function addBrandsCategory(\LaNet\LaNetBundle\Entity\BrandsCategory $brandsCategory)
     {
-        $this->masterCategory[] = $masterCategory;
+        $this->brandsCategory[] = $brandsCategory;
     
         return $this;
     }
@@ -424,9 +464,9 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      *
      * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
      */
-    public function removeMasterCategory(\LaNet\LaNetBundle\Entity\MasterCategory $masterCategory)
+    public function removeBrandsCategory(\LaNet\LaNetBundle\Entity\BrandsCategory $brandsCategory)
     {
-        $this->masterCategory->removeElement($masterCategory);
+        $this->brandsCategory->removeElement($brandsCategory);
     }
 
     /**
@@ -434,9 +474,9 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMasterCategory()
+    public function getBrandsCategory()
     {
-        return $this->masterCategory;
+        return $this->brandsCategory;
     }
 
     /**
@@ -539,6 +579,28 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->is_draft;
     }
     
+     /**
+     * Set moderation
+     *
+     * @return Brand
+     */
+    public function setModeration($moderation)
+    {
+        $this->moderation = $moderation;
+    
+        return $this;
+    }
+
+    /**
+     * Get moderation
+     *
+     * @return boolean 
+     */
+    public function getModeration()
+    {
+        return $this->moderation;
+    }
+    
     /**
      * Set inTop
      *
@@ -560,6 +622,29 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     public function getinTop()
     {
         return $this->inTop;
+    }
+    
+    /**
+     * Set user
+     *
+     * @param \LaNet\LaNetBundle\Entity\User $user
+     * @return Master
+     */
+    public function setUser(\LaNet\LaNetBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \LaNet\LaNetBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
 }

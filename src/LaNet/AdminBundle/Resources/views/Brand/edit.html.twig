@@ -2,6 +2,8 @@
  
 {% block stylesheets %}
       {{ parent() }}
+      <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
       <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
       <script src="{{ asset('bundles/lanetadmin/js/brand_category_collection.js') }}"></script>
   {% endblock %}
@@ -38,7 +40,7 @@
         {{ form_widget(form.file) }}
     {{ form_row(form.name) }}
     {{ form_row(form.country) }}
-    {{ form_row(form.masterCategory) }}
+    {{ form_row(form.brandsCategory) }}
      {#<label>Линейки:</label>
     <ul style="padding:0px;" class="category" data-prototype="{{ _self.category_prototype(form.category.vars.prototype)|e }}">
         {% for item in form.category %}
@@ -67,7 +69,7 @@
   <script>
       $(document).ready(function(){
           $('#cancel-brand-btn').click(function() {
-               window.location = Routing.generate('la_net_admin_brand_list');
+             window.location = Routing.generate('la_net_admin_brand');
             });
         {% if brand.id %}
         $('.remove-image').click(function(event) {
@@ -83,5 +85,13 @@
       })
       {% endif %}
         });
+        
+        
+          {% if not brand.id %}
+        window.onload = function () {
+            var id_tiny = tinymce.editors[0].id;
+            tinymce.get(id_tiny).setContent('');
+         };
+                        {% endif %}
   </script>
 {% endblock %}

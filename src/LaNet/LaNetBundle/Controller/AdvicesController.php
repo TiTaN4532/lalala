@@ -9,7 +9,7 @@ class AdvicesController extends BaseController
 {
     public function advicesListAction()
     {
-        $advices = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'advice', 'is_draft' => NULL),array('updated' => 'DESC'), 3);
+        $advices = $this->manager->getRepository('LaNetLaNetBundle:Articles')->getListArticles('advice');
         $pagination = $this->paginator->paginate(
                $advices, $this->getRequest()->query->get('page', 1), 10
         );

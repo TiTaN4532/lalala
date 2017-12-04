@@ -24,39 +24,51 @@
                                     <a href="{{ path('la_net_la_net_news_list') }}" class="read-more">Смотреть всё</a>
                                 </div>
                                 {% endif %}
-                                 {% if bannersSideBar and bannersSideBar[0] is defined %} 
-                                <div class="sidebar-ad">
-                                    <a href="{{ path('la_net_la_net_banner', {'id': bannersSideBar[0].id})}}"><img src="{{ asset(bannersSideBar[0].getWebPath)}}" alt="{{bannersSideBar[0].name}}" class="reklama"></a>
-                                     {#<img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">#}
-                                </div>
+                                
+                               
+                                 {% if bannersSideBar and bannersSideBar.1 is defined %}
+                                   <div id="banners-group-1">
+                                    {% for banner in bannersSideBar.1 %}  
+                                    <div class="sidebar-ad" banner-index="{{loop.index}}" {% if not loop.first %} style="display:none;" {% endif %}>
+                                        <a href="{{ path('la_net_la_net_banner', {'id': banner.id})}}"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
+                                    </div>
+                                    {% endfor %}
+                                 </div>
                                 {% endif %}
+                               
                             </div>
                          
-                            {#<div class="sidebar-section-title">
+                            {% if EventsSideBar and EventsSideBar[0] is defined %}    
+                            <div class="sidebar-section-title">
                                 <h2>Ближайшие события</h2>
                             </div>
+                             {% endif %}
                             <div class="sidebar-section-content">
+                                 {% if EventsSideBar and EventsSideBar[0] is defined %}  
                                 <div class="top-news">
                                     <article class="top-news-item is-horizontal clearfix">
-                                        <a href="#"><img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-04.jpg" alt="placeholder"></a>
-                                        <h3 class="item-title"><a href="#">Нптгршышри ргшрмоущпршрмгт гмрогшуцк гомц тмцукме г номуцгпм пмшпгргргищыомпщ рщишршщр гморгырмгомщмрыщпк</a></h3>
-                                            <div class="top-news-date">10.09.2017</div>
+                                        <a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': EventsSideBar[0].slug})}}"><img src="{{ asset(EventsSideBar[0].getWebPath)}}" alt="placeholder"></a>
+                                        <h3 class="item-title"><a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': EventsSideBar[0].slug})}}">{{ EventsSideBar[0].title}}</a></h3>
+                                            <div class="top-news-date">{{ EventsSideBar[0].created | date ('d.m.Y')}}</div>
                                     </article>
                                 </div>
                                 <div class="see-all-row">
-                                    <a href="#" class="read-more">Смотреть всё</a>
+                                    <a href="{{ path('la_net_la_net_upcoming_events_list') }}" class="read-more">Смотреть всё</a>
                                 </div>
-                            #}
+                               {% endif %}                             
                                 <div class="sidebar-ad">
                             <div class="fb-page" data-href="https://www.facebook.com/LaLook.info" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/LaLook.info" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/LaLook.info">LaLook Портал индустрии красоты и здоровья</a></blockquote></div>    
                             </div>
-                               {% if bannersSideBar and bannersSideBar[1] is defined %} 
-                                <div class="sidebar-ad">
-                                    <a href="{{ path('la_net_la_net_banner', {'id': bannersSideBar[1].id})}}"><img src="{{ asset(bannersSideBar[1].getWebPath)}}" alt="{{bannersSideBar[1].name}}" class="reklama"></a>
-                                    {#<img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">#}
-                                </div>
+                             {% if bannersSideBar and bannersSideBar.2 is defined %}
+                                   <div id="banners-group-2">
+                                    {% for banner in bannersSideBar.2 %}  
+                                    <div class="sidebar-ad" banner-index="{{loop.index}}" {% if not loop.first %} style="display:none;" {% endif %}>
+                                        <a href="{{ path('la_net_la_net_banner', {'id': banner.id})}}"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
+                                    </div>
+                                    {% endfor %}
+                                 </div>
                                 {% endif %}
-                            {#</div>#}
+                            </div>
                              {% if discountsSideBar %} 
                             <div class="sidebar-section-title">
                                 <h2>Горячие предложения</h2>
@@ -77,12 +89,15 @@
                                   {% endif %}
                                  
                                 
-                                 {% if bannersSideBar  and bannersSideBar[2] is defined %} 
-                                <div class="sidebar-ad">
-                                     <a href="{{ path('la_net_la_net_banner', {'id': bannersSideBar[2].id})}}"><img src="{{ asset(bannersSideBar[2].getWebPath)}}" alt="{{bannersSideBar[2].name}}" class="reklama"></a>
-                                    {#<img src="./Всеукраинский портал индустрии красоты и здоровья_files/ad-place.jpg" alt="placeholder">#}
-                                </div>
-                                  {% endif %} 
+                                {% if bannersSideBar and bannersSideBar.3 is defined %}
+                                   <div id="banners-group-3">
+                                    {% for banner in bannersSideBar.3 %}  
+                                    <div class="sidebar-ad" banner-index="{{loop.index}}" {% if not loop.first %} style="display:none;" {% endif %}>
+                                        <a href="{{ path('la_net_la_net_banner', {'id': banner.id})}}"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
+                                    </div>
+                                    {% endfor %}
+                                 </div>
+                                {% endif %}
                                  
                             </div>
                                

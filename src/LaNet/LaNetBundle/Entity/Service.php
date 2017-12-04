@@ -42,12 +42,12 @@ class Service
     protected $name;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable = true)
      */
     protected $startPrice;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable = true)
      */
     protected $endPrice;
     

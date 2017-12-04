@@ -2,6 +2,12 @@ la_net_admin_product_category_list:
     pattern:  /product_category
     defaults: { _controller: LaNetAdminBundle:ProductCategory:list }
 
+la_net_admin_product_category_brands_list:
+    pattern:  /product_category/brand_list
+    defaults: { _controller: LaNetAdminBundle:ProductCategory:brandList }
+    options:
+        expose: true
+
 la_net_admin_product_category_create:
     pattern:  /product_category/create
     defaults: { _controller: LaNetAdminBundle:ProductCategory:edit }

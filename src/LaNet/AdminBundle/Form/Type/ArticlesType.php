@@ -15,7 +15,9 @@ class ArticlesType extends AbstractType
              -> add('title', 'text', array('label' => 'Заголовок:'))
              -> add('description', 'textarea', array('label' => 'Краткое описание:'))
              -> add('video', 'textarea', array('label' => 'Вставка видео:', 'required' => false))
-             -> add('portfolio', 'collection', array(
+             //-> add('date', 'text', array( 'required'  => true,  'label' => 'Дата:', 'attr' => array('class' => 'datepicker')))   
+             ->add('date','date',array('widget' => 'single_text', 'label' => 'Дата:', 'format' => 'dd-MM-yyyy', 'attr' => array('class' => 'datepicker')))
+            -> add('portfolio', 'collection', array(
                                 'by_reference' => false,
                                 'type'         => new \LaNet\LaNetBundle\Form\Type\ImageType(),
                                 'allow_add'    => true,

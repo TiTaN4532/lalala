@@ -35,8 +35,8 @@
 {% endblock %}
   
 
-    
-{% block content %}
+ {% block content %}
+ 
     
   <h2>{% if product.getId %}Обновить "{{ product.name }}"{% else %}Создать{% endif %} товар</h2>
   
@@ -54,17 +54,20 @@
     {#{ form_row(form.brand) }#}
     {#{ form_row(form.masterCategory) }#}
     
-    <div id="product_masterCategory">
-      <label for="master-category" class="required">Специализация</label>
-        <select name="masterCategory" required="required" id="master-category">
-            <option value="" selected="selected">Выберите специализацию</option>
-                {% for item in  masterCategory %}
-                    <option value="{{item.id}}"{% if product.getId %}{% set masCat = product.getMasterCategory %}{% if masCat.getId == item.id %} selected="selected"  {% endif %} {% else %}{% if app.session.get('master_category')  == item.id %} selected="selected"{% endif %}{% endif %}>{{ item.name }}</option> 
+    <div id="product_brandCategory">
+      <label for="brand-category" class="required">Категория бренда</label>
+        <select name="brandCategory" required="required" id="brand-category">
+            <option value="" selected="selected">Выберите категорию бренда</option>
+                {% for item in  brandCategory %}
+                    <option value="{{item.id}}"{% if product.getId %}{% set masCat = product.getBrandsCategory %}{% if masCat.getId == item.id %} selected="selected"  {% endif %} {% else %}{% if app.session.get('master_category')  == item.id %} selected="selected"{% endif %}{% endif %}>{{ item.name }}</option> 
                 {% endfor %}       
         </select>     
     </div>            
-          
-     {% if brandList is not empty %}
+      
+       <input style="display:none;" type="text" id="currentBrand" name="brand" value="{{ brand.id }}">
+        
+        
+     {#{% if brandList is not empty %}
         <div id="brands">
           <label for="curentBrand" class="required">Бренд</label>
             <select name="brand" required="required" id="brand-select">
@@ -73,8 +76,32 @@
                 {% endfor %}       
             </select> 
         </div>
-   {% endif%}
+   {% endif%}#}
      
+   {#{% if categoryTree is empty %}
+     <div id="categories">
+        <label for="product_category" class="required">Категории</label>
+       
+         <select id="product_category" name="category" class="select-category" required="required">
+            <option value="" selected="selected">Выберите категорию</option>
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+          </div>
+        {% else %}#}
+   
+   {#<div id="main-cat-del"><label for="main_cat" required="required">Категории:</label>
+       <select name="product" required="required" id="main_cat" class="select-category">
+           <option value="">Выберите категорию</option>
+           {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+             {% endfor %}
+    </select>
+          </div>#}
+   
+   
+   
    {% if categoryTree is empty %}
     {# <div id="categories">
         <label for="product_category" class="required">Категории</label>
@@ -112,16 +139,20 @@
     </div>
     {{ form_rest(form) }}
   </form>
-  <script>
+ <script>
       $(document).ready(function(){
           $(document).on('change', '.select-category', function() { 
             var element = $(this);
             $('.select-category').attr('name','').attr('id', '');
             element.nextAll('select').remove();
             element.nextAll('.category-descr').remove();
+            console.log('123');
             $.ajax({
-              url: Routing.generate('la_net_admin_ajax_select_category', {'id' : element.val()}),
+              url: Routing.generate('la_net_la_net_ajax_brands_profile_products_select_category', {'id' : element.val()}),
               success: function(msg) {
+                  
+                  console.log(msg);
+                  
                   if(msg.has_children){
                     var select = $('<select></select>');
                     select.addClass('select-category');
@@ -149,7 +180,7 @@
             });
           })
           $('#cancel-product-btn').click(function() {
-               window.location = Routing.generate('la_net_admin_product_list');
+               window.location = Routing.generate('la_net_la_net_brands_profile_products');
             });
         {% if product.id %}
           $('.remove-image').click(function(event) {
@@ -168,14 +199,12 @@
   </script>
   
   
-  <script>
-      $("#master-category").change(function(){
+ {# <script>
+      $("#brand-category").change(function(){
         $('.select-category').remove()
-        $('#brand-select').remove();
-        $('#brands').remove();
         $('#main-cat-del').remove();
           
-        var cat = $("#master-category").val();
+        var cat = $("#brand-category").val();
      
         if (cat != '0') { 
          
@@ -202,27 +231,29 @@
       
    });   
       
-      </script>
+      </script>#}
       
       <script>
     
     
     //Подгружаем категорию по выбору бренда и специализации
       
-    $(document).on('change', '#brand-select', function ()  { 
+    $(document).on('change', '#brand-category', function ()  { 
             $('#main-cat-del').remove();
             $('.select-category').attr('name','').attr('id', '');
             $('.select-category').remove();
-        var brand = $("#brand-select option:selected").val();
-        var cat = $("#master-category option:selected").val();   
+        var brandCat = $("#brand-category option:selected").val();
+        var brand = $("#currentBrand").val(); 
+       
         if (brand != '0') {
        
         $.ajax({
             url: Routing.generate('la_net_la_net_ajax_menu_getProductCategory'),
-            data: {id_cat: cat, id_brand: brand},
+            data: {id_cat: brandCat, id_brand: brand},
             success: function (response) {
                 
                 if (response.length != 0) {
+                 
                 var data = (response);
                 
                 var new_options = '<div id="main-cat-del"><label for="main_cat" required="required">Категории:</label><select name="product" required="required" id="main_cat" class="select-category"><option value="">Выберите категорию</option>';
@@ -231,7 +262,7 @@
                   
                 });
               new_options += '</select></div>';
-              $('#brand-select').after(new_options);
+              $('#brand-category').after(new_options);
        
     }}
     }); } 

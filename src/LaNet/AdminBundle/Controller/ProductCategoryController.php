@@ -11,24 +11,39 @@ use Symfony\Component\Form\FormError;
 
 class ProductCategoryController extends BaseController
 {
+    
+   public function brandListAction(Request $request)
+    {
+        $name = $request->get('name');
+            
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrand($name); 
+            $pagination = $this->paginator->paginate(
+            $brands, $this->getRequest()->query->get('page', 1), 1000
+        );
+
+        return $this->render('LaNetAdminBundle:ProductCategory:BrandList.html.twig', array('pagination' => $pagination));
+    }
+    
+    
     public function listAction(Request $request) {
       
-        $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('parent' => NULL));
+        $id = $request->get('id_brand');
         
-        return $this->render('LaNetAdminBundle:ProductCategory:list.html.twig', array('categories' => $categories));
+        $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('parent' => NULL, 'brand' => $id));
+        
+        return $this->render('LaNetAdminBundle:ProductCategory:list.html.twig', array('categories' => $categories, 'brand' => $id));
     }
 
     public function editAction(Request $request, $id = null)
     {
-          $brandList = '';
-          $brandId = '';
-        if($id) {
+          $brandId = $request->get('id_brand');
+          //$brandCategory = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findBrandCategoryByBrand ($brandId);
+          $brand = $this->manager->getRepository('LaNetLaNetBundle:Brand')->find($brandId);
+         // $currentBrandCategory='';
+          
+          if($id) {
           $category = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->find($id);
-          $masterCategory = $category->getMasterCategory();
-         
-          $brandList = $this->manager->getRepository('LaNetLaNetBundle:Brand')->getBrandList($masterCategory->getId());
-          $brandId = $category->getBrand();
-          $brandId = $brandId->getId();
+          //$currentBrandCategory = $category->getBrandCategory()->getId();
           
           if (!$category) {
             throw $this->createNotFoundException('Category not found!');
@@ -45,10 +60,10 @@ class ProductCategoryController extends BaseController
           $form->bind($request);
           
           if ($form->isValid()) {
-              
-          $brand = $request->get('brand') ? $this->manager->getRepository('LaNetLaNetBundle:Brand')->find($request->get('brand')) : ""; 
-                   
+           //$brandCategorySelected = $this->manager->getRepository('LaNetLaNetBundle:BrandsCategory')->find($request->get('brandsCategory'));
+          
            $category->setBrand($brand);
+          // $category->setBrandCategory($brandCategorySelected);
            $this->manager->persist($category);
            $this->get('session')->getFlashBag()->add(
                  'notice_product_category',
@@ -60,15 +75,15 @@ class ProductCategoryController extends BaseController
              catch (\Exception $e) {
                 $form->addError(new FormError("Probably there are products related to some of deleted categories"));
             }
-             return $this->redirect($this->generateUrl('la_net_admin_product_category_list'));
+             return $this->redirect($this->generateUrl('la_net_admin_product_category_list', array('id_brand' => $brandId)));
           }
         }
 
-          return $this->render('LaNetAdminBundle:ProductCategory:edit.html.twig', array('form' => $form->createView(), 'brandList' => $brandList, 'brandId' => $brandId));
+          return $this->render('LaNetAdminBundle:ProductCategory:edit.html.twig', array('brand' => $brand,  'form' => $form->createView()));
 
       }
       
-    public function deleteAction(Request $request, $id)
+   public function deleteAction(Request $request, $id)
     {
       $category = $this->manager->getRepository("LaNetLaNetBundle:ProductCategory")->findOneById($id);
       if (!$category)
@@ -80,5 +95,4 @@ class ProductCategoryController extends BaseController
       return new JsonResponse( $response );
     }
 
-    
 }

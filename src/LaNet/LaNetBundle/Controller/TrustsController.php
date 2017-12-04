@@ -9,7 +9,7 @@ class TrustsController extends BaseController
 {
     public function trustsListAction()
     {
-        $trusts = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findBy(array('type' => 'trust', 'is_draft' => NULL),array('updated' => 'DESC'), 3);
+        $trusts = $this->manager->getRepository('LaNetLaNetBundle:Articles')->getListArticles('trust');
          $pagination = $this->paginator->paginate(
               $trusts, $this->getRequest()->query->get('page', 1), 10
         );

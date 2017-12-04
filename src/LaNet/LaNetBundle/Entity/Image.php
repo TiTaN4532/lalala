@@ -56,6 +56,12 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $description;
     
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $gallery;
+    
 
     /**
      * Get id
@@ -88,6 +94,29 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     public function getImage()
     {
         return $this->image;
+    }
+    
+    /**
+     * Set gallery
+     *
+     * @param string $gallery
+     * @return Gallery
+     */
+    public function setGallery($gallery)
+    {
+        $this->gallery = $gallery;
+    
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return string 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 
     /**

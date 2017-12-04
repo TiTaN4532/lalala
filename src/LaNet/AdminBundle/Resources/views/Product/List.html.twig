@@ -2,7 +2,7 @@
 
 {% block content %}
   <h3>Товары</h3>
-  <button id="add-product-btn">Добавить товар</button>
+  <a href="{{ path('la_net_admin_product_create') }}?id_brand={{brand}}"><button>Добавить товар</button></a>
         {% for flashMessage in app.session.flashbag.get('notice_product') %}
           <div class="flash-notice success">
               {{ flashMessage }}
@@ -24,7 +24,7 @@
                         <td>{{ product.name }}</td>
                         <td>{{ product.category.name }}</td>
                         <td><a href="{{ path('la_net_admin_product_delete', {'id': product.id}) }}" class="delete-product">Удалить</a></td>
-                        <td><a href="{{ path('la_net_admin_product_edit', {'id': product.id}) }}">Редактировать</a></td>
+                        <td><a href="{{ path('la_net_admin_product_edit', {'id': product.id}) }}?brand_id={{brand}}">Редактировать</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -38,7 +38,7 @@
   <script type="text/javascript">
       $(document).ready(function() {
           $('#add-product-btn').click(function() {
-              window.location = Routing.generate('la_net_admin_product_create')
+              window.location = Routing.generate('la_net_admin_product_create');
           });
           $('.delete-product').click(function(event) {
             event.preventDefault();

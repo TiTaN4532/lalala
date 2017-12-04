@@ -65,5 +65,21 @@ class SchoolController extends BaseController
         return new JsonResponse(1);
     }
     
+    public function premiumAction(Request $request, $id)
+    {
+        $school = $this->manager->getRepository('LaNetLaNetBundle:School')->find($id);
+             
+        if ($school->getUser()->getPremium() == NULL){
+            $school->getUser()->setPremium(1);
+        }
+         else{
+            $school->getUser()->setPremium(NULL);
+         }
+      
+        $this->manager->persist($school);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
     
 }

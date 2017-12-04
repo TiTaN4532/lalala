@@ -1,0 +1,62 @@
+{% extends "LaNetAdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h3>Категории брендов</h3>
+  <button id="add-advices-btn">Добавить категорию</button>
+        {% for flashMessage in app.session.flashbag.get('notice_brandsCategory') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+       
+                    
+ {% if pagination.count %}
+        <table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Удалить</th>
+                    <th>Редактировать</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in pagination %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                        <td><a href="{{ path('la_net_back_admin_delete_brands_category', {'id': category.id}) }}" class="delete-post">Удалить</a></td>
+                        <td><a href="{{ path('la_net_admin_brands_categories_edit', {'id': category.id}) }}">Редактировать</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+           Категорий нет
+        </div>
+    {% endif %}
+   
+    {{ knp_pagination_render(pagination) }}
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#add-advices-btn').click(function() {
+              window.location = Routing.generate('la_net_admin_brands_categories_add')
+          });
+          $('.delete-post').click(function(event) {
+            event.preventDefault();
+            if(confirm("Уверены что хотите удалить?")) {
+                var element = $(this);
+                $.ajax({
+                    url         : element.attr('href'),
+                    success     : function(data) {
+                         alert(data.msg);
+                      if(data.success) 
+                         
+                        element.parent().parent().remove();
+                }
+                });
+            }
+        });
+      });
+  </script>
+  {% endblock %}
+

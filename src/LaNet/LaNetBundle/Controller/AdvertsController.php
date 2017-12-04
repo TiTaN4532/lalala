@@ -60,38 +60,6 @@ class AdvertsController extends BaseController
         return $this->render('LaNetLaNetBundle:Adverts:advertsList.html.twig', array('advertsList' => $pagination, 'form' => $advertsForm->createView()));
     }
     
-    public function contactAction(Request $request) {
-        $form = $this->createForm(new LaForm\ContactType());
-        if ('POST' == $request->getMethod()) {
-
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $data = ($form->getData());
-                $message = \Swift_Message::newInstance()
-                        ->setSubject($data['subject'])
-                        ->setFrom($data['mail'])
-//                    ->setTo('derevyanko.pav@mail.ru')
-                        ->setTo('info@lalook.net')
-                        ->setBody(
-                        $data['body']
-                        )
-                ;
-                $this->get('mailer')->send($message);
-                $this->get('session')->getFlashBag()->add(
-                        'notice', 'Мы прочитаем ваше сообщение!'
-                );
-                $this->manager->flush();
-
-                return $this->redirect($this->generateUrl('la_net_la_net_homepage'));
-            }
-        }
-
-        return $this->render('LaNetLaNetBundle::contact.html.twig', array('form' => $form->createView())
-        );
-    }
-
-    
     
     public function eventsIdAction($slug)
     {

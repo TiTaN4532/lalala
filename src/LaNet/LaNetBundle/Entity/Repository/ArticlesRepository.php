@@ -83,7 +83,54 @@ class ArticlesRepository extends EntityRepository
         
  return $query->getResult();
     }
+     
+    public function getListArticles($type='')
+    {
+            
+      switch ($type) {
+        case "test":
+           $whereType =" AND a.type = 'test' ";
+        break;
+     
+        case "advice":
+             $whereType =" AND a.type = 'advice' ";
+        break;
+    
+        case "event":
+            $whereType =" AND a.type = 'event' ";
+        break;
+    
+        case "trust":
+            $whereType =" AND a.type = 'trust' ";
+        break;
+            
+        case "":
+           $whereType =" ";
+        break;
+             }
+                         
+ $query = $this->_em->createQuery("SELECT a FROM LaNetLaNetBundle:Articles a 
+                                                   WHERE a.is_draft is NULL".$whereType."ORDER BY a.inTop DESC, a.updated DESC");
+         
+ return $query->getResult();
+    }
 
+    
+     public function  findUpcomingEventsOnMainPage ($limit='')
+    {
+            
+        
+ $query = $this->_em->createQuery("SELECT e FROM LaNetLaNetBundle:UpcomingEvents e 
+                                                   WHERE e.is_draft is NULL ORDER BY e.created DESC");
+        if ($limit){
+        $query->setMaxResults($limit);    
+        }
+        
+        
+ return $query->getResult();
+    }
+          
+    
                
       }
     

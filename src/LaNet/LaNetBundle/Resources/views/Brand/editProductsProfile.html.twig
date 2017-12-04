@@ -1,0 +1,282 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
+
+{% import _self as macros %}
+
+{% macro childCategories(product_category, categories) %}
+    <select id="product_category" class="select-category" {% if product_category.children is empty %} name="category" {% endif %} required="required">
+        <option value="">Выберите категорию</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}"{% if category == product_category %} selected="selected"{% else %} {% endif %}>{{ category.name }}</option>
+             {% endfor %}
+       
+    </select>
+{% endmacro %}
+
+{% block stylesheets %}
+      {{ parent() }}
+      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/productCategory.js') }}"></script>
+  {% endblock %}
+      
+{% form_theme form _self %}
+
+{% block image_upload_widget %}
+    {% spaceless %}
+        <div class="float-left">
+          <img id="{{id}}_image" style="width:150px;" src="{% if image_url is empty %}{{ asset('dev/16x9.gif') }}{% else %}{{ asset(image_url) }}{% endif %}" class="image-upload-preview" />
+        </div>
+        <a href="javascript:void(0);" onclick="javascript:openFileInput('{{id}}')" class="button">Upload</a>
+        <input type="file" {{ block('widget_attributes') }} style="display:none"/>
+        <script type="text/javascript">
+            $("#{{id}}").change(function(){
+                readURL(this, '{{id}}_image');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
+
+
+
+    
+{% block content %}
+    
+    {% block menu %}
+  {% include "LaNetLaNetBundle:Brand:menu.html.twig" %}
+{% endblock %}
+    
+    
+  <h2>{% if product.getId %}Обновить "{{ product.name }}"{% else %}Создать{% endif %} товар</h2>
+  
+  {% for flashMessage in app.session.flashbag.get('notice_product_fail') %}
+          <div class="flash-notice success">
+              {{ flashMessage }}
+          </div>
+        {% endfor %}
+  
+  
+  <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
+    {{ form_widget(form.file) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {#{ form_row(form.brand) }#}
+    {#{ form_row(form.masterCategory) }#}
+    
+    <div id="product_brandCategory">
+      <label for="brand-category" class="required">Категория бренда</label>
+        <select name="brandCategory" required="required" id="brand-category">
+            <option value="" selected="selected">Выберите категорию бренда</option>
+                {% for item in  brandCategory %}
+                    <option value="{{item.id}}"{% if product.getId %}{% set masCat = product.getBrandsCategory %}{% if masCat.getId == item.id %} selected="selected"  {% endif %} {% else %}{% if app.session.get('master_category')  == item.id %} selected="selected"{% endif %}{% endif %}>{{ item.name }}</option> 
+                {% endfor %}       
+        </select>     
+    </div>            
+      
+       <input style="display:none;" type="text" id="currentBrand" name="brand" value="{{ brand.id }}">
+        
+        
+     {#{% if brandList is not empty %}
+        <div id="brands">
+          <label for="curentBrand" class="required">Бренд</label>
+            <select name="brand" required="required" id="brand-select">
+                {% for brand in  brandList %}
+                    <option value="{{ brand.id}}"{% if product.getId %}{% set brandCat = product.getBrand %}{% if brandCat.getId == brand.id %} selected="selected"  {% endif %}  {% else %}{% if app.session.get('brand') == brand.id %} selected="selected"{% endif %}{% endif %}>{{ brand.name }}</option> 
+                {% endfor %}       
+            </select> 
+        </div>
+   {% endif%}#}
+     
+   {#{% if categoryTree is empty %}
+     <div id="categories">
+        <label for="product_category" class="required">Категории</label>
+       
+         <select id="product_category" name="category" class="select-category" required="required">
+            <option value="" selected="selected">Выберите категорию</option>
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+          </div>
+        {% else %}#}
+   
+   {#<div id="main-cat-del"><label for="main_cat" required="required">Категории:</label>
+       <select name="product" required="required" id="main_cat" class="select-category">
+           <option value="">Выберите категорию</option>
+           {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+             {% endfor %}
+    </select>
+          </div>#}
+   
+   
+   
+   {% if categoryTree is empty %}
+    {# <div id="categories">
+        <label for="product_category" class="required">Категории</label>
+       
+         <select id="product_category" name="category" class="select-category" required="required">
+            <option value="" selected="selected">Выберите категориюНовая</option>
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>#}
+        {% else %}
+          {% set previous = false %}
+            {% for product_category in categoryTree %}
+              {% if not previous %}
+                <div id="main-cat-del"><label for="product_category" class="required">Категории</label></div>
+                  {{ macros.childCategories(product_category, categories) }}
+              {% else %}
+                {{ macros.childCategories(product_category, previous.children) }}
+              {% endif %}
+              {% set previous = product_category %}
+              
+            {% endfor %}
+            {#{% if previous.descriptionItem.count > 0 %}
+              <div class="category-descr">
+                  {% for item in previous.descriptionItem %}
+
+                    <div>{{ item.name }}: <input name="descr-items[{{ item.id }}]" {% if product.hasDescriptionItem(item) %} value="{{ product.hasDescriptionItem(item).name }}" {% endif %}></div>
+                  {% endfor %}
+              </div>
+            {% endif %}#}
+        {% endif %}
+     <div id="product-buttons" >
+      <button id="cancel-product-btn">Назад</button>
+    {{ form_widget(form.save) }}
+    </div>
+    {{ form_rest(form) }}
+  </form>
+ <script>
+      $(document).ready(function(){
+          $(document).on('change', '.select-category', function() { 
+            var element = $(this);
+            $('.select-category').attr('name','').attr('id', '');
+            element.nextAll('select').remove();
+            element.nextAll('.category-descr').remove();
+            console.log('123');
+            $.ajax({
+              url: Routing.generate('la_net_la_net_ajax_brands_profile_products_select_category', {'id' : element.val()}),
+              success: function(msg) {
+                  
+                  console.log(msg);
+                  
+                  if(msg.has_children){
+                    var select = $('<select></select>');
+                    select.addClass('select-category');
+                    select.attr('required', 'required')
+                    
+                    var options = '<option value="" selected="selected">Выберите категорию</option>';
+                    for(var key in msg.data) {
+                      options+= '<option value="' + msg.data[key].id + '">' + msg.data[key].name + '</option>';
+                    }
+                    select.append(options);
+                    element.after(select);
+                  }
+                  else {
+                    element.attr('name', 'category').attr('id', 'product_category')
+                    /*if(msg.has_description) {
+                      var descriptions = $('<div></div>');
+                      descriptions.addClass('category-descr');
+                      for(var key in msg.items) {
+                        descriptions.append('<div>' + msg.items[key].name + ': <input name="descr-items[' + msg.items[key].id + ']" /></div>');
+                      }
+                      element.after(descriptions);
+                    }*/
+                  }
+              }
+            });
+          })
+          $('#cancel-product-btn').click(function() {
+               window.location = Routing.generate('la_net_la_net_brands_profile_products');
+            });
+        {% if product.id %}
+          $('.remove-image').click(function(event) {
+          event.preventDefault();
+            var el = $(this);
+            $.ajax({
+                url         : Routing.generate('la_net_admin_product_remove_image', {'id': {{ product.id }}}),
+                success     : function(data) {
+                  if(data) { 
+                    el.prev('img').remove();
+                    el.remove(); } }
+            })
+        })
+        {% endif %}
+        });
+  </script>
+  
+  
+ {# <script>
+      $("#brand-category").change(function(){
+        $('.select-category').remove()
+        $('#main-cat-del').remove();
+          
+        var cat = $("#brand-category").val();
+     
+        if (cat != '0') { 
+         
+       $.ajax({
+            url: Routing.generate('la_net_la_net_ajax_menu_getBrand'),
+            data: {id: cat},
+            success: function (response) {
+                
+                if (response.length != 0) {
+                var data = (response);
+              
+                var new_options =  '<div id="brands"><label for="brand-select">Бренд:</label><div><select name="brand" required="required" id="brand-select"><option value="">Выберите бренд</option><div>';
+                $.each(data, function (index, value) {
+                    new_options += '<option value="'+ value.id +'">'+ value.name +'</option>';
+                  
+
+                });
+                
+                  new_options += '</select></div>';
+              $("#product_masterCategory").after(new_options);
+       
+       
+    }  }});  }
+      
+   });   
+      
+      </script>#}
+      
+      <script>
+    
+    
+    //Подгружаем категорию по выбору бренда и специализации
+      
+    $(document).on('change', '#brand-category', function ()  { 
+            $('#main-cat-del').remove();
+            $('.select-category').attr('name','').attr('id', '');
+            $('.select-category').remove();
+        var brandCat = $("#brand-category option:selected").val();
+        var brand = $("#currentBrand").val(); 
+       
+        if (brand != '0') {
+       
+        $.ajax({
+            url: Routing.generate('la_net_la_net_ajax_menu_getProductCategory'),
+            data: {id_cat: brandCat, id_brand: brand},
+            success: function (response) {
+                
+                if (response.length != 0) {
+                 
+                var data = (response);
+                
+                var new_options = '<div id="main-cat-del"><label for="main_cat" required="required">Категории:</label><select name="product" required="required" id="main_cat" class="select-category"><option value="">Выберите категорию</option>';
+                $.each(data, function (index, value) {
+                    new_options += '<option value="'+ value.id +'">'+ value.name +'</option>';
+                  
+                });
+              new_options += '</select></div>';
+              $('#brand-category').after(new_options);
+       
+    }}
+    }); } 
+      
+    });   
+          
+  </script>    
+      
+      
+{% endblock %}

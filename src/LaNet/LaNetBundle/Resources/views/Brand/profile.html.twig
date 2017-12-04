@@ -1,0 +1,96 @@
+{% extends "LaNetLaNetBundle::layoutProfile.html.twig" %}
+
+{% form_theme form 'LaNetLaNetBundle:Form:fields_profile.html.twig' %}
+ 
+{% block stylesheets %}
+      {{ parent() }}
+      <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
+      <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
+     {% endblock %}
+      
+{% macro phone_prototype(phone) %}
+    <div>{{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}</div>
+    <div>+38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}</div> 
+{% endmacro %}
+
+{% macro mail_prototype(mail) %}
+    <div>{{ form_widget(mail.showMail) }}{{ form_label(mail.showMail) }}</div>
+    <div>{{ form_widget(mail.name) }}</div>
+{% endmacro %}
+
+
+        
+{% block menu %}
+  {% include "LaNetLaNetBundle:Brand:menu.html.twig" %}
+{% endblock %}
+        
+      
+{% block profile_content %}
+<h1>Основная информация</h1>
+
+<form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
+        <div class="row errors">
+            {{ form_errors(form) }}
+        </div>
+       <div class="row">
+            <div class="col col_1_of_2">{{ form_widget(form.userInfo.file) }}</div>
+            <div class="col col_1_of_2">
+                <div class="row">
+                    <div class="col col_1_of_1">
+                        {{ form_widget(form.userInfo.name) }}
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+        
+        {{ form_row(form.userInfo.description) }}
+        {{ form_row(form.userInfo.country) }}
+        {{ form_row(form.userInfo.brandsCategory) }}
+        
+        <hr />
+        {#{{ form_row(form.userInfo.category) }}#}
+        <hr />
+        
+        <h2>Дополнительная информация</h2>
+        
+        {% if premium == 1 %} 
+            
+        {{ form_row(form.userInfo.link) }}
+        {{ form_row(form.userInfo.linkAdd) }}
+        
+        {% else %}
+        <div>Дополнительная информация доступна только для премиум-брендов. Для активации премиум статуса свяжитесь с администраторами сайта.</div>
+        
+        {% endif %}
+        
+        
+             {# <div class="row">
+          <div class="col col_1_of_2">
+            <label>Телефон: (+38 0XX XXXXXXX)</label>
+            <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
+                {% for item in form.phone %}
+                    <li><div>{{ form_widget(item.showPhone) }}{{ form_label(item.showPhone) }}</div>
+                        <div>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</div></li>
+                {% endfor %}
+            </ul>   
+          </div>
+          <div class="col col_1_of_2">
+            <label>Дополнительный электронный адрес:</label>
+            <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
+                {% for item in form.mail %}
+                    <li><div>{{ form_widget(item.showMail) }}{{ form_label(item.showMail) }}</div>
+                        <div>{{ form_widget(item.name) }}</div></li>
+                {% endfor %}
+            </ul>  
+          </div>
+        </div>#}
+            
+        <hr />
+        <div>{{ form_widget(form.newsNotify) }}{{ form_label(form.newsNotify) }}</div>
+        
+        {{ form_row(form.save) }}
+        {{ form_row(form._token) }}
+        
+</form>
+{% endblock %}

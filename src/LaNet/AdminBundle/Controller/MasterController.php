@@ -26,7 +26,7 @@ class MasterController extends BaseController
   
   public function listAction(Request $request)
     {
-          
+         
         $period = $request->get('period');
         $name = $request->get('name');
         
@@ -87,6 +87,23 @@ class MasterController extends BaseController
         }
          else{
             $master-> setInTop();
+         }
+      
+        $this->manager->persist($master);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
+    public function premiumAction(Request $request, $id)
+    {
+        $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
+             
+        if ($master->getUser()-> getPremium() == NULL){
+            $master->getUser()-> setPremium(1);
+        }
+         else{
+            $master->getUser()-> setPremium(NULL);
          }
       
         $this->manager->persist($master);

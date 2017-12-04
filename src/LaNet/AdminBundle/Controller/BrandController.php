@@ -10,6 +10,15 @@ use LaNet\AdminBundle\Form\Type as LaForm;
 
 class BrandController extends BaseController
 {
+    
+     public function mainAction(Request $request)
+  {
+               
+    return $this->render('LaNetAdminBundle:Brand:main.html.twig');
+  }
+
+    
+    
     public function listAction(Request $request)
     {
         $name = $request->get('name');
@@ -20,6 +29,18 @@ class BrandController extends BaseController
         );
 
         return $this->render('LaNetAdminBundle:Brand:list.html.twig', array('pagination' => $pagination));
+    }
+    
+    public function moderListAction(Request $request)
+    {
+        $name = $request->get('name');
+            
+        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrandonModeration($name); 
+            $pagination = $this->paginator->paginate(
+            $brands, $this->getRequest()->query->get('page', 1), 1000
+        );
+
+        return $this->render('LaNetAdminBundle:Brand:moderList.html.twig', array('pagination' => $pagination));
     }
 
     public function editAction(Request $request, $id = null)
@@ -75,6 +96,46 @@ class BrandController extends BaseController
 
         return $this->render('LaNetAdminBundle:Brand:edit.html.twig', array('brand' => $brand, 'form' => $form->createView()));
     }
+    
+    public function moderEditAction(Request $request, $id)
+    {
+                
+      $newsRepo = $this->manager->getRepository('LaNetLaNetBundle:Brand');
+      
+      if (is_null($id)) {
+        return $this->redirect($this->generateUrl('la_net_admin_brand_moderation_list'));
+
+      } else {
+        $brand = $newsRepo->find($id);
+        if (!$brand) {
+          throw $this->createNotFoundException('Brand not found!');
+        }
+      }
+      $form = $this->createForm(new LaForm\BrandType(), $brand);
+
+      if ('POST' == $request->getMethod()) {
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            
+          if ($form->get('save')->isClicked()) {
+             $brand->setModeration(NULL); 
+             /*$this->get('session')->getFlashBag()->add(
+                'notice_brand',
+                'Ваши изменения были сохранены'
+            );*/
+          }
+            
+          $this->manager->persist($brand);
+          $this->manager->flush();
+          
+           return $this->redirect($this->generateUrl('la_net_admin_brand_moderation_list'));
+        }
+      }
+
+        return $this->render('LaNetAdminBundle:Brand:moderEdit.html.twig', array('brand' => $brand, 'form' => $form->createView()));
+    }
 
     public function deleteAction(Request $request, $id)
     {
@@ -116,5 +177,23 @@ class BrandController extends BaseController
 
         return new JsonResponse(1);
     }
+    
+    public function premiumAction(Request $request, $id)
+    {
+        $brand = $this->manager->getRepository('LaNetLaNetBundle:Brand')->find($id);
+             
+        if ($brand->getUser()->getPremium() == NULL){
+            $brand->getUser()->setPremium(1);
+        }
+         else{
+            $brand->getUser()->setPremium(NULL);
+         }
+      
+        $this->manager->persist($brand);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
+    
     
 }

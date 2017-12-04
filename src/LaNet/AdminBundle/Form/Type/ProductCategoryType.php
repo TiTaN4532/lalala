@@ -28,11 +28,18 @@ class ProductCategoryType extends AbstractType {
                     'empty_value' => 'Выберите брэнд',
                     'empty_data' => null
                 ))*/
-                ->add('masterCategory', 'entity', array(
+                /*->add('masterCategory', 'entity', array(
                     'label' => 'Специализация:',
                     'class' => 'LaNetLaNetBundle:MasterCategory',
                     'property' => 'name',
                     'empty_value' => 'Выберите специализацию',
+                    'empty_data' => null
+                ))*/
+                ->add('brandCategory', 'entity', array(
+                    'label' => 'Специализация:',
+                    'class' => 'LaNetLaNetBundle:BrandsCategory',
+                    'property' => 'name',
+                    'empty_value' => 'Выберите категорию бренда',
                     'empty_data' => null
                 ))
                 ->add('children', 'collection', array(

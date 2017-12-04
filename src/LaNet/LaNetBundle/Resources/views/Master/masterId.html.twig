@@ -7,14 +7,24 @@
   {{ parent() }}
   <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
   <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="{{ asset('js/raty-2.8.0/lib/jquery.raty.js') }}"></script>
+  
 {% endblock %}
       
 {% block content %}
 <div class="master-id">
+    
+    
   <div class="row">
     <div class="col col_1_of_3">
         <a href="{{ asset(master.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ master.firstname | upper }} {{ master.lastname | upper }}"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
-        </div>
+    <div id="rating-block">
+    <div class="solid-stars" data-id="{{master.id}}" data-votes="{{master.getUser.getVotes}}" data-score="{{master.getUser.getRating}}"> </div>
+        <div id="avg-rating">Средний рейтинг: {% if master.getUser.getRating %} {{master.getUser.getRating}}{% else %}рейтинга нет {% endif %}</div>
+        <div id="votes">Голосов:{% if master.getUser.getVotes %}{{master.getUser.getVotes}}{% else %} голосов нет{% endif %}</div>
+   
+</div>       
+    </div>
     <div class="col col_2_of_3">
         <h2 style="color:#578fac;">{{ master.firstname | upper }} {{ master.lastname | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">{{ "Основная информация:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
@@ -119,7 +129,7 @@
   {% if master.services is not empty %}              
     <div class="row clear">
       <div class="col col_1_of_3 blue">услуги и цены:</div>
-      <div class="col col_2_of_3">{% for item in master.services %}<p>{{ item.name }}: {{ item.startPrice }} - {{ item.endPrice }} грн</p>{% endfor %}</div>
+      <div class="col col_2_of_3">{% for item in master.services %}<p>{{ item.name }}{% if item.startPrice is not empty %} :  {{ item.startPrice }} {% endif %} {% if item.endPrice is not empty %} - {{ item.endPrice }}{% endif %} {% if item.startPrice is not empty %} грн {% endif %}</p>{% endfor %}</div>
     </div> 
   {% endif %}
 {% if master.competitions or master.education or master.hobby %}
@@ -160,12 +170,82 @@
     </div>
   {% endif %}
 </div>
+  
+
+
+ 
+
+
+
+
   <script>
-    $(document).ready(function() {
-	$(".fancybox").fancybox({
-		openEffect	: 'none',
-		closeEffect	: 'none'
-	});
+   /* $(document).ready(function() {
+      
+    
+   $('.solid-stars').raty({ 
+     path: "{{ asset('images/') }}",
+     score: function() {
+              return $(this).data('score');
+      },
+              
+      click: function(score,data){
+        var id = $(this).data('id');
+        $.post(
+        '{{ path('la_net_la_net_ajax_menu_rating')}}',
+        {rating:score, id:id}, function(data){ 
+           
+        }; 
+       );
+                    
+    };
 });
+});
+*/
+/*  
+  
+  $('div').raty({
+  click: function(score, evt) {
+    alert('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
+  }
+});
+  */
+  
+  
+   $('.solid-stars').raty({
+       path: "{{ asset('images/') }}",
+       //readOnly: true,
+       half : true,
+    score: function() {
+              return $(this).data('score');
+      },
+      click: function(score,data){
+        var id = $(this).data('id');
+        var votes = $(this).data('votes');
+         $.post("{{ path('la_net_la_net_ajax_menu_rating')}}", {rating:score, votes:votes, id:id}, function(result){
+        var data = result;
+        $('#avg-rating').html("Средний рейтинг: " +data.score+"");
+        $('#votes').html("Голосов: " +data.votes+"");
+        
+        
+    });
+      }    
+       
+});
+
+
+
+
+
+   
+   
+   
+   
+   
   </script>
+  
+  
+  
+ {# <div class="fb-comments" data-href="{{ path('la_net_la_net_master_id', {'id': master.id })}}" data-numposts="5"></div>#}
+  <div class="fb-comments" data-href="http://localhost/vhost/lalook/web/app_dev.php/master/{{master.id}}/" data-numposts="5"></div>
+    
 {% endblock %}

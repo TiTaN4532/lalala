@@ -10,7 +10,7 @@
     
         <div>{{ form_label(category.name) }}</div>
        
-        <div><a class="toggle-category open" href="">+</a>{{ form_widget(category.name) }} {#<a href="" class="toggle-desc open">Показать описание</a>#}</div>
+        <div><a class="toggle-category open2" href="">+</a>{{ form_widget(category.name) }} {#<a href="" class="toggle-desc open2">Показать описание</a>#}</div>
         
         {#<div class="category-desc">
             
@@ -25,9 +25,9 @@
              <ul {% if not category.parent %} class="categories" data-prototype='<div id="product_category_children___name__">
                                                                                     <div><label for="product_category_children___name___name" class="required">Название</label></div>
                                                                                     <div class="input-wrapper">
-                                                                                      <a class="toggle-category open" href="">+</a>
+                                                                                      <a class="toggle-category open2" href="">+</a>
                                                                                       <input type="text" class="half " id="product_category_children___name___name" name="product_category[children][__name__][name]" required="required" />
-                                                                                      {#<a href="" class="toggle-desc open">Показать описание</a>#}
+                                                                                      {#<a href="" class="toggle-desc open2">Показать описание</a>#}
                                                                                     </div>
                                                                                    {# <div class="category-desc">
                                                                                        <ul class="category-desc" data-prototype=&apos;<div id="product_category_children___name___descriptionItem___descr-name__"><div><label for="product_category_children___name___descriptionItem___descr-name___name" class="required"></label><input type="text" id="product_category_children___name___descriptionItem___descr-name___name" name="product_category[children][__name__][descriptionItem][__descr-name__][name]" required="required"    class="half" /></div></div>&apos;>
@@ -51,11 +51,19 @@
       
       
 {% block content %}
-  <h2>Список категорий</h2>  
+   
+    
+    
+  <h2 style="padding-bottom: 20px;">Список категорий</h2>  
   <form action="" method="post" {{ form_enctype(form) }}>
     {{ form_errors(form)}}
-    {{ form_row(form.masterCategory) }}         
-      {% if brandList is not empty %}
+            
+    {#{{ form_row(form.brandCategory) }}  #}
+    
+    <input style="display:none;" type="text" name="brand" value="{{ brand.id }}">
+    
+    
+      {#{% if brandList is not empty %}
         <div id="brand" style="padding-top: 10px; padding-bottom: 10px;">
           <label for="curentBrand" class="required">Бренд</label>
             <select name="brand" required="required" id="brand-select">
@@ -70,15 +78,26 @@
             <select name="brand" required="required" id="brand-select">
                 <option value="">Выберите бренд</option>
             </select> 
-        </div>   
+        </div>  
             
-      {% endif%} 
+      {% endif%} #}
+      
     {{ _self.recursiveCategory(form) }}
     {{ form_row(form.save) }}
     {{ form_row(form._token) }}
   </form>
 
-  <script>
+  {#<script>
+  $(document).ready(function(){
+      {% if currentBrandCategory is not empty %}
+        $("#product_category_masterCategory select").val('{{currentBrandCategory}}');
+        {% endif %}
+});     
+  </script>#}
+                     
+
+  
+  {#<script>
   $(document).ready(function(){
        
      var SelectedMasterCat = $("#product_category_masterCategory option:selected").val();
@@ -146,5 +165,5 @@
 }});  }
       
    })});    
-    </script>
+    </script>#}
 {% endblock %}

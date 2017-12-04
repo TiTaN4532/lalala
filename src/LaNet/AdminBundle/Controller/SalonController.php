@@ -66,5 +66,20 @@ class SalonController extends BaseController
         return new JsonResponse(1);
     }
     
-    
+    public function premiumAction(Request $request, $id)
+    {
+        $salon = $this->manager->getRepository('LaNetLaNetBundle:Salon')->find($id);
+             
+        if ($salon->getUser()->getPremium() == NULL){
+            $salon->getUser()->setPremium(1);
+        }
+         else{
+            $salon->getUser()->setPremium(NULL);
+         }
+      
+        $this->manager->persist($salon);
+        $this->manager->flush();
+
+        return new JsonResponse(1);
+    }
 }

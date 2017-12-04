@@ -58,6 +58,11 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     protected $masterCategory;
     
     /**
+     * @ORM\ManyToOne(targetEntity="BrandsCategory", inversedBy="product")
+     */
+    protected $brandCategory;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Brand", inversedBy="product")
      */
     protected $brand;
@@ -275,6 +280,29 @@ class Product extends \LaNet\LaNetBundle\Model\UploadImages
     {
         return $this->masterCategory;
     }
+    /**
+     * Set masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     * @return Product
+     */
+    public function setBrandsCategory(\LaNet\LaNetBundle\Entity\BrandsCategory $brandCategory = null)
+    {
+        $this->brandCategory = $brandCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get masterCategory
+     *
+     * @return \LaNet\LaNetBundle\Entity\MasterCategory 
+     */
+    public function getBrandsCategory()
+    {
+        return $this->brandCategory;
+    }
+    
     /**
      * Constructor
      */

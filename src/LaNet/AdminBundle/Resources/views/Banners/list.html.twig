@@ -9,6 +9,7 @@
                 <tr>
                     <th>Название</th>
                     <th>Приоритет</th>
+                    <th>Группа</th>
                     <th>Удалить баннер</th>
                     <th>Редактировать баннер</th>
                     <th>Статус</th>
@@ -19,6 +20,7 @@
                     <tr>
                         <td>{{ banners.name }}</td>
                         <td>{{ banners.priority == NULL ? 'отстутствует' : banners.priority}}</td>
+                        <td>{% if banners.getGroupId() == NULL %} отстутствует {% endif %} {% if banners.getGroupId() == 1 %}Верхний{% endif %}{% if banners.getGroupId() == 2 %}Средний{% endif %} {% if banners.getGroupId() == 3 %}Нижний{% endif %}</td>
                         <td><a href="{{ path('la_net_admin_banners_delete', {'id': banners.id}) }}" class="delete-banners">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_banners_edit', {'id': banners.id}) }}">Редактировать</a></td>
                         <td><a href="{{ path('la_net_admin_banners_isDraft', {'id': banners.id} ) }}" class="update-post button">{% if banners.getIsDraft == 1 %}Активировать{% else %}Деактивировать{% endif %}</a></td>
