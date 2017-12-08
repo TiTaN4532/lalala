@@ -35,7 +35,7 @@ class MainController extends BaseController {
         
         $galleryShuffle = $this->shuffle_assoc($galleryShuffle);
                    
-        
+        $eventsNew = array ();
         if ($events){
             foreach ($events as $event){
                 $link = $event->getVideo();
@@ -49,7 +49,7 @@ class MainController extends BaseController {
 
                     }
                 }
-                $events[]=$event;
+                $eventsNew[]=$event;
             }
         }
         
@@ -87,7 +87,7 @@ class MainController extends BaseController {
                                                                          'brandCat' => $brands,
                                                                          'schools' => $schools,
                                                                          'gallery' => $galleryShuffle,
-                                                                         'events' => $events));
+                                                                         'events' => $eventsNew));
     }
     
     public function sideBarAction() {
