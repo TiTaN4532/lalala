@@ -6,9 +6,22 @@
 {% block content %}
 <a href="{{ path('la_net_la_net_master_list') }}" class="tabs">Поиск мастера</a><a href="{{ path('la_net_la_net_salon_list') }}" class="tabs">Поиск салона</a><a href="{{ path('la_net_la_net_school_list') }}" class="tabs active">Обучение</a>
 <hr style="margin:7px 0 20px 0;" class="clear" />
-<div><form action=""><input placeholder="Поиск по названию" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input style="margin-left:10px;" type="submit" value="Найти"></form></div>
 
-<div> <div style="margin:10px 0 ;">{{ "Подбор Обучения согласно вашим критериям:" | upper }}</div><form action="">
+
+<div style="padding-bottom:20px;" class="search-form">
+        <form action="">
+            <div class="search-form-row">
+                <input placeholder="Название" class="search-form-field" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+                <img class="search-form-icon" src="{{ asset('images/search.png') }}" alt="search-icon">
+            </div>
+            <input class="search-form-btn" type="submit" value="Поиск">
+        
+            
+            
+            <div>
+  <a href='#' style="padding-top:20px;" id='trigger'><h4>Расширеный поиск</h4></a>
+  <div id='box' style='display: none;padding-bottom:20px;'><div style="margin:10px 0 ;">{{ "Подбор Обучения согласно вашим критериям:" | upper }}</div>
+   
         <select name="category"class="half">
           <option value="0">Выберите специальность</option>
           {% for item in masterCategory %}
@@ -23,9 +36,13 @@
               {% endfor %}
             </select>
         {% endif %}
-        <div><input type="submit" value="Поиск"></div>
-      </form>
-</div>
+  </div> 
+
+ </div>     
+          
+        </form>
+    </div>
+
 
 <h2 style="float:left;margin-right: 10px;">Карта</h2><hr align="right" style="width:auto;margin-top: 20px" size="2" color="#AAA" />
 <div id="map" style="width:100%;height:250px;"></div>
@@ -89,4 +106,16 @@
   <div class="row clear pagination">
   {{ knp_pagination_render(schools) }}
   </div>
+  
+   <script>  
+  $(document).ready(function(){
+          $("A#trigger").click(function(event){
+               event.preventDefault();
+        $("DIV#box").toggle();
+    });
+   
+         
+        });  
+        
+   </script> 
 {% endblock %}
