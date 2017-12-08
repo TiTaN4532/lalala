@@ -22,17 +22,18 @@ class MainController extends BaseController {
         $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findBrandCategoryOnMainPage();
         $gallery = $this->manager->getRepository('LaNetLaNetBundle:Image')->findBy(array('gallery' => 1));
         
+        $galleryShuffle = array ();
         if ($gallery){
             foreach ($gallery as $image){
                 
                 $event = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findOneBy(array('id' => $image->getArticle()->getId()));
                 $image->slug = $event->getSlug();
                         
-                $gallery[] = $image;
+                $galleryShuffle[] = $image;
             }
         }
         
-        $gallery = $this->shuffle_assoc($gallery);
+        $galleryShuffle = $this->shuffle_assoc($galleryShuffle);
                    
         
         if ($events){
@@ -85,7 +86,7 @@ class MainController extends BaseController {
                                                                          'salons' => $salons,
                                                                          'brandCat' => $brands,
                                                                          'schools' => $schools,
-                                                                         'gallery' => $gallery,
+                                                                         'gallery' => $galleryShuffle,
                                                                          'events' => $events));
     }
     

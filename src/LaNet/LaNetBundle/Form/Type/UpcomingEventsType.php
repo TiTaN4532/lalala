@@ -17,7 +17,7 @@ class UpcomingEventsType extends AbstractType
         $builder
                 -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
                 ->add('title', 'text', array('label' => 'Заголовок'))
-                ->add('post', 'textarea', array('label' => 'Текст объявления'))
+                ->add('post', 'textarea', array('label' => 'Текст'))
                 ->add('add_post', 'submit', array('label' => 'Сохранить'))
                 ->add('public', 'submit', array('label' => 'Опубликовать'))
                 ->add('draft', 'submit', array('label' => 'Скрыть'));

@@ -42,7 +42,7 @@ class EventsController extends BaseController
       
       
       
-      $form = $this->createForm(new LaForm\ArticlesType(), $eventsPost);
+      $form = $this->createForm(new LaForm\ArticlesEventType(), $eventsPost);
     
       
       $eventsPost->setType('event');

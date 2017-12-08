@@ -8,12 +8,18 @@
 
 <hr style="margin:7px 0 20px 0;" class="clear" />
 
-<div style="padding-bottom:20px;">
-    <form action="">
-        <input placeholder="Поиск" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
-        <input style="margin-left:10px;" type="submit" value="Найти">
-    </form>
-</div>
+                        <div class="search-form">
+                            <form action="">
+                                <div class="search-form-row">
+                                    <input placeholder="Поиск" class="search-form-field" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+                                    <img class="search-form-icon" src="{{ asset('images/search.png') }}" alt="search-icon">
+                                </div>
+                                <input class="search-form-btn" type="submit" value="Найти">
+                            </form>
+                        </div>
+        
+        
+        
        {% if salons %} 
     <section class="holder">
         <h2 class="section-title"><a href="{{ path('la_net_la_net_salon_list') }}">Салоны</a></h2>
@@ -68,6 +74,17 @@
                       <div class="masters-item-info">
                          <a href="{{ path('la_net_la_net_master_id', {'id': master.id })}}"><h3 class="masters-item-title {% if master.inTop != NULL%} starred {% endif%}">{{ master.firstName }} {{ master.lastName }}</h3></a>
                       </div>
+                      {% if master.category is not empty %}
+                           <div class="masters-item-profession">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+                       {% endif %}
+                      {% if master.category is not empty %}
+                           <div class="masters-item-profession">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+                       {% endif %}
+                       
+                       {% if (master.location and master.location.locality) %}
+                          
+                              <div class="masters-item-profession">{{ master.location.locality }} {{ master.location.administrativearea }}</div>
+                        {% endif %}
                   </div>
                 {% else %}
                   Мастеров нет
@@ -79,6 +96,16 @@
 
    <a href="{{ path('la_net_la_net_master_list') }}" class="tabs active">Просмотр всех мастеров</a>
   
-  
+  <script type="text/javascript">
+      $(document).ready(function() {
+          
+         $('.gallery').slick({
+              infinite: true,
+              slidesToShow: 4,
+              slidesToScroll: 1
+            });
+         
+      });
+  </script>
   
 {% endblock %}

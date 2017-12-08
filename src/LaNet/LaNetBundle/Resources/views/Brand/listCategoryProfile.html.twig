@@ -14,6 +14,8 @@
     {% block menu %}
   {% include "LaNetLaNetBundle:Brand:menu.html.twig" %}
 {% endblock %}
+{% if premium == 1 %} 
+
   {% for flashMessage in app.session.flashbag.get('notice_product_category') %}
           <div class="flash-notice success">
               {{ flashMessage }}
@@ -44,10 +46,12 @@
   Список пуст
 {% endfor %}        
           
-          
-          
-          
-          
+ {% else %}
+    
+      <h4>Данный раздел доступен только для премиум-брендов. Для активации премиум статуса свяжитесь с администраторами сайта.</h4>
+     
+    {% endif %}          
+           
         
       <script>
                 $(document).ready(function() {

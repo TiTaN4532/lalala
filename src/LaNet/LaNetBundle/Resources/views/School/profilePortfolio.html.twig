@@ -49,4 +49,36 @@
        {{ form_row(form.save) }}
         
 </form>
+ {% if premium == 1 %} 
+  
+ {% else %}
+     
+        <script>       
+    $(document).ready(function(){ 
+     
+        if (($('ul.images li').size()-1) > 9){
+             $('#add-new-image').hide()       
+        }
+                    
+        $('.delete-image-from-portfolio').click(function(event) {
+        if (($('ul.images li').size()-1) > 9){
+             $('#add-new-image').hide()       
+        }
+            else {
+                $('#add-new-image').show()      
+            }
+        });
+                
+        $('#add-new-image').click(function(event) {
+        if (($('ul.images li').size()-1) > 9){
+             $('#add-new-image').hide()       
+            }
+            else {
+                $('#add-new-image').show()      
+            }
+        });
+    });
+  </script>      
+        
+{% endif %}
 {% endblock %}

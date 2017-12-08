@@ -33,9 +33,13 @@ web/uploads/images/adverts/*
 !default.png
 web/uploads/images/articles/*
 !default.png
-web/uploads/images/brand_category
+web/uploads/images/events/*
 !default.png
-web/uploads/images/agancy
+web/uploads/images/brand_category/*
+!default.png
+web/uploads/images/brands_category/*
+!default.png
+web/uploads/images/agancy/*
 !default.png
 web/uploads/images/banners/*
 !default.png

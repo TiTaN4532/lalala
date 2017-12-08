@@ -13,17 +13,18 @@
       
 {% block content %}
 <div class="master-id">
-    
+  {#  {{ app.request.cookies.get('myCookie') }}#}
     
   <div class="row">
     <div class="col col_1_of_3">
         <a href="{{ asset(master.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ master.firstname | upper }} {{ master.lastname | upper }}"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
-    <div id="rating-block">
-    <div class="solid-stars" data-id="{{master.id}}" data-votes="{{master.getUser.getVotes}}" data-score="{{master.getUser.getRating}}"> </div>
-        <div id="avg-rating">Средний рейтинг: {% if master.getUser.getRating %} {{master.getUser.getRating}}{% else %}рейтинга нет {% endif %}</div>
-        <div id="votes">Голосов:{% if master.getUser.getVotes %}{{master.getUser.getVotes}}{% else %} голосов нет{% endif %}</div>
-   
-</div>       
+    
+        <div id="rating-block">
+            <div class="solid-stars" data-id="{{master.id}}" data-votes="{{master.getUser.getVotes}}" data-score="{{master.getUser.getRating}}"></div>
+                <div id="avg-rating">Средний рейтинг: {% if master.getUser.getRating %} {{master.getUser.getRating}}{% else %} 0{% endif %}</div>
+                <div id="votes">Голосов:{% if master.getUser.getVotes %}{{master.getUser.getVotes}}{% else %} 0{% endif %}</div>
+        </div>  
+        
     </div>
     <div class="col col_2_of_3">
         <h2 style="color:#578fac;">{{ master.firstname | upper }} {{ master.lastname | upper }}</h2>
@@ -246,6 +247,6 @@
   
   
  {# <div class="fb-comments" data-href="{{ path('la_net_la_net_master_id', {'id': master.id })}}" data-numposts="5"></div>#}
-  <div class="fb-comments" data-href="http://localhost/vhost/lalook/web/app_dev.php/master/{{master.id}}/" data-numposts="5"></div>
+  <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="http://localhost/vhost/lalook/web/app_dev.php/master/{{master.id}}/" data-numposts="5"></div>
     
 {% endblock %}

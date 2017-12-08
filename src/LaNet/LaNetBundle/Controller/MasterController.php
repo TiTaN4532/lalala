@@ -5,6 +5,7 @@ namespace LaNet\LaNetBundle\Controller;
 use LaNet\LaNetBundle\Controller\BaseController;
 use Doctrine\ORM\Query\Expr;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use LaNet\LaNetBundle\Entity as LaEntity;
 use LaNet\LaNetBundle\Form\Type as LaForm;
 
@@ -172,6 +173,24 @@ class MasterController extends BaseController
     
     public function listAction(Request $request)
     {
+      
+      /* $cookies = $request->cookies;
+
+       if ($cookies->has('myCookie2'))
+      {
+        print_r ($cookies->get('myCookie2'));
+        exit();
+       } 
+        
+      
+        
+        $response = new Response();
+      $cookies = $response->headers->getCookies();
+        
+        $cookie = $request->cookies->get('myCookie');
+      print_r ($cookies);
+      exit();
+        */
       $region = $this->getRequest()->getSession()->get('region');
       $whereRegion = '';
       if($region) {

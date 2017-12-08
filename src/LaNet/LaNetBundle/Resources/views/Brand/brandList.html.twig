@@ -33,9 +33,9 @@
     </div>    
     
      <div class="text-left" style="padding-bottom: 20px;">
-        <a href="#" class="btn" id="add-brand-btn">Добавить бренд</a>
+        <a href="#" class="btn btn-reverse" id="add-brand-btn">Добавить бренд</a>
    
-        <a href="#" class="btn" id="capabilities" data-toggle="modal" data-target="#myModalBrand">Возможности портала</a>
+        <a href="#" class="btn btn-reverse" id="capabilities" data-toggle="modal" data-target="#myModalBrand">Возможности портала</a>
     </div>
     
              <div id="advert-success-message">  
@@ -46,58 +46,38 @@
         {% endfor %}
     </div>
             
-            
-     <div style="margin-bottom: 20px; border-color: #2d93b2;" >
-         <form action="">
-             <input placeholder="Название" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
-             <input style="margin-left:10px;" type="submit" value="Поиск">
+    <div style="padding-bottom:20px;" class="search-form">
+        <form action="">
+            <div class="search-form-row">
+                <input placeholder="Название" class="search-form-field" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+                <img class="search-form-icon" src="{{ asset('images/search.png') }}" alt="search-icon">
+            </div>
+            <input class="search-form-btn" type="submit" value="Поиск">
         
-    
-    <div style="padding-bottom: 20px;">
-        <div style="margin:10px 0 ;">{{ "Поиск бренда по категории:" | upper }}</div>
+            
+            
+            <div>
+  <a href='#' style="padding-top:20px;" id='trigger'><h4>Расширеный поиск</h4></a>
+  <div id='box' style='display: none;padding-bottom:20px;'><div style="margin:10px 0 ;">{{ "Поиск бренда по категории:" | upper }}</div>
    
-        <select required name="category" class="half">
+        <select name="category" class="half">
           <option  value="">Выберите категорию</option>
           {% for item in masterCategory %}
             <option value="{{ item.id }}" {% if app.request.query.get('category') == item.id  %} selected="selected"{% endif %}>{{ item.name }}</option>
           {% endfor %}
         </select>
-       
-</div>
-            </form>
+  </div> 
 
-      </div>
-        
-        
-        <script type='text/javascript'> 
-    $(document).ready(function() { 
-      $("A#trigger").toggle(function() { 
-        // Отображаем скрытый блок 
-        $("DIV#box").fadeIn(); // fadeIn - плавное появление
-        return false; // не производить переход по ссылке
-      },  
-      function() { 
-        // Скрываем блок 
-        $("DIV#box").fadeOut(); // fadeOut - плавное исчезновение 
-        return false; // не производить переход по ссылке
-      }); // end of toggle() 
-    }); // end of ready() 
-  </script> 
+ </div>     
+          
+        </form>
+    </div>
 
-</head> 
-<body> 
-
-  <a href='#' id='trigger'>Открыть/скрыть информацию</a> <!-- Всё происходит при нажатии на ссылку -->
-  <div id='box' style='display: none;padding:10px;background-color:#f1f1f1;margin:10px;width:210px;'>Содержимое скрытого блока</div> 
-
-        
-        
-        
-        
+               
         
         {% if testsSlider %}
     <section class="holder">
-            <h2 class="section-title"> <a href="{{ path('la_net_la_net_tests_list')}}">Тестирование продуктов</a></h2>
+            <h2  class="section-title"> <a href="{{ path('la_net_la_net_tests_list')}}">Тестирование продуктов</a></h2>
             <div class="row-fluid">
                 <section class="holder">
                    <div class="gallery-wrap">
@@ -118,15 +98,17 @@
     </section>
      {% endif %}                   
                         
- <h1 style="float:left;margin-right: 10px;">Бренды</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="2" color="#AAA" />
+ 
 {% for item in brands %}
  {% if not loop.first %} <hr /> {% endif %}
-  <div class="row clear">
-    
+  
+      
+    <a href="{{ path('la_net_la_net_brands_id', { 'slug' : item.slug }) }}">
+        <div class="row clear brand-hover">
     <div class="col col_1_of_3"><img src="{{ item.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
     <div class="col col_2_of_3">
-      <h2><a class="blue-link" href="{{ path('la_net_la_net_brands_id', { 'slug' : item.slug }) }}">{{ item.name }}</a></h2>
-        <div class="row">
+      <h2 style="color:#000000">{{item.name }}</h2>
+        {#<div class="row">
             <div class="brand-country">
           <div class="col col_2_of_3">{{ item.country }}</div>
           </div>
@@ -134,10 +116,12 @@
         <div class="row">
            <div class="col col_2_of_2">{{ item.description|striptags|slice(0, 200) }}{% if item.description|length > 200 %}...{% endif %}</div>
         </div>
-      <a style="float:right;" href="{{ path('la_net_la_net_brands_id', { 'slug' : item.slug }) }}" class="blue-link">Подробнее</a>
+      <a style="float:right;" href="{{ path('la_net_la_net_brands_id', { 'slug' : item.slug }) }}" class="blue-link">Подробнее</a>#}
    
     </div>
-  </div>
+       
+        
+  </div> </a>
 {% else %}
   Список брендов пуст
 {% endfor %}             
@@ -170,6 +154,13 @@
 
 <script>
       $(document).ready(function(){
+          $("A#trigger").click(function(event){
+               event.preventDefault();
+        $("DIV#box").toggle();
+    });
+   
+          
+          
           $('#add-brand-btn').click(function() {
             var id_tiny = tinymce.editors[0].id;
             tinymce.get(id_tiny).setContent('');
@@ -195,6 +186,13 @@
    
    <script>  
    $(document).ready(function(){
+       
+       $('.gallery').slick({
+              infinite: true,
+              slidesToShow: 5,
+              slidesToScroll: 1
+            });
+        
       toastr.options = {"closeButton": false,
                         "debug": false,
                         "newestOnTop": false,

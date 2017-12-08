@@ -83,9 +83,19 @@ class MenuController extends BaseController {
     
     public function ratingAction(Request $request) {
         
-       /*$cookie = new Cookie('myCookie', '$id');
-       $response = new Response();
-       $response->headers->setCookie($cookie);
+       
+       /* $cookie = new Cookie('myCookie2', 11345555);
+        $responseCookie = new Response();
+        $responseCookie->headers->setCookie($cookie);
+        $responseCookie->send();  
+
+        */
+        
+       /* 
+        
+        $cookie = new Cookie('myCookie', '123');
+       $responseCookie = new Response();
+       $responseCookie->headers->setCookie($cookie);
         */
         
        

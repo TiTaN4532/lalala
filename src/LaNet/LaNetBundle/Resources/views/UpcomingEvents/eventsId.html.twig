@@ -9,7 +9,7 @@
     <h3 style="color:#2d93b2;text-align: center;">{{ events.title | upper}}</h3>
     <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ events.getWebPath | imagine_filter('my_news_big')}}" style="width:100%;" /></div>
     <div class="col col_1_of_1">
-        {{ events.post | raw}}
+        {{ events.post}}
     </div>
      
     {#<div class="col col_1_of_2" style="color:#2d93b2;">

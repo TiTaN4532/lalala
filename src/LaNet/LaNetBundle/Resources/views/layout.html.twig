@@ -385,12 +385,13 @@
         <div class="gallery-main" style="padding-top: 30px">
             <div class="row clear">
             {% for image in gallery %}
-
+     {% if loop.index < 15 %}
               <div class="col col_1_of_5">
                 <a href="{{ asset(image.getWebPath)}}" rel="group1" class="fancybox" title="<a href='{{ path('la_net_la_net_events_id', { 'slug' : image.slug } ) }}'>{{ image.slug }}</a>"><img src="{{ asset(image.getWebPath)}}" /></a>
               </div>
               {% if loop.index % 5 == 0 %}
                  </div> <br> <div class="row clear">
+              {% endif %}
               {% endif %}
             {% endfor %}
             </div>
@@ -398,20 +399,7 @@
    
         
   {% endif %}
-            
-            
-         <script>
-    $(document).ready(function() {
-	$(".fancybox").fancybox({
-		openEffect	: 'none',
-		closeEffect	: 'none'
-	});
-});
-  </script>   
-            
-            
-            
-            
+           
             
                                 {#<section class="holder">
                     <div class="advert-wrap">
@@ -552,16 +540,21 @@
 </div>
                    
     <script type="text/javascript">
-   /*document.onclick = function( event )
-    {
-            event.preventDefault();
-        alert( event.target.tagName );
-    }  */
-        
-        
-        
-        
+  
      $(document).ready(function() {
+         $(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	 });
+  
+         $('.gallery').slick({
+              infinite: true,
+              slidesToShow: 4,
+              slidesToScroll: 1
+            });
+         
+         
+         
           $('[event-id] a img').click(function(event) {
               event.preventDefault();
                 

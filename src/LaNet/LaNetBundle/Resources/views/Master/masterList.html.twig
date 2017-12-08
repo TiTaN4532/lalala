@@ -6,6 +6,42 @@
 {% block content %}
 <a href="{{ path('la_net_la_net_master_list') }}" class="tabs active">Поиск мастера</a><a href="{{ path('la_net_la_net_salon_list') }}" class="tabs">Поиск салона</a><a href="{{ path('la_net_la_net_school_list') }}" class="tabs">Обучение</a>
 <hr style="margin:7px 0 20px 0;" class="clear" />
+
+ <div class="search-form">
+    <form action="">
+        <div class="search-form-row">
+            <input placeholder="Поиск" class="search-form-field" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+            <img class="search-form-icon" src="{{ asset('images/search.png') }}" alt="search-icon">
+        </div>
+        
+        <div>
+        <input class="search-form-btn" type="submit" value="Найти">
+    <select name="category" class="half">
+          <option value="0">Выберите специальность</option>
+          {% for item in masterCategory %}
+            <option value="{{ item.id }}" {% if app.request.query.get('category') == item.id  %} selected="selected"{% endif %}>{{ item.name }}</option>
+          {% endfor %}
+        </select>
+     {#<select name="service-type"  class="half">
+          <option value="0">Тип обслуживания</option>
+            <option value="home" {% if app.request.query.get('service-type') == 'home' %} selected="selected"{% endif %}>На дому</option>
+            <option value="salon" {% if app.request.query.get('service-type') == 'salon' %} selected="selected"{% endif %}>В салоне</option>
+            <option value="salon-home" {% if app.request.query.get('service-type') == 'salon-home' %} selected="selected"{% endif %}>Выезд на дом</option>
+        </select>#}
+        {% if cities | length %}
+            <select name="city"  class="half">
+              <option value="0">Выберите город</option>
+              {% for item in cities %}
+                  <option value="{{ item['locality'] }}" {% if app.request.query.get('city') ==  item['locality']  %} selected="selected"{% endif %}>{{ item['locality'] }}</option>
+              {% endfor %}
+            </select>
+        {% endif %}
+    
+    </div>
+    </form>
+</div>
+
+
 <div><form action=""><input placeholder="Найдите мастера по имени" style="margin-bottom:0;width:80%;" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}><input style="margin-left:10px;" type="submit" value="Найти"></form></div>
 <div> <div style="margin:10px 0 ;">{{ "Подбор мастера согласно вашим критериям:" | upper }}</div>
     <form action="">
