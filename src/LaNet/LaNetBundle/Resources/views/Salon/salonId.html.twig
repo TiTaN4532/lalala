@@ -7,6 +7,15 @@
   {{ parent() }}
   <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
   <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+
+<meta property="og:url" content="http://lalook.net/lalook/web/app_dev.php/salon/{{salon.id}}/">
+<meta property="og:title" content="Replace with Page Title" />
+<meta property="og:type" content="Website" />
+<meta property="og:description" content="Add Some description" />
+<meta property="og:image" content="http://lalook.net/lalook/web/images/reklama_rolland.jpg" />
+  
+
+
 {% endblock %}
       
 {% block content %}
@@ -139,12 +148,36 @@
 </div>
   {% endif %}
 </div>
+
+<div class="fb-comments" data-href="http://localhost/vhost/lalook/web/app_dev.php/salon/{{salon.id}}/" data-width="100%" data-numposts="15"></div>
+
   <script>
     $(document).ready(function() {
 	$(".fancybox").fancybox({
 		openEffect	: 'none',
 		closeEffect	: 'none'
 	});
+        
 });
   </script>
+  
+  
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1540865079331046',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 {% endblock %}
