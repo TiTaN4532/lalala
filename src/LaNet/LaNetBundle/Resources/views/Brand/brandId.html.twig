@@ -2,18 +2,39 @@
 
 {% block stylesheets %}
   {{ parent() }}
-  <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="{{ asset('js/raty-2.8.0/lib/jquery.raty.js') }}"></script>
+  
 {% endblock %}
 {% block slider %}
 {% endblock %}
 {% block content %}
+     
+    <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.11&appId=1540865079331046';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    
 <a href="{{ path('la_net_la_net_brands_list') }}" class="button grey" style="margin-top: 20px;">Назад</a>
 <div class="brand-id">
   <div class="row">
        <div class="col col_1_of_3">
         <a href="{{ asset(brand.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ brand.name | upper }}"><img src="{{ brand.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
-        </div>
+      
+        {% if brand.getUser is defined and brand.getUser.premium is defined %} 
+            {% if brand.getUser.premium == 1 %}
+                <div id="rating-block">
+                    <div class="solid-stars" data-id="{{brand.id}}" data-votes="{{brand.getUser.getVotes}}" data-score="{{brand.getUser.getRating}}"></div>
+                        <div id="avg-rating">Средний рейтинг: {% if brand.getUser.getRating %} {{brand.getUser.getRating}}{% else %} 0{% endif %}</div>
+                        <div id="votes">Голосов:{% if brand.getUser.getVotes %}{{brand.getUser.getVotes}}{% else %} 0{% endif %}</div>
+                </div>  
+       {% endif %}
+       {% endif %}
+       
+       </div>
       <div class="col col_3_of_5">
         <h2 style="color:#578fac;">{{ brand.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
@@ -50,15 +71,45 @@
         {% endfor %}
         </div>
   {% endif %}
+  
+    {% if brand.brandsCategory is not empty %}
+    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Продукция:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
+   
+    <a href="{{ path('la_net_la_net_product_list')}}?brand={{ brand.id }}">Перейти к списку товаров</a>
+        
+  {% endif %}
     
+  
+  
+   {#{% if brand.getUser.premium == 1 %}#}
+        <div class="fb-comments" data-href="{{ path('la_net_la_net_brands_id', { 'slug' : brand.slug }) }}/" data-numposts="5"></div>
+   {#{% endif %}#}
+  
+  
+  
+  
 </div>
-
-   <script>
-    $(document).ready(function() {
-	$(".fancybox").fancybox({
-		openEffect	: 'none',
-		closeEffect	: 'none'
-	});
+<script>
+    $('.solid-stars').raty({
+       path: "{{ asset('images/') }}",
+       //readOnly: true,
+       half : true,
+    score: function() {
+              return $(this).data('score');
+      },
+      click: function(score,data){
+        var id = $(this).data('id');
+        var votes = $(this).data('votes');
+         $.post("{{ path('la_net_la_net_ajax_menu_brand_rating')}}", {rating:score, votes:votes, id:id}, function(result){
+        var data = result;
+        $('#avg-rating').html("Средний рейтинг: " +data.score+"");
+        $('#votes').html("Голосов: " +data.votes+"");
+        
+        
+    });
+      }    
+       
 });
-  </script>
+</script>
+  
 {% endblock %}

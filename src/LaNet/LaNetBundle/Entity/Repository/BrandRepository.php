@@ -25,7 +25,18 @@ class BrandRepository extends EntityRepository
         return $result;
       
 }*/
-      
+   
+     public function findBrandByMail($mail='')
+    {
+         if ($mail){
+            $whereMail =" AND u.mail = '" . $mail. "'";
+         }   
+                          
+        $query = $this->_em->createQuery("SELECT u FROM LaNetLaNetBundle:User u WHERE u.roles LIKE '%ROLE_BRAND%' AND u.mail = $mail");
+
+        return $query->getResult();
+    }
+    
      public function getBrandOnBrandsCategory()
             
      {  
@@ -159,5 +170,8 @@ class BrandRepository extends EntityRepository
         return $query->getResult();
     }
      
+    
+    
+    
     
 }   

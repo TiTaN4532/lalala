@@ -26,4 +26,10 @@ la_net_la_net_ajax_menu_rating:
     pattern:  /ajax/rating
     defaults: { _controller: LaNetLaNetBundle:Menu:rating } 
     options:
+        expose: true     
+        
+la_net_la_net_ajax_menu_brand_rating:
+    pattern:  /ajax/rating/brand
+    defaults: { _controller: LaNetLaNetBundle:Menu:ratingBrand } 
+    options:
         expose: true         

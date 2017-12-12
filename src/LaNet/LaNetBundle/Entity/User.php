@@ -6,6 +6,8 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use LaNet\LaNetBundle\Entity as LaEntity;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
@@ -124,12 +126,22 @@ class User extends BaseUser
         return parent::setEmail($email);
     }
 
+    
+     public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint(new UniqueEntity(array(
+            'fields'    => array('mail'),
+            'message'   => 'Данный email уже занят.',
+        )));
+    }
+    
     /**
      * Set the canonical email.
      *
      * @param string $emailCanonical
      * @return User
      */
+    
     public function setEmailCanonical($emailCanonical)
     {
         $this->setUsernameCanonical($emailCanonical);

@@ -14,7 +14,7 @@
                                     <article class="top-news-item is-horizontal clearfix">
                                         <a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_advice'))}}" alt="placeholder"></a>
                                         <div class="top-news-item-text">
-                                            <h3 class="item-title"><a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}">{{ post.title | slice (0, 67)}}</a></h3>
+                                            <h3 class="item-title"><a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}">{{ post.title | length > 50 ? post.title|slice(0, 50) ~ '...' : post.title}}</a></h3>
                                             <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>
                                         </div>
                                     </article>

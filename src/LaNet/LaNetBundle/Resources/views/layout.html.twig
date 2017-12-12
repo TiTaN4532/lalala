@@ -3,26 +3,23 @@
 {% block stylesheets %}
   {{ parent() }}
   
-
   <link rel="stylesheet" href="{{ asset('js/fancybox/jquery.fancybox.css') }}">
   <script type="text/javascript" src="{{ asset('js/fancybox/jquery.fancybox.pack.js') }}"></script>
             
-
-
 {% endblock %}
 
 
 {% block title %}Всеукраинский портал индустрии красоты и здоровья{% endblock %}
 {% block body %}
     
-    <div id="fb-root"></div>
+<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.11';
+  js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.11&appId=1540865079331046';
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>    
+}(document, 'script', 'facebook-jssdk'));</script>
            
 <div class="wrapper">
   {% for flashMessage in app.session.flashbag.get('notice') %}
@@ -47,6 +44,7 @@
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_tests_id' %}<h1 id="main">Тестирование продуктов</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_brand_list' %}<h1 id="main">Бренд инфо</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_brand_id' %}<h1 id="main">Бренд инфо</h1>
+        {% elseif app.request.attributes.get('_route') == 'la_net_la_net_product_list' %}<h1 id="main">Товары</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %}<h1 id="main">Объявления</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_adverts_id' %}<h1 id="main">Объявления</h1>
         {% elseif app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %}<h1 id="main">Советы красоты</h1>
@@ -98,7 +96,7 @@
                         {% for post in events %}
                                    {% if loop.index <= 5 and loop.index > 1 %}
                         
-                        <div video-event="{% if post.newLink is defined %}{{post.newLink}} {% endif %}" event-id="{{post.id}}" class="span3">
+                        <div video-event="{% if post.newLink is defined %}{{post.newLink}} {% endif %}" event-id="{{post.id}}" class="span3 event-with-video">
                             <article class="top-news-item">
                             <a {% if post.video is not empty %}class="video-content"{% endif %} href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" alt="placeholder"></a>
                                 <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
@@ -384,9 +382,11 @@
 
             
             {% if gallery is not empty %}
-    <h5 style="float:left;margin-right: 10px; margin-top: 20px; color:#c2d9b1;" class="clear"></h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-  
-        <div class="gallery-main" style="padding-top: 30px">
+   
+           <section class="holder">
+                    <h2 class="section-title"><a href="#">Галерея</a></h2>
+                    <div class="row-fluid">
+                      <div class="gallery-main">
             <div class="row clear">
             {% for image in gallery %}
      {% if loop.index < 15 %}
@@ -399,7 +399,13 @@
               {% endif %}
             {% endfor %}
             </div>
-        </div>
+        </div>   
+                    </div>
+                </section>      
+                
+                
+                
+       
    
         
   {% endif %}
@@ -543,30 +549,13 @@
     </div>
 </div>
          
-         {#<div id="main-event-video" data-img="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" event-id="{{post.id}}">
-            {% if post.video is not empty and post.newLink is defined %}
-                 <div class="video-responsive">
-                 <iframe width="auto" height="auto" src="https://www.youtube.com/embed/{{post.newLink}}?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
-                 </div>
-                 <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
-               {%else%}
-                  <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_big'))}}" alt="placeholder"></a>
-              {% endif %}
-         </div> #}
-         
-         
-          {#<div video-event="{% if post.newLink is defined %}{{post.newLink}} {% endif %}" event-id="{{post.id}}" class="span3">
-                <article class="top-news-item">
-                    <a {% if post.video is not empty %}class="video-content"{% endif %} href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" alt="placeholder"></a>
-                    <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
-                    <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>
-                </article>
-            </div>#}
-         
-                   
+                           
     <script type="text/javascript">
   
      $(document).ready(function() {
+              
+         
+        
          $(".fancybox").fancybox({
 		openEffect	: 'none',
 		closeEffect	: 'none'
@@ -579,10 +568,10 @@
             });
          
          
-         
-          $('[event-id] a img').click(function(event) {
+         $('.event-with-video').on("click", "img", function(event) {
               
                var link = $(event.target).parent();
+                              
                if (link.hasClass("video-content")){
               
                event.preventDefault();
@@ -595,18 +584,20 @@
                 
                 var main_href = main_div.find('a').attr("href");
                 
-                console.log(main_title);
                 //откуда берем данные
                 var div = $(event.target).parents("div:first");
-            
+                
+                
+                div.children(":first").remove();
+              
                 var event_id = div.attr("event-id");
                 div.attr("event-id", main_id);
                 main_div.attr("event-id", event_id)
                 
                 var video_event = $.trim(div.attr("video-event"));
-                console.log(video_event);
+               
                 var title = $(event.target).parent().next().html();
-                
+                 
                 main_div.html('<div class="video-responsive"><iframe width="auto" height="auto" src="https://www.youtube.com/embed/'+video_event+'?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe></div><h3 class="item-title">'+title+'</h3>');
                    
                 $.ajax({
@@ -615,81 +606,27 @@
                     success     : function(respons) {
                       if (respons.length != 0){
                           var data = (respons);
-                       /*console.log('success');
-                       console.log(data['video']);
-                       console.log(data['date']);*/
-                       
                        var href = link.attr("href");
-                      
-                      
-                      
                        var event_div = div;
                        
-                       
-                       console.log (event_div.child().child().html());
                        event_div.attr("video-event", data['video']);
-                       event_div.html('<article class="top-news-item"><a class="video-content" href="'+main_href+'"><img src="'+main_img+'"><h3 class="item-title">'+main_title+'</h3><div class="top-news-date">'+data["date"]+'</div></article>');
+                       event_div.addClass("event-with-video");
                        
-                       
-                       
-                       
-                       
-                       //main_div.html('<div class="video-responsive"><iframe width="auto" height="auto" src="https://www.youtube.com/embed/'+video_event+'?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe></div><h3 class="item-title">'+title+'</h3>');
+                       var article = '<article class="top-news-item"><a class="video-content" href="'+main_href+'"><img src="'+main_img+'"></a><h3 class="item-title">'+main_title+'</h3><div class="top-news-date">'+data["date"]+'</div></article>';
+                       event_div.append(article);
                    
                 }
                     }
             })
                 }
                 else{
-                    console.log('321')
+                  
                 }
              
           });
-          /*$('.delete-post').click(function(event) {
-            event.preventDefault();
-            if(confirm("Уверены что хотите удалить?")) {
-                var element = $(this);
-                $.ajax({
-                    url         : element.attr('href'),
-                    success     : function(data) {
-                      if(data.success) 
-                        element.parent().parent().remove();
-                }
-                });
-            }
-        });*/
-       
+                
     });
   </script>   
   
-  
-  
-  
-  
-  
-  
-  
-  
  
-  Original
-  
-    <div video-event="07jCY15rrds " event-id="18" class="span3">
-        <article class="top-news-item">
-        <a class="video-content" href="/vhost/lalook/web/app_dev.php/events/limit-event"><img src="/vhost/lalook/web/app_dev.php/media/cache/my_main_page_event_small/uploads/images/articles/default.png" alt="placeholder"></a>
-            <h3 class="item-title"><a href="/vhost/lalook/web/app_dev.php/events/limit-event">Limit event</a></h3>
-            <div class="top-news-date">30.10.2017</div>
-        </article>
-    </div>
-
-  <div video-event="PBcfHY_Gz_8" event-id="[object Object]" class="span3">
-      <article class="top-news-item">
-          <a class="video-content" href="/vhost/lalook/web/app_dev.php/events/without-video"><img src="/vhost/lalook/web/app_dev.php/media/cache/my_main_page_event_small/uploads/images/articles/1509368382.jpeg"></a>
-          <h3 class="item-title">
-              <a class="video-content" href="/vhost/lalook/web/app_dev.php/events/without-video"></a>
-              
-              <a href="/vhost/lalook/web/app_dev.php/events/without-video">Without video</a></h3>
-          <div class="top-news-date">30.10.2017</div></article></div>
-                         
-                                                                                
-
 {% endblock %}

@@ -25,7 +25,44 @@ class MenuController extends BaseController {
         return $this->render('LaNetLaNetBundle::MasterCategory.html.twig', array('categories' => $categories));
     }
 
+    /*public function getBrand2Action(Request $request) {
+        
+        $request = $this->container->get('request');
+        $id = $request->query->get('id');
+        
+         
+         
+        $em = $this->getDoctrine()->getEntityManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("SELECT b.id, b.name FROM brands_categories bc LEFT JOIN brand b ON b.id = bc.brand_id WHERE brandscategory_id = :id ");
+        $statement->bindValue('id', $brandsCategory);
+        $statement->execute();
+        $response = $statement->fetchAll();      
+        $response['success'] = $brandsCategory;      
+      
+        return new JsonResponse( $response);
+      
+    }*/
+    
     public function getBrandAction(Request $request) {
+        
+        $request = $this->container->get('request');
+        $brandCategory = $request->query->get('id'); 
+         
+        $em = $this->getDoctrine()->getEntityManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("SELECT b.name, b.id FROM brand b 
+                                                   LEFT JOIN brandsS_categories bc ON b.id = bc.brand_id
+                                                   WHERE brandscategory_id = :id");
+        $statement->bindValue('id', $brandCategory);
+        $statement->execute();
+        $response = $statement->fetchAll();      
+       
+        return new JsonResponse( $response);
+      
+    }
+    
+    public function getBrandByBrandCatAction(Request $request) {
 
        
         $request = $this->container->get('request');
@@ -33,7 +70,7 @@ class MenuController extends BaseController {
         
         $em = $this->getDoctrine()->getEntityManager();
         $connection = $em->getConnection();
-        $statement = $connection->prepare("SELECT b.id, b.name FROM brands_categories bc LEFT JOIN brand b ON b.id = bc.brand_id WHERE brandscategory_id = :id ");
+        $statement = $connection->prepare("SELECT * FROM brands_categories bc WHERE brandscategory_id = :id ");
         $statement->bindValue('id', $id);
         $statement->execute();
         $response = $statement->fetchAll();      
@@ -129,5 +166,53 @@ class MenuController extends BaseController {
       return new JsonResponse($response);
       
     }   
-
+    public function ratingBrandAction(Request $request) {
+        
+        $id = $request->get('id');
+        $score = $request->get('rating');
+               
+        $master = $this->manager->getRepository('LaNetLaNetBundle:Brand')->find($id);
+        $votes = $master->getUser()->getVotes(); 
+        $avgRating = $master->getUser()->getRating();   
+        
+        if (!$master) {
+          throw $this->createNotFoundException('Master not found!');
+        }
+        
+        else {
+                   
+        $score = (($avgRating*$votes)+$score)/($votes+1);
+        $score = round($score, 2);
+        $master->getUser()->setRating($score); 
+        $master->getUser()->setVotes($votes+1);   
+        $this->manager->persist($master);
+        $this->manager->flush();
+        
+        $response['success'] = 1;
+        $response['votes'] = $votes+1;
+        $response['score'] = $score;
+        
+ 
+        }    
+      
+      return new JsonResponse($response);
+      
+    }   
+    
+    public function getBrandOnBrandsCategory()
+            
+     {  
+        $request = Request::createFromGlobals();
+        $brandsCategory = ($request->get('category')) ? $request->get('category'):false;
+         
+        $connection = $this->_em->getConnection();
+        $statement = $connection->prepare("SELECT b.id, b.name FROM brands_categories bc LEFT JOIN brand b ON b.id = bc.brand_id WHERE brandscategory_id = :id ");
+        $statement->bindValue('id', $brandsCategory);
+        $statement->execute();
+        $result = $statement->fetchAll();    
+    
+        return $result;
+     }
+    
+    
 }

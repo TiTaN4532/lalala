@@ -16,7 +16,9 @@
 {% endblock %}
 {% block content %}
      
-    <div id="brand-form" style="display: none">
+    
+    
+    <div id="brand-form" {% if error is not defined  %}style="display: none" {% endif %}>
        <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
         <div class="row errors">{{ form_errors(form) }}</div>
             {{ form_widget(form.file) }}
@@ -24,6 +26,8 @@
             {{ form_row(form.description) }}
             {{ form_row(form.phone) }}
             {{ form_row(form.mail) }}
+            {% if error is defined %}<div style='color:red;'>Введенный Вами адрес электронной почты уже используется</div>{% endif %}
+    
         <a href="#" class="button" id="hide-brand-btn">Скрыть</a>
             {{ form_widget(form.add_brand) }}
             {{ form_row(form._token) }}

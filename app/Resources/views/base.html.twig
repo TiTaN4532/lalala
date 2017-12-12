@@ -18,8 +18,6 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
             <script src="{{ asset('js/slick.min.js') }}"></script>
             
-            <link rel="stylesheet" href="{{ asset('css/jquery.rating.css') }}">
-            <script type="text/javascript" src="{{ asset('js/rating/jquery.rating-2.0.min.js') }}"></script>
             
 {#            <link href="http://allfont.ru/css/?fonts=comfortaa-bold" rel="stylesheet" type="text/css" />#}
             <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
@@ -109,6 +107,7 @@
                         <ul>
                           <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
                           <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
+                          <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Товары</a></li>
                           <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
                           {#<li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>#}  
                           {#<li><a id="drop_custom" href="{{ path('la_net_la_net_master_list') }}" data-toggle="dropdown" >Бренд-инфо</a>
@@ -161,19 +160,20 @@
                     <div class="footer-area">
                         <nav class="footer-nav">
                             <ul>
-                    <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
-                    {#<li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
+                    <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
                     <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
+                    <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Товары</a></li>
                     <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
-                    <li><a href="{{ path('la_net_la_net_adverts_list') }}">Объявления</a></li>
-                    <li><a href="{{ path('la_net_la_net_events_list') }}">Медиа</a></li>
+                    {#<li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
+                    <li><a href="{{ path('la_net_la_net_adverts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %} class="active"{% endif %}>Объявления</a></li>
+                    <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Медиа</a></li>
                     {#<li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>#}
                         {# <li><a href="">Косметика</a></li>
                          <li><a href="">Магазаны</a></li>
                          <li><a href="">Обучение</a></li>
                          <li><a href="">Литератур</a></li>
                          <li><a href="">Форум</a></li>#}
-                    <li><a href="{{ path('la_net_la_net_contact') }}">Контакты</a></li>
+                    <li><a href="{{ path('la_net_la_net_contact') }}" {% if app.request.attributes.get('_route') == 'la_net_la_net_contact' %} class="active" {% endif %}>Контакты</a></li>
                     {#<li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>#}
                </ul>
                         </nav>

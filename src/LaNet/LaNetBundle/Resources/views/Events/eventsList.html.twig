@@ -2,14 +2,16 @@
  
 {% block stylesheets %}
   {{ parent() }}
-  <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+  
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-likes/dist/social-likes_classic.css">
+ <script src="https://cdn.jsdelivr.net/npm/social-likes/dist/social-likes.min.js"></script> 
+ 
 {% endblock %}
 
 {% block slider %}
    {% endblock %}
 {% block content %}
-               {# {% for post in events %}
+          {# {% for post in events %}
              {% if not loop.first %} <hr /> {% endif %}
               <div class="row">
                 <div class="col col_1_of_3" style='margin-bottom: 20px;'><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_big'))}}" style="width:100%;" /></div>
@@ -31,8 +33,9 @@
                
               
                 <div class="media">
-                     {% for key, post in newArray %}  
-                            <h2 class="section-title">{{key}}</h2>
+                     {% for key, post in newArray %} 
+                        <h2 class="section-title">{{key | slice (0, (key | length)-5) }}</h2>
+                           
                             <div class="media-slider">
                                  {% for event in  post %}
                                 <article class="media-slider-item">
@@ -44,8 +47,8 @@
                                         <p class="media-slider-text">{{ event.description}}</p>
                                         <div class="media-slider-bottom clearfix">
                                             <div class="media-slider-date">{{ event.updated | date ('d.m.Y')}}</div>
-                                            <div class="media-slider-share">
-                                                <i class="icon icon-share"></i><a href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}">Подробнее</a>
+                                            <div class="media-slider-share event-modal-btn" data-toggle="modal" data-target="#myModalEvent">
+                                                <i class="icon icon-share"></i><a href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}">Поделиться</a>
                                             </div>
                                         </div>
                                     </div>
@@ -81,4 +84,122 @@
   {{ knp_pagination_render(newArray) }}
   </div>
     
+  
+   <div id="myModalEvent" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><button class="close" type="button" id="close-btn" data-dismiss="modal">×</button>
+                       </div>
+                    <div align="center" class="modal-body">
+                        <div>
+                            <div><h4>Где Вы хотите поделиться?</h4></div>
+                            <div class="social-likes" data-counters="no" id="social-div" data-url="https://github.com/sapegin/social-likes/blob/master/Readme.md">
+                            <div class="facebook" title="Поделиться ссылкой на Фейсбуке">Facebook</div>
+                            <div class="twitter" title="Поделиться ссылкой в Твиттере">Twitter</div>
+                            <div class="plusone" title="Поделиться ссылкой в Гугл-плюсе">Google+</div>
+                      </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="close" type="button" id="close-btn" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>     
+  
+     
+  
+                               
+    <script>
+       
+    $(document).ready(function(){
+      $("#myModalEvent").css({
+            display: "none",
+            visibility: "hidden"
+        });
+    
+        $('#close-btn').click(function(){
+                         $("#myModalEvent").css({
+                display: "none",
+                visibility: "hidden"
+              });
+        });           
+      
+  
+        $('.event-modal-btn').click(function(event){
+        event.preventDefault();   
+        var href = $(event.target).attr("href");
+        
+          $('#social-div').socialLikes({
+                 url: href
+           });
+           
+           
+            
+            // $("#social-div").attr("data-url", href);
+           
+            
+            $("#myModalEvent").css({
+                display: "display",
+                visibility: "visible"
+              });
+         });
+
+           
+  
+        /* $('#notifications-modal-btn').click(function(){
+             $("#myModal").css({
+                display: "display",
+                visibility: "visible"
+              });
+            document.getElementById('notifications').value = '';
+            $('#notifications').css({'border' : '1px solid #c5c5c5'});
+        });
+
+        $('.notifications-confirm').click(function(event){
+        var input = document.getElementById('notifications');
+       
+            if(input.value != '') {
+                var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+                if(pattern.test(input.value)){
+                    $('#notifications').css({'border' : '1px solid #569b44'});
+                    $.ajax({
+                         url: Routing.generate('la_net_la_net_ajax_notifications'),
+                    data: {notifications_mail: input.value},
+                    success: function (response) {
+                        if (response){
+                                if (response == "success"){
+                                    $('#myModal').modal("hide");
+                                    toastr.success('Вы подписались на расылку новостей');
+                                }
+                                if (response == "duplicate"){
+                                    $('#notifications').css({'border' : '1px solid #ff0000'});
+                                    //$('#valid').text('Данный адрес электронной почты уже подписан на рассылку!');
+                                    toastr.warning('Данный адрес электронной почты уже подписан на рассылку');
+                                }
+                             
+                        }else{ toastr.error('Произошла ошибка. Повторите попытку');}
+                            //  $('#myModal').modal("hide");
+                              $("#myModal").css({
+                                display: "none",
+                                visibility: "hidden"
+                              });
+                     }
+                       });
+                            
+                } else {
+                     $('#notifications').css({'border' : '1px solid #ff0000'});
+                     toastr.error ('Некорректный адрес электронной почты');
+                   //$('#valid').text('Некорректный адрес электронной почты');
+                }
+            } else {
+                $('#notifications').css({'border' : '1px solid #ff0000'});
+                toastr.error ('Поле email не должно быть пустым');
+              //$('#valid').text('Поле email не должно быть пустым');
+             }
+        });*/
+    });
+   
+            </script>    
+  
 {% endblock %}

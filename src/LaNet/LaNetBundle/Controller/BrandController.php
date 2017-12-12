@@ -18,11 +18,14 @@ class BrandController extends BaseController
         $testsSlider = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findListArticlesOnMainPage('test');
         //$brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrandByMasterCat($request->get('name'), $request->get('category'));
         $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrandByBrandsCat(($request->get('category')) ? $request->get('category'):false, ($request->get('name')) ? $request->get('name'):false);
-        //$brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findAll();
+       
+        $pagination = $this->paginator->paginate(
+             $brands, $this->getRequest()->query->get('page', 1), 10);
+
         $SiteSettings = $this->manager->getRepository('LaNetLaNetBundle:SiteSettings')->findBy(array('name' => 'LaLook'));
         //$masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
         $brandsCategory = $this->manager->getRepository('LaNetLaNetBundle:BrandsCategory')->findAll();
-       
+        
         $brandPost = new LaEntity\Brand();
         $brandForm = $this->createForm(new LaForm\BrandType(), $brandPost);
         
@@ -30,47 +33,39 @@ class BrandController extends BaseController
 
          $brandForm->bind($request);
          
-         if ( $brandForm->isValid()) {
+          $newPass =$this->generate_password (10);
+         
+          $succesfullyRegistered = $this->register($brandForm->getData()->getMail(), $brandForm->getData()->getName(), $newPass, $brandPost);
+
+         if ( $brandForm->isValid() && $succesfullyRegistered) {
+             
               $uniqId = uniqid();
               $brandPost->setIsDraft(1);
+              $brandPost->setModeration(1);
               $brandPost->setValidation($uniqId);
-              
-              $newPass =$this->generate_password (10);
-                            
-              $succesfullyRegistered = $this->register($brandForm->getData()->getMail(), $brandForm->getData()->getName(), $newPass, $brandPost);
-
-             if($succesfullyRegistered){
-                    // the user is now registered !
-                }else{
-                    // the user exists already !
-                }
-              
-              
+                           
               $this->manager->persist($brandPost);
-              
-               $data = ($brandForm->getData());
-                
-               $mail = $data->getMail();
-               
-               $message = \Swift_Message::newInstance()
-                    ->setSubject('Подтверждение регистрации бренда')
-                    //->setSubject($data['subject'])
-                    ->setFrom('info@lalook.net')
-                    ->setTo($data->getMail())
-                    ->setBody("Здравствуйте!
-                    Вы зарегестрировали бренд на сайте http://lalook.net
-                    
-                    Ваш пароль: $newPass
-                    Ваш логин: $mail
-                    
-                    Для завершения регистрации перейдите по ссылке ниже
-                    http://lalook.net/brands/validation/$uniqId
-                        
-                    Вход в личный кабинет http://lalook.net/login
-                     ");
-                        //$this->renderView('LaNetAdminBundle:Sendmail:validation.html.twig', array('uniqId' => $uniqId)), 'text/html');
-               
-                $this->manager->flush();
+              $data = ($brandForm->getData());
+              $mail = $data->getMail();
+              $message = \Swift_Message::newInstance()
+                     ->setSubject('Подтверждение регистрации бренда')
+                     //->setSubject($data['subject'])
+                     ->setFrom('info@lalook.net')
+                     ->setTo($data->getMail())
+                     ->setBody("Здравствуйте!
+                     Вы зарегестрировали бренд на сайте http://lalook.net
+
+                     Ваш пароль: $newPass
+                     Ваш логин: $mail
+
+                     Для завершения регистрации перейдите по ссылке ниже
+                     http://lalook.net/brands/validation/$uniqId
+
+                     Вход в личный кабинет http://lalook.net/login
+                      ");
+                         //$this->renderView('LaNetAdminBundle:Sendmail:validation.html.twig', array('uniqId' => $uniqId)), 'text/html');
+
+                 $this->manager->flush();
               
                
               //return $this->render('LaNetAdminBundle:Sendmail:validation.html.twig', array('uniqId' => $uniqId));  
@@ -81,18 +76,28 @@ class BrandController extends BaseController
                     ' На указанную вами почту выслано письмо с подтверждением регистрации. Для активации нужно перейти по ссылке указаной в письме.
                      Обратите внимание: письмо может попасть в папку "Спам", рекомендуем обязательно её проверить.'             
                       );
-             $this->manager->flush();
+              $this->manager->flush();
+            
+            return $this->redirect($this->generateUrl('la_net_la_net_brands_list'));               
+             
+             
+            }
+            
+             else {
+            
+             return $this->render('LaNetLaNetBundle:Brand:brandList.html.twig', array('brands' => $pagination,
+                                                                                 'SiteSettings' => $SiteSettings,
+                                                                                 'testsSlider' => $testsSlider,
+                                                                                 'masterCategory' => $brandsCategory,
+                                                                                 'error' => true,
+                                                                                 'form' => $brandForm->createView()));                        
+
+             }
+            
+            
+            
             
             }
-             return $this->redirect($this->generateUrl('la_net_la_net_brands_list'));
-                         
-            }
-        
-        $pagination = $this->paginator->paginate(
-             $brands, $this->getRequest()->query->get('page', 1), 10
-        );
-            
-        
         
         return $this->render('LaNetLaNetBundle:Brand:brandList.html.twig', array('brands' => $pagination,
                                                                                  'SiteSettings' => $SiteSettings,
@@ -140,7 +145,7 @@ class BrandController extends BaseController
       
       $email_exist = $userManager->findUserByEmail($email);
 
-      // Check if the user exists to prevent Integrity constraint violation error in the insertion
+            // Check if the user exists to prevent Integrity constraint violation error in the insertion
       if($email_exist){
           return false;
       }
