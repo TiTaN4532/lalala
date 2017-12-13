@@ -78,7 +78,7 @@
                         {% for post in events %}
                          {% if loop.index == 1 %}
                              
-                             <div id="main-event-video" data-img="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" event-id="{{post.id}}">
+                             <div id="main-event-video" data-title="{{ post.title }}" data-img="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" event-id="{{post.id}}">
                              {% if post.video is not empty and post.newLink is defined %}
                                   <div class="video-responsive">
                                   <iframe width="auto" height="auto" src="https://www.youtube.com/embed/{{post.newLink}}?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
@@ -553,9 +553,7 @@
     <script type="text/javascript">
   
      $(document).ready(function() {
-              
          
-        
          $(".fancybox").fancybox({
 		openEffect	: 'none',
 		closeEffect	: 'none'
@@ -570,51 +568,52 @@
          
          $('.event-with-video').on("click", "img", function(event) {
               
-               var link = $(event.target).parent();
-                              
-               if (link.hasClass("video-content")){
-              
-               event.preventDefault();
+                                           
+               if ($(event.target).parent().hasClass("video-content")){
+                 event.preventDefault();
                                 
                 //div куда выводим содержимое с видео
-                var main_div = $("#main-event-video");    
-                var main_id = main_div.attr("event-id");
-                var main_img = main_div.attr("data-img");
-                var main_title = main_div.find('h3').html();
+                var main_div = $("#main-event-video"); 
+              
+                if (main_div.find('h3').html()){
+                 var video_content = true;
+                 var main_title = main_div.find('h3').html();
                 
+                }else{
+                   video_content = false;
+                   main_title = main_div.attr("data-title");
+                }
+               
+                var main_img = main_div.attr("data-img");
                 var main_href = main_div.find('a').attr("href");
                 
                 //откуда берем данные
                 var div = $(event.target).parents("div:first");
-                
-                
                 div.children(":first").remove();
               
-                var event_id = div.attr("event-id");
-                div.attr("event-id", main_id);
-                main_div.attr("event-id", event_id)
+                div.attr("event-id", main_div.attr("event-id"));
+                main_div.attr("data-img", $(event.target).attr('src'))
+                main_div.attr("event-id", div.attr("event-id"))
                 
-                var video_event = $.trim(div.attr("video-event"));
-               
-                var title = $(event.target).parent().next().html();
-                 
-                main_div.html('<div class="video-responsive"><iframe width="auto" height="auto" src="https://www.youtube.com/embed/'+video_event+'?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe></div><h3 class="item-title">'+title+'</h3>');
+                main_div.html('<div class="video-responsive"><iframe width="auto" height="auto" src="https://www.youtube.com/embed/'+$.trim(div.attr("video-event"))+'?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe></div><h3 class="item-title">'+$(event.target).parent().next().html()+'</h3>');
                    
                 $.ajax({
                     url: Routing.generate('la_net_la_net_ajax_events_getEventWithVideo'),
-                    data: {id: main_id},
+                    data: {id: main_div.attr("event-id")},
                     success     : function(respons) {
                       if (respons.length != 0){
                           var data = (respons);
-                       var href = link.attr("href");
                        var event_div = div;
-                       
                        event_div.attr("video-event", data['video']);
                        event_div.addClass("event-with-video");
-                       
-                       var article = '<article class="top-news-item"><a class="video-content" href="'+main_href+'"><img src="'+main_img+'"></a><h3 class="item-title">'+main_title+'</h3><div class="top-news-date">'+data["date"]+'</div></article>';
-                       event_div.append(article);
-                   
+                       if (video_content){
+                            var article = '<article class="top-news-item"><a class="video-content" href="'+main_href+'"><img src="'+main_img+'"></a><h3 class="item-title">'+main_title+'</h3><div class="top-news-date">'+data["date"]+'</div></article>';
+                        }else{
+                            var article = '<article class="top-news-item"><a href="'+main_href+'"><img src="'+main_img+'"></a><h3 class="item-title">'+main_title+'</h3><div class="top-news-date">'+data["date"]+'</div></article>';
+                        }
+
+                     event_div.append(article);
+
                 }
                     }
             })

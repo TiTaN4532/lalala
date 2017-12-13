@@ -253,9 +253,9 @@
    
   </script>
   
-  
-  
+  {{ app.request.getSchemeAndHttpHost() }}
+   
  {# <div class="fb-comments" data-href="{{ path('la_net_la_net_master_id', {'id': master.id })}}" data-numposts="5"></div>#}
-  <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="http://localhost/vhost/lalook/web/app_dev.php/master/{{master.id}}/" data-numposts="5"></div>
+  <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_master_id', {'id': master.id })}}/" data-numposts="5"></div>
     
 {% endblock %}

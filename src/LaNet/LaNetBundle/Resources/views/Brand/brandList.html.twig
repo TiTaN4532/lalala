@@ -62,7 +62,7 @@
             
             <div>
   <a href='#' style="padding-top:20px;" id='trigger'><h4>Расширеный поиск</h4></a>
-  <div id='box' style='display: none;padding-bottom:20px;'><div style="margin:10px 0 ;">{{ "Поиск бренда по категории:" | upper }}</div>
+  <div id='box' style='{% if not app.request.query.get('category') %}display: none; {% endif %}padding-bottom:20px;'><div style="margin:10px 0 ;">{{ "Поиск бренда по категории:" | upper }}</div>
    
         <select name="category" class="half">
           <option  value="">Выберите категорию</option>
