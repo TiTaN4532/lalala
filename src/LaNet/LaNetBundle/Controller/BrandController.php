@@ -106,10 +106,25 @@ class BrandController extends BaseController
                                                                                  'form' => $brandForm->createView()));
     }
     
-    public function brandIdAction($slug)
+    public function brandIdAction(Request $request, $slug)
     {
-        $brand = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findOneBy(array('slug' => $slug));
-        return $this->render('LaNetLaNetBundle:Brand:brandId.html.twig', array('brand' => $brand));
+       $brand = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findOneBy(array('slug' => $slug));
+       $id = $brand->getId();
+       $idCookie = "b_".$id;
+       $voteDisable = false;
+       $cookies = $request->cookies;
+
+       if ($cookies->has('myCookie2')){
+           if (!empty ($cookies->get('myCookie2'))){
+                $cookieMaster = $cookies->get('myCookie2');
+                $cookieArr = explode(";",  $cookieMaster);
+                    foreach ($cookieArr as $value) {
+                        if ($value == $idCookie) $voteDisable = true;
+                    }
+            }
+      } 
+        
+        return $this->render('LaNetLaNetBundle:Brand:brandId.html.twig', array('brand' => $brand, 'voteDisable' => $voteDisable));
     }
     
     public function validationAction($uniqId)

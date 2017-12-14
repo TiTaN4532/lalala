@@ -193,11 +193,24 @@ class SchoolController extends BaseController
     {
       $school = $this->manager->getRepository('LaNetLaNetBundle:School')->find($id);
      
+      $idCookie = "sc_".$id;
+      $voteDisable = false;
+      $cookies = $request->cookies;
+
+       if ($cookies->has('myCookie2')){
+           if (!empty ($cookies->get('myCookie2'))){
+                $cookieMaster = $cookies->get('myCookie2');
+                $cookieArr = explode(";",  $cookieMaster);
+                    foreach ($cookieArr as $value) {
+                        if ($value == $idCookie) $voteDisable = true;
+                    }
+            }
+      } 
       
       if (!$school) {
           throw $this->createNotFoundException('School not found!');
         }
       
-      return $this->render('LaNetLaNetBundle:School:schoolId.html.twig', array('school' => $school));
+      return $this->render('LaNetLaNetBundle:School:schoolId.html.twig', array('school' => $school, 'voteDisable' => $voteDisable));
     }
 }

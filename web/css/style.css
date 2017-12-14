@@ -120,6 +120,7 @@ h2 {
     height: 26px;
     border-radius: 50%;
     background: #fff;
+    pointer-events: none;
 }
 
 .video-content:after {
@@ -130,6 +131,7 @@ h2 {
     margin: -7px 0 0 -4px;
     border: 7px solid transparent;
     border-left: 11px solid #000;
+    pointer-events: none;
 }
 
 .facebook-area {

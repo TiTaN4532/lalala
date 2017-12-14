@@ -275,12 +275,25 @@ class SalonController extends BaseController
       $salon = $this->manager->getRepository('LaNetLaNetBundle:Salon')->find($id);
       $discounts = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findDiscountsByOneSalon($id);
       
+      $idCookie = "s_".$id;
+      $voteDisable = false;
+      $cookies = $request->cookies;
+
+       if ($cookies->has('myCookie2')){
+           if (!empty ($cookies->get('myCookie2'))){
+                $cookieMaster = $cookies->get('myCookie2');
+                $cookieArr = explode(";",  $cookieMaster);
+                    foreach ($cookieArr as $value) {
+                        if ($value == $idCookie) $voteDisable = true;
+                    }
+            }
+      } 
       
       
       if (!$salon) {
           throw $this->createNotFoundException('Salon not found!');
         }
       
-      return $this->render('LaNetLaNetBundle:Salon:salonId.html.twig', array('salon' => $salon, 'discounts' => $discounts));
+      return $this->render('LaNetLaNetBundle:Salon:salonId.html.twig', array('salon' => $salon, 'discounts' => $discounts, 'voteDisable' => $voteDisable));
     }
 }

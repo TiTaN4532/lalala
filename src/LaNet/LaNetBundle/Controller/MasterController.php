@@ -228,13 +228,26 @@ class MasterController extends BaseController
     
     public function masterIdAction(Request $request, $id)
     {
+      $idCookie = "m_".$id;
+      $voteDisable = false;
+      $cookies = $request->cookies;
+
+       if ($cookies->has('myCookie2')){
+           if (!empty ($cookies->get('myCookie2'))){
+                $cookieMaster = $cookies->get('myCookie2');
+                $cookieArr = explode(";",  $cookieMaster);
+                    foreach ($cookieArr as $value) {
+                        if ($value == $idCookie) $voteDisable = true;
+                    }
+            }
+      } 
         
-     
+      
      $master = $this->manager->getRepository('LaNetLaNetBundle:Master')->find($id);
       if (!$master) {
           throw $this->createNotFoundException('Master not found!');
         }
       
-      return $this->render('LaNetLaNetBundle:Master:masterId.html.twig', array('master' => $master));
+      return $this->render('LaNetLaNetBundle:Master:masterId.html.twig', array('master' => $master, 'voteDisable' => $voteDisable));
     }
 }

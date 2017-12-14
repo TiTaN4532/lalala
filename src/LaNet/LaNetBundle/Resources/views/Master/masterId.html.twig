@@ -5,9 +5,7 @@
 
 {% block stylesheets %}
   {{ parent() }}
-  <link rel="stylesheet" href="/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript" src="{{ asset('js/raty-2.8.0/lib/jquery.raty.js') }}"></script>
+ <script type="text/javascript" src="{{ asset('js/raty-2.8.0/lib/jquery.raty.js') }}"></script>
   
   <meta property="fb:app_id" content="1540865079331046" />
   <meta property="fb:admins" content="100022331712615"/>
@@ -22,17 +20,20 @@
       
 {% block content %}
 <div class="master-id">
-  {#  {{ app.request.cookies.get('myCookie') }}#}
-    
+ 
   <div class="row">
     <div class="col col_1_of_3">
         <a href="{{ asset(master.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ master.firstname | upper }} {{ master.lastname | upper }}"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
     
-        <div id="rating-block">
-            <div class="solid-stars" data-id="{{master.id}}" data-votes="{{master.getUser.getVotes}}" data-score="{{master.getUser.getRating}}"></div>
-                <div id="avg-rating">Средний рейтинг: {% if master.getUser.getRating %} {{master.getUser.getRating}}{% else %} 0{% endif %}</div>
-                <div id="votes">Голосов:{% if master.getUser.getVotes %}{{master.getUser.getVotes}}{% else %} 0{% endif %}</div>
-        </div>  
+        {% if master.getUser.premium is defined %} 
+            {% if master.getUser.premium == 1 %}
+             <div id="rating-block">
+                <div class="solid-stars" data-id="{{master.id}}" data-votes="{{master.getUser.getVotes}}" data-score="{{master.getUser.getRating}}"></div>
+                    <div id="avg-rating">Средний рейтинг: {% if master.getUser.getRating %} {{master.getUser.getRating}}{% else %} 0{% endif %}</div>
+                    <div id="votes">Голосов:{% if master.getUser.getVotes %}{{master.getUser.getVotes}}{% else %} 0{% endif %}</div>
+             </div>  
+            {% endif %}
+        {% endif %}
         
     </div>
     <div class="col col_2_of_3">
@@ -181,81 +182,45 @@
   {% endif %}
 </div>
   
+    <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_master_id', {'id': master.id })}}/" data-numposts="5"></div>
 
 
- 
-
-
-
+{#{% if master.getUser.premium is defined %} 
+  {% if master.getUser.premium == 1 %}
+      <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_master_id', {'id': master.id })}}/" data-numposts="5"></div>
+  {% endif %}
+{% endif %}#}
 
   <script>
-   /* $(document).ready(function() {
-      
-    
-   $('.solid-stars').raty({ 
-     path: "{{ asset('images/') }}",
-     score: function() {
-              return $(this).data('score');
-      },
-              
-      click: function(score,data){
-        var id = $(this).data('id');
-        $.post(
-        '{{ path('la_net_la_net_ajax_menu_rating')}}',
-        {rating:score, id:id}, function(data){ 
-           
-        }; 
-       );
-                    
-    };
-});
-});
-*/
-/*  
+   $(document).ready(function() {
   
-  $('div').raty({
-  click: function(score, evt) {
-    alert('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
-  }
-});
-  */
-  
-  
-   $('.solid-stars').raty({
+       $('.solid-stars').raty({
        path: "{{ asset('images/') }}",
-       //readOnly: true,
+       readOnly: {% if voteDisable == false %}false{% else %}true{% endif %},
        half : true,
-    score: function() {
+       score: function() {
               return $(this).data('score');
       },
-      click: function(score,data){
+      click: function(score, data){
         var id = $(this).data('id');
         var votes = $(this).data('votes');
-         $.post("{{ path('la_net_la_net_ajax_menu_rating')}}", {rating:score, votes:votes, id:id}, function(result){
-        var data = result;
-        $('#avg-rating').html("Средний рейтинг: " +data.score+"");
-        $('#votes').html("Голосов: " +data.votes+"");
-        
-        
-    });
-      }    
+         
+         $.ajax({
+            url: Routing.generate('la_net_la_net_ajax_menu_rating'),
+            data: {rating:score, votes:votes, id:id},
+            success: function (response) {
+                if (response.length != 0) {
+                    var data = response;
+                    data = JSON.parse(data)
+                    $('#avg-rating').html("Средний рейтинг: " +data.score+"");
+                    $('#votes').html("Голосов: " +data.votes+"");
+                    $('.solid-stars').raty('readOnly', true);
+                }
+            }
+        }); 
+     }    
        
 });
-
-
-
-
-
-   
-   
-   
-   
-   
-  </script>
-  
-  {{ app.request.getSchemeAndHttpHost() }}
-   
- {# <div class="fb-comments" data-href="{{ path('la_net_la_net_master_id', {'id': master.id })}}" data-numposts="5"></div>#}
-  <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_master_id', {'id': master.id })}}/" data-numposts="5"></div>
-    
+});
+</script>
 {% endblock %}

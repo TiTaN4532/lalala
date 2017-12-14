@@ -17,21 +17,21 @@
   js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.11&appId=1540865079331046';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-    
+  
 <a href="{{ path('la_net_la_net_brands_list') }}" class="button grey" style="margin-top: 20px;">Назад</a>
 <div class="brand-id">
   <div class="row">
        <div class="col col_1_of_3">
-        <a href="{{ asset(brand.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ brand.name | upper }}"><img src="{{ brand.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
+        <a href="{{ asset(brand.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ brand.name | upper }}"><img src="{{ brand.getWebPath | imagine_filter('my_master_large') }}" /></a>
       
         {% if brand.getUser is defined and brand.getUser.premium is defined %} 
             {% if brand.getUser.premium == 1 %}
                 <div id="rating-block">
                     <div class="solid-stars" data-id="{{brand.id}}" data-votes="{{brand.getUser.getVotes}}" data-score="{{brand.getUser.getRating}}"></div>
-                        <div id="avg-rating">Средний рейтинг: {% if brand.getUser.getRating %} {{brand.getUser.getRating}}{% else %} 0{% endif %}</div>
-                        <div id="votes">Голосов:{% if brand.getUser.getVotes %}{{brand.getUser.getVotes}}{% else %} 0{% endif %}</div>
+                    <div id="avg-rating">Средний рейтинг: {% if brand.getUser.getRating %} {{brand.getUser.getRating}}{% else %} 0{% endif %}</div>
+                    <div id="votes">Голосов:{% if brand.getUser.getVotes %}{{brand.getUser.getVotes}}{% else %} 0{% endif %}</div>
                 </div>  
-       {% endif %}
+            {% endif %}
        {% endif %}
        
        </div>
@@ -72,43 +72,68 @@
         </div>
   {% endif %}
   
-    {% if brand.brandsCategory is not empty %}
-    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Продукция:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-   
-    <a href="{{ path('la_net_la_net_product_list')}}?brand={{ brand.id }}">Перейти к списку товаров</a>
-        
-  {% endif %}
     
   
   
-   {#{% if brand.getUser.premium == 1 %}#}
-        <div class="fb-comments" data-href="{{ path('la_net_la_net_brands_id', { 'slug' : brand.slug }) }}/" data-numposts="5"></div>
-   {#{% endif %}#}
+  {% if brand.getUser is defined and brand.getUser.premium is defined %} 
+        {% if brand.getUser.premium == 1 %}
+            
+            <div class="row">
+              <div class="col col_1_of_1">{% if brand.link %}<a href="{{brand.link}}">{{brand.link}}</a>{% endif %}</div>
+              <div class="col col_1_of_1">{% if brand.linkAdd %}<a href="{{brand.linkAdd}}">{{brand.linkAdd}}</a>{% endif %}</div>
+            </div>
+            {% endif %}
+  {% endif %}
+    
+  {% if brand.brandsCategory is not empty %}
+    <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Продукция:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
+   
+    <div><a href="{{ path('la_net_la_net_product_list')}}?brand={{ brand.id }}">Перейти к списку товаров</a></div>
+        
+  {% endif %}
+      
+  <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_brands_id', { 'slug' : brand.slug }) }}/" data-numposts="5"></div>
+
+ {#{% if brand.getUser is defined and brand.getUser.premium is defined %} 
+        {% if brand.getUser.premium == 1 %}
+                <div class="fb-comments" data-href="{{ path('la_net_la_net_brands_id', { 'slug' : brand.slug }) }}/" data-numposts="5"></div>
+        {% endif %}
+   {% endif %}#}
   
   
   
   
 </div>
 <script>
-    $('.solid-stars').raty({
+   $(document).ready(function() {
+  
+       $('.solid-stars').raty({
        path: "{{ asset('images/') }}",
-       //readOnly: true,
+       readOnly: {% if voteDisable == false %}false{% else %}true{% endif %},
        half : true,
-    score: function() {
+       score: function() {
               return $(this).data('score');
       },
-      click: function(score,data){
+      click: function(score, data){
         var id = $(this).data('id');
         var votes = $(this).data('votes');
-         $.post("{{ path('la_net_la_net_ajax_menu_brand_rating')}}", {rating:score, votes:votes, id:id}, function(result){
-        var data = result;
-        $('#avg-rating').html("Средний рейтинг: " +data.score+"");
-        $('#votes').html("Голосов: " +data.votes+"");
-        
-        
-    });
-      }    
+         
+         $.ajax({
+            url: Routing.generate('la_net_la_net_ajax_menu_brand_rating'),
+            data: {rating:score, votes:votes, id:id},
+            success: function (response) {
+                if (response.length != 0) {
+                    var data = response;
+                    data = JSON.parse(data)
+                    $('#avg-rating').html("Средний рейтинг: " +data.score+"");
+                    $('#votes').html("Голосов: " +data.votes+"");
+                    $('.solid-stars').raty('readOnly', true);
+                }
+            }
+        }); 
+     }    
        
+});
 });
 </script>
   
