@@ -48,6 +48,9 @@ class NewsController extends BaseController
                 'notice_news',
                 'Ваши изменения были сохранены'
             );
+              $this->manager->persist($newsPost);
+                   
+           $this->manager->flush();
           }
           if ($form->get('add_post')->isClicked()) {
               $this->get('session')->getFlashBag()->add(
@@ -55,11 +58,12 @@ class NewsController extends BaseController
                 'Ваши изменения были сохранены'
             );
               $newsPost->setIsDraft(NULL);
-          }
-          
-          $this->manager->persist($newsPost);
+              $this->manager->persist($newsPost);
                    
            $this->manager->flush();
+          }
+          
+          
            return $this->redirect($this->generateUrl('la_net_admin_news_posts'));
         }
       }

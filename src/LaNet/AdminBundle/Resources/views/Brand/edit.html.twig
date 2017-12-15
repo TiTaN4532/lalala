@@ -68,7 +68,8 @@
   </form>
   <script>
       $(document).ready(function(){
-          $('#cancel-brand-btn').click(function() {
+          $('#cancel-brand-btn').click(function(event) {
+             event.preventDefault();
              window.location = Routing.generate('la_net_admin_brand');
             });
         {% if brand.id %}

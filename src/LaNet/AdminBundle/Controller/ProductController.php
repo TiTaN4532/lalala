@@ -29,7 +29,7 @@ class ProductController extends BaseController
         $pagination = $this->paginator->paginate(
             $products, $this->getRequest()->query->get('page', 1), 12
         );*/
-        $id = $request->get('id_brand');
+        $id = $request->get('brand_id');
         
         $products = $this->manager->getRepository('LaNetLaNetBundle:Product')->findFilteredProductsByBrand($id);
         
@@ -42,7 +42,8 @@ class ProductController extends BaseController
 
     public function editAction(Request $request, $id = null)
     {        
-      $brandId = $request->get('id_brand');
+      $brandId = $request->get('brand_id');
+      
       $productRepo = $this->manager->getRepository('LaNetLaNetBundle:Product');
       $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('parent' => NULL, 'brand' => $brandId));
       $brandCategory = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findBrandCategoryByBrand ($brandId);
@@ -145,7 +146,7 @@ class ProductController extends BaseController
                 'Ваши изменения были сохранены'
             );
             $this->manager->flush();
-            return $this->redirect($this->generateUrl('la_net_admin_product_list', array('id_brand' => $brandId)));
+            return $this->redirect($this->generateUrl('la_net_admin_product_list', array('brand_id' => $brandId)));
         }
        /*else {
           print_r($form->getErrorsAsString());

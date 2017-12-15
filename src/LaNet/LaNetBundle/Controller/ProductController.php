@@ -25,9 +25,9 @@ class ProductController extends BaseController
         
         $id_product_sub_cat = ($request->get('product_sub_cat')); 
         $id_product_sub_cat_array = $this->manager->getRepository('LaNetLaNetBundle:Product')->getArrayCatId($id_product_sub_cat);
-               
-        $selectedCategories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->getParentId(($request->get('product_sub_cat')) ? $request->get('product_sub_cat') : "");
-        
+          
+       $selectedCategories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->getParentId(($request->get('product_sub_cat')) ? $request->get('product_sub_cat') : "");
+       
         if ( $selectedCategories)
         {
         $selectedCategories = array_reverse($selectedCategories, true);
@@ -46,6 +46,14 @@ class ProductController extends BaseController
     {
        $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findAll();
        return $this->render('LaNetLaNetBundle::product.html.twig', array('brands' => $brands));
+    }
+    
+    public function productIdAction(Request $request, $id)
+    {
+       $product = $this->manager->getRepository('LaNetLaNetBundle:Product')->findOneBy(array('id' => $id));
+       
+     
+        return $this->render('LaNetLaNetBundle:Product:productId.html.twig', array('product' => $product));
     }
     
 }

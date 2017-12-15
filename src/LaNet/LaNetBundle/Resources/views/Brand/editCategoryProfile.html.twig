@@ -4,11 +4,13 @@
       {{ parent() }}
       <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
       <script src="{{ asset('bundles/lanetadmin/js/productCategory.js') }}"></script>
-  {% endblock %}
+      <link rel="stylesheet" href="{{ asset('css/prodCat.css') }}">
+            
+{% endblock %}
   
 {% macro recursiveCategory(category) %}
     
-        <div>{{ form_label(category.name) }}</div>
+        {#<div>{{ form_label(category.name) }}</div>#}
        
         <div><a class="toggle-category open2" href="">+</a>{{ form_widget(category.name) }} {#<a href="" class="toggle-desc open2">Показать описание</a>#}</div>
         
@@ -23,10 +25,10 @@
         
            <div class="children-category"> 
              <ul {% if not category.parent %} class="categories" data-prototype='<div id="product_category_children___name__">
-                                                                                    <div><label for="product_category_children___name___name" class="required">Название</label></div>
+                                                                                    {#<div><label for="product_category_children___name___name" class="required">Название</label></div>#}
                                                                                     <div class="input-wrapper">
                                                                                       <a class="toggle-category open2" href="">+</a>
-                                                                                      <input type="text" class="half " id="product_category_children___name___name" name="product_category[children][__name__][name]" required="required" />
+                                                                                      <input placeholder="Название" type="text" class="half " id="product_category_children___name___name" name="product_category[children][__name__][name]" required="required" />
                                                                                       {#<a href="" class="toggle-desc open2">Показать описание</a>#}
                                                                                     </div>
                                                                                    {# <div class="category-desc">
@@ -41,7 +43,7 @@
                                                                                  '{% else %} class="sub-categories"{% endif %}>
                 {% if category.children|length %}
                   {% for child in category.children %}
-                      <li>{{ _self.recursiveCategory(child) }}</li>
+                      <li style="list-style-type: none;">{{ _self.recursiveCategory(child) }}</li>
                   {% endfor %}
                 {% endif %}
              </ul>

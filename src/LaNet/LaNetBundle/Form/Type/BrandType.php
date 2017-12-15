@@ -40,7 +40,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
                   'expanded' => true
                 ))
              -> add('save', 'submit', array('label' => 'Сохранить'))
-             -> add('add_brand', 'submit', array('label' => 'Сохранить'));
+             -> add('add_brand', 'submit', array('label' => 'Добавить'));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)

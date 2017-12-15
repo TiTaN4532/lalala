@@ -58,7 +58,8 @@
           $("#articles_date").prop('readonly', true);
 
           
-          $('#cancel-events-btn').click(function() {
+          $('#cancel-events-btn').click(function(event) {
+              event.preventDefault();
                window.location = Routing.generate('la_net_admin_events');
             });
         {% if events.id %}

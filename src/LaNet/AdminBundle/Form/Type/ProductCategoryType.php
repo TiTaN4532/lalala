@@ -14,7 +14,7 @@ class ProductCategoryType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('name', 'text', array('label' => 'Название', 'attr' => array('class' => 'half')))
+                ->add('name', 'text', array('attr' => array('class' => 'half', 'placeholder' => 'Название')))
                 ->add('descriptionItem', 'collection', array(
                     'by_reference' => false,
                     'type' => new \LaNet\AdminBundle\Form\Type\ProductCategoryDescrItemType(),

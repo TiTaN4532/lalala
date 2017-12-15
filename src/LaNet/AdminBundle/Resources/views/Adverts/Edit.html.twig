@@ -46,7 +46,8 @@
   </form>
   <script>
       $(document).ready(function(){
-          $('#cancel-adverts-btn').click(function() {
+          $('#cancel-adverts-btn').click(function(event) {
+              event.preventDefault();
                window.location = Routing.generate('la_net_admin_adverts');
             });
         });

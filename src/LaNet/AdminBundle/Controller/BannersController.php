@@ -55,12 +55,15 @@ class BannersController extends BaseController {
             $form->bind($request);
 
             if ($form->isValid()) {
+                
+              if ($form->get('save')->isClicked()) {  
                 $this->manager->persist($banners);
                 $this->get('session')->getFlashBag()->add(
                         'notice_banners', 'Ваши изменения были сохранены'
                 );
 
                 $this->manager->flush();
+              } 
                 return $this->redirect($this->generateUrl('la_net_admin_banners_list'));
             }
         }

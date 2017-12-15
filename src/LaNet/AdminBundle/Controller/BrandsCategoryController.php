@@ -66,17 +66,15 @@ class BrandsCategoryController extends BaseController
             $form->bind($request);
 
         if ($form->isValid()) {
-          
+           if ($form->get('save')->isClicked()) {
             $this->get('session')->getFlashBag()->add(
                 'notice_brandsCategory',
                 'Ваши изменения были сохранены'
             );
          
-           /*print_r ( $form->getData()->getFile());
-           exit();*/
           $this->manager->persist($BrandsPost);
           $this->manager->flush();
-          
+          }
           return $this->redirect($this->generateUrl('la_net_admin_brands_categories_list'));
         }
       }

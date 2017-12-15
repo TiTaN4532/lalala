@@ -54,7 +54,8 @@
     
     
     $(document).ready(function(){
-          $('#cancel-tests-btn').click(function() {
+          $('#cancel-tests-btn').click(function(event) {
+              event.preventDefault();
                window.location = Routing.generate('la_net_admin_tests');
             });
         {% if tests.id %}

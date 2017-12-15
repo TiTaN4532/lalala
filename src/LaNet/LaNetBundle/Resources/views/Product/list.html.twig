@@ -14,7 +14,7 @@
             
   <div>
         <a href='#' style="padding-top:20px;" id='trigger'><h4>Расширеный поиск</h4></a>
-        <div id='box' {% if not app.request.query.get('category') %} style='display: none;{% endif %} padding-bottom:20px;'><div style="margin:10px 0 ;">{{ "Поиск товара по категории:" | upper }}</div>
+        <div id='box' {% if not app.request.query.get('category') %} style='display: none;{% endif %} padding-bottom:20px;'><div class="lable-for-search" style="margin:10px 0 ;">{{ "Поиск товара по категории:" | upper }}</div>
 
             <select name="category" class="half" id="category">
           <option value="0">Выберите категорию</option>
@@ -137,12 +137,12 @@
     
               
         
-     <h2>Товары:</h2>
+    
               {% for product in products %}
-              <div class="row">
-          <div class="col col_1_of_3"><img src="{{ asset(product.getWebPath)}}" style="width:100%;" /></div>
+              <div class="row brand-hover"><a href="{{ path('la_net_la_net_product_id', { 'id' : product.id }) }}">
+          <div class="col col_1_of_3"><img src="{{asset( product.getWebPath | imagine_filter('my_master_thumb_medium')) }}"/></div></a>
           <div class="col col_2_of_3" style="font-weight: 900">
-               {{ product.name }}
+              <a href="{{ path('la_net_la_net_product_id', { 'id' : product.id }) }}"><h2 style="color:#000000">{{ product.name }}<h2></a>  
           </div>
                 <div class="col col_2_of_3">
     {% if product.description|length < 250 %}
@@ -155,6 +155,7 @@
          {% endif%}
      
         </div>
+         
         </div>
               <hr/>
               {% else %}
@@ -338,6 +339,7 @@
      var lastSelectedSubCat = $(".product_sub_cat option:selected").last().val();
      
      if (typeof lastSelectedSubCat != "undefined" && lastSelectedSubCat !='0'){ 
+         console.log('7777');
         $.ajax({
             url: Routing.generate('la_net_la_net_ajax_menu_getProductSubCategory'),
             data: {id_parent: lastSelectedSubCat},
@@ -360,6 +362,7 @@
      else 
     {
        var lastSelectedCat = $("#product_cat option:selected").val();
+       console.log('88888');
        if (typeof lastSelectedCat != "undefined" && lastSelectedCat !='0')
         $.ajax({
             url: Routing.generate('la_net_la_net_ajax_menu_getProductSubCategory'),

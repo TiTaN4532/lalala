@@ -50,8 +50,9 @@
   </form>
   <script>
       $(document).ready(function(){
-        $('#cancel-discounts-btn').click(function() {
-               window.location = Routing.generate('la_net_admin_discounts_main');
+        $('#cancel-discounts-btn').click(function(event) {
+               event.preventDefault();
+               window.location = Routing.generate('la_net_admin_discounts_list');
             });
         {% if discount.id %}
         $('.remove-image').click(function(event) {

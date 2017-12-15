@@ -227,7 +227,12 @@ class BrandController extends BaseController
     public function profileAction(Request $request)
     {
        
+        if ($this->user){
         $premium = $this->user->getPremium();
+        }else{
+           return $this->redirect($this->generateUrl('la_net_la_net_homepage'));
+        }
+       
         $form = $this->createForm(new LaForm\BrandProfileType(), $this->user);
 
                
@@ -257,7 +262,11 @@ class BrandController extends BaseController
     
     public function listCategoryProfileAction(Request $request) {
       
+        if ($this->user){
         $premium = $this->user->getPremium();
+        }else{
+           return $this->redirect($this->generateUrl('la_net_la_net_homepage'));
+        }
         $brandId = $this->user->getBrandInfo()->getId();
         
         $categories = $this->manager->getRepository('LaNetLaNetBundle:ProductCategory')->findBy(array('parent' => NULL, 'brand' => $brandId));

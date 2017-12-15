@@ -59,7 +59,7 @@ class DiscountsController extends BaseController
           
           
            $this->manager->flush();
-           return $this->redirect($this->generateUrl('la_net_admin_discounts_main'));
+           return $this->redirect($this->generateUrl('la_net_admin_discounts_list'));
         }
       }
 

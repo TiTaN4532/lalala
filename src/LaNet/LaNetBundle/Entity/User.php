@@ -127,14 +127,7 @@ class User extends BaseUser
     }
 
     
-     public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addConstraint(new UniqueEntity(array(
-            'fields'    => array('mail'),
-            'message'   => 'Данный email уже занят.',
-        )));
-    }
-    
+        
     /**
      * Set the canonical email.
      *

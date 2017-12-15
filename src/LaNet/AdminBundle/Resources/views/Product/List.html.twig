@@ -2,7 +2,7 @@
 
 {% block content %}
   <h3>Товары</h3>
-  <a href="{{ path('la_net_admin_product_create') }}?id_brand={{brand}}"><button>Добавить товар</button></a>
+  <a href="{{ path('la_net_admin_product_create') }}?brand_id={{brand}}"><button>Добавить товар</button></a>
         {% for flashMessage in app.session.flashbag.get('notice_product') %}
           <div class="flash-notice success">
               {{ flashMessage }}

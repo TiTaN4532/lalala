@@ -18,13 +18,13 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
   
-<a href="{{ path('la_net_la_net_brands_list') }}" class="button grey" style="margin-top: 20px;">Назад</a>
+<a href="{{ path('la_net_la_net_product_list') }}" class="button grey" style="margin-top: 20px;">Назад</a>
 <div class="brand-id">
   <div class="row">
        <div class="col col_1_of_3">
-        <a href="{{ asset(brand.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ brand.name | upper }}"><img src="{{ brand.getWebPath | imagine_filter('my_master_large') }}" /></a>
+        <a href="{{ asset(product.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ product.name | upper }}"><img src="{{ product.getWebPath | imagine_filter('my_master_large') }}" /></a>
       
-        {% if brand.getUser is defined and brand.getUser.premium is defined %} 
+        {#{% if brand.getUser is defined and brand.getUser.premium is defined %} 
             {% if brand.getUser.premium == 1 %}
                 <div id="rating-block">
                     <div class="solid-stars" data-id="{{brand.id}}" data-votes="{{brand.getUser.getVotes}}" data-score="{{brand.getUser.getRating}}"></div>
@@ -32,30 +32,30 @@
                     <div id="votes">Голосов:{% if brand.getUser.getVotes %}{{brand.getUser.getVotes}}{% else %} 0{% endif %}</div>
                 </div>  
             {% endif %}
-       {% endif %}
+       {% endif %}#}
        
        </div>
       <div class="col col_3_of_5">
-        <h2 style="color:#578fac;">{{ brand.name | upper }}</h2>
+        <h2 style="color:#578fac;">{{ product.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">Основная информация:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-        <div class="row">
-          {#<div class="col col_1_of_3 blue">Страна:</div>#}
+        {#<div class="row">
+          <div class="col col_1_of_3 blue">Страна:</div>
           <div class="col col_3_of_3">{{ brand.country }}</div>
         </div>
         <div class="row">
-         {# <div class="col col_1_of_3 blue">Товары для мастеров:</div>#}
+          <div class="col col_1_of_3 blue">Товары для мастеров:</div>
           <div class="col col_3_of_3">{% for item in brand.brandsCategory %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
-        </div>
+        </div>#}
         
           <div class="row">
             {#<div class="col col_1_of_3 blue">Описание:</div>#}
             <div class="col col_1_of_1">
-                {{ brand.description | raw }}
+                {{ product.description | raw }}
             </div>
           </div>
     </div>
   </div>
-    {% if brand.category is not empty %}
+   {# {% if brand.category is not empty %}
     <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Продукция:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
    
         <div class="row clear">
@@ -70,12 +70,12 @@
           {% endif %}
         {% endfor %}
         </div>
-  {% endif %}
+  {% endif %}#}
   
     
   
   
-  {% if brand.getUser is defined and brand.getUser.premium is defined %} 
+  {#{% if brand.getUser is defined and brand.getUser.premium is defined %} 
         {% if brand.getUser.premium == 1 %}
             
             <div class="row">
@@ -105,11 +105,11 @@
   
 </div>
 <script>
-   $(document).ready(function() {
+ /*  $(document).ready(function() {
   
        $('.solid-stars').raty({
-       path: "{{ asset('images/') }}",
-       readOnly: {% if voteDisable == false %}false{% else %}true{% endif %},
+       path: "{#{{ asset('images/') }}#}",
+       readOnly: {#{% if voteDisable == false %}false{% else %}true{% endif %}#},
        half : true,
        score: function() {
               return $(this).data('score');
@@ -134,7 +134,7 @@
      }    
        
 });
-});
+}); */
 </script>
   
 {% endblock %}

@@ -53,7 +53,7 @@ class MenuController extends BaseController {
         $connection = $em->getConnection();
         $statement = $connection->prepare("SELECT b.name, b.id FROM brand b 
                                                    LEFT JOIN brandsS_categories bc ON b.id = bc.brand_id
-                                                   WHERE brandscategory_id = :id");
+                                                   WHERE brandscategory_id = :id AND b.is_draft IS NULL AND b.validation = 1 ORDER BY b.inTop DESC, b.name ASC");
         $statement->bindValue('id', $brandCategory);
         $statement->execute();
         $response = $statement->fetchAll();      

@@ -43,9 +43,7 @@
   </form>
   <script>
       $(document).ready(function(){
-          $('#cancel-banners-btn').click(function() {
-               window.location = Routing.generate('la_net_admin_banners_list');
-            });
+                     
         {% if banners.id %}
         $('.remove-image').click(function(event) {
         event.preventDefault();

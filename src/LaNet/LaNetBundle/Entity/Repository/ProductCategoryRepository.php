@@ -29,12 +29,12 @@ class ProductCategoryRepository extends EntityRepository
     {
         
         $request = Request::createFromGlobals();
-        $brandCategory = ($request->get('category')) ? " AND brandCategory_id ='" . $request->get('category') ."'" : "";
+        //$brandCategory = ($request->get('category')) ? " AND brandCategory_id ='" . $request->get('category') ."'" : "";
       
         $brand = ($request->get('brand')) ? " AND brand_id ='" . $request->get('brand') ."'" : "";
                 
         $connection = $this->_em->getConnection();
-        $statement = $connection->prepare("SELECT name, id FROM product_category WHERE parent_id IS NULL". $brandCategory.$brand);
+        $statement = $connection->prepare("SELECT name, id FROM product_category WHERE parent_id IS NULL".$brand);
         $statement->execute();
         $result = $statement->fetchAll();    
     

@@ -27,7 +27,7 @@
             <tbody>
                 {% for brand in pagination %}
                     <tr>
-                        <td><a href="{{ path('la_net_admin_product_list', {'id_brand': brand.id}) }}">{{ brand.name }}</a></td>
+                        <td><a href="{{ path('la_net_admin_product_list', {'brand_id': brand.id}) }}">{{ brand.name }}</a></td>
                         <td>{{ brand.isdraft ? 'Скрыто' : 'Опубликовано'}}</td>
                         <td>{{ brand.validation == 1 ? 'Подтвержден' : 'Не подтвержден' }}</td>
                     </tr>
@@ -42,7 +42,8 @@
     {{ knp_pagination_render(pagination) }}
   <script type="text/javascript">
       $(document).ready(function() {
-          $('#add-brand-btn').click(function() {
+          $('#add-brand-btn').click(function(event) {
+              event.preventDefault();
               window.location = Routing.generate('la_net_admin_brand_create')
           });
           $('.delete-brand').click(function(event) {

@@ -153,13 +153,11 @@
             $('.select-category').attr('name','').attr('id', '');
             element.nextAll('select').remove();
             element.nextAll('.category-descr').remove();
-            console.log('123');
+          
             $.ajax({
               url: Routing.generate('la_net_la_net_ajax_brands_profile_products_select_category', {'id' : element.val()}),
               success: function(msg) {
-                  
-                  console.log(msg);
-                  
+             
                   if(msg.has_children){
                     var select = $('<select></select>');
                     select.addClass('select-category');
@@ -186,9 +184,10 @@
               }
             });
           })
-          $('#cancel-product-btn').click(function() {
-               window.location = Routing.generate('la_net_la_net_brands_profile_products');
-            });
+          $('#cancel-product-btn').click(function(event) {
+                event.preventDefault();
+               window.location = "{{path('la_net_la_net_brands_profile_products')}}";
+            });                                     
         {% if product.id %}
           $('.remove-image').click(function(event) {
           event.preventDefault();

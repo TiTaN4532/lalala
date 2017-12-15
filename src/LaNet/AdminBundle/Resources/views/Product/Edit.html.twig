@@ -179,8 +179,9 @@
               }
             });
           })
-          $('#cancel-product-btn').click(function() {
-               window.location = Routing.generate('la_net_la_net_brands_profile_products');
+          $('#cancel-product-btn').click(function(event) {
+               event.preventDefault();
+               window.location = Routing.generate('la_net_admin_product_list')+"?brand_id={{brand.id}}";
             });
         {% if product.id %}
           $('.remove-image').click(function(event) {
@@ -249,7 +250,7 @@
        
         $.ajax({
             url: Routing.generate('la_net_la_net_ajax_menu_getProductCategory'),
-            data: {id_cat: brandCat, id_brand: brand},
+            data: {id_cat: brandCat, brand_id: brand},
             success: function (response) {
                 
                 if (response.length != 0) {
