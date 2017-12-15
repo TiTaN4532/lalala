@@ -11,14 +11,14 @@
       
 {% block content %}
     
-  <div id="fb-root"></div>
+{#  <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.11&appId=1540865079331046';
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));</script>#}
     
 <div class="school-id">
   <div class="row">
@@ -143,8 +143,8 @@
   
  
    {#{% if school.getUser.premium == 1 %}#}
-        <div class="fb-comments" data-href="http://lalook.net/lalook/web/app_dev.php/school/{{ school.id }}" data-numposts="5"></div>
-        <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_salon_id', {'id': school.id })}}" data-numposts="5"></div>
+       {# <div class="fb-comments" data-href="http://lalook.net/lalook/web/app_dev.php/school/{{ school.id }}" data-numposts="5"></div>#}
+        <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_school_id', {'id': school.id })}}" data-numposts="5"></div>
    {#{% endif %}#}
   
 </div>

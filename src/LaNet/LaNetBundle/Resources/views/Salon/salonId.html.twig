@@ -19,7 +19,7 @@
       
 {% block content %}
     
-    <script>
+    {#<script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '1540865079331046',
@@ -35,7 +35,7 @@
      js.src = "http://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script>
+</script>#}
 
 <div class="salon-id">
   <div class="row">
@@ -177,7 +177,10 @@
   {% endif %}
 </div>
 
-      <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_salon_id', {'id': salon.id })}}" data-width="100%" data-numposts="15"></div>
+      <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_salon_id', {'id': salon.id })}}" data-numposts="5"></div>
+    
+  
+  {#<div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_salon_id', {'id': salon.id })}}" data-width="100%" data-numposts="15"></div>#}
 
     {#{% if salon.getUser.premium is defined %} 
       {% if salon.getUser.premium == 1 %}
