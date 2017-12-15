@@ -7,7 +7,7 @@
   {{ parent() }}
  <script type="text/javascript" src="{{ asset('js/raty-2.8.0/lib/jquery.raty.js') }}"></script>
   
-  <meta property="fb:app_id" content="1540865079331046" />
+  <meta property="fb:app_id" content="372096026576100" />
   <meta property="fb:admins" content="100022331712615"/>
   <meta property="og:url" content="http://lalook.net/lalook/web/app_dev.php/master/105/">
 <meta property="og:title" content="Replace with Page Title" />
@@ -19,6 +19,16 @@
 {% endblock %}
       
 {% block content %}
+    
+     <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.11&appId=372096026576100';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="master-id">
  
   <div class="row">
@@ -182,7 +192,8 @@
   {% endif %}
 </div>
   
-    <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_master_id', {'id': master.id })}}/" data-numposts="5"></div>
+    <div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_master_id', {'id': master.id })}}" data-numposts="5"></div>
+    {#<div class="fb-comments" data-width="100%" data-order-by="reverse_time" data-href="http://lalook.net/lalook/web/app_dev.php/master/105" data-numposts="5"></div>#}
 
 
 {#{% if master.getUser.premium is defined %} 

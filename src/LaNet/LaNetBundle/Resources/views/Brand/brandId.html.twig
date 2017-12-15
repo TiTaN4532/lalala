@@ -109,7 +109,7 @@
   
        $('.solid-stars').raty({
        path: "{{ asset('images/') }}",
-       readOnly: {% if voteDisable == false %}false{% else %}true{% endif %},
+       readOnly: false {#{% if voteDisable == false %}false{% else %}true{% endif %}#},
        half : true,
        score: function() {
               return $(this).data('score');
@@ -123,8 +123,21 @@
             data: {rating:score, votes:votes, id:id},
             success: function (response) {
                 if (response.length != 0) {
-                    var data = response;
-                    data = JSON.parse(data)
+                    //var data = response;
+                    var dara_res = response;
+                    var data = jQuery.parseJSON(response);
+                    //var dataJson = JSON.parse(response);
+                    
+                    console.log (response);
+                    console.log (dara_res);
+                    console.log (data);
+                                       
+                    console.log (response.score);
+                    console.log (dara_res.score);
+                    console.log (data.score);
+                    
+                    //data = JSON.parse(data)
+                    
                     $('#avg-rating').html("Средний рейтинг: " +data.score+"");
                     $('#votes').html("Голосов: " +data.votes+"");
                     $('.solid-stars').raty('readOnly', true);

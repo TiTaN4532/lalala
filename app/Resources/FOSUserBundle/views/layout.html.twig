@@ -94,8 +94,10 @@
           </div>
           <nav class="nav">
                     <div class="container">
-                        <ul>
+                         <ul>
                           <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
+                          <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
+                          <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Товары</a></li>
                           <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
                           {#<li><a href="{{ path('la_net_la_net_news_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_news_list' %} class="active"{% endif %}>Новости</a></li>#}  
                           {#<li><a id="drop_custom" href="{{ path('la_net_la_net_master_list') }}" data-toggle="dropdown" >Бренд-инфо</a>
@@ -105,7 +107,7 @@
                                     </ul>   
                                 </div> 
                             </li> #}       
-                             {#<li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб профессионалов</a>
+                            {# <li class="dropdown"><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list'%} class="active"{% endif %} data-toggle="dropdown" >Клуб профессионалов</a>
                                 <ul class="dropdown-menu pull-rigth">
                                     <li><a href="{{ path('la_net_la_net_master_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' %} class="active"{% endif %}>Поиск мастера</a></li>
                                     <li><a href="{{ path('la_net_la_net_salon_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_salon_list' %} class="active"{% endif %}>Поиск салона</a></li>
@@ -113,7 +115,6 @@
                             </li>#}
                             
                             {#<li><a href="{{ path('la_net_la_net_trusts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_trusts_list' %} class="active"{% endif %}>Им доверяют</a></li>#}
-                            <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
                             {#<li><a href="{{ path('la_net_la_net_advices_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_advices_list' %} class="active"{% endif %}>Советы красоты</a></li>#}
                             <li><a href="{{ path('la_net_la_net_adverts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %} class="active"{% endif %}>Объявления</a></li>
                             <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Медиа</a></li>
@@ -150,30 +151,31 @@
                     <div class="footer-area">
                         <nav class="footer-nav">
                             <ul>
-                    <li><a href="{{ path('la_net_la_net_homepage') }}">Главная</a></li>
-                    {#<li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
+                    <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
+                    <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
+                    <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Товары</a></li>
                     <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
-                    <li><a href="{{ path('la_net_la_net_brands_list') }}">Бренд инфо</a></li>
-                    <li><a href="{{ path('la_net_la_net_adverts_list') }}">Объявления</a></li>
-                    <li><a href="{{ path('la_net_la_net_events_list') }}">Медиа</a></li>
+                    {#<li><a href="{{ path('la_net_la_net_news_list') }}">Новости</a></li>#}
+                    <li><a href="{{ path('la_net_la_net_adverts_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_adverts_list' %} class="active"{% endif %}>Объявления</a></li>
+                    <li><a href="{{ path('la_net_la_net_events_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_events_list' %} class="active"{% endif %}>Медиа</a></li>
                     {#<li><a href="{{ path('la_net_la_net_agancy_list') }}">Представительства</a></li>#}
                         {# <li><a href="">Косметика</a></li>
                          <li><a href="">Магазаны</a></li>
                          <li><a href="">Обучение</a></li>
                          <li><a href="">Литератур</a></li>
                          <li><a href="">Форум</a></li>#}
-                    <li><a href="{{ path('la_net_la_net_contact') }}">Контакты</a></li>
+                    <li><a href="{{ path('la_net_la_net_contact') }}" {% if app.request.attributes.get('_route') == 'la_net_la_net_contact' %} class="active" {% endif %}>Контакты</a></li>
                     {#<li><a href="{{ path('la_net_la_net_about') }}">О портале</a></li>#}
                </ul>
                         </nav>
                         <div class="footer-info">
-                            <span class="footer-copy">© 2013-2016 lalook.net.</span>
-                            <span class="footer-email">E-mail: lalooknet@gmail.com</span>
+                            <span class="footer-copy">© 2013-2017 lalook.net.</span>
+                            <span class="footer-email">E-mail: Lalook.lu@gmail.com</span>
                         </div>
                     </div>
                 </div>
                 <div class="footer-right">
-                    <p>© 2013-2016 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.</p>
+                    <p>© 2013-2017 lalook.net. Все права защищены. При полном или частичном использовании материалов портала, гиперссылка http://lalook.net на ресурс обязательна. Администрация может не разделять точку зрения авторов материалов и не несет ответственности за размещаемую пользователями информацию.</p>
                 </div>
             </div>
             

@@ -13,8 +13,9 @@ class BrandController extends BaseController
     
      public function mainAction(Request $request)
   {
-               
-    return $this->render('LaNetAdminBundle:Brand:main.html.twig');
+    $brands = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findListBrandonModeration(); 
+           
+    return $this->render('LaNetAdminBundle:Brand:main.html.twig', array('ModerationCount' => count($brands)));
   }
 
     

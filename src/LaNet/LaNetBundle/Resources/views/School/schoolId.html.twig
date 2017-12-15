@@ -139,9 +139,12 @@
     </div>
   {% endif %}
   
+  
+  
  
    {#{% if school.getUser.premium == 1 %}#}
-        <div class="fb-comments" data-href="http://lalook.net/lalook/web/app_dev.php/school/{{ school.id }}/" data-numposts="5"></div>
+        <div class="fb-comments" data-href="http://lalook.net/lalook/web/app_dev.php/school/{{ school.id }}" data-numposts="5"></div>
+        <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_salon_id', {'id': school.id })}}" data-numposts="5"></div>
    {#{% endif %}#}
   
 </div>

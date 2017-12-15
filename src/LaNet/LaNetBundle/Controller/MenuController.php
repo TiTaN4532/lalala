@@ -206,7 +206,7 @@ class MenuController extends BaseController {
         $this->manager->persist($master);
         $this->manager->flush();
         
-        $response['success'] = 1;
+        $response['success'] = "success";
         $response['votes'] = $votes+1;
         $response['score'] = $score;
        
