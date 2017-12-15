@@ -125,11 +125,11 @@
                 if (response.length != 0) {
                     //var data = response;
                     var dara_res = "'"+response+"'";
-                    var data = jQuery.parseJSON(response);
-                    //var dataJson = JSON.parse(response);
-                    
                     console.log (response);
                     console.log (dara_res);
+                    var data = jQuery.parseJSON(dara_res);
+                    //var dataJson = JSON.parse(response);
+                   
                     console.log (data);
                                        
                     console.log (response.votes);
