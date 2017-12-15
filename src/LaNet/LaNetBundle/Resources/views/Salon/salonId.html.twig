@@ -210,9 +210,19 @@
             url: Routing.generate('la_net_la_net_ajax_menu_salon_rating'),
             data: {rating:score, votes:votes, id:id},
             success: function (response) {
-                if (response.length != 0) {
-                    var data = response;
-                    data = JSON.parse(data)
+                 if (response.length != 0) {
+                    
+                    if ((typeof response) == "object"){
+                        var data = response;
+                        console.log ("data321");
+                    }
+                    
+                    if ((typeof response) == "string"){
+                        console.log ('data123');
+                        data = jQuery.parseJSON(response);
+                    }
+                    
+                    console.log (data);
                     $('#avg-rating').html("Средний рейтинг: " +data.score+"");
                     $('#votes').html("Голосов: " +data.votes+"");
                     $('.solid-stars').raty('readOnly', true);

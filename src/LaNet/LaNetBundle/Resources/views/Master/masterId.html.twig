@@ -35,7 +35,7 @@
     <div class="col col_1_of_3">
         <a href="{{ asset(master.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ master.firstname | upper }} {{ master.lastname | upper }}"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
     
-        {% if master.getUser.premium is defined %} 
+       {# {% if master.getUser.premium is defined %}
             {% if master.getUser.premium == 1 %}
              <div id="rating-block">
                 <div class="solid-stars" data-id="{{master.id}}" data-votes="{{master.getUser.getVotes}}" data-score="{{master.getUser.getRating}}"></div>
@@ -43,7 +43,12 @@
                     <div id="votes">Голосов:{% if master.getUser.getVotes %}{{master.getUser.getVotes}}{% else %} 0{% endif %}</div>
              </div>  
             {% endif %}
-        {% endif %}
+        {% endif %}#}
+        <div id="rating-block">
+                <div class="solid-stars" data-id="{{master.id}}" data-votes="{{master.getUser.getVotes}}" data-score="{{master.getUser.getRating}}"></div>
+                    <div id="avg-rating">Средний рейтинг: {% if master.getUser.getRating %} {{master.getUser.getRating}}{% else %} 0{% endif %}</div>
+                    <div id="votes">Голосов:{% if master.getUser.getVotes %}{{master.getUser.getVotes}}{% else %} 0{% endif %}</div>
+             </div>  
         
     </div>
     <div class="col col_2_of_3">
@@ -221,8 +226,18 @@
             data: {rating:score, votes:votes, id:id},
             success: function (response) {
                 if (response.length != 0) {
-                    var data = response;
-                    data = JSON.parse(data)
+                    
+                    if ((typeof response) == "object"){
+                        var data = response;
+                        console.log ("data321");
+                    }
+                    
+                    if ((typeof response) == "string"){
+                        console.log ('data123');
+                        data = jQuery.parseJSON(response);
+                    }
+                    
+                    
                     $('#avg-rating').html("Средний рейтинг: " +data.score+"");
                     $('#votes').html("Голосов: " +data.votes+"");
                     $('.solid-stars').raty('readOnly', true);
