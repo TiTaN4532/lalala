@@ -358,7 +358,16 @@ form {
 .nav li a.active,
 .nav a:hover {
     color: #005580;
+    border: solid 1px;
+    padding: 7px 25px;
 }
+
+.nav li a{
+    border: solid 1px;
+    padding: 7px 25px;
+    border-color: #6cb55d;
+}
+
 .nav ul {
     text-align: center;
     padding-top: 14px;
@@ -366,7 +375,7 @@ form {
 }
 .nav ul li {
     display: inline-block;
-    margin-right: 33px;
+    margin-right: 0px;
 }
 
 ul.dropdown-menu li {
@@ -907,6 +916,11 @@ ul li ul li a.active {
     color: #1f6b82;
     margin: 0;
 }
+.masters-item-title a {
+    font-size: 17px;
+    color: #1f6b82;
+    margin: 0;
+}
 
 .masters-item-title.starred {
     position: relative;
@@ -951,6 +965,7 @@ ul li ul li a.active {
     margin: 0 0 10px;
     padding: 5px 0 15px;
     border-bottom: 1px solid #e1e1e1;
+    height: 150px;
 }
 
 .info-block:hover {
@@ -978,6 +993,13 @@ ul li ul li a.active {
 }
 
 .info-block-title {
+    font-size: 17px;
+    margin: 0;
+    color: #181818;
+    line-height: 1.2;
+}
+
+.info-block-title a {
     font-size: 17px;
     margin: 0;
     color: #181818;
@@ -1185,6 +1207,10 @@ ul li ul li a.active {
 .sidebar-section-title h2 {
     letter-spacing: -.5px;
     margin: 0;
+}
+
+.sidebar-section-title a {
+    color: #fff;
 }
 
 .sidebar-section-content {
@@ -1506,6 +1532,10 @@ padding-top: 10px;
 
  .sub_menu ul li a {
    color: #5d5d5d;
+ }
+ 
+ .advices-height {
+   height: 141 px;
  }
 
 

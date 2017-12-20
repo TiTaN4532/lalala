@@ -5,7 +5,7 @@
         <meta charset="utf-8"/>
         <meta property="fb:app_id" content="1540865079331046" />
         <meta property="fb:admins" content="100022331712615"/>
-        <meta name="description" content="Всеукраинский портал индустрии красоты и здоровья"/>
+        <meta name="description" content="Портал индустрии красоты и здоровья"/>
         <title>{% block title %}Lalook{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}
@@ -104,7 +104,7 @@
                  <nav class="nav">
                     <div class="container">
                         <ul>
-                          <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
+                          <li {% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
                           <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
                           <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Товары</a></li>
                           <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
@@ -665,6 +665,32 @@
    Banner (3, 10000);
     
   });
+  
+  function Discount (time) {
+    var i=1;
+  
+        function ShowDiscount() {
+            if (i>$("#discount-container").children('article').length){
+                i=1;
+                $("#discount-container").children('[discount-index]').hide();
+                $("#discount-container").children('[discount-index= '+i+']').show();
+              }
+            else {
+                $("#discount-container").children('[discount-index]').hide();
+                $("#discount-container").children('[discount-index= '+i+']').show();
+              }  
+                i++;
+            }
+
+    function start() {
+       setInterval(ShowDiscount, time);
+    }
+     start(); 
+    }     
+  
+  Discount (10000);
+  
+  
   
 </script>
        

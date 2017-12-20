@@ -56,6 +56,12 @@ class News extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="datetime")
      */
     protected $created;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="news", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $portfolio;
+        
 
     /**
      * @Gedmo\Timestampable(on="update")
@@ -339,6 +345,40 @@ class News extends \LaNet\LaNetBundle\Model\UploadImages
     public function getinTop()
     {
         return $this->inTop;
+    }
+    
+    /**
+     * Add portfolio
+     *
+     * @param \LaNet\LaNetBundle\Entity\Image $portfolio
+     * @return Aticles
+     */
+    public function addPortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
+    {
+        $portfolio->setNews($this);
+        $this->portfolio[] = $portfolio;
+    
+        return $this;
+    }
+
+    /**
+     * Remove portfolio
+     *
+     * @param \LaNet\LaNetBundle\Entity\Image $portfolio
+     */
+    public function removePortfolio(\LaNet\LaNetBundle\Entity\Image $portfolio)
+    {
+        $this->portfolio->removeElement($portfolio);
+    }
+
+    /**
+     * Get portfolio
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPortfolio()
+    {
+        return $this->portfolio;
     }
 
 }

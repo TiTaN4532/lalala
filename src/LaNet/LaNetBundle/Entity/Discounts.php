@@ -24,6 +24,16 @@ class Discounts extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="string")
      */
     protected $description;
+    
+    /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    protected $startDate;
+    
+    /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    protected $endDate;
          
     /**
      * @ORM\Column(type="boolean", nullable = true)
@@ -212,6 +222,54 @@ class Discounts extends \LaNet\LaNetBundle\Model\UploadImages
     public function getDescription()
     {
         return $this->description;
+    }
+    
+    /**
+     * Set startDate
+     *
+     * @param string $startDate
+     * @return Events
+     */
+   
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get startDate
+     *
+     * @return string 
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+    
+    /**
+     * Set endDate
+     *
+     * @param string $endDate
+     * @return Events
+     */
+   
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return string 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
     
      /**

@@ -76,6 +76,11 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $usedCosmetics;
     
     /**
+     * @ORM\Column(type="text", nullable = true)
+     */
+    protected $salonName;
+    
+    /**
      * @ORM\Column(type="string", nullable = true)
      */
     protected $link;
@@ -182,6 +187,29 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getLastName()
     {
         return $this->lastName;
+    }
+    
+    /**
+     * Set salonName
+     *
+     * @param string $salonName
+     * @return Master
+     */
+    public function setSalonName($salonName)
+    {
+        $this->salonName = $salonName;
+    
+        return $this;
+    }
+
+    /**
+     * Get salonName
+     *
+     * @return string 
+     */
+    public function getSalonName()
+    {
+        return $this->salonName;
     }
 
     /**

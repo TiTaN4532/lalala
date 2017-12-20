@@ -9,7 +9,7 @@
 {% endblock %}
 
 
-{% block title %}Всеукраинский портал индустрии красоты и здоровья{% endblock %}
+{% block title %}Портал индустрии красоты и здоровья{% endblock %}
 {% block body %}
     
 <div id="fb-root"></div>
@@ -70,7 +70,7 @@
           <div class="row-fluid">
               <div class="span8">
        {% block content %}
-         
+          
         {% if events %}
             <h2 class="section-title"><a href="{{ path('la_net_la_net_events_list') }}">Репортажи</a></h2>
                 <section class="top-news is-bigger">
@@ -81,12 +81,16 @@
                              <div id="main-event-video" data-title="{{ post.title }}" data-img="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" event-id="{{post.id}}">
                              {% if post.video is not empty and post.newLink is defined %}
                                   <div class="video-responsive">
-                                  <iframe width="auto" height="auto" src="https://www.youtube.com/embed/{{post.newLink}}?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+                                    <div id="player"></div>   
+                                  {#<iframe width="auto" height="auto" src="https://www.youtube.com/embed/{{post.newLink}}?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+                                  #}
                                   </div>
                                   <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
                                 {%else%}
                                    <a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_big'))}}" alt="placeholder"></a>
-                               {% endif %}
+                                   <h3 class="item-title without-video"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+
+                             {% endif %}
                              </div> 
                              
                          {% endif %}
@@ -301,10 +305,10 @@
                                 
                                 <div class="masters-item clearfix">
                                     <div class="masters-item-img">
-                                        <img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_trust'))}}" />
+                                        <a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_trust'))}}" /></a>
                                     </div>
                                     <div class="masters-item-info">
-                                        <h3 class="masters-item-title">{{ post.title}}</h3>
+                                        <h3 class="masters-item-title"><a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
                                         <div class="masters-item-profession">{{ post.description}}</div>
                                         <a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
                                     </div>
@@ -325,7 +329,7 @@
                                 <div class="discount-section">
                                     <div class="discounts-item">
                                         <div class="discounts-item-img">
-                                           <img src="{{ asset(post.getWebPath | imagine_filter('my_school_main'))}}" />
+                                           <a href="{{ path('la_net_la_net_school_id', { 'id' : post.id })}}"><img src="{{ asset(post.getWebPath | imagine_filter('my_school_main'))}}" /></a>
                                         <h3 class="item-title"><a href="{{ path('la_net_la_net_school_id', { 'id' : post.id })}}">{{ post.name}}</a></h3>
                                      </div>
                                     </div>
@@ -346,12 +350,12 @@
                         <div class="span6">
                             {% for post in advices %}  
                                 {% if loop.index <= 4 %}
-                                    <div class="info-block clearfix">
+                                    <div class="info-block clearfix advices-height">
                                         <div class="info-block-img">
-                                               <img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_advice'))}}" />
+                                               <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_advice'))}}" /></a>
                                         </div>
                                         <div class="info-block-content">
-                                            <h3 class="info-block-title">{{ post.title}}</h3>
+                                            <h3 class="info-block-title"><a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}">{{ post.title | length > 51 ? post.title|slice(0, 51) ~ '...' : post.title}}</a></h3>
                                             <div class="info-block-description">{{ post.description}}</div>
                                             <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
                                         </div>
@@ -363,13 +367,13 @@
                         <div class="span6">
                              {% for post in advices %}  
                                 {% if loop.index > 4 %}
-                                    <div class="info-block clearfix">
+                                    <div class="info-block clearfix advices-height">
                                         <div class="info-block-img">
-                                               <img src="{{ asset(post.getWebPath)}}" />
+                                               <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_advice'))}}" /></a>
                                         </div>
                                         <div class="info-block-content">
-                                            <h3 class="info-block-title">{{ post.title}}</h3>
-                                            <div class="info-block-description">{{ post.description}}</div>
+                                            <h3 class="info-block-title"><a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}">{{ post.title | length > 60 ? post.title|slice(0, 60) ~ '...' : post.title}}</a></h3>
+                                            <div class="info-block-description">{{ post.description | length > 147 ? post.description|slice(0, 147) ~ '...' : post.description}}</div>
                                             <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
                                         </div>
                                     </div>
@@ -384,7 +388,7 @@
             {% if gallery is not empty %}
    
            <section class="holder">
-                    <h2 class="section-title"><a href="#">Галерея</a></h2>
+                    {#<h2 class="section-title"><a href="#">Галерея</a></h2>#}
                     <div class="row-fluid">
                       <div class="gallery-main">
             <div class="row clear">
@@ -404,136 +408,9 @@
                 </section>      
                 
                 
-                
-       
-   
-        
+         
   {% endif %}
-           
-            
-                                {#<section class="holder">
-                    <div class="advert-wrap">
-                        <div class="text-center">
-                            <a href="#" class="btn">Новое объявление</a>
-                        </div>
-
-                        <div class="advert">
-                            <div class="advert-holder">
-                                <div class="advert-area clearfix">
-                                    <div class="advert-img">
-                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-03.png" alt="placeholder">
-                                    </div>
-                                    <div class="advert-info">
-                                        <h3>Ищу мастера маникюра в салон красоты г.Харьков</h3>
-                                        <div class="advert-descr">
-                                            <p>Команда Lak Nails Bar (Пушкинский вьезд.4) ищет мастера
-                                            ногтевого сервиса.На постоянную стабильную работу в молодой,
-                                            интересный коллектив.Требования:опыт работы от 6 месяцев,
-                                            работа с аппаратом,классический,комбинированный маникюр и
-                                            педикюр.Работа с дизайнами гель лаками.</p>
-
-                                            <p>Посменный график с 10-20 Заработная плата ежедневно,процент
-                                            Все материалы нашей студии,от Вас только желание и умение
-                                            выполнять работу на 5+</p>
-                                        </div>
-                                        <div class="advert-contacts">
-                                            <a href="#">+380 (12) 345 67 89</a>
-                                            <a href="#">mail123@mail.ru</a>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="opener">&#8897;</a>
-                                    <a href="#" class="closer">&#8896;</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="advert">
-                            <div class="advert-holder">
-                                <div class="advert-area clearfix">
-                                    <div class="advert-img">
-                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-03.png" alt="placeholder">
-                                    </div>
-                                    <div class="advert-info">
-                                        <h3>Ищу мастера маникюра в салон красоты г.Харьков</h3>
-                                        <div class="advert-descr">
-                                            <p>Команда Lak Nails Bar (Пушкинский вьезд.4) ищет мастера
-                                            ногтевого сервиса.На постоянную стабильную работу в молодой,
-                                            интересный коллектив.Требования:опыт работы от 6 месяцев,
-                                            работа с аппаратом,классический,комбинированный маникюр и
-                                            педикюр.Работа с дизайнами гель лаками.</p>
-
-                                            <p>Посменный график с 10-20 Заработная плата ежедневно,процент
-                                            Все материалы нашей студии,от Вас только желание и умение
-                                            выполнять работу на 5+</p>
-                                        </div>
-                                        <div class="advert-contacts">
-                                            <a href="#">+380 (12) 345 67 89</a>
-                                            <a href="#">mail123@mail.ru</a>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="opener">&#8897;</a>
-                                    <a href="#" class="closer">&#8896;</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="advert">
-                            <div class="advert-holder">
-                                <div class="advert-area clearfix">
-                                    <div class="advert-img">
-                                        <img src="./Всеукраинский портал индустрии красоты и здоровья_files/placeholder-03.png" alt="placeholder">
-                                    </div>
-                                    <div class="advert-info">
-                                        <h3>Ищу мастера маникюра в салон красоты г.Харьков</h3>
-                                        <div class="advert-descr">
-                                            <p>Команда Lak Nails Bar (Пушкинский вьезд.4) ищет мастера
-                                            ногтевого сервиса.На постоянную стабильную работу в молодой,
-                                            интересный коллектив.Требования:опыт работы от 6 месяцев,
-                                            работа с аппаратом,классический,комбинированный маникюр и
-                                            педикюр.Работа с дизайнами гель лаками.</p>
-
-                                            <p>Посменный график с 10-20 Заработная плата ежедневно,процент
-                                            Все материалы нашей студии,от Вас только желание и умение
-                                            выполнять работу на 5+</p>
-                                        </div>
-                                        <div class="advert-contacts">
-                                            <a href="#">+380 (12) 345 67 89</a>
-                                            <a href="#">mail123@mail.ru</a>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="opener">&#8897;</a>
-                                    <a href="#" class="closer">&#8896;</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    
-                        <div class="row clear pagination">
-                            <div class="pagination">
-                                <span class="current">1</span>
-                                <span class="page">
-                                        <a href="/club/master?page=2">2</a>
-                                    </span>
-                                                <span class="page">
-                                        <a href="/club/master?page=3">3</a>
-                                    </span>
-                                                <span class="page">
-                                        <a href="/club/master?page=4">4</a>
-                                    </span>
-                                                <span class="page">
-                                        <a href="/club/master?page=5">5</a>
-                                    </span>
-                                    <span class="next">
-                                    <a href="/club/master?page=2">&gt;</a>
-                                </span>
-                                    <span class="last">
-                                    <a href="/club/master?page=10">&gt;&gt;</a>
-                                </span>
-                            </div>
-                          </div>
-                    </div>
-                </section>#}
-     
+                                 
 {% endblock %}
        
                   
@@ -554,18 +431,32 @@
   
      $(document).ready(function() {
          
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+         
          $(".fancybox").fancybox({
 		openEffect	: 'none',
 		closeEffect	: 'none'
 	 });
-  
-         $('.gallery').slick({
-              infinite: true,
-              slidesToShow: 4,
-              slidesToScroll: 1
-            });
          
-         
+            if ($('.gallery').hasClass('test-slider')){
+
+              $('.gallery').slick({
+                  infinite: true,
+                  slidesToShow: 5,
+                  slidesToScroll: 1
+                });
+
+           }else {
+              $('.gallery').slick({
+                  infinite: true,
+                  slidesToShow: 4,
+                  slidesToScroll: 1
+                });
+            }
+
          $('.event-with-video').on("click", "img", function(event) {
               
                                            
@@ -575,31 +466,48 @@
                 //div куда выводим содержимое с видео
                 var main_div = $("#main-event-video"); 
               
-                if (main_div.find('h3').html()){
-                 var video_content = true;
-                 var main_title = main_div.find('h3').html();
+                if (main_div.find('h3').hasClass("without-video")){
+                   var video_content = false;
+                   var main_title = main_div.attr("data-title");
                 
                 }else{
-                   video_content = false;
-                   main_title = main_div.attr("data-title");
+                    video_content = true;
+                    main_title = main_div.find('h3').html();
                 }
-               
+                var main_id = main_div.attr("event-id");
                 var main_img = main_div.attr("data-img");
                 var main_href = main_div.find('a').attr("href");
                 
                 //откуда берем данные
                 var div = $(event.target).parents("div:first");
                 div.children(":first").remove();
-              
+                var event_id = div.attr("event-id");
+                
                 div.attr("event-id", main_div.attr("event-id"));
                 main_div.attr("data-img", $(event.target).attr('src'))
-                main_div.attr("event-id", div.attr("event-id"))
+                main_div.attr("event-id", event_id)
+               
+                var player;
+                function onYouTubePlayerAPIReady() {
+                  player = new YT.Player('player', {
+                    playerVars: { 'autoplay': 1, 'controls': 1,'autohide':1,'wmode':'opaque' },
+                    videoId: $.trim(div.attr("video-event")),
+                    events: {
+                      'onReady': onPlayerReady}
+                  });
+                }
+
+                function onPlayerReady(event) {
+                  event.target.mute();
+                }
                 
-                main_div.html('<div class="video-responsive"><iframe width="auto" height="auto" src="https://www.youtube.com/embed/'+$.trim(div.attr("video-event"))+'?autoplay=1&fs=0&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe></div><h3 class="item-title">'+$(event.target).parent().next().html()+'</h3>');
-                   
+                main_div.html('<div class="video-responsive"><div id="player"></div></div><h3 class="item-title">'+$(event.target).parent().next().html()+'</h3>');
+                
+                onYouTubePlayerAPIReady()
+                        
                 $.ajax({
                     url: Routing.generate('la_net_la_net_ajax_events_getEventWithVideo'),
-                    data: {id: main_div.attr("event-id")},
+                    data: {id: main_id},
                     success     : function(respons) {
                       if (respons.length != 0){
                           var data = (respons);
@@ -627,5 +535,50 @@
     });
   </script>   
   
+  
+  
+  
+ 
+  
+    <script>
+     
+    // 1. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 2. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      
+   
+   {% if events is defined %}
+       {% for post in events %}
+            {% if loop.index == 1 %}
+               {% if post.video is not empty and post.newLink is defined %}
+                 var player;
+                 function onYouTubePlayerAPIReady() {
+                   player = new YT.Player('player', {
+                     playerVars: { 'autoplay': 1, 'controls': 1,'autohide':1,'wmode':'opaque' },
+                     videoId: '{{post.newLink}}',
+                     events: {
+                       'onReady': onPlayerReady}
+                   });
+                 }
+
+                 // 4. The API will call this function when the video player is ready.
+                 function onPlayerReady(event) {
+                   event.target.mute();
+                 }
+
+               {% endif%}
+            {% endif%}
+        {% endfor %}
+   {% endif%}
+
+    </script>
+  
  
 {% endblock %}
+

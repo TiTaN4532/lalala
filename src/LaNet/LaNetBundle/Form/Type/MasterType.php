@@ -38,6 +38,7 @@ class MasterType extends AbstractType
                                                  'multiple' => true,
                                                  'expanded' => true,
             ))
+            ->add('salonName', 'text', array('required'  => false, 'label' => 'Название салона:'))    
             ->add('birthday', 'text', array( 'required'  => false,  'label' => 'Дата рождения:', 'attr' => array('class' => 'datepicker')))       
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
             ->add('category', 'entity', array(
@@ -58,8 +59,8 @@ class MasterType extends AbstractType
         if($this->action == 'profile')
             $builder->add('competitions', 'textarea', array('label' => 'Конкурсы, мероприятия:', 'required' => false))
                     ->add('education', 'textarea', array('label' => 'Образование:', 'required' => false))
-                    ->add('usedCosmetics', 'textarea', array('label' => 'Используемая косметика:', 'required' => false))
-                    ->add('hobby', 'textarea', array('label' => 'Хобби:', 'required' => false));
+                    ->add('usedCosmetics', 'textarea', array('label' => 'Используемая косметика:', 'required' => false));
+                    //->add('hobby', 'textarea', array('label' => 'Хобби:', 'required' => false));
     }
     
     /**

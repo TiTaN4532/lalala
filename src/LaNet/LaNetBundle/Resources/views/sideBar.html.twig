@@ -4,7 +4,7 @@
                         <div class="sidebar-section">
                          {% if newsSideBar %}
                             <div class="sidebar-section-title">
-                                <h2>Новости В2В</h2>
+                                <h2><a href="{{ path('la_net_la_net_news_list') }}">Новости В2В</a></h2>
                             </div>
                             {% endif %}
                             <div class="sidebar-section-content">
@@ -40,17 +40,20 @@
                          
                             {% if EventsSideBar and EventsSideBar[0] is defined %}    
                             <div class="sidebar-section-title">
-                                <h2>Ближайшие события</h2>
+                                <h2><a href="{{ path('la_net_la_net_upcoming_events_list') }}">Ближайшие события</a></h2>
                             </div>
                              {% endif %}
                             <div class="sidebar-section-content">
-                                 {% if EventsSideBar and EventsSideBar[0] is defined %}  
+                                 {% if EventsSideBar is defined %}  
                                 <div class="top-news">
+                                    
+                                    {% for event in EventsSideBar %} 
                                     <article class="top-news-item is-horizontal clearfix">
-                                        <a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': EventsSideBar[0].slug})}}"><img src="{{ asset(EventsSideBar[0].getWebPath)}}" alt="placeholder"></a>
-                                        <h3 class="item-title"><a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': EventsSideBar[0].slug})}}">{{ EventsSideBar[0].title}}</a></h3>
-                                            <div class="top-news-date">{{ EventsSideBar[0].created | date ('d.m.Y')}}</div>
+                                        <a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}"><img src="{{ asset(event.getWebPath)}}" alt="placeholder"></a>
+                                        <h3 class="item-title"><a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}">{{ event.title}}</a></h3>
+                                            <div class="top-news-date">{{ event.created | date ('d.m.Y')}}</div>
                                     </article>
+                                     {% endfor %}
                                 </div>
                                 <div class="see-all-row">
                                     <a href="{{ path('la_net_la_net_upcoming_events_list') }}" class="read-more">Смотреть всё</a>
@@ -77,14 +80,18 @@
                             <div class="sidebar-section-content">
                                 {% if discountsSideBar %} 
                                 <div class="top-news">
-                                    
+                                    <div id="discount-container">
                                    {% for post in discountsSideBar %}  
-                                    <article class="top-news-item clearfix">
+                                    <article discount-index="{{loop.index}}" {% if not loop.first %} style="display:none;" {% endif %} class="top-news-item clearfix">
                                         <a href="{{ path('la_net_la_net_salon_id', { 'id' : post.salon.id } ) }}"><img src="{{ asset(post.getWebPath )}}" alt="placeholder"></a>
                                         <h3 class="item-title"><a href="{{ path('la_net_la_net_salon_id', { 'id' : post.salon.id } ) }}">{{ post.description }}</a></h3>
-                                            <div class="top-news-date">{{ post.created | date ('d.m.Y')}}</div>
+                                              {% if (post.salon.location and post.salon.location.locality) %}
+                                                <div class="top-news-date">{{ post.salon.location.locality }}{#{{ salon.location.administrativearea }}#}</div>
+                                              {% endif %}
+                                           <div class="top-news-date">{% if (post.startDate or post.endDate) %}Действует{% endif %}{% if post.startDate %} с {{ post.startDate }}{% if post.endDate %} по {{ post.endDate}}{% endif%}{% else %}{% if post.endDate %} по {{ post.endDate}}{% endif%}{% endif%} </div>
                                     </article>
                                      {% endfor %}  
+                                </div>
                                 </div>
                                   {% endif %}
                                  
@@ -104,7 +111,7 @@
                                  
                                  {% if advertsSideBar %} 
                             <div class="sidebar-section-title">
-                                <h2>Актуальные объявления</h2>
+                                <h2><a href="{{ path('la_net_la_net_adverts_list') }}">Актуальные объявления</a></h2>
                             </div>
                             <div class="sidebar-section-content">
                                 <div class="top-news">

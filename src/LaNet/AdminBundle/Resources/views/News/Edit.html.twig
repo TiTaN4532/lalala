@@ -4,7 +4,8 @@
       {{ parent() }}
         <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
         <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
-      <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
+        <script src="{{ asset('bundles/lanetlanet/js/mastersPortfolio.js') }}"></script>
+        <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
   {% endblock %}
       
 {% form_theme form _self %}
@@ -33,12 +34,21 @@
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
     {{ form_row(form.post) }}
+    <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
+         {% for image in form.portfolio %}
+           <li>
+              {{ form_widget(image.file) }}
+              {{ form_row(image.description) }}
+           </li>
+         {% endfor %}
+       </ul>
     <div>
       <button id="cancel-news-post-btn">Назад</button>
     {{ form_widget(form.save_draft) }}
     {{ form_widget(form.add_post) }}
     </div>
-    {{ form_rest(form) }}
+    {# {{ form_rest(form) }} #}
+     {{ form_row(form._token) }}
   </form>
   
   <script>

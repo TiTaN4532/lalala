@@ -22,7 +22,7 @@
       
 {% block profile_content %}
 
-<h1>Основная информация</h1>
+   <h1>Основная информация</h1>
 
 <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
         <div class="row errors">
@@ -51,6 +51,12 @@
         {{ form_row(form.userInfo.link) }}
         <hr />
         {{ form_row(form.userInfo.serviceType) }}
+        
+        <div id="salonName">
+        {{ form_row(form.userInfo.salonName) }}
+        </div>
+        
+        
         <hr />
         {{ form_row(form.userInfo.category) }}
         <hr />
@@ -190,13 +196,16 @@
         {{ form_row(form.userInfo.competitions) }}
         {{ form_row(form.userInfo.education) }}
         {{ form_row(form.userInfo.usedCosmetics) }}
-        {{ form_row(form.userInfo.hobby) }}
+        {#{{ form_row(form.userInfo.hobby) }}#}
         <div>{{ form_widget(form.newsNotify) }}{{ form_label(form.newsNotify) }}</div>
         
         {{ form_row(form.save) }}
         {{ form_row(form._token) }}
         
 </form>
+       
+              <h5><a id="master-preview-btn" href="{{ path('la_net_la_net_master_id', {'id': m_id })}}">Просмотр профиля</a></h5>
+  
 <script>jQuery(function($){
         $.datepicker.regional['ru'] = {
                 closeText: 'Закрыть',
@@ -226,5 +235,42 @@
       yearRange: "-100:+0",
     });
   });
+  
+  if (!($("#lanet_master_profile_userInfo_serviceType_1").prop('checked'))){
+     $('#salonName').hide();
+  }
+  
+ $('#lanet_master_profile_userInfo_serviceType_1').on('click', function(){  
+     
+  if ($("#lanet_master_profile_userInfo_serviceType_1").prop('checked')){
+     // $('#lanet_master_profile_userInfo_salonName').prop('disabled', false);
+     $('#salonName').show();
+  }else{
+     // $('#lanet_master_profile_userInfo_salonName').prop('disabled', true);
+     $('#salonName').hide();
+  }
+      
+     /* $('#master-preview-btn').click(function(event) {
+              event.preventDefault();
+              
+               window.open({{ path('la_net_la_net_master_id', {'id': m_id })}}, '_blank');
+              // window.location = Routing.generate('la_net_admin_events');
+            });
+      
+     */
+  });
   </script>
+  
+  
+  <script>
+      $(document).ready(function(){
+          $('#master-preview-btn').click(function(event) {
+              event.preventDefault();
+           
+               window.open($(event.target).attr("href"), '_blank');
+            
+            }); 
+          
+      })
+      </script>
 {% endblock %}

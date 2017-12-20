@@ -74,8 +74,8 @@ class MainController extends BaseController {
         $adverts = $this->manager->getRepository('LaNetLaNetBundle:Adverts')->findListAdvertsOnMainPage(3);
         //$banners = $this->manager->getRepository('LaNetLaNetBundle:Banners')->findBannersOnMainPage(3);
         $news = $this->manager->getRepository('LaNetLaNetBundle:News')->findListNewsOnMainPage(5);
-        $discounts = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findDiscountsOnMainPage(3);
-        $eventsSideBar = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findUpcomingEventsOnMainPage(1);
+        $discounts = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findDiscountsOnMainPage(4);
+        $eventsSideBar = $this->manager->getRepository('LaNetLaNetBundle:Articles')->findUpcomingEventsOnMainPage(4);
       
                 
         $bannersGroup1 = $this->manager->getRepository('LaNetLaNetBundle:Banners')->findBannersByGroup(1);

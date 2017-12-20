@@ -7,10 +7,10 @@
   {{ parent() }}
      <script type="text/javascript" src="{{ asset('js/raty-2.8.0/lib/jquery.raty.js') }}"></script>
   
-<meta property="og:url" content="http://lalook.net/lalook/web/app_dev.php/salon/{{salon.id}}/">
-<meta property="og:title" content="Replace with Page Title" />
-<meta property="og:type" content="Website" />
-<meta property="og:description" content="Add Some description" />
+<meta property="og:url" content="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_salon_id', {'id': salon.id })}}/">
+<meta property="og:title" content="Салон {{ salon.name }}" />
+<meta property="og:type" content="LaLook.net" />
+{#<meta property="og:description" content="Add Some description" />#}
 <meta property="og:image" content="http://lalook.net/lalook/web/images/reklama_rolland.jpg" />
   
 
@@ -18,25 +18,7 @@
 {% endblock %}
       
 {% block content %}
-    
-    {#<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1540865079331046',
-      xfbml      : true,
-      version    : 'v2.4'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "http://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>#}
-
+  
 <div class="salon-id">
   <div class="row">
     <div class="col col_1_of_3">
@@ -161,9 +143,12 @@
   <div class="row clear">
     {% if not loop.first %} <hr /> {% endif %}
     <div class="col col_1_of_3"><img src="{{ discount.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
-    <div class="col col_1_of_3">
+    <div class="col col_2_of_3">
         <div class="row">
            <div class="col col_2_of_2">{{ discount.description }}</div>
+        </div>
+        <div class="row">
+           <div class="col col_2_of_2">{% if (discount.startDate or discount.endDate) %}Действует{% endif %}{% if discount.startDate %} с {{ discount.startDate }}{% if discount.endDate %} по {{ discount.endDate}}{% endif%}{% else %}{% if discount.endDate %} по {{ discount.endDate}}{% endif%}{% endif%} </div>
         </div>
        
     </div>
@@ -171,7 +156,7 @@
       {% endif %}    
        
 {% else %}
-  Список нет
+  Скисок нет
 {% endfor %}  
 </div>
   {% endif %}
@@ -214,11 +199,11 @@
                     
                     if ((typeof response) == "object"){
                         var data = response;
-                        console.log ("data321");
+                       
                     }
                     
                     if ((typeof response) == "string"){
-                        console.log ('data123');
+                       
                         data = jQuery.parseJSON(response);
                     }
                     

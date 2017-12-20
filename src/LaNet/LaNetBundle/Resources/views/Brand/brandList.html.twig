@@ -16,9 +16,7 @@
 {% endblock %}
 {% block content %}
      
-    
-    
-    <div id="brand-form" {% if error is not defined  %}style="display: none" {% endif %}>
+    <div id="brand-form" {% if not (error is defined or app.request.query.get('registration') == 'true') %}style="display: none" {% endif %}>
        <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
         <div class="row errors">{{ form_errors(form) }}</div>
             {{ form_widget(form.file) }}
@@ -37,7 +35,7 @@
     </div>    
     
      <div class="text-left" style="padding-bottom: 20px;">
-        <a href="#" class="btn btn-reverse" id="add-brand-btn">Добавить бренд</a>
+       <a href="#" class="btn btn-reverse"  id="add-brand-btn" {% if (error is defined or app.request.query.get('registration') == 'true') %}style="display: none"{% endif %}>Добавить бренд</a>
    
         <a href="#" class="btn btn-reverse" id="capabilities" data-toggle="modal" data-target="#myModalBrand">Возможности портала</a>
     </div>
@@ -85,7 +83,7 @@
             <div class="row-fluid">
                 <section class="holder">
                    <div class="gallery-wrap">
-                        <div class="gallery">
+                        <div class="gallery test-slider">
               
                                
                            {% for post in testsSlider %} 
@@ -190,13 +188,7 @@
    
    <script>  
    $(document).ready(function(){
-       
-       $('.gallery').slick({
-              infinite: true,
-              slidesToShow: 5,
-              slidesToScroll: 1
-            });
-        
+         
       toastr.options = {"closeButton": false,
                         "debug": false,
                         "newestOnTop": false,

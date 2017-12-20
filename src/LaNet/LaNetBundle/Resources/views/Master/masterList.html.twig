@@ -77,7 +77,7 @@
 
       <section class="holder">
                     <div class="row-fluid">
-                        <div class="span7">
+                        <div class="span12">
                          
                             <div class="masters">
       
@@ -107,6 +107,22 @@
                                             {% if master.category is not empty %}
                                                 <div class="masters-item-profession">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
                                             {% endif %}
+                                            {% if master.serviceType %}
+                                              
+                                               <div>{% for item in master.serviceType %}
+                                                                              {% if item == 'salon' %}
+                                                                                В салоне  {% if master.salonName %}&nbsp -  &nbsp "{{master.salonName}}"{% endif %}
+                                                                              {% elseif item == 'salon-home' %}
+                                                                                Выезд на дом к клиенту
+                                                                              {% elseif item == 'home' %}
+                                                                                На дому
+                                                                              {% endif %}
+                                                                           {% if not loop.last %}, {% endif %}
+                                                                        {% endfor %}
+                                                </div>
+                             
+
+                                              {% endif %}
                                     </div>
                                 </div>
                            

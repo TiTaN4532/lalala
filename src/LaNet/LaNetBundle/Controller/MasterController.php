@@ -15,6 +15,8 @@ class MasterController extends BaseController
     {
         $form = $this->createForm(new LaForm\MasterProfileType(), $this->user);
         
+        $m_id = $this->user->getUserInfo()->getId();
+        
         if ('POST' == $request->getMethod()) {
         if($prevLocation = $this->user->getUserInfo()->getLocation()) {
             $this->manager->remove($prevLocation);
@@ -35,7 +37,7 @@ class MasterController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_master_profile'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Master:profile.html.twig', array('form' => $form->createView()
+        return $this->render('LaNetLaNetBundle:Master:profile.html.twig', array('form' => $form->createView(), 'm_id' => $m_id
                                                                                 ));
     }
     

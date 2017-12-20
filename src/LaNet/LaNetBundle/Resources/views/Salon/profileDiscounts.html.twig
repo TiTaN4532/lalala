@@ -49,6 +49,9 @@
         <div class="row">
            <div class="col col_2_of_2">{{ discount.description }}</div>
         </div>
+        <div class="row" style="padding-top: 10px;">
+           <div class="col col_2_of_2">{% if (discount.startDate or discount.endDate) %}Действует{% endif %}{% if discount.startDate %} с {{ discount.startDate }}{% if discount.endDate %} по {{ discount.endDate}}{% endif%}{% else %}{% if discount.endDate %} по {{ discount.endDate}}{% endif%}{% endif%}</div>
+        </div>
        
     </div>
       <div align="left" class="col col_1_of_3">
@@ -65,7 +68,8 @@
             
 <script type="text/javascript">
       $(document).ready(function() {
-          $('#add-discount-btn').click(function() {
+          $('#add-discount-btn').click(function(event) {
+               event.preventDefault();
               window.location = Routing.generate('la_net_la_net_salon_profile_discounts_add')
           });
           $('.delete-discount').click(function(event) {
@@ -76,7 +80,7 @@
                     url         : element.attr('href'),
                     success     : function(data) {
                       if(data.success) 
-                          console.log('123');
+                      
                         element.parent().parent().remove();
                 }
                 });
@@ -87,7 +91,7 @@
             event.preventDefault();
            
             var element = $(this);
-             console.log(element.text());
+           
             $.ajax({
                 url         : element.attr('href'),
                 success     : function(data) {

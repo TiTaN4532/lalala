@@ -16,6 +16,12 @@ class NewsPostsType extends AbstractType
              -> add('description', 'textarea', array('label' => 'Краткое описание:', 'required' => false))
              -> add('post', 'textarea', array('label' => 'Текст:', 'required' => false, 'attr' => array('class' => "TextEditor")))
              -> add('save_draft', 'submit', array('label' => 'Сохранить как черновик'))
+             -> add('portfolio', 'collection', array(
+                                'by_reference' => false,
+                                'type'         => new \LaNet\LaNetBundle\Form\Type\ImageType(),
+                                'allow_add'    => true,
+                                'allow_delete'    => true,
+                  )) 
              -> add('add_post', 'submit', array('label' => 'Сохранить'));
   }
 
