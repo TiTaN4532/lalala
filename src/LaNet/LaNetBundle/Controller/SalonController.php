@@ -296,4 +296,18 @@ class SalonController extends BaseController
       
       return $this->render('LaNetLaNetBundle:Salon:salonId.html.twig', array('salon' => $salon, 'discounts' => $discounts, 'voteDisable' => $voteDisable));
     }
+    
+    public function discountListAction(Request $request)
+    {
+      
+        $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnDiscountsList();
+      
+        foreach ($salons as $key => $salon) {
+            
+           $salon->discountArr = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findDiscountsByOneSalonOnDiscountsList($salon->getId());
+           
+        }
+     
+        return $this->render('LaNetLaNetBundle:Salon:discountList.html.twig', array('salons' => $salons));
+    }
 }

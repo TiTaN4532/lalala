@@ -66,6 +66,35 @@ class SalonRepository extends EntityRepository
      
     }
     
+    public function findFilteredSalonsOnDiscountsList()
+    {
+       $request = Request::createFromGlobals();
+       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
+        
+       $query = $this->_em->createQuery("SELECT s FROM LaNetLaNetBundle:Salon s
+                                                   LEFT JOIN s.discounts d    
+                                                   WHERE (s.name LIKE :like) AND d.is_draft != 1 GROUP BY s.id ORDER BY s.inTop DESC")
+            ->setParameters(array('like' => '%'.$searchterm.'%'));
+            
+        return $query->getResult();
+     
+    }
+    /*public function findFilteredSalonsOnDiscountsList()
+    {
+       $request = Request::createFromGlobals();
+       $searchterm = preg_replace('/_|%/', '\$1', $request->get('name'));
+        
+       $query = $this->_em->createQuery("SELECT s FROM LaNetLaNetBundle:Discounts d
+                                                   LEFT JOIN d.salon s    
+                                                   WHERE (s.name LIKE :like) GROUP BY s.id ORDER BY s.inTop DESC")
+            ->setParameters(array('like' => '%'.$searchterm.'%'));
+            
+        return $query->getResult();
+     
+    }*/
+    
+    
+    
     public function findDiscountsBySalon()
     {
       $query = $this->_em->createQuery("SELECT s.name, s.id, COUNT (d.id) as cnt FROM LaNetLaNetBundle:Discounts d
@@ -79,6 +108,16 @@ class SalonRepository extends EntityRepository
     public function findDiscountsByOneSalon($id)
     {
       $query = $this->_em->createQuery("SELECT s, d FROM LaNetLaNetBundle:Discounts d
+                                                   LEFT JOIN d.salon s    
+                                                   WHERE s.id = '" .$id. "' ORDER BY d.inTop DESC");
+           
+        return $query->getResult();
+     
+    }
+    
+    public function findDiscountsByOneSalonOnDiscountsList($id)
+    {
+      $query = $this->_em->createQuery("SELECT d FROM LaNetLaNetBundle:Discounts d
                                                    LEFT JOIN d.salon s    
                                                    WHERE s.id = '" .$id. "' ORDER BY d.inTop DESC");
            

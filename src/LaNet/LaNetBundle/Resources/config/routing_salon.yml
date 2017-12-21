@@ -1,6 +1,10 @@
 la_net_la_net_salon_list:
     pattern:  /club/salon
     defaults: { _controller: LaNetLaNetBundle:Salon:list }
+    
+la_net_la_net_discounts_list:
+    pattern:  /salon/discounts/list
+    defaults: { _controller: LaNetLaNetBundle:Salon:discountList }
 
 la_net_la_net_salon_id:
     pattern:  /salon/{id}

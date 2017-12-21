@@ -355,11 +355,15 @@ form {
 }
 
 .nav li.open a,
-.nav li a.active,
-.nav a:hover {
+.nav li a.active {
     color: #005580;
+    
+}
+
+.nav a:hover {
     border: solid 1px;
     padding: 7px 25px;
+    border-color: #fff;
 }
 
 .nav li a{
@@ -911,6 +915,10 @@ ul li ul li a.active {
     padding-left: 20px
 }
 
+.masters-height {
+    min-height: 166px;
+}
+
 .masters-item-title {
     font-size: 17px;
     color: #1f6b82;
@@ -965,7 +973,14 @@ ul li ul li a.active {
     margin: 0 0 10px;
     padding: 5px 0 15px;
     border-bottom: 1px solid #e1e1e1;
-    height: 150px;
+   
+}
+.info-block-main {
+    margin: 0 0 10px;
+    padding: 5px 0 15px;
+    border-bottom: 1px solid #e1e1e1;
+    min-height: 147px;
+   
 }
 
 .info-block:hover {
@@ -1534,9 +1549,6 @@ padding-top: 10px;
    color: #5d5d5d;
  }
  
- .advices-height {
-   height: 141 px;
- }
 
 
 

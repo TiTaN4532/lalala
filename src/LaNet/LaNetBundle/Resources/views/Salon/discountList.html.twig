@@ -1,0 +1,73 @@
+{% extends "LaNetLaNetBundle::layout.html.twig" %}
+
+{% block slider %}
+    {% endblock %}      
+
+{% block content %}
+
+<hr style="margin:7px 0 20px 0;" class="clear" />
+
+<div style="padding-bottom:20px;" class="search-form">
+        <form action="">
+            <div class="search-form-row">
+                <input placeholder="Название" class="search-form-field" type="text" name="name" {% if app.request.query.get('name') %}value="{{ app.request.query.get('name') }}"{% endif %}>
+                <img class="search-form-icon" src="{{ asset('images/search.png') }}" alt="search-icon">
+            </div>
+            <input class="search-form-btn" type="submit" value="Поиск">
+        </form>
+    </div>
+
+        
+        <section class="holder">
+              <div class="row-fluid">
+                  <div class="span12">
+                     <div class="masters">
+
+                {% for salon in salons %}
+
+                    <div style="padding-bottom: 40px;" class="discounts-list">
+                            <div style="padding-bottom: 10px;" class="masters-item-info">
+                            <a href="{{ path('la_net_la_net_salon_id', {'id': salon.id })}}"><h3 class="masters-item-title {% if salon.inTop != NULL%} starred {% endif%}">{{ salon.name }}</h3></a>
+                             </div>
+                        <div class="discounts">
+                            {% for discount in salon.discountArr %}
+                                <div style="padding-left: 50px;" class="row clear">
+                                    {% if not loop.first %} <hr /> {% endif %}
+                                    <div class="col col_1_of_3"><img src="{{ discount.getWebPath | imagine_filter('my_master_thumb_medium') }}" /></div>
+                                        <div class="col col_2_of_3">
+                                            <div class="row">
+                                               <div class="col col_2_of_2">{{ discount.description }}</div>
+                                            </div>
+                                            <div style="padding-top:10px;" class="row">
+                                               <div class="col col_2_of_2">{% if (discount.startDate or discount.endDate) %}Действует{% endif %}{% if discount.startDate %} с {{ discount.startDate }}{% if discount.endDate %} по {{ discount.endDate}}{% endif%}{% else %}{% if discount.endDate %} по {{ discount.endDate}}{% endif%}{% endif%} </div>
+                                            </div>
+                                        </div>
+                                   </div>
+                                {% endfor %}
+                              
+                         </div>
+                         </div>     
+                {% else %}
+                  Салонов нет
+                {% endfor %}
+                
+          </div>
+       </div>
+     </div>
+</section>
+  
+  
+  
+  
+   <script>  
+  $(document).ready(function(){
+          $("A#trigger").click(function(event){
+               event.preventDefault();
+        $("DIV#box").toggle();
+    });
+   
+         
+        });  
+        
+   </script> 
+{% endblock %}

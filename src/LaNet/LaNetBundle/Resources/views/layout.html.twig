@@ -307,9 +307,9 @@
                                     <div class="masters-item-img">
                                         <a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_trust'))}}" /></a>
                                     </div>
-                                    <div class="masters-item-info">
-                                        <h3 class="masters-item-title"><a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
-                                        <div class="masters-item-profession">{{ post.description}}</div>
+                                    <div class="masters-item-info masters-height">
+                                        <h3 class="masters-item-title"><a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}">{{ post.title | length > 41 ? post.title|slice(0, 41) ~ '...' : post.title}}</a></h3>
+                                        <div class="masters-item-profession">{{ post.description | length > 102 ? post.description|slice(0, 102) ~ '...' : post.description}}</div>
                                         <a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
                                     </div>
                                 </div>
@@ -350,13 +350,13 @@
                         <div class="span6">
                             {% for post in advices %}  
                                 {% if loop.index <= 4 %}
-                                    <div class="info-block clearfix advices-height">
+                                    <div class="info-block-main clearfix">
                                         <div class="info-block-img">
                                                <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_advice'))}}" /></a>
                                         </div>
                                         <div class="info-block-content">
-                                            <h3 class="info-block-title"><a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}">{{ post.title | length > 51 ? post.title|slice(0, 51) ~ '...' : post.title}}</a></h3>
-                                            <div class="info-block-description">{{ post.description}}</div>
+                                            <h3 class="info-block-title advices-height-title"><a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}">{{ post.title | length > 60 ? post.title|slice(0, 60) ~ '...' : post.title}}</a></h3>
+                                            <div class="info-block-description advices-height-description">{{ post.description | length > 147 ? post.description|slice(0, 147) ~ '...' : post.description}}</div>
                                             <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
                                         </div>
                                     </div>
@@ -367,7 +367,7 @@
                         <div class="span6">
                              {% for post in advices %}  
                                 {% if loop.index > 4 %}
-                                    <div class="info-block clearfix advices-height">
+                                    <div class="info-block-main clearfix">
                                         <div class="info-block-img">
                                                <a href="{{ path('la_net_la_net_advices_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_advice'))}}" /></a>
                                         </div>
