@@ -104,7 +104,7 @@
                  <nav class="nav">
                     <div class="container">
                         <ul>
-                          <li {% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
+                          <li><a href="{{ path('la_net_la_net_homepage') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_homepage' %} class="active"{% endif %}>Главная</a></li> 
                           <li><a href="{{ path('la_net_la_net_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_brands_list' %} class="active"{% endif %}>Бренд инфо</a></li>
                           <li><a href="{{ path('la_net_la_net_product_list') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_product_list' %} class="active"{% endif %}>Товары</a></li>
                           <li><a href="{{ path('la_net_la_net_club_main') }}"{% if app.request.attributes.get('_route') == 'la_net_la_net_master_list' or app.request.attributes.get('_route') == 'la_net_la_net_salon_list' or app.request.attributes.get('_route') == 'la_net_la_net_club_main'  %} class="active"{% endif %}>Клуб профессионалов</a></li> 
