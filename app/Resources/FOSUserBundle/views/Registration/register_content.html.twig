@@ -52,7 +52,7 @@
   <div id="registration">
     {#<div class="item"><img src="{{ asset('images/reg_consumer.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'consumer'}) }}">Обычный пользователь</a></div>#}
     <div class="item"><img src="{{ asset('images/reg_master.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'specialist'}) }}">Мастер индустрии красоты</a></div>
-    <div class="item"><img src="{{ asset('images/reg_salon.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'salon'}) }}">Салон красоты, студия, парикмахерская...</a></div>
+    <div class="item"><img src="{{ asset('images/reg_salon.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'salon'}) }}">Салон красоты, студия, парикмахерская</a></div>
    {# <div class="item" style="margin: 80px 0 0 425px;"><img src="{{ asset('images/reg_agancy.jpg') }}"><a href="{{ path('fos_user_registration_register', {'type': 'agancy'}) }}">Представительство производителей товаров для индустрии красоты</a></div>
     {#<a href="{{ path('fos_user_registration_register', {'type': 'shop'}) }}">Магазин</a>#}
     <div class="item"><img src="{{ asset('images/reg_school.jpg' | imagine_filter('my_school_registration')) }}"><a href="{{ path('fos_user_registration_register', {'type': 'school_center'}) }}">Учебный центр</a></div>
@@ -68,7 +68,7 @@
   <h5 class="clear" style="color: #AAA;"> ВЫ РЕГИСТРИРУЕТЕСЬ КАК
         {% if app.request.get('type') == 'specialist' %} {{ 'мастер индустрии красоты.' | upper }}
         {#{% elseif app.request.get('type') == 'consumer' %} ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ.#}
-        {% elseif app.request.get('type') == 'salon' %} {{ 'Салон красоты, студия, парикмахерская...' | upper }}
+        {% elseif app.request.get('type') == 'salon' %} {{ 'Салон красоты, студия, парикмахерская' | upper }}
        {# {% elseif app.request.get('type') == 'agancy' %} {{ 'Представительство производителей товаров для индустрии красоты' | upper }}
        {% elseif app.request.get('type') == 'shop' %} МАГАЗИН.#}
         {% elseif app.request.get('type') == 'school_center' %} ОБУЧАЮЩИЙ ЦЕНТР.

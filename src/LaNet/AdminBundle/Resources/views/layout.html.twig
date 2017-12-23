@@ -20,8 +20,26 @@
       <h1>Main admin page</h1>
       <div class="col col_1_of_5 tablet_1_of_3 mobile_1_of_2">
           <ul id="left-menu">
-             {# <li><a href="{{ path('la_net_admin_homepage') }}">Details</a></li>#}
+              <li><a href="{{ path('la_net_admin_banners') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_banners' %} class="active"{% endif %}>Баннеры</a></li>
+               <li><a href="{{ path('la_net_admin_upcoming_events') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_upcoming_events' %} class="active"{% endif %}>Ближайшие события</a></li>
+              <li><a href="{{ path('la_net_admin_brands') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_brands' %} class="active"{% endif %}>Брeнды</a></li>
+              <li><a href="{{ path('la_net_admin_product_category_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_category_brands_list' %} class="active"{% endif %}>Категории товаров</a></li>
+              <li><a href="{{ path('la_net_admin_masters') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_masters' %} class="active"{% endif %}>Мастера</a></li>
+              <li><a href="{{ path('la_net_admin_events') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_events' %} class="active"{% endif %}>Медиа</a></li>
+              <li><a href="{{ path('la_net_admin_site_settings')}}"{% if app.request.attributes.get('_route') == 'la_net_admin_site_settings' %} class="active"{% endif %}>Настройки сайта</a></li>
               <li><a href="{{ path('la_net_admin_news_posts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_news_posts' %} class="active"{% endif %}>Новости</a></li>
+              <li><a href="{{ path('la_net_admin_schools_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_schools_list' %} class="active"{% endif %}>Обучение</a></li> 
+              <li><a href="{{ path('la_net_admin_adverts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_adverts' %} class="active"{% endif %}>Объявления</a></li>
+              <li><a href="{{ path('la_net_admin_send_mail') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_send_mail' %} class="active"{% endif %}>Отправить письмо</a></li>
+              <li><a href="{{ path('la_net_admin_salons') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_salons' %} class="active"{% endif %}>Салоны</a></li>
+              <li><a href="{{ path('la_net_admin_discounts_main') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_discounts_main' %} class="active"{% endif %}>Скидки</a></li> 
+              <li><a href="{{ path('la_net_admin_advices') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_advices' %} class="active"{% endif %}>Советы красоты</a></li>
+              <li><a href="{{ path('la_net_admin_tests') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_tests' %} class="active"{% endif %}>Тестирование продуктов</a></li>
+              <li><a href="{{ path('la_net_admin_product_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_brands_list' %} class="active"{% endif %}>Товары</a></li>
+              <li><a href="{{ path('la_net_admin_trusts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_trusts' %} class="active"{% endif %}>Эксперты</a></li>
+              
+             {# <li><a href="{{ path('la_net_admin_homepage') }}">Details</a></li>#}
+              {#<li><a href="{{ path('la_net_admin_news_posts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_news_posts' %} class="active"{% endif %}>Новости</a></li>
               <li><a href="{{ path('la_net_admin_events') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_events' %} class="active"{% endif %}>Медиа</a></li>
               <li><a href="{{ path('la_net_admin_trusts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_trusts' %} class="active"{% endif %}>Эксперты</a></li>
               <li><a href="{{ path('la_net_admin_tests') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_tests' %} class="active"{% endif %}>Тестирование продуктов</a></li>
@@ -29,17 +47,17 @@
               <li><a href="{{ path('la_net_admin_adverts') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_adverts' %} class="active"{% endif %}>Объявления</a></li>
               <li><a href="{{ path('la_net_admin_upcoming_events') }}" {% if app.request.attributes.get('_route') == 'la_net_admin_upcoming_events' %} class="active"{% endif %}>Ближайшие события</a></li>
               {#<li><a href="{{ path('la_net_admin_consumers') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_consumers' %} class="active"{% endif %}>Потребители</a></li>#}
-              <li><a href="{{ path('la_net_admin_masters') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_masters' %} class="active"{% endif %}>Мастера</a></li>
+              {#<li><a href="{{ path('la_net_admin_masters') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_masters' %} class="active"{% endif %}>Мастера</a></li>
               <li><a href="{{ path('la_net_admin_salons') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_salons' %} class="active"{% endif %}>Салоны</a></li> 
               <li><a href="{{ path('la_net_admin_schools_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_schools_list' %} class="active"{% endif %}>Обучение</a></li> 
               <li><a href="{{ path('la_net_admin_discounts_main') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_discounts_main' %} class="active"{% endif %}>Скидки</a></li> 
               {#<li><a href="{{ path('la_net_admin_agancy') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_agancy' %} class="active"{% endif %}>Представительства</a></li>#}
-              <li><a href="{{ path('la_net_admin_brands') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_brands' %} class="active"{% endif %}>Брeнды</a></li>
+              {#<li><a href="{{ path('la_net_admin_brands') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_brands' %} class="active"{% endif %}>Брeнды</a></li>
               <li><a href="{{ path('la_net_admin_product_category_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_category_brands_list' %} class="active"{% endif %}>Категории товаров</a></li>
               <li><a href="{{ path('la_net_admin_product_brands_list') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_product_brands_list' %} class="active"{% endif %}>Товары</a></li>
               <li><a href="{{ path('la_net_admin_send_mail') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_send_mail' %} class="active"{% endif %}>Отправить письмо</a></li>
               <li><a href="{{ path('la_net_admin_site_settings')}}"{% if app.request.attributes.get('_route') == 'la_net_admin_site_settings' %} class="active"{% endif %}>Настройки сайта</a></li>
-              <li><a href="{{ path('la_net_admin_banners') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_banners' %} class="active"{% endif %}>Баннеры</a></li>
+              <li><a href="{{ path('la_net_admin_banners') }}"{% if app.request.attributes.get('_route') == 'la_net_admin_banners' %} class="active"{% endif %}>Баннеры</a></li>#}
           </ul>
       </div>
       <div class="col col_4_of_5 tablet_2_of_3 mobile_1_of_2">

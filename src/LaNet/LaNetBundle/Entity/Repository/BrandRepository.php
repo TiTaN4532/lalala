@@ -133,7 +133,7 @@ class BrandRepository extends EntityRepository
         $brandCategory = ($brandCategory) ? " AND bc.id = '" .$brandCategory."'" : ""; 
         $query = $this->_em->createQuery("SELECT b FROM LaNetLaNetBundle:Brand b 
                                                    LEFT JOIN b.brandsCategory bc 
-                                                   WHERE (b.name LIKE :like) AND b.is_draft IS NULL AND b.validation = 1".$brandCategory." ORDER BY b.inTop DESC, b.name ASC")
+                                                   WHERE (b.name LIKE :like) AND b.is_draft IS NULL".$brandCategory." ORDER BY b.inTop DESC, b.name ASC")
                     ->setParameters(array('like' => '%'.$searchterm.'%'));
 
         return $query->getResult();
