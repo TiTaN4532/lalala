@@ -150,7 +150,15 @@
   {% if master.schedule is not empty %}              
     <div class="row clear">
       <div class="col col_1_of_3 blue">график работы:</div>
-      <div class="col col_2_of_3">{% for item in master.schedule %}<p>{{ item.shcedule.nameRus }}{% if item.shcedule.name != 'record' %} {{ item.StartTime }} - {{ item.endTime }} {% endif %}</p>{% endfor %}</div>
+      <div class="col col_2_of_3">
+          {% for item in master.schedule %}
+              <p>{{ item.shcedule.nameRus }}
+                  {% if item.shcedule.name != 'record' and item.StartTime is not empty %} 
+                      {{ item.StartTime }} {% if item.endTime %}  - {{ item.endTime }}{% endif %} 
+                  {% endif %}
+              </p>
+          {% endfor %}
+      </div>
     </div> 
   {% endif %}
   {% if master.services is not empty %}              

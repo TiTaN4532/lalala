@@ -6,6 +6,7 @@ use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\FormEvent;
+use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -25,8 +26,11 @@ class RegistrationNotification implements EventSubscriberInterface
 
     public function onRegistrationSuccess( FormEvent $event)
     {
-    
-     $uniqId = $event->uniqId;
+     $request = Request::createFromGlobals();
+     
+     
+     $uniqId = $this->container->get('request')->get('uniqId');
+     
      $form = $event->getForm();
     // $email = $form['email']->getData();
      $email = 'alexx.aleksandroff@gmail.com';

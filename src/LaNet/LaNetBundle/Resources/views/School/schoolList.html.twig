@@ -89,8 +89,8 @@
                 </div>
                 <div class="masters-item-info">
                    <a href="{{ path('la_net_la_net_school_id', {'id': school.id })}}"><h3 class="masters-item-title {% if school.inTop != NULL%} starred {% endif%}">{{ school.name }}</h3></a>
-                        {% if school.category is not empty %}
-                            <div class="masters-item-profession">{% for item in school.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+                        {% if school.brandsCategory is not empty %}
+                            <div class="masters-item-profession">{% for item in school.brandsCategory %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
                         {% endif %}
                  </div>
             </div>

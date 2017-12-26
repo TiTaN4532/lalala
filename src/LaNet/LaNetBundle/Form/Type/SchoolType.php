@@ -22,7 +22,7 @@ class SchoolType extends AbstractType
              
             ->add('brandsCategory', 'entity', array(
                   'attr' => array('class' => 'category-list'),
-                  'label' => 'Специализация мастеров:',
+                  'label' => 'Специализации:',
                   'class' => 'LaNet\LaNetBundle\Entity\BrandsCategory',
                   'property'     => 'name',
                   'multiple'     => true,
