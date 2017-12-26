@@ -146,10 +146,10 @@ class SalonRepository extends EntityRepository
       if($region) {
           $whereRegion = "l.administrative_area LIKE '%" . trim($region, '.') . "%' AND";
       } 
-      $category = ($request->get('category')) ? " AND c.id = '" . $request->get('category') ."'" : "";
+      $category = ($request->get('category')) ? " AND bc.id = '" . $request->get('category') ."'" : "";
       $city = ($request->get('city')) ? " AND l.locality = '" . $request->get('city') ."'" : "";
-      $query = $this->_em->createQuery("SELECT s, c  FROM LaNetLaNetBundle:Salon s 
-                                                    LEFT JOIN s.category c     
+      $query = $this->_em->createQuery("SELECT s, bc  FROM LaNetLaNetBundle:Salon s 
+                                                    LEFT JOIN s.brandsCategory bc     
                                                     LEFT JOIN s.location l
                                                     LEFT JOIN s.user u 
                                                     WHERE " . $whereRegion . "  (s.name LIKE :like)".$category.$city. "ORDER BY s.inTop DESC, s.name ASC")

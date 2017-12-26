@@ -30,6 +30,16 @@ class BrandsCategory extends \LaNet\LaNetBundle\Model\UploadImages
     private $brand;
     
     /**
+     * @ORM\ManyToMany(targetEntity="School", mappedBy="brandsCategory")
+     */
+    private $school;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Salon", mappedBy="brandsCategory")
+     */
+    private $salon;
+    
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $image;
@@ -194,6 +204,72 @@ class BrandsCategory extends \LaNet\LaNetBundle\Model\UploadImages
     public function getBrand()
     {
         return $this->brand;
+    }
+    
+    /**
+     * Add school
+     *
+     * @param \LaNet\LaNetBundle\Entity\School $school
+     * @return MasterCategory
+     */
+    public function addSchool(\LaNet\LaNetBundle\Entity\School $school)
+    {
+        $this->school[] = $school;
+    
+        return $this;
+    }
+
+    /**
+     * Remove school
+     *
+     * @param \LaNet\LaNetBundle\Entity\School $school
+     */
+    public function removeSchool(\LaNet\LaNetBundle\Entity\School $school)
+    {
+        $this->school->removeElement($school);
+    }
+
+    /**
+     * Get school
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
+    
+    /**
+     * Add salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     * @return MasterCategory
+     */
+    public function addSalon(\LaNet\LaNetBundle\Entity\Salon $salon)
+    {
+        $this->salon[] = $salon;
+    
+        return $this;
+    }
+
+    /**
+     * Remove salon
+     *
+     * @param \LaNet\LaNetBundle\Entity\Salon $salon
+     */
+    public function removeSalon(\LaNet\LaNetBundle\Entity\Salon $salon)
+    {
+        $this->salon->removeElement($salon);
+    }
+
+    /**
+     * Get salon
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSalon()
+    {
+        return $this->salon;
     }
     
     /**

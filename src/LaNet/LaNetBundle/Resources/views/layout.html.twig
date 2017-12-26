@@ -103,7 +103,7 @@
                         <div video-event="{% if post.newLink is defined %}{{post.newLink}} {% endif %}" event-id="{{post.id}}" class="span3 event-with-video">
                             <article class="top-news-item">
                             <a {% if post.video is not empty %}class="video-content"{% endif %} href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_event_small'))}}" alt="placeholder"></a>
-                                <h3 class="item-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title }}</a></h3>
+                                <h3 class="item-title media-height"><a href="{{ path('la_net_la_net_events_id', { 'slug' : post.slug } ) }}">{{ post.title  | length > 43 ? post.title|slice(0, 43) ~ '...' : post.title}}</a></h3>
                                 <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>
                             </article>
                         </div>
@@ -276,13 +276,13 @@
                         <div class="span5">
                             <div class="discount-section">
                                 {% if salons %}     
-                                <h2 class="section-title labeled"><a href="{{ path('la_net_la_net_salon_list') }}">ТОП салоны</a>{#<span class="title-label">Выгодно</span>#}</h2>
+                                <h2 style="padding-bottom: 5px;" class="section-title labeled"><a href="{{ path('la_net_la_net_salon_list') }}">ТОП салоны</a>{#<span class="title-label">Выгодно</span>#}</h2>
                                 {% for salon in salons %}
-                                    <div class="discounts-item">
+                                    <div class="discounts-item discounts-item-height">
                                         <div class="discounts-item-img">
-                                            <a href="{{ path('la_net_la_net_salon_id', {'id': salon.id })}}"><img src="{{ asset(salon.getWebPath)}}" /></a>
+                                           <a href="{{ path('la_net_la_net_salon_id', {'id': salon.id })}}"><img src="{{ asset(salon.getWebPath | imagine_filter('my_school_main'))}}" /></a>
+                                           <h3 class="item-title"><a href="{{ path('la_net_la_net_salon_id', { 'id' : salon.id })}}">{{ salon.name}}</a></h3>
                                         </div>
-                                        {#<div class="discounts-item-description">-30% на вторую процедуру</div>#}
                                         
                                     </div>
                                {% endfor%}  
@@ -309,7 +309,7 @@
                                     </div>
                                     <div class="masters-item-info masters-height">
                                         <h3 class="masters-item-title"><a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}">{{ post.title | length > 41 ? post.title|slice(0, 41) ~ '...' : post.title}}</a></h3>
-                                        <div class="masters-item-profession">{{ post.description | length > 102 ? post.description|slice(0, 102) ~ '...' : post.description}}</div>
+                                        <div class="masters-item-profession post-align-text">{{ post.description | length > 102 ? post.description|slice(0, 102) ~ '...' : post.description}}</div>
                                         <a href="{{ path('la_net_la_net_trusts_id', { 'slug' : post.slug })}}" class="read-more">Читать полностью...</a>
                                     </div>
                                 </div>
@@ -327,10 +327,10 @@
                     <div class="row-fluid">
                             {% for post in schools %}  
                                 <div class="discount-section">
-                                    <div class="discounts-item">
+                                    <div class="discounts-item school-height">
                                         <div class="discounts-item-img">
                                            <a href="{{ path('la_net_la_net_school_id', { 'id' : post.id })}}"><img src="{{ asset(post.getWebPath | imagine_filter('my_school_main'))}}" /></a>
-                                        <h3 class="item-title"><a href="{{ path('la_net_la_net_school_id', { 'id' : post.id })}}">{{ post.name}}</a></h3>
+                                        <h3 class="item-title"><a href="{{ path('la_net_la_net_school_id', { 'id' : post.id })}}">{{ post.name | length > 67 ? post.name|slice(0, 67) ~ '...' : post.name}}</a></h3>
                                      </div>
                                     </div>
                                 </div>

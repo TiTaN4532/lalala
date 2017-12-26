@@ -8,7 +8,7 @@
   <div class="row">
     <h3 style="color:#2d93b2;text-align: center;">{{ news.title | upper}}</h3>
     <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ news.getWebPath | imagine_filter('my_news_big')}}" style="width:100%;" /></div>
-    <div class="col col_1_of_1">
+    <div class="col col_1_of_1 post-align-text">
         {{ news.post | raw}}
     </div>
     {#<div class="col col_1_of_2" style="color:#2d93b2;">

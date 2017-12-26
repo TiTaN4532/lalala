@@ -956,12 +956,31 @@ ul li ul li a.active {
     text-align: center;
     padding-left: 10px;
 }
+.discounts-item-height {
+    min-height: 121px;
+}
+.school-height {
+    min-height: 170px;
+}
+
+.media-height {
+    min-height: 36.4px;
+}
+
 .discounts-item {
     margin: 0 0 20px;
+    
+}
+.discounts-item h3 a {
+    color: #1f6b82;
+  
 }
 .discounts-item-img {
     text-align: center;
     margin: 0 0 7px;
+}
+.discounts-item-img img{
+    border-radius: 3px;
 }
 .discounts-item-description {
     font-size: 13px;
@@ -1549,6 +1568,10 @@ padding-top: 10px;
    color: #5d5d5d;
  }
  
+ .post-align-text {
+  text-align:justify;
+ }
+
 
 
 

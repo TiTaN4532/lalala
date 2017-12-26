@@ -43,22 +43,20 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $slug;
     
-     /**
+    /**
      * @ORM\Column(type="string", length=100, nullable = true)
      */
     protected $country;
     
-     /**
+    /**
      * @ORM\Column(type="string", nullable = true)
      */
     protected $link;
     
-     /**
+    /**
      * @ORM\Column(type="string", nullable = true)
      */
     protected $linkAdd;
-    
-    
     
     /**
      * @ORM\Column(type="text")

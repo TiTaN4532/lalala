@@ -16,7 +16,7 @@
   <div class="row">
         <div class="col col_1_of_1"><h4>{{ events.title}}</h4></div>
     <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ asset(events.getWebPath)}}" style="width:100%;" /></div>
-    <div class="col col_1_of_1">
+    <div class="col col_1_of_1 post-align-text">
         {{ events.post | raw}}
     </div>
     <div class="col col_1_of_1" align="center">{%if events.video %}{{ events.video | raw}}{% endif%}</div>

@@ -48,7 +48,11 @@ class School extends \LaNet\LaNetBundle\Model\UploadImages
      */
     protected $inTop = NULL;
     
-    
+    /**
+     * @ORM\ManyToMany(targetEntity="BrandsCategory", inversedBy="school")
+     * @ORM\JoinTable(name="school_categories")
+     */
+    protected $brandsCategory;
     
     /**
      * @ORM\OneToOne(targetEntity="Location", mappedBy="schoolInfo", cascade={"persist"}, orphanRemoval=true)
@@ -76,6 +80,11 @@ class School extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\OneToMany(targetEntity="Service", mappedBy="school", cascade={"persist"}, orphanRemoval=true)
      */
     protected $services;
+    
+    /**
+     * @ORM\Column(type="text", nullable = true)
+     */
+    protected $description;
 
     /**
      * Get id
@@ -462,5 +471,59 @@ class School extends \LaNet\LaNetBundle\Model\UploadImages
         return $this->discounts;
     }
 
+    /**
+     * Add masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     * @return Brand
+     */
+    public function addBrandsCategory(\LaNet\LaNetBundle\Entity\BrandsCategory $brandsCategory)
+    {
+        $this->brandsCategory[] = $brandsCategory;
+    
+        return $this;
+    }
 
+    /**
+     * Remove masterCategory
+     *
+     * @param \LaNet\LaNetBundle\Entity\MasterCategory $masterCategory
+     */
+    public function removeBrandsCategory(\LaNet\LaNetBundle\Entity\BrandsCategory $brandsCategory)
+    {
+        $this->brandsCategory->removeElement($brandsCategory);
+    }
+
+    /**
+     * Get masterCategory
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBrandsCategory()
+    {
+        return $this->brandsCategory;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Brand
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
  }

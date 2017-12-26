@@ -16,13 +16,14 @@ class SchoolType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'Название:'))
+            ->add('description', 'textarea', array('label' => 'Описание:', 'required' => false))    
             ->add('link', 'text', array('required'  => false, 'label' => 'Сайт:'))
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
              
-            ->add('category', 'entity', array(
+            ->add('brandsCategory', 'entity', array(
                   'attr' => array('class' => 'category-list'),
                   'label' => 'Специализация мастеров:',
-                  'class' => 'LaNet\LaNetBundle\Entity\MasterCategory',
+                  'class' => 'LaNet\LaNetBundle\Entity\BrandsCategory',
                   'property'     => 'name',
                   'multiple'     => true,
                   'expanded' => true,

@@ -262,10 +262,10 @@ class SalonController extends BaseController
           
       $cities = $query->getArrayResult();
       $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalons($this->paginator, 10, $region);
-      $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
+      $brandCategory = $this->manager->getRepository('LaNetLaNetBundle:BrandsCategory')->findAll();
 
       return $this->render('LaNetLaNetBundle:Salon:salonList.html.twig', array('salons' => $salons, 
-                                                                                 'masterCategory' => $masterCategory, 
+                                                                                 'masterCategory' => $brandCategory, 
                                                                                  'cities' => $cities
                                                                                   ));
     }

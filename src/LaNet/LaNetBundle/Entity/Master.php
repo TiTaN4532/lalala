@@ -127,6 +127,11 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     protected $services;
     
     /**
+     * @ORM\Column(type="text", nullable = true)
+     */
+    protected $description;
+    
+    /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="masterInfo")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -813,5 +818,28 @@ class Master extends \LaNet\LaNetBundle\Model\UploadImages
     public function getLink()
     {
         return $this->link;
+    }
+    
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Brand
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

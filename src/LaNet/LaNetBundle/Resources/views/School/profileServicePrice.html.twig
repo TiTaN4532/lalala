@@ -39,6 +39,18 @@
                    {{ form_widget(service.endPrice) }} грн
                 </div>
              </div>
+                <div class="row">
+                    <div class="col col_4_of_4">
+                       {{ form_label(service.description) }}
+                       {{ form_widget(service.description) }}
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col col_4_of_4">
+                       {{ form_label(service.length) }}
+                       {{ form_widget(service.length) }}
+                    </div>
+                 </div>
            </li>
          {% endfor %}
        </ul>

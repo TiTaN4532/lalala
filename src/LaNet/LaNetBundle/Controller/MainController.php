@@ -56,7 +56,7 @@ class MainController extends BaseController {
         
         $masters = $this->manager->getRepository('LaNetLaNetBundle:Master')->findFilteredMastersOnMainPage(4);
         $salons = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findFilteredSalonsOnMainPage(4);
-        $schools = $this->manager->getRepository('LaNetLaNetBundle:School')->findFilteredSchoolsOnMainPage(4);
+        $schools = $this->manager->getRepository('LaNetLaNetBundle:School')->findFilteredSchoolsOnMainPage(3);
       
         return $this->render('LaNetLaNetBundle::layout.html.twig', array('advices' => $advices,
                                                                          'tests' => $tests,
@@ -215,5 +215,34 @@ class MainController extends BaseController {
                
     return $random; 
 } 
+    
 
+    public function validationAction($uniqId)
+    {   
+        $user = $this->manager->getRepository('LaNetLaNetBundle:User')->findOneBy(array('validation' => $uniqId));
+        $validStatus = ' ';
+            if (!is_null($user)){
+                $user->setValidation(1);
+                $this->manager->persist($user);
+
+                $this->manager->flush();
+                $validStatus = true;
+                
+                $this->get('session')->getFlashBag()->add(
+                        'notice_profile', 'Валидация прошла успешно!'
+                );
+            }
+
+            else{
+                  $validStatus = false;  
+                  $this->get('session')->getFlashBag()->add(
+                        'notice_profile', 'В процессе валидации произошла ошибка!'
+                );
+            }
+            
+            
+        
+        return $this->render('LaNetLaNetBundle:layoutProfile.html.twig', array('validStatus' => $validStatus));
+    
+    }
 }

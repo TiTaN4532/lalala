@@ -14,7 +14,9 @@ class ServiceType extends AbstractType
   {
     $builder ->add('name', 'text', array('required' => true, 'label' => 'Услуга:', 'attr' => array('class' => 'half')))
              ->add('startPrice', 'text', array('required' => false,'label' => 'цена от:', 'attr' => array('class' => 'half')))
-             ->add('endPrice', 'text', array('required' => false,'label' => 'до:', 'attr' => array('class' => 'half')));
+             ->add('endPrice', 'text', array('required' => false,'label' => 'до:', 'attr' => array('class' => 'half')))
+             ->add('description', 'textarea', array('label' => 'Описание:', 'required' => false))
+             ->add('length', 'text', array('required' => false,'label' => 'Продолжительность:'));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)

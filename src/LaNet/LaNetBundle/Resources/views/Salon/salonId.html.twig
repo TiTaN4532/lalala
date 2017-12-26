@@ -37,6 +37,7 @@
       <div class="col col_2_of_3">
         <h2 style="color:#578fac;">{{ salon.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">{{ "Основная информация:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
+        
         {% if salon.category is not empty %} 
             <div class="row">
               <div class="col col_1_of_3 blue">специальность:</div>
@@ -100,6 +101,12 @@
                     google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
   {% endif %}
+   {% if salon.description %}
+  <div class="row">
+              <div class="col col_1_of_3 blue">Описание:</div>
+              <div class="col col_2_of_3">{{ salon.description }}</div>
+        </div>
+   {% endif %}
   {% if (salon.location and salon.location.locality) %}
     <div class="row clear">
       <div class="col col_1_of_3 blue">адрес:</div>

@@ -22,7 +22,7 @@
                             <article class="top-news-item">
                                 <a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"</a>
                                 <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
-                                <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>
+                                <div class="top-news-date">{{ post.date | date ('d.m.Y')}}</div>
                             </article>
                            {% endfor %}     
                         </div>

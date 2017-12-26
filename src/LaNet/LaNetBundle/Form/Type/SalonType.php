@@ -18,7 +18,7 @@ class SalonType extends AbstractType
             ->add('name', 'text', array('label' => 'Название:'))
             ->add('link', 'text', array('required'  => false, 'label' => 'Сайт:'))
             ->add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'label' => "Фото:", 'image_path' => 'webPath'))
-             
+            ->add('description', 'textarea', array('label' => 'Описание:', 'required' => false))
             ->add('category', 'entity', array(
                   'attr' => array('class' => 'category-list'),
                   'label' => 'Специализация мастеров:',

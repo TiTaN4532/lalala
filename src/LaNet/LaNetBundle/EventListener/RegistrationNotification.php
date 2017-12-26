@@ -23,24 +23,40 @@ class RegistrationNotification implements EventSubscriberInterface
       return array(FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess');
     }
 
-    public function onRegistrationSuccess( FormEvent $event )
+    public function onRegistrationSuccess( FormEvent $event)
     {
     
-   
+     $uniqId = $event->uniqId;
      $form = $event->getForm();
-     $email = $form['email']->getData();
+    // $email = $form['email']->getData();
+     $email = 'alexx.aleksandroff@gmail.com';
        
-          
-             $message = \Swift_Message::newInstance()
+            $message = \Swift_Message::newInstance()
+                     ->setSubject('Подтверждение регистрации')
+                     //->setSubject($data['subject'])
+                     ->setFrom('info@lalook.net')
+                     ->setTo($email)
+                     ->setBody("Здравствуйте!
+                     Вы зарегестрировались на сайте http://lalook.net
+
+                     Для завершения регистрации перейдите по ссылке ниже
+                     http://lalook.net/user/validation/$uniqId
+
+                     Вход в личный кабинет http://lalook.net/login
+                      ");
+     
+                     $this->container->get('mailer')->send($message);
+                     
+           /* $message = \Swift_Message::newInstance()
                     ->setSubject('Thanks')
                     ->setFrom('info@lalook.net')
                     ->setTo($email)
                     ->setBody('message')
                    ;
-              $this->container->get('mailer')->send($message);
+              $this->container->get('mailer')->send($message);*/
  
-    //print_r ($data); 
-   // exit;
+    /*print_r ($email);
+    exit;*/
     }
     
     public function onRegistrationInitialise( UserEvent $event )

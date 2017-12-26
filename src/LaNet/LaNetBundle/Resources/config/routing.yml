@@ -99,3 +99,8 @@ la_net_la_net_Location_routes:
 la_net_la_net_Brand_routes:
   resource: "routing_brand.yml"
   prefix: /
+  
+la_net_la_net_validation:
+    pattern:  user/validation/{uniqId}
+    defaults: { _controller: LaNetLaNetBundle:Main:validation, uniqId: default_uniqId  }
+    

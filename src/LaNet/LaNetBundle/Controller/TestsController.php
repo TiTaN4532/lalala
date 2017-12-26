@@ -20,7 +20,7 @@ class TestsController extends BaseController
         ->andwhere($qb->expr()->isNotNull("t.inTop"))
         ->andwhere($qb->expr()->isNull("t.is_draft"))
         ->orderBy('t.inTop', 'DESC')
-        ->orderBy('t.updated', 'DESC')
+        ->orderBy('t.date', 'DESC')
                 
         ->getQuery()->getResult();
         
@@ -31,7 +31,7 @@ class TestsController extends BaseController
          ->andwhere( $qb->expr()->like('t.title', $qb->expr()->literal('%'.$searchterm.'%')) )
         ->andwhere($qb->expr()->isNull("t.is_draft"))
         ->orderBy('t.inTop', 'DESC')
-        ->orderBy('t.updated', 'DESC')
+        ->orderBy('t.date', 'DESC')
                 
         ->getQuery()->getResult();
         

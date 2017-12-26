@@ -15,7 +15,7 @@
   <div class="row">
         <div class="col col_1_of_1"><h4>{{ trusts.title}}</h4></div>
     <div class="col col_1_of_1" style='margin-bottom: 20px;'><img src="{{ asset(trusts.getWebPath)}}" style="width:100%;" /></div>
-    <div class="col col_1_of_1">
+    <div class="col col_1_of_1 post-align-text">
         {{ trusts.post | raw}}
     </div>
     <div class="col col_1_of_1" align="center">{%if trusts.video %}{{ trusts.video | raw}}{% endif%}</div>

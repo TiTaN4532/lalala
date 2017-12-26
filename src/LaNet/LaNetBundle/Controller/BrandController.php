@@ -65,8 +65,7 @@ class BrandController extends BaseController
                       ");
                          //$this->renderView('LaNetAdminBundle:Sendmail:validation.html.twig', array('uniqId' => $uniqId)), 'text/html');
 
-                 $this->manager->flush();
-              
+               
                
               //return $this->render('LaNetAdminBundle:Sendmail:validation.html.twig', array('uniqId' => $uniqId));  
                

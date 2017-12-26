@@ -32,6 +32,8 @@
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
     {{ form_row(form.post) }}
+    <div style="padding-top: 10px;">{{ form_row(form.date) }}  </div>
+     
     {{ form_row(form.video) }}
       <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
          {% for image in form.portfolio %}
@@ -51,8 +53,8 @@
   </form>
 <script>
      
-    
-    
+     $("#articles_date").prop('readonly', true);
+  
     $(document).ready(function(){
           $('#cancel-tests-btn').click(function(event) {
               event.preventDefault();
@@ -81,6 +83,42 @@
                         {% endif %}
                             
                      
+  </script>
+  
+   <script>jQuery(function($){
+        $.datepicker.regional['ru'] = {
+                closeText: 'Закрыть',
+                prevText: '&#x3c;Пред',
+                nextText: 'След&#x3e;',
+                currentText: 'Сегодня',
+                monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+                monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+                'Июл','Авг','Сен','Окт','Ноя','Дек'],
+                dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+                dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+                dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+                weekHeader: 'Не',
+                dateFormat: 'dd-mm-yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
+});
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      showOn: "button",
+      buttonImage: "{{asset('images/calendar.gif')}}",
+      buttonImageOnly: true,
+      buttonText: "Select date",  
+        
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: 'dd-mm-yy',
+      yearRange: "-100:+11",
+    });
+  });
   </script>
 {% endblock %}
 

@@ -52,6 +52,16 @@ class Service
     protected $endPrice;
     
     /**
+     * @ORM\Column(type="text", nullable = true)
+     */
+    protected $description;
+    
+    /**
+     * @ORM\Column(type="integer", nullable = true)
+     */
+    protected $length;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -199,4 +209,52 @@ class Service
     {
         return $this->master;
     }
+    
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Service
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    /**
+     * Set length
+     *
+     * @param string $length
+     * @return Service
+     */
+    public function setLength($length)
+    {
+        $this->length = $length;
+    
+        return $this;
+    }
+
+    /**
+     * Get length
+     *
+     * @return string 
+     */
+    public function getLength()
+    {
+        return $this->length;
+    }
+    
+    
 }

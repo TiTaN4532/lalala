@@ -70,6 +70,10 @@ class User extends BaseUser
      */
     protected $mail;
     
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    protected $validation = 1;
     
     /**
      * @ORM\Column(type="string", length=10, nullable = true)
@@ -557,5 +561,28 @@ class User extends BaseUser
             if($value->getShowMail())
                 $result = true;
         return $result;
+    }
+    
+    /**
+     * Set name
+     *
+     * @param string $validation
+     * @return User
+     */
+    public function setValidation($validation)
+    {
+        $this->validation = $validation;
+    
+        return $this;
+    }
+
+    /**
+     * Get validation
+     *
+     * @return string 
+     */
+    public function getValidation()
+    {
+        return $this->validation;
     }
 }

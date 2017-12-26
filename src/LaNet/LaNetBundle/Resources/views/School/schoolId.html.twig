@@ -104,6 +104,14 @@
                     google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
   {% endif %}
+  
+  {% if school.description %}
+  <div class="row">
+              <div class="col col_1_of_3 blue">Описание:</div>
+              <div class="col col_2_of_3">{{ school.description }}</div>
+        </div>
+   {% endif %}
+  
   {% if (school.location and school.location.locality) %}
     <div class="row clear">
       <div class="col col_1_of_3 blue">адрес:</div>
@@ -119,7 +127,14 @@
   {% if school.services is not empty %}
     <div class="row clear">
       <div class="col col_1_of_3 blue">услуги и цены:</div>
-      <div class="col col_2_of_3">{% for item in school.services %}<p>{{ item.name }}{% if item.startPrice is not empty %} :  {{ item.startPrice }} {% endif %} {% if item.endPrice is not empty %} - {{ item.endPrice }}{% endif %} {% if item.startPrice is not empty %} грн {% endif %}</p>{% endfor %}</div>
+      <div class="col col_2_of_3">
+          {% for item in school.services %}
+              <p>{{ item.name }}{% if item.startPrice is not empty %} :  {{ item.startPrice }} {% endif %} {% if item.endPrice is not empty %} - {{ item.endPrice }}{% endif %} {% if item.startPrice is not empty %} грн {% endif %}</p>
+              <p>{{ item.description }}</p>
+              <p>Продолжительность: {{ item.length }}</p>
+                <hr>
+          {% endfor %}
+      </div>
     </div> 
   {% endif %}
   {% if school.portfolio is not empty %}

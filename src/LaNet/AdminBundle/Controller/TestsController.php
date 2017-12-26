@@ -32,6 +32,7 @@ class TestsController extends BaseController
       
       if (is_null($id)) {
         $testsPost = new LaEntity\Articles();
+        $testsPost->setDate(new \DateTime());
         $testsPost->setType('test');
       } else {
         $testsPost = $testsRepo->find($id);

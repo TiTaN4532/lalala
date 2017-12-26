@@ -69,7 +69,7 @@ class SchoolController extends BaseController
         if ('POST' == $request->getMethod()) {
             $queryBuilder
                     ->delete('LaNetLaNetBundle:SchoolWorkShcedule', 'ss')
-                    ->where('ss.scholl = :school')->setParameter('school', $school)->getQuery()->execute();
+                    ->where('ss.school = :school')->setParameter('school', $school)->getQuery()->execute();
             
             foreach($schoolShcedule as $key => $value) {
                 if(key_exists($value->getShcedule()->getName(), $_POST['shcedule'])) {                    
@@ -85,7 +85,7 @@ class SchoolController extends BaseController
                 'notice_profile',
                 'Ваши изменения были сохранены'
             );
-            return $this->redirect($this->generateUrl('la_net_la_net_schooln_profile_work'));
+            return $this->redirect($this->generateUrl('la_net_la_net_school_profile_work'));
       }
         return $this->render('LaNetLaNetBundle:School:profileWork.html.twig', array('schoolShcedule' => $schoolShcedule, 'checkedShcedule' => $checked));
     }
@@ -181,10 +181,10 @@ class SchoolController extends BaseController
           
       $cities = $query->getArrayResult();
       $schools = $this->manager->getRepository('LaNetLaNetBundle:School')->findFilteredSchools($this->paginator, 10, $region);
-      $masterCategory = $this->manager->getRepository('LaNetLaNetBundle:MasterCategory')->findAll();
+      $brandCategory = $this->manager->getRepository('LaNetLaNetBundle:BrandsCategory')->findAll();
 
       return $this->render('LaNetLaNetBundle:School:schoolList.html.twig', array('schools' => $schools, 
-                                                                                 'masterCategory' => $masterCategory, 
+                                                                                 'masterCategory' => $brandCategory, 
                                                                                  'cities' => $cities
                                                                                   ));
     }
