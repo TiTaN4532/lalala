@@ -21,21 +21,24 @@ class RegistrationNotification implements EventSubscriberInterface
     
     public static function getSubscribedEvents()
     {
-      return array(FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess');
+      return array(FOSUserEvents::REGISTRATION_COMPLETED => 'onRegistrationCompleted', FOSUserEvents::REGISTRATION_INITIALIZE => 'onRegistrationInitialise');
     }
 
-    public function onRegistrationSuccess( FormEvent $event)
+    public function onRegistrationCompleted( $event)
     {
     
-     $uniqId = $this->container->get('request')->get('uniqId');
+     $user = $event->getUser();
      
-     var_dump($event->uniqId);
-     $form = $event->getForm();
-    // $email = $form['email']->getData();
+     $uniqId = $user->getValidation();   
+    
+    //$email = $user->getEmail();
+     
+    
+     /*$form = $event->getForm();
+     $email = $form['email']->getData();*/
+     
      $email = 'alexx.aleksandroff@gmail.com';
-       
-     print_r ($uniqId);
-     exit();
+     
             $message = \Swift_Message::newInstance()
                      ->setSubject('Подтверждение регистрации')
                      //->setSubject($data['subject'])
@@ -60,13 +63,16 @@ class RegistrationNotification implements EventSubscriberInterface
                    ;
               $this->container->get('mailer')->send($message);*/
  
-    /*print_r ($email);
-    exit;*/
+   
     }
     
     public function onRegistrationInitialise( UserEvent $event )
     {
-           // what do
+     $user = $event->getUser();
+     
+     $uniqId = uniqid();
+     
+     $user->setValidation($uniqId);     
     }
 }
 ?>
