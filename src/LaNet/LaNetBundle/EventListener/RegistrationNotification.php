@@ -26,15 +26,16 @@ class RegistrationNotification implements EventSubscriberInterface
 
     public function onRegistrationSuccess( FormEvent $event)
     {
-     $request = Request::createFromGlobals();
-     
-     
+    
      $uniqId = $this->container->get('request')->get('uniqId');
      
+     var_dump($event->uniqId);
      $form = $event->getForm();
     // $email = $form['email']->getData();
      $email = 'alexx.aleksandroff@gmail.com';
        
+     print_r ($uniqId);
+     exit();
             $message = \Swift_Message::newInstance()
                      ->setSubject('Подтверждение регистрации')
                      //->setSubject($data['subject'])
