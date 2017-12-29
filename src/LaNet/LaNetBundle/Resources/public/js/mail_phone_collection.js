@@ -14,6 +14,15 @@ function addForm(collectionHolder, $newLinkLi, text) {
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<li></li>').append(newForm);
+    
+    if (text == 'телефон') {
+    $newFormLi.find('input[type="text"]').intlTelInput({
+            //hiddenInput: "full_phone",
+            nationalMode: false,
+            preferredCountries: ['ua'],
+            utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+          });
+      }
     $newLinkLi.before($newFormLi);
     addFormDeleteLink($newFormLi, text);
 }
@@ -31,7 +40,6 @@ function addFormDeleteLink($tagFormLi, text) {
 
 
 $(document).ready(function(){
-  
   var collectionHolderPhone = $('ul.phone');
   var collectionHolderMail = $('ul.mail');
     // setup an "add a tag" link

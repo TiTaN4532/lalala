@@ -56,7 +56,7 @@
             <div class="col col_2_of_3">
                 {% for item in salon.user.phone %}
                     {% if item.showPhone  %}
-                        <p>+38 ({{ item.operator }}) - {{ item.number }}</p>
+                        <p>{{ item.number }}</p>
                     {% endif %}
                 {% endfor %}
             </div>

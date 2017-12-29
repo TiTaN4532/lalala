@@ -49,7 +49,9 @@
                     <a href="javascript:void(0)" class="remove-salon button" data="{{ salon.user.id }}">Удалить</a>
                      <a href="{{ path('la_net_admin_ajax_inTop_salon', {'id': salon.id} ) }}" class="update-post button">{% if salon.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a>
                     <a href="{{ path('la_net_admin_ajax_premium_salons', {'id': salon.id} ) }}" class="premium button">{% if salon.getUser.premium == NULL %}Добавить премиум{% else %}Удалить премиум{% endif %}</a>
-                     {#<a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>#}
+               {% if salon.user.validation == '1' %} <h5 style='color: #6cb55d;'>Валидирован</h5>{% else %}<h5 style='color: red;'>Не валидир.</h5>{% endif %}
+ 
+                    {#<a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>#}
                 </div>
             </div>
            <div class="clear"></div>

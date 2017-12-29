@@ -14,13 +14,19 @@ class SalonController extends BaseController
     public function profileAction(Request $request)
     {
         $form = $this->createForm(new LaForm\SalonProfileType(), $this->user);
-
+        $valid = '';
+        
+        if ($this->user->getValidation() == 1) {
+           $valid = 1; 
+        } 
+        
         if ('POST' == $request->getMethod()) {
         if($prevLocation = $this->user->getUserInfo()->getLocation()) {
             $this->manager->remove($prevLocation);
             $this->manager->flush();
         }
 
+        
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -36,7 +42,7 @@ class SalonController extends BaseController
         }
       }
       
-        return $this->render('LaNetLaNetBundle:Salon:profile.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Salon:profile.html.twig', array('form' => $form->createView(), 'valid' => $valid));
     }
     
     public function discountsAction(Request $request)

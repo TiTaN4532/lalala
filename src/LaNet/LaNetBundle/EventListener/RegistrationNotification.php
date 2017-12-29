@@ -26,20 +26,11 @@ class RegistrationNotification implements EventSubscriberInterface
 
     public function onRegistrationCompleted( $event)
     {
-    
      $user = $event->getUser();
-     
      $uniqId = $user->getValidation();   
-    
-    //$email = $user->getEmail();
+     $email = $user->getEmail();
      
-    
-     /*$form = $event->getForm();
-     $email = $form['email']->getData();*/
-     
-     $email = 'alexx.aleksandroff@gmail.com';
-     
-            $message = \Swift_Message::newInstance()
+                $message = \Swift_Message::newInstance()
                      ->setSubject('Подтверждение регистрации')
                      //->setSubject($data['subject'])
                      ->setFrom('info@lalook.net')

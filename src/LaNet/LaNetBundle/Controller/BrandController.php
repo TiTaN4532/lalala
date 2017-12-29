@@ -109,6 +109,11 @@ class BrandController extends BaseController
     {
        $brand = $this->manager->getRepository('LaNetLaNetBundle:Brand')->findOneBy(array('slug' => $slug));
        $id = $brand->getId();
+       
+       $products = $this->manager->getRepository('LaNetLaNetBundle:Product')->findFilteredProductsByBrand($brand->getId());
+       
+       
+       
        $idCookie = "b_".$id;
        $voteDisable = false;
        $cookies = $request->cookies;
@@ -123,7 +128,9 @@ class BrandController extends BaseController
             }
       } 
         
-        return $this->render('LaNetLaNetBundle:Brand:brandId.html.twig', array('brand' => $brand, 'voteDisable' => $voteDisable));
+        return $this->render('LaNetLaNetBundle:Brand:brandId.html.twig', array('brand' => $brand,
+                                                                               'voteDisable' => $voteDisable,
+                                                                               'products' => $products));
     }
     
     public function validationAction($uniqId)

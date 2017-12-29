@@ -4,7 +4,7 @@
 
 {% macro phone_prototype(phone) %}
     <div>{{ form_widget(phone.showPhone) }}{{ form_label(phone.showPhone) }}</div>
-    <div>+38 ({{ form_widget(phone.operator) }}) {{ form_widget(phone.number) }}</div> 
+    <div>{{ form_widget(phone.number) }}</div> 
 {% endmacro %}
 
 {% macro mail_prototype(mail) %}
@@ -41,7 +41,12 @@
                         {{ form_widget(form.userInfo.lastName) }}
                     </div>
                 </div>
-                <div class="row">
+                 <div class="row">
+                    <div class="col col_1_of_1">
+                        {% if valid is defined %} Валидация: {% if valid == '1' %}Да{% else %}Нет{% endif %}{% endif %}
+                    </div>
+                </div>
+               <div class="row">
                     <div class="col col_1_of_3">{{ form_row(form.userInfo.gender) }}</div>
                     <div class="col col_2_of_3">{{ form_row(form.userInfo.birthday) }}</div>
                 </div>
@@ -178,7 +183,7 @@
             <ul class="phone" data-prototype="{{ _self.phone_prototype(form.phone.vars.prototype)|e }}">
                 {% for item in form.phone %}
                     <li><div>{{ form_widget(item.showPhone) }}{{ form_label(item.showPhone) }}</div>
-                        <div>+38 ({{ form_widget(item.operator) }}) {{ form_widget(item.number) }}</div></li>
+                        <div>{{ form_widget(item.number) }}</div></li>
                 {% endfor %}
             </ul>   
           </div>
@@ -265,6 +270,15 @@
   
   <script>
       $(document).ready(function(){
+          
+          $("#lanet_master_profile_phone_0_number").intlTelInput({
+            //hiddenInput: "full_phone",
+            nationalMode: false,
+            preferredCountries: ['ua'],
+            utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+          });
+
+          
           $('#master-preview-btn').click(function(event) {
               event.preventDefault();
            

@@ -151,6 +151,9 @@
 .fancybox-nav:hover span {
 	visibility: visible;
 }
+.fancybox-nav span {
+	visibility: visible;
+}
 
 .fancybox-tmp {
 	position: absolute;

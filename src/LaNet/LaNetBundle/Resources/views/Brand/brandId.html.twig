@@ -85,12 +85,35 @@
             {% endif %}
   {% endif %}
     
-  {% if brand.brandsCategory is not empty %}
+  {#{% if brand.brandsCategory is not empty %}
     <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Продукция:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-   
-    <div><a href="{{ path('la_net_la_net_product_list')}}?brand={{ brand.id }}">Перейти к списку товаров</a></div>
-        
+        <div><a href="{{ path('la_net_la_net_product_list')}}?brand={{ brand.id }}">Перейти к списку товаров</a></div>
+  {% endif %}#}
+  
+  <h5 style="float:left;margin-right: 10px; color:#c2d9b1;" class="clear">Продукция:</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
+     {% if products is not empty %}
+        <section class="holder">
+            {#<h2 class="section-title"><a href="#">Галерея</a></h2>#}
+            <div class="row-fluid">
+              <div class="gallery-main">
+                <div class="row clear">
+                    {% for product in products %}
+                      <div class="col col_1_of_5">
+                         <a href="{{ asset(product.getWebPath | imagine_filter('my_thumb_portfolio_large'))}}" rel="group1" class="fancybox" title="<a href='{{ path('la_net_la_net_product_id', { 'id' : product.id } ) }}'>{{ product.name }}</a>"><img src="{{ asset(product.getWebPath | imagine_filter('my_thumb_portfolio'))}}" /></a>
+                      </div>
+                        {% if loop.index % 5 == 0 %}
+                </div> 
+                    <br> 
+                <div class="row clear">
+                         {% endif %}
+             
+                    {% endfor %}
+                </div>
+              </div>   
+            </div>
+        </section>     
   {% endif %}
+  
       
   <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_brands_id', { 'slug' : brand.slug }) }}/" data-numposts="5"></div>
 

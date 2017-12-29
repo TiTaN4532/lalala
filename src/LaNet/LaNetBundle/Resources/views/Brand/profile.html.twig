@@ -43,14 +43,19 @@
                 <hr />
             </div>
         </div>
-        
+        <hr/>
         {{ form_row(form.userInfo.description) }}
+        
+       <div style="padding-top:10px; padding-bottom:10px;"><div>{{ form_label(form.userInfo.phone) }}</div>
+            {{ form_widget(form.userInfo.phone) }}
+         </div>
         {{ form_row(form.userInfo.country) }}
+        <hr/>
         {{ form_row(form.userInfo.brandsCategory) }}
         
-        <hr />
+      
         {#{{ form_row(form.userInfo.category) }}#}
-        <hr />
+        <hr/>
         
         <h2>Дополнительная информация</h2>
         
@@ -93,4 +98,17 @@
         {{ form_row(form._token) }}
         
 </form>
+<script>
+   $(document).ready(function(){
+
+        $("#lanet_brand_profile_userInfo_phone").intlTelInput({
+          //hiddenInput: "full_phone",
+          nationalMode: false,
+          preferredCountries: ['ua'],
+          utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+        });
+
+    })
+</script>
+
 {% endblock %}

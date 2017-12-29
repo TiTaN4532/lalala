@@ -30,10 +30,11 @@
             <span><a href="" class="users-filter" data="{{letter}}">{{letter|upper}}</a></span>
         {% endfor %}
     </div>#}
+    
+  
     <div style="margin-top: 30px;" id="users-list">
         {% for master in masters %}
-            <div class="user-item">
-
+             <div class="user-item">
             {#<div class="image col col_1_of_6 tablet_1_of_3 mobile_1_of_1"><img src="{{ asset(master.getWebPath) | imagine_filter('my_master_thumb_medium') }}"></div>#}
           <div class="col col_2_of_6 tablet_1_of_3 mobile_1_of_1">
                 Email: <br />
@@ -44,14 +45,19 @@
                 <span>{{ master.firstName }} {{ master.lastName }}</span>
             </div> 
           <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
-                Дата регистрации: <br />
+               <div class="row"> Дата регистрации: <br />
                 <span> {{ master.user.created|date("m/d/Y") }}</span>
+                </div>
+               {#<div class="row">Валидация:<br />
+                <span> {% if master.user.validation == '1' %} <h5 style='color: #6cb55d;'>Валидирован</h5>{% else %}<h5 style='color: red;'>Не валид.</h5>{% endif %}</span>
+                </div>#}
             </div> 
                                      
             <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">
                 <a href="javascript:void(0)" class="remove-master button" data="{{ master.user.id }}">Удалить</a>
                 <a href="{{ path('la_net_admin_ajax_inTop_master', {'id': master.id} ) }}" class="update-post button">{% if master.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a>
                 <a href="{{ path('la_net_admin_ajax_premium_master', {'id': master.id} ) }}" class="premium button">{% if master.getUser.premium == NULL %}Добавить премиум{% else %}Удалить премиум{% endif %}</a>
+                {% if master.user.validation == '1' %} <h5 style='color: #6cb55d;'>Валидирован</h5>{% else %}<h5 style='color: red;'>Не валидир.</h5>{% endif %}
                 {#<a href="{{ path('la_net_admin_masters_edit_profile', {'id': master.id} ) }}" class="button">Редактировать</a>
             </div>
             <div class="col col_1_of_6 tablet_1_of_3 mobile_1_of_1">

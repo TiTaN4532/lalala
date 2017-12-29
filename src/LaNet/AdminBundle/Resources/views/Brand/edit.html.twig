@@ -2,6 +2,11 @@
  
 {% block stylesheets %}
       {{ parent() }}
+      <script src="{{ asset('js/jquery-1.10.1.min.js') }}"></script>
+      <link rel="stylesheet" href="{{ asset('js/intl-tel-input-12.1.0/build/css/intlTelInput.css')}}">
+     <script src="{{ asset('js/intl-tel-input-12.1.0/build/js/intlTelInput.js')}}"></script>
+        
+      
       <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
       <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>
       <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
@@ -50,7 +55,8 @@
         {% endfor %}
     </ul>#}
     {{ form_row(form.link) }}
-    {{ form_row(form.phone) }}
+    <div>{{ form_label(form.phone) }}</div>
+            {{ form_widget(form.phone) }}
     {{ form_row(form.mail) }}
     {{ form_row(form.description) }}
    
@@ -94,5 +100,17 @@
             tinymce.get(id_tiny).setContent('');
          };
                         {% endif %}
+  </script>
+  
+   <script>
+      $(document).ready(function(){
+        $("#brand_phone").intlTelInput({
+          //hiddenInput: "full_phone",
+          nationalMode: false,
+          preferredCountries: ['ua'],
+          utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+        });
+       
+        });
   </script>
 {% endblock %}

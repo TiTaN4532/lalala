@@ -15,6 +15,12 @@ class SchoolController extends BaseController
     {
         $form = $this->createForm(new LaForm\SchoolProfileType(), $this->user);
 
+        $valid = '';
+        
+        if ($this->user->getValidation() == 1) {
+           $valid = 1; 
+        } 
+        
         if ('POST' == $request->getMethod()) {
         if($prevLocation = $this->user->getUserInfo()->getLocation()) {
             $this->manager->remove($prevLocation);
@@ -36,7 +42,7 @@ class SchoolController extends BaseController
         }
       }
       
-        return $this->render('LaNetLaNetBundle:School:profile.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:School:profile.html.twig', array('form' => $form->createView(), 'valid' => $valid));
     }
     
   

@@ -242,7 +242,7 @@ class MainController extends BaseController {
             
             
         
-        return $this->render('LaNetLaNetBundle:layoutProfile.html.twig', array('validStatus' => $validStatus));
+        return $this->render('LaNetLaNetBundle::layoutProfile.html.twig', array('validStatus' => $validStatus));
     
     }
 }

@@ -53,7 +53,7 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     private $agancy;
     
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string")
      */
     protected $image;
     

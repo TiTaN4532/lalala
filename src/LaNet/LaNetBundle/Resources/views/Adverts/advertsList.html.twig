@@ -12,6 +12,7 @@
     {% endblock %}
 {% block content %}
  
+    
    {#<h1 style="float:left; padding-bottom: 10px; margin-right: 10px;">Объявления</h1><hr align="right" style="width:auto;margin: 37px; padding: 0 10px; " size="7" color="#AAA" />#}
             
    <div id="adverts" style="display: none">
@@ -21,7 +22,9 @@
             {{ form_row(form.title) }}
             {{ form_row(form.post) }}
             {{ form_row(form.name) }}
-            {{ form_row(form.phone) }}
+            <div>{{ form_label(form.phone) }}</div>
+            {{ form_widget(form.phone) }}
+            {#{{ form_row(form.phone) }}#}
             {{ form_row(form.mail) }}
  <a href="#" class="button" id="hide-advert-btn">Скрыть</a>
             {{ form_widget(form.add_post) }}
@@ -110,7 +113,17 @@
     
 <script>
       $(document).ready(function(){
-          $('#add-advert-btn').click(function() {
+         
+            
+  $("#lanet_adverts_phone").intlTelInput({
+  //hiddenInput: "full_phone",
+  nationalMode: false,
+  preferredCountries: ['ua'],
+  utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+});
+
+      
+       $('#add-advert-btn').click(function() {
             
             $('#adverts').show();  
             $('#add-advert-btn').hide();  

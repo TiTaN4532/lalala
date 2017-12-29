@@ -22,7 +22,8 @@
             {{ form_widget(form.file) }}
             {{ form_row(form.name) }}
             {{ form_row(form.description) }}
-            {{ form_row(form.phone) }}
+           <div>{{ form_label(form.phone) }}</div>
+            {{ form_widget(form.phone) }}
             {{ form_row(form.mail) }}
             {% if error is defined %}<div style='color:red;'>Введенный Вами адрес электронной почты уже используется</div>{% endif %}
     
@@ -188,7 +189,17 @@
    
    <script>  
    $(document).ready(function(){
-         
+      
+                   
+      $("#brand_phone").intlTelInput({
+        //hiddenInput: "full_phone",
+        nationalMode: false,
+        preferredCountries: ['ua'],
+        utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+      });
+
+        
+        
       toastr.options = {"closeButton": false,
                         "debug": false,
                         "newestOnTop": false,
