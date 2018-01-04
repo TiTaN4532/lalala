@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
              -> add('country', 'text', array('label' => 'Страна производитель:', 'required' => false))
              -> add('link', 'text', array('label' => 'Сайт:', 'required' => false))
              -> add('linkAdd', 'text', array('label' => 'Дополнительный сайт:', 'required' => false))
-             -> add('description', 'textarea', array('label' => 'Описание:', 'required' => false, 'attr' => array('class' => "TextEditor")))
+             -> add('description', 'textarea', array('label' => 'Описание:', 'required' => false))
              ->add('phone', 'text', array('label' => 'Телефон:', 'required' => false))
              ->add('mail', 'email', array('label' => 'Email адрес'))
              /*->add('category', 'collection', array( 'type'         => new BrandCategoryType(),

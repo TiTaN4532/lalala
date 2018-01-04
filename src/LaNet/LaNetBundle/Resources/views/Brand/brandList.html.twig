@@ -5,8 +5,7 @@
 
 {% block stylesheets %}
       {{ parent() }}
-      <script src="{{ asset('js/tiny_mce/tinymce.js')}}"></script>
-      <script src="{{ asset('bundles/lanetadmin/js/initTinyMCE.js')}}"></script>     
+        
       <script src="{{ asset('bundles/lanetlanet/js/previewImage.js') }}"></script>
        <script src="{{ asset('bundles/lanetlanet/js/mastersPortfolio.js') }}"></script>
   {% endblock %}
@@ -165,8 +164,6 @@
           
           
           $('#add-brand-btn').click(function() {
-            var id_tiny = tinymce.editors[0].id;
-            tinymce.get(id_tiny).setContent('');
             $('#brand-form').show();  
             $('#add-brand-btn').hide();  
             //$('#advert-success-message').hide();  
@@ -200,7 +197,7 @@
 
         
         
-      toastr.options = {"closeButton": false,
+     /* toastr.options = {"closeButton": false,
                         "debug": false,
                         "newestOnTop": false,
                         "progressBar": false,
@@ -222,7 +219,7 @@
             event.preventDefault();
             toastr.error ('Поле "Описание" не может быть пустым!');
                     }
-            });
+            });*/
         
         });
    
