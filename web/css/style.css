@@ -351,7 +351,7 @@ form {
     margin: 0;
 }
 .nav a {
-    padding: 7px 25px;
+    padding: 17px 25px 19px;
     color: #fff;
 }
 
@@ -381,6 +381,15 @@ form {
 
 ul.dropdown-menu li {
     margin-right: 0px;
+}
+
+
+.registration-brand {
+    margin-bottom: 67px;
+}
+
+.registration-brand a{
+   font-size: 15px;
 }
 
 #line {
