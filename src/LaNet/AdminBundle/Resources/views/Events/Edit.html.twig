@@ -35,7 +35,8 @@
     {{ form_row(form.post) }}
     {{ form_row(form.date) }}    
     {{ form_row(form.video) }}
-      <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
+    
+       <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
          {% for image in form.portfolio %}
            <li>
               {{ form_widget(image.file) }}
@@ -52,6 +53,34 @@
          {# {{ form_rest(form) }} #}
          {{ form_row(form._token) }}
   </form>
+  
+  
+  {#<div id="articles_portfolio___name__">
+        <div>
+            <label for="articles_portfolio___name___file">Фото:</label>
+            <div class="float-left">
+                <img id="articles_portfolio___name___file_image" style="width:400px;" src="/vhost/lalook/web/uploads/images/default.png" class="image-upload-preview" />
+            </div>
+            <a href="javascript:void(0);" onclick="javascript:openFileInput('articles_portfolio___name___file')" class="button">Upload</a>
+            <input type="file" id="articles_portfolio___name___file" name="articles[portfolio][__name__][file]" style="display:none"/>
+            
+            <script type="text/javascript">
+                $("#articles_portfolio___name___file").change(function(){ 
+                    readURL(this, 'articles_portfolio___name___file_image');
+                }); 
+            </script>
+        </div>
+        
+        <div>
+            <label for="articles_portfolio___name___description" class="required">Описание:</label>
+            <input type="text" id="articles_portfolio___name___description" name="articles[portfolio][__name__][description]" required="required" /></div>
+        
+        <div>
+            <label for="articles_portfolio___name___gallery">Отображать в галерее на главной</label>
+            <input type="checkbox" id="articles_portfolio___name___gallery" name="articles[portfolio][__name__][gallery]" value="1" />
+        </div>
+    </div>#}
+  
   <script>
       $(document).ready(function(){
           
