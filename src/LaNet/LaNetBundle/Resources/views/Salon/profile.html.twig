@@ -90,7 +90,7 @@
                         google.maps.event.addListener(map, 'click', function(event) 
                             {
                                 $.ajax({
-                                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
+                                    url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
                                     success     : function(data) {
                                           fill_address(data);    
                                           $('#lanet_salon_profile_userInfo_location_lang').val(event.latLng.lng());

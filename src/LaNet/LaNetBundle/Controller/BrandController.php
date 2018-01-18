@@ -579,9 +579,9 @@ class BrandController extends BaseController
                      ->setTo($mail)
                      ->setBody("Здравствуйте!
                      Для валидации Вашего профиля перейдите по ссылке ниже:
-                     http://lalook.net/user/validation/$uniqId
+                     https://lalook.net/user/validation/$uniqId
 
-                     Вход в личный кабинет http://lalook.net/login
+                     Вход в личный кабинет https://lalook.net/login
                       ");
              
               $this->get('mailer')->send($message);

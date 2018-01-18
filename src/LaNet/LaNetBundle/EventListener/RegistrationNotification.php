@@ -36,12 +36,12 @@ class RegistrationNotification implements EventSubscriberInterface
                      ->setFrom('info@lalook.net')
                      ->setTo($email)
                      ->setBody("Здравствуйте!
-                     Вы зарегестрировались на сайте http://lalook.net
+                     Вы зарегестрировались на сайте https://lalook.net
 
                      Для завершения регистрации перейдите по ссылке ниже
-                     http://lalook.net/user/validation/$uniqId
+                     https://lalook.net/user/validation/$uniqId
 
-                     Вход в личный кабинет http://lalook.net/login
+                     Вход в личный кабинет https://lalook.net/login
                       ");
      
                      $this->container->get('mailer')->send($message);

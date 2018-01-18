@@ -78,7 +78,7 @@
                             title:"Hello World!" 
                         });
                         $.ajax({
-                            url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#lanet_school_profile_userInfo_location_lat').val() + "," +  $('#lanet_school_profile_userInfo_location_lang').val() + "&sensor=false&language=ru",
+                            url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#lanet_school_profile_userInfo_location_lat').val() + "," +  $('#lanet_school_profile_userInfo_location_lang').val() + "&sensor=false&language=ru",
                             success     : function(data) {
                                    input.value = (data.results[0].formatted_address);
                                  }});

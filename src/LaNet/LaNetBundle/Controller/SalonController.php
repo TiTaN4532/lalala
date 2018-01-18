@@ -330,7 +330,7 @@ class SalonController extends BaseController
         }
         
         //$mail = $this->user->getEmail(); 
-        $mail = "alexx.aleksandroff@mgmail.com"; 
+        $mail = "alexx.aleksandroff@gmail.com"; 
         
         $message = \Swift_Message::newInstance()
                      ->setSubject('Повторная валидация')
@@ -339,9 +339,9 @@ class SalonController extends BaseController
                      ->setTo($mail)
                      ->setBody("Здравствуйте!
                      Для валидации Вашего профиля перейдите по ссылке ниже:
-                     http://lalook.net/user/validation/$uniqId
+                     https://lalook.net/user/validation/$uniqId
 
-                     Вход в личный кабинет http://lalook.net/login
+                     Вход в личный кабинет https://lalook.net/login
                       ");
              
               $this->get('mailer')->send($message);
