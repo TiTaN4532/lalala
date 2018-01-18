@@ -77,8 +77,6 @@
                             title:"Hello World!" 
                         });
                         
-                        console.log ($('#lanet_salon_profile_userInfo_location_lat').val());
-                        console.log ($('#lanet_salon_profile_userInfo_location_lang').val());
                         $.ajax({
                             url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#lanet_salon_profile_userInfo_location_lat').val() + "," +  $('#lanet_salon_profile_userInfo_location_lang').val() + "&sensor=false&language=ru",
                             success     : function(data) {
@@ -132,7 +130,6 @@
                         });
                     }
                     function fill_address(data) {
-                        console.log(data.results[0].address_components)
                         for (var i = 0; i < data.results[0].address_components.length; i++) {
                             switch(data.results[0].address_components[i].types[0]) {
                                 case "country":

@@ -115,13 +115,13 @@
   {% endif %}
   
       
-  <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_brands_id', { 'slug' : brand.slug }) }}/" data-numposts="5"></div>
+  
 
- {#{% if brand.getUser is defined and brand.getUser.premium is defined %} 
+ {% if brand.getUser is defined and brand.getUser.premium is defined %} 
         {% if brand.getUser.premium == 1 %}
-                <div class="fb-comments" data-href="{{ path('la_net_la_net_brands_id', { 'slug' : brand.slug }) }}/" data-numposts="5"></div>
+            <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_brands_id', { 'slug' : brand.slug }) }}/" data-numposts="5"></div>
         {% endif %}
-   {% endif %}#}
+   {% endif %}
   
   
   

@@ -56,11 +56,10 @@
               {{ form_widget(image.file) }}
               {{ form_row(image.description) }}
               {{ form_row(image.gallery) }}
-              {{ form_row(image.link) }}
-              
-              {%if image.vars.value.link == '1' %}
-               <div><input type="text" value="{{ app.request.scheme ~ '://' ~ app.request.host }}{{asset(image.vars.value.getWebPath)}}"></div>
-                {% endif %}
+            {#{{ form_row(image.link) }}#}
+              <label for="link-for-tinyMCE">Путь к файлу</label>
+               <div><input id="link-for-tinyMCE" type="text" value="{{ app.request.scheme ~ '://' ~ app.request.host }}{{asset(image.vars.value.getWebPath)}}"></div>
+            </li>
             </li>
          {% endfor %}
        </ul>

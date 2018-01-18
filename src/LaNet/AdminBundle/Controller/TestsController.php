@@ -60,10 +60,10 @@ class TestsController extends BaseController
             
           if ($form->get('save_draft')->isClicked()) {
               $testsPost->setIsDraft(1);
-              $this->get('session')->getFlashBag()->add(
+              /*$this->get('session')->getFlashBag()->add(
                 'notice_tests',
                 'Ваши изменения были сохранены'
-            );
+            );*/
           }
           if ($form->get('add_post')->isClicked()) {
               $testsPost->setIsDraft(NULL);
@@ -84,6 +84,11 @@ class TestsController extends BaseController
           }*/
           
           $this->manager->flush();
+          
+          if ($form->get('save_draft')->isClicked()) {
+            return $this->redirect($this->generateUrl('la_net_admin_tests_edit', array( 'id' => $testsPost->getId())));
+           }
+           
           return $this->redirect($this->generateUrl('la_net_admin_tests'));
         }
       }

@@ -154,14 +154,12 @@
     </div>
   {% endif %}
   
-  
-  
- 
-   {#{% if school.getUser.premium == 1 %}#}
-       
+  {% if school.getUser.premium is defined %} 
+     {% if school.getUser.premium == 1 %}
         <div class="fb-comments" data-href="{{ app.request.getSchemeAndHttpHost() }}{{ path('la_net_la_net_school_id', {'id': school.id })}}" data-numposts="5"></div>
-   {#{% endif %}#}
-  
+     {% endif %}
+  {% endif %}
+
 </div>
   <script>
     $(document).ready(function() {

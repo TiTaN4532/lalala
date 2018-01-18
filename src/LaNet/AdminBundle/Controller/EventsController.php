@@ -60,10 +60,15 @@ class EventsController extends BaseController
           if ($form->get('save_draft')->isClicked()) {
               
               $eventsPost->setIsDraft(1);
-              $this->get('session')->getFlashBag()->add(
+              /*$this->get('session')->getFlashBag()->add(
                 'notice_events',
                 'Ваши изменения были сохранены'
-            );
+            );*/
+              $this->manager->persist($eventsPost);
+              $this->manager->flush();
+              
+              return $this->redirect($this->generateUrl('la_net_admin_events_edit', array( 'id' => $eventsPost->getId())));
+              
           }
           if ($form->get('add_post')->isClicked()) {
               $eventsPost->setIsDraft(NULL);
@@ -71,9 +76,11 @@ class EventsController extends BaseController
                 'notice_events',
                 'Ваши изменения были сохранены'
             );
+              $this->manager->persist($eventsPost);
+              $this->manager->flush();
           }
                  
-          $this->manager->persist($eventsPost);
+          
           
          /* if(!$eventsPost->getId()) {
             $this->manager->flush();
@@ -83,7 +90,7 @@ class EventsController extends BaseController
             return $this->redirect($this->generateUrl('la_net_admin_events'));
           }*/
           
-          $this->manager->flush();
+        
           return $this->redirect($this->generateUrl('la_net_admin_events'));
         }
       }

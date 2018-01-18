@@ -13,7 +13,7 @@ class ImageEventType extends AbstractType
   {
     $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath', 'label' => 'Фото:'))
              -> add('description', 'text', array('label' => 'Описание:', 'required' => false))
-             -> add('link', 'checkbox', array('label' => 'Вставка в текст:', 'required' => false)) 
+             //-> add('link', 'checkbox', array('label' => 'Вставка в текст:', 'required' => false)) 
              -> add('gallery', 'checkbox', array('label' => 'Отображать в галерее на главной', 'required' => false));
   }
 

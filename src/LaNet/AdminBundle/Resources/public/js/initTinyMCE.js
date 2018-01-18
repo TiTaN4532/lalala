@@ -5,6 +5,7 @@
                 editor_selector : "TextEditor",
 		language: "ru",
                 theme : "modern",
+                images_upload_base_path: "/vhost/lalook/web",
 		plugins : "autolink,lists,pagebreak,layer,table,save,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,template,wordcount,advlist,autosave,visualblocks,image",
 		// Theme options
                 toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | formatselect fontselect fontsizeselect",
@@ -23,7 +24,8 @@
 		external_link_list_url : "lists/link_list.js",
 		external_image_list_url : "lists/image_list.js",
 		media_external_list_url : "lists/media_list.js",
-
+                relative_urls: false,
+                remove_script_host: false,
 		// Style formats
 		style_formats : [
 			{title : 'Bold text', inline : 'strong'},

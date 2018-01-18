@@ -61,10 +61,10 @@ class AdvicesController extends BaseController
             
           if ($form->get('save_draft')->isClicked()) {
               $advicesPost->setIsDraft(1);
-              $this->get('session')->getFlashBag()->add(
+              /*$this->get('session')->getFlashBag()->add(
                 'notice_advices',
                 'Ваши изменения были сохранены'
-            );
+            );*/
           }
           if ($form->get('add_post')->isClicked()) {
               $this->get('session')->getFlashBag()->add(
@@ -85,6 +85,11 @@ class AdvicesController extends BaseController
           }*/
           
            $this->manager->flush();
+           
+           if ($form->get('save_draft')->isClicked()) {
+             return $this->redirect($this->generateUrl('la_net_admin_advices_edit', array( 'id' => $advicesPost->getId())));  
+           }
+           
            return $this->redirect($this->generateUrl('la_net_admin_advices'));
         }
       }

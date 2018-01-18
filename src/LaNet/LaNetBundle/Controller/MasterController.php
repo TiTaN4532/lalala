@@ -274,7 +274,7 @@ class MasterController extends BaseController
         
         $mail = $this->user->getEmail(); 
         
-        /*$message = \Swift_Message::newInstance()
+        $message = \Swift_Message::newInstance()
                      ->setSubject('Повторная валидация')
                      //->setSubject($data['subject'])
                      ->setFrom('info@lalook.net')
@@ -286,7 +286,7 @@ class MasterController extends BaseController
                      Вход в личный кабинет https://lalook.net/login
                       ");
              
-              $this->get('mailer')->send($message);*/
+              $this->get('mailer')->send($message);
         $respons['success'] = true;
         $respons['mail'] = $mail;
         

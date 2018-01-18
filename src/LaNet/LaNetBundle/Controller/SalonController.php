@@ -329,9 +329,8 @@ class SalonController extends BaseController
            $this->manager->flush();
         }
         
-        //$mail = $this->user->getEmail(); 
-        $mail = "alexx.aleksandroff@gmail.com"; 
-        
+        $mail = $this->user->getEmail(); 
+                
         $message = \Swift_Message::newInstance()
                      ->setSubject('Повторная валидация')
                      //->setSubject($data['subject'])

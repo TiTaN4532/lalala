@@ -59,10 +59,10 @@ class TrustsController extends BaseController
            }
           if ($form->get('save_draft')->isClicked()) {
               $trustsPost->setIsDraft(1);
-              $this->get('session')->getFlashBag()->add(
+              /*$this->get('session')->getFlashBag()->add(
                 'notice_trusts',
                 'Ваши изменения были сохранены'
-            );
+            );*/
           } 
           
            if ($form->get('add_post')->isClicked()) {
@@ -84,6 +84,11 @@ class TrustsController extends BaseController
           }*/
           
            $this->manager->flush();
+           
+           if ($form->get('save_draft')->isClicked()) {
+            return $this->redirect($this->generateUrl('la_net_admin_trusts_edit', array( 'id' => $trustsPost->getId())));
+           }
+           
            return $this->redirect($this->generateUrl('la_net_admin_trusts'));
         }
       }
