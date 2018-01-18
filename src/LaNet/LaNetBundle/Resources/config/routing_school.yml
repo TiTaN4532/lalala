@@ -27,4 +27,8 @@ la_net_la_net_school_profile_portfolio:
 la_net_la_net_school_profile_service_price:
     pattern:  /school/profile/service_price
     defaults: { _controller: LaNetLaNetBundle:School:profileServicePrice }
+        
+la_net_la_net_school_profile_validation_repeat:
+    pattern:  /school/profile/validation
+    defaults: { _controller: LaNetLaNetBundle:School:profileValidation }
    

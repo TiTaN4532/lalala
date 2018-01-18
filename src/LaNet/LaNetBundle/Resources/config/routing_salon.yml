@@ -57,3 +57,7 @@ la_net_la_net_salon_profile_discounts_add:
     defaults: { _controller: LaNetLaNetBundle:Salon:edit }
     options:
         expose: true
+        
+la_net_la_net_salon_profile_validation_repeat:
+    pattern:  /salon/profile/validation
+    defaults: { _controller: LaNetLaNetBundle:Salon:profileValidation }        

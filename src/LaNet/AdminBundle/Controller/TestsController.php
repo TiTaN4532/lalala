@@ -42,15 +42,22 @@ class TestsController extends BaseController
       }
       
       $form = $this->createForm(new LaForm\ArticlesType(), $testsPost);
-    
-    
-      
-           
+        
         if ('POST' == $request->getMethod()) {
 
         $form->bind($request);
 
         if ($form->isValid()) {
+        
+         $files = $this->getRequest()->files->get("files");
+           if (!empty($files[0])) {
+              foreach ($files as $file) {
+                $Image =  new LaEntity\Image();
+                $Image->setFile($file);
+                $testsPost->AddPortfolio ($Image);
+             }
+           }
+            
           if ($form->get('save_draft')->isClicked()) {
               $testsPost->setIsDraft(1);
               $this->get('session')->getFlashBag()->add(

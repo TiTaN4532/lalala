@@ -255,7 +255,7 @@
                     <div class="row-fluid">
                         <div class="span7">
                             {% if masters %}    
-                            <h2 class="section-title"><a href="{{ path('la_net_la_net_master_list') }}">TOP мастера</a></h2>
+                            <h2 class="section-title"><a href="{{ path('la_net_la_net_master_list') }}">ТОП мастера</a></h2>
                             <div class="masters">
                               {% for master in masters %}
                                 <div class="masters-item clearfix">
@@ -430,7 +430,7 @@
     <script type="text/javascript">
   
      $(document).ready(function() {
-         
+       
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -438,7 +438,11 @@
          
          $(".fancybox").fancybox({
 		openEffect	: 'none',
-              	closeEffect	: 'none'
+              	closeEffect	: 'none',
+                helpers: { overlay: {
+                            locked: false
+                            }
+                }
 	 });
          
             if ($('.gallery').hasClass('test-slider')){

@@ -19,8 +19,8 @@ function addForm(collectionHolder, $newLinkLi, text) {
     $newFormLi.find('input[type="text"]').intlTelInput({
             //hiddenInput: "full_phone",
             nationalMode: false,
-            preferredCountries: ['ua'],
-            utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+            preferredCountries: ['ua']
+            //utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
           });
       }
     $newLinkLi.before($newFormLi);

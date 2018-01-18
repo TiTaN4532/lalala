@@ -8,7 +8,9 @@ function addImageForm(collectionHolder, $newLinkLi) {
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
     var newForm = prototype.replace(/__name__/g, index);
-
+    
+    //var id = $(newForm).find("img").attr("id");
+    
     // increase the index with one for the next item
     collectionHolder.data('index', index + 1);
 
@@ -16,6 +18,9 @@ function addImageForm(collectionHolder, $newLinkLi) {
     var $newFormLi = $('<li></li>').append(newForm);
     $newLinkLi.before($newFormLi);
     addImageFormDeleteLink($newFormLi);
+   /* 
+    return id;
+    */
 }
 
 function addImageFormDeleteLink($tagFormLi) {
@@ -54,4 +59,43 @@ $(document).ready(function(){
         // add a new tag form (see next code block)
         addImageForm(collectionImageHolder, $newImageLinkLi);
     });
+    /*
+     $(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+            
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                //console.log ( $('ul.images li:last'));
+            
+               
+             
+                         
+                reader.onload = function(event) {
+                    var id = addImageForm(collectionImageHolder, $newImageLinkLi);
+                    $('#'+id).click();
+                    console.log (id);
+                    $("#"+id).attr('src', event.target.result);
+                    
+                    
+                    //$($.parseHTML('<img>')).attr('src', event.target.result).appendTo($('ul.images li').eq(-2));
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+    
+    
+
+        $('#gallery-photo-add').on('change', function() {
+            imagesPreview(this, 'div.gallery');
+        });
+    });*/
+    
+    
 });

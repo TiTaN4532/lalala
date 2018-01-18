@@ -66,4 +66,8 @@ la_net_la_net_ajax_brands_profile_products_select_category:
     pattern:  /ajax/brands/profile/products/select_category/{id}
     defaults: { _controller: LaNetLaNetBundle:Brand:ajaxProductsProfileSelectCategory }
     options:
-        expose: true    
+        expose: true  
+         
+la_net_la_net_brands_profile_validation_repeat:
+    pattern:  /brands/profile/validation
+    defaults: { _controller: LaNetLaNetBundle:Brand:profileValidation }   

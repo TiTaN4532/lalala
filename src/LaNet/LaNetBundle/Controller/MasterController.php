@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use LaNet\LaNetBundle\Entity as LaEntity;
 use LaNet\LaNetBundle\Form\Type as LaForm;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MasterController extends BaseController
 {
@@ -259,4 +260,38 @@ class MasterController extends BaseController
       
       return $this->render('LaNetLaNetBundle:Master:masterId.html.twig', array('master' => $master, 'voteDisable' => $voteDisable));
     }
+    
+    public function profileValidationAction(Request $request)
+    {
+        $uniqId = $this->user->getValidation(); 
+        
+        if (!$uniqId){
+           $uniqId = uniqid();
+           $master = $this->user->setValidation($uniqId); 
+           $this->manager->persist($master);
+           $this->manager->flush();
+        }
+        
+        $mail = $this->user->getEmail(); 
+        
+        /*$message = \Swift_Message::newInstance()
+                     ->setSubject('Повторная валидация')
+                     //->setSubject($data['subject'])
+                     ->setFrom('info@lalook.net')
+                     ->setTo($mail)
+                     ->setBody("Здравствуйте!
+                     Для валидации Вашего профиля перейдите по ссылке ниже:
+                     http://lalook.net/user/validation/$uniqId
+
+                     Вход в личный кабинет http://lalook.net/login
+                      ");
+             
+              $this->get('mailer')->send($message);*/
+        $respons['success'] = true;
+        $respons['mail'] = $mail;
+        
+        return new JsonResponse($respons);
+        
+      }
+    
 }

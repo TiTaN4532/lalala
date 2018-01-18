@@ -52,8 +52,12 @@
     $(document).ready(function() {
 	$(".fancybox").fancybox({
 		openEffect	: 'none',
-		closeEffect	: 'none'
-	});
+              	closeEffect	: 'none',
+                helpers: { overlay: {
+                            locked: false
+                            }
+                }
+	 });
 });
   </script>
 {% endblock %}

@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="LaNet\LaNetBundle\Entity\Repository\EventsRepository")
- * @ORM\Table(name="upcomingEvents")
+ * @ORM\Table(name="upcoming_events")
  * @ORM\HasLifecycleCallbacks()
  */
 class UpcomingEvents extends \LaNet\LaNetBundle\Model\UploadImages

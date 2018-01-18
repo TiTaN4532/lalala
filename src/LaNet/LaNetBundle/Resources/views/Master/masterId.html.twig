@@ -33,7 +33,7 @@
  
   <div class="row">
     <div class="col col_1_of_3">
-        <a href="{{ asset(master.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ master.firstname | upper }} {{ master.lastname | upper }}"><img src="{{ master.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
+        <a href="{{ asset(master.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ master.firstname | upper }} {{ master.lastname | upper }}"><img src="{{ master.getWebPath | imagine_filter('my_master_large') }}" /></a>
     
        {# {% if master.getUser.premium is defined %}
             {% if master.getUser.premium == 1 %}

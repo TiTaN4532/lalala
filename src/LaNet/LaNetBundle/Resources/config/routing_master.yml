@@ -31,3 +31,7 @@ la_net_la_net_master_profile_portfolio:
 la_net_la_net_master_profile_service_price:
     pattern:  /master/profile/service_price
     defaults: { _controller: LaNetLaNetBundle:Master:profileServicePrice }
+    
+la_net_la_net_master_profile_validation_repeat:
+    pattern:  /master/profile/validation
+    defaults: { _controller: LaNetLaNetBundle:Master:profileValidation }

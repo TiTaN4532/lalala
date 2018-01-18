@@ -16,14 +16,14 @@ class ArticlesEventType extends AbstractType
              -> add('description', 'textarea', array('label' => 'Краткое описание:'))
              -> add('video', 'textarea', array('label' => 'Вставка видео:', 'required' => false))
              //-> add('date', 'text', array( 'required'  => true,  'label' => 'Дата:', 'attr' => array('class' => 'datepicker')))   
-             ->add('date','date',array('widget' => 'single_text', 'label' => 'Дата:', 'format' => 'dd-MM-yyyy', 'attr' => array('class' => 'datepicker')))
-            -> add('portfolio', 'collection', array(
+             -> add('date','date',array('widget' => 'single_text', 'label' => 'Дата:', 'format' => 'dd-MM-yyyy', 'attr' => array('class' => 'datepicker quarter')))
+             -> add('portfolio', 'collection', array(
                                 'by_reference' => false,
                                 'type'         => new \LaNet\LaNetBundle\Form\Type\ImageEventType(),
                                 'allow_add'    => true,
                                 'allow_delete'    => true,
                   ))
-            -> add('post', 'textarea', array('label' => 'Текст:', 'required' => false, 'attr' => array('class' => "TextEditor")))
+             -> add('post', 'textarea', array('label' => 'Текст:', 'required' => false, 'attr' => array('class' => "TextEditor")))
              -> add('save_draft', 'submit', array('label' => 'Сохранить как черновик'))
              -> add('add_post', 'submit', array('label' => 'Сохранить'));
   }

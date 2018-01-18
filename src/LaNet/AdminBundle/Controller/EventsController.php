@@ -40,19 +40,25 @@ class EventsController extends BaseController
         }
       }
       
-      
-      
       $form = $this->createForm(new LaForm\ArticlesEventType(), $eventsPost);
-      
       $eventsPost->setType('event');
       
-           
-        if ('POST' == $request->getMethod()) {
+      if ('POST' == $request->getMethod()) {
 
-        $form->bind($request);
-
+      $form->bind($request);
         if ($form->isValid()) {
+             
+        $files = $this->getRequest()->files->get("files");
+           if (!empty($files[0])) {
+              foreach ($files as $file) {
+                $Image =  new LaEntity\Image();
+                $Image->setFile($file);
+                $eventsPost->AddPortfolio ($Image);
+             }
+           }
+          
           if ($form->get('save_draft')->isClicked()) {
+              
               $eventsPost->setIsDraft(1);
               $this->get('session')->getFlashBag()->add(
                 'notice_events',

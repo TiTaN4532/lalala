@@ -239,6 +239,12 @@ class BrandController extends BaseController
            return $this->redirect($this->generateUrl('la_net_la_net_homepage'));
         }
        
+        /*$valid = '';
+        
+        if ($this->user->getValidation() == 1) {
+           $valid = 1; 
+        } */
+        
         $form = $this->createForm(new LaForm\BrandProfileType(), $this->user);
 
                
@@ -553,5 +559,37 @@ class BrandController extends BaseController
       return new JsonResponse( $response );
     }
     
-    
+    /*public function profileValidationAction(Request $request)
+    {
+        $uniqId = $this->user->getValidation(); 
+        
+        if (!$uniqId){
+           $uniqId = uniqid();
+           $user = $this->user->setValidation($uniqId); 
+           $this->manager->persist($user);
+           $this->manager->flush();
+        }
+        
+        $mail = $this->user->getEmail(); 
+        
+        $message = \Swift_Message::newInstance()
+                     ->setSubject('Повторная валидация')
+                     //->setSubject($data['subject'])
+                     ->setFrom('info@lalook.net')
+                     ->setTo($mail)
+                     ->setBody("Здравствуйте!
+                     Для валидации Вашего профиля перейдите по ссылке ниже:
+                     http://lalook.net/user/validation/$uniqId
+
+                     Вход в личный кабинет http://lalook.net/login
+                      ");
+             
+              $this->get('mailer')->send($message);
+        $respons['success'] = true;
+        $respons['mail'] = $mail;
+        
+        return new JsonResponse($respons);
+        
+      }
+    */
 }

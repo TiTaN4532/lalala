@@ -22,11 +22,11 @@ class SalonController extends BaseController
         
         if ('POST' == $request->getMethod()) {
         if($prevLocation = $this->user->getUserInfo()->getLocation()) {
+           
             $this->manager->remove($prevLocation);
             $this->manager->flush();
         }
 
-        
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -180,6 +180,7 @@ class SalonController extends BaseController
     public function profilePortfolioAction(Request $request)
     {
         $salon = $this->user->getSalonInfo();
+        $premium = $this->user->getPremium();
         $form = $this->createForm(new LaForm\SalonPortfolioType(), $salon);
         
         if ('POST' == $request->getMethod()) {
@@ -198,7 +199,7 @@ class SalonController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_salon_profile_portfolio'));
         }
       }
-        return $this->render('LaNetLaNetBundle:Salon:profilePortfolio.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:Salon:profilePortfolio.html.twig', array('form' => $form->createView(), 'premium' => $premium));
     }
     
     public function profileServicePriceAction(Request $request)
@@ -316,4 +317,38 @@ class SalonController extends BaseController
      
         return $this->render('LaNetLaNetBundle:Salon:discountList.html.twig', array('salons' => $salons));
     }
+    
+    public function profileValidationAction(Request $request)
+    {
+        $uniqId = $this->user->getValidation(); 
+        
+        if (!$uniqId){
+           $uniqId = uniqid();
+           $user = $this->user->setValidation($uniqId); 
+           $this->manager->persist($user);
+           $this->manager->flush();
+        }
+        
+        //$mail = $this->user->getEmail(); 
+        $mail = "alexx.aleksandroff@mgmail.com"; 
+        
+        $message = \Swift_Message::newInstance()
+                     ->setSubject('Повторная валидация')
+                     //->setSubject($data['subject'])
+                     ->setFrom('info@lalook.net')
+                     ->setTo($mail)
+                     ->setBody("Здравствуйте!
+                     Для валидации Вашего профиля перейдите по ссылке ниже:
+                     http://lalook.net/user/validation/$uniqId
+
+                     Вход в личный кабинет http://lalook.net/login
+                      ");
+             
+              $this->get('mailer')->send($message);
+        $respons['success'] = true;
+        $respons['mail'] = $mail;
+        
+        return new JsonResponse($respons);
+        
+      }
 }

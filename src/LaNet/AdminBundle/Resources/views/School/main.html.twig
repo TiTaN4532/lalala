@@ -4,16 +4,16 @@
 
 <div class="admin-main-menu">
  <ul>
-  <li><a href="{{ path('la_net_admin_salons_list') }}">Список салонов</a></li>
+  <li><a href="{{ path('la_net_admin_schools_list') }}">Список центров обучения</a></li>
 </ul>
   </div> 
 
    <div class="admin-main-menu-period"> 
  <ul>
-    <li><a href="{{ path('la_net_admin_salons_list', {'period': 'day'}) }}">Добавленные за день ({{day}})</a></li>
-    <li><a href="{{ path('la_net_admin_salons_list', {'period': 'week'}) }}">Добавленные за неделю ({{week}})</a></li>
-    <li><a href="{{ path('la_net_admin_salons_list', {'period': 'month'}) }}">Добавленные за месяц ({{month}})</a></li>
-    <li><a href="{{ path('la_net_admin_salons_list') }}">Добавленные за все время ({{all}})</a></li>
+    <li><a href="{{ path('la_net_admin_schools_list', {'period': 'day'}) }}">Добавленные за день ({{day}})</a></li>
+    <li><a href="{{ path('la_net_admin_schools_list', {'period': 'week'}) }}">Добавленные за неделю ({{week}})</a></li>
+    <li><a href="{{ path('la_net_admin_schools_list', {'period': 'month'}) }}">Добавленные за месяц ({{month}})</a></li>
+    <li><a href="{{ path('la_net_admin_schools_list') }}">Добавленные за все время ({{all}})</a></li>
  </ul>
    </div>
 {% endblock content %}

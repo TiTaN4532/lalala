@@ -14,9 +14,11 @@ la_net_la_net_validation:
     pattern:  /validation/{uniqId}
     defaults: { _controller: LaNetLaNetBundle:Brand:validation, uniqId: default_uniqId  }
     
-la_net_la_net_banner:
-    pattern:  /banner/{id}
+la_net_la_net_ajax_banner:
+    pattern:  /ajax/banner
     defaults: { _controller: LaNetAdminBundle:Banners:count }
+    options:
+        expose: true
             
 la_net_la_net_about:
     pattern:  /about

@@ -42,6 +42,16 @@ class NewsController extends BaseController
         $form->bind($request);
 
         if ($form->isValid()) {
+            
+            $files = $this->getRequest()->files->get("files");
+           if (!empty($files[0])) {
+              foreach ($files as $file) {
+                $Image =  new LaEntity\Image();
+                $Image->setFile($file);
+                $newsPost->AddPortfolio ($Image);
+             }
+           }
+            
           if ($form->get('save_draft')->isClicked()) {
               $newsPost->setIsDraft(1);
               $this->get('session')->getFlashBag()->add(

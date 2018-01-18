@@ -30,7 +30,7 @@
                                    <div id="banners-group-1">
                                     {% for banner in bannersSideBar.1 %}  
                                     <div class="sidebar-ad" banner-index="{{loop.index}}" {% if not loop.first %} style="display:none;" {% endif %}>
-                                        <a href="{{ path('la_net_la_net_banner', {'id': banner.id})}}"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
+                                        <a class="banner-redirection" data-banner-id="{{banner.id}}" href="#"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
                                     </div>
                                     {% endfor %}
                                  </div>
@@ -50,7 +50,7 @@
                                     {% for event in EventsSideBar %} 
                                     <article class="top-news-item is-horizontal clearfix">
                                         <a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}"><img src="{{ asset(event.getWebPath)}}" alt="placeholder"></a>
-                                        <h3 class="item-title"><a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}">{{ event.title}}</a></h3>
+                                        <div class="item-title-upcoming-events"><h3 class="item-title"><a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}">{{ event.title | length > 53 ? event.title|slice(0, 53) ~ '...' : event.title}}</a></h3></div>
                                             <div class="top-news-date">{{ event.created | date ('d.m.Y')}}</div>
                                     </article>
                                      {% endfor %}
@@ -66,7 +66,7 @@
                                    <div id="banners-group-2">
                                     {% for banner in bannersSideBar.2 %}  
                                     <div class="sidebar-ad" banner-index="{{loop.index}}" {% if not loop.first %} style="display:none;" {% endif %}>
-                                        <a href="{{ path('la_net_la_net_banner', {'id': banner.id})}}"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
+                                        <a class="banner-redirection" data-banner-id="{{banner.id}}" href="#"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
                                     </div>
                                     {% endfor %}
                                  </div>
@@ -100,7 +100,7 @@
                                    <div id="banners-group-3">
                                     {% for banner in bannersSideBar.3 %}  
                                     <div class="sidebar-ad" banner-index="{{loop.index}}" {% if not loop.first %} style="display:none;" {% endif %}>
-                                        <a href="{{ path('la_net_la_net_banner', {'id': banner.id})}}"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
+                                        <a class="banner-redirection" data-banner-id="{{banner.id}}" href="#"><img src="{{ asset(banner.getWebPath)}}" alt="{{banner.name}}" class="reklama"></a>
                                     </div>
                                     {% endfor %}
                                  </div>

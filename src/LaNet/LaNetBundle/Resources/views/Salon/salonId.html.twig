@@ -22,7 +22,7 @@
 <div class="salon-id">
   <div class="row">
     <div class="col col_1_of_3">
-        <a href="{{ asset(salon.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ salon.name | upper }}"><img src="{{ salon.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
+        <a href="{{ asset(salon.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ salon.name | upper }}"><img src="{{ salon.getWebPath | imagine_filter('my_master_large') }}" /></a>
         
         {% if salon.getUser.premium is defined %} 
             {% if salon.getUser.premium == 1 %}
@@ -38,10 +38,10 @@
         <h2 style="color:#578fac;">{{ salon.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">{{ "Основная информация:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
         
-        {% if salon.category is not empty %} 
+        {% if salon.brandsCategory is not empty %} 
             <div class="row">
-              <div class="col col_1_of_3 blue">специальность:</div>
-              <div class="col col_2_of_3">{% for item in salon.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+              <div class="col col_1_of_3 blue">специализация:</div>
+              <div class="col col_2_of_3">{% for item in salon.brandsCategory %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
             </div>
         {% endif %}
         {% if (salon.location and salon.location.locality) %}
@@ -184,8 +184,12 @@
     $(document).ready(function() {
 	$(".fancybox").fancybox({
 		openEffect	: 'none',
-		closeEffect	: 'none'
-	});
+              	closeEffect	: 'none',
+                helpers: { overlay: {
+                            locked: false
+                            }
+                }
+	 });
         
      $('.solid-stars').raty({
        path: "{{ asset('images/') }}",
@@ -214,7 +218,6 @@
                         data = jQuery.parseJSON(response);
                     }
                     
-                    console.log (data);
                     $('#avg-rating').html("Средний рейтинг: " +data.score+"");
                     $('#votes').html("Голосов: " +data.votes+"");
                     $('.solid-stars').raty('readOnly', true);

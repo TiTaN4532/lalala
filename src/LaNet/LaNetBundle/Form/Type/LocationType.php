@@ -19,8 +19,8 @@ class LocationType extends AbstractType
             ->add('sublocality', 'text',   array('required' => false, 'attr' => array('class' => 'hidden')))
             ->add('route', 'text',   array('required' => false, 'attr' => array('class' => 'hidden')))
             ->add('streetNumber', 'text',   array('required' => false, 'attr' => array('class' => 'hidden')))
-            ->add('lang', 'text',   array('required' => false, 'attr' => array('class' => 'hidden'))) 
-            ->add('lat', 'text',   array('required' => false, 'attr' => array('class' => 'hidden'))) 
+            ->add('lang', 'text',   array('required' => false, 'attr' => array('class' => ''))) 
+            ->add('lat', 'text',   array('required' => false, 'attr' => array('class' => ''))) 
             ;
     }
     

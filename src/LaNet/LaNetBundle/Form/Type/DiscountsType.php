@@ -16,8 +16,8 @@ class DiscountsType extends AbstractType
     {
         $builder -> add('file', new \LaNet\LaNetBundle\Form\Type\ImageUpload(), array('required' => false, 'image_path' => 'webPath'))
                 ->add('description', 'textarea', array('label' => 'Описание'))
-                ->add('startDate', 'text', array( 'required'  => false,  'label' => 'Дата начала:', 'attr' => array('class' => 'datepicker half', 'readonly' => true))) 
-                ->add('endDate', 'text', array( 'required'  => false,  'label' => 'Дата окончания:', 'attr' => array('class' => 'datepicker half', 'readonly' => true))) 
+                ->add('startDate', 'text', array( 'required'  => false,  'label' => 'Дата начала:', 'attr' => array('class' => 'datepicker third', 'readonly' => true))) 
+                ->add('endDate', 'text', array( 'required'  => false,  'label' => 'Дата окончания:', 'attr' => array('class' => 'datepicker third', 'readonly' => true))) 
                 ->add('save', 'submit', array('label' => 'Сохранить'));
 
             

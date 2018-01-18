@@ -15,6 +15,46 @@ use Symfony\Component\HttpFoundation\Request;
 class SchoolCenterRepository extends EntityRepository
 {
     
+    public function findListSchoolsByPeriod($period ='', $name = '')
+    {
+       
+     $searchterm = '';   
+        
+      if ($name){
+          $searchterm = preg_replace('/_|%/', '\$1', $name);
+        }
+        
+      switch ($period) {
+        case "day":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+             
+        break;
+     
+        case "week":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+        break;
+    
+        case "month":
+            $date= new \DateTime('-1'.$period );
+            $wherePeriod =" AND u.created >= '" . $date->format('Y-m-d H:i:s'). "'";
+        break;
+            
+        case "":
+              $wherePeriod = " ";
+        break;
+             }
+                         
+ $query = $this->_em->createQuery("SELECT s, u FROM LaNetLaNetBundle:School s 
+                                                    LEFT JOIN s.user u     
+                                                    WHERE (s.name LIKE :like OR u.email LIKE :like)".$wherePeriod."ORDER BY s.inTop DESC, u.created DESC")
+                    ->setParameters(array('like' => '%'.$searchterm.'%'));
+                             
+
+ return $query->getResult();
+    }  
+    
      public function findFilteredSchools($peginator = false, $onPage = 1, $region = false)
     {
       $request = Request::createFromGlobals();

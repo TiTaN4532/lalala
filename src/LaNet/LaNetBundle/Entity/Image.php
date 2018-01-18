@@ -58,7 +58,7 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     protected $image;
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable = true)
      */
     protected $description;
     
@@ -67,6 +67,11 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
      * @ORM\Column(type="boolean", nullable = true)
      */
     protected $gallery;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable = true)
+     */
+    protected $link;
     
 
     /**
@@ -123,6 +128,29 @@ class Image extends \LaNet\LaNetBundle\Model\UploadImages
     public function getGallery()
     {
         return $this->gallery;
+    }
+    
+    /**
+     * Set link
+     *
+     * @param string $link
+     * @return Link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLink()
+    {
+        return $this->link;
     }
 
     /**

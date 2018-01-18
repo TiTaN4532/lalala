@@ -553,7 +553,24 @@
        
     $(document).ready(function(){
   
-      
+      $('.banner-redirection').on("click", "img", function(event) { 
+          
+          event.preventDefault();
+          var banner_id = $(event.target).parent().attr('data-banner-id');
+          
+          $.ajax({
+                    url: Routing.generate('la_net_la_net_ajax_banner'),
+                    data: {banner_id: banner_id},
+                    success     : function(respons) {
+                      if (respons.link != 0 ){
+                          var data = (respons);
+                          window.open(data.link, '_blank');
+                         }
+                    }
+            })      
+          
+    
+        })
       
       
         $("#myModal").css({

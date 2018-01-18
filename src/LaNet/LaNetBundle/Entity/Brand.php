@@ -81,7 +81,7 @@ class Brand extends \LaNet\LaNetBundle\Model\UploadImages
     
      /**
      * @ORM\ManyToMany(targetEntity="BrandsCategory", inversedBy="brand")
-     * @ORM\JoinTable(name="brandsS_categories")
+     * @ORM\JoinTable(name="brands_categories")
      */
     protected $brandsCategory;
     

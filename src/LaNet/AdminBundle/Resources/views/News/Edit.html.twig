@@ -34,12 +34,22 @@
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
     {{ form_row(form.post) }}
-    <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
+    <a href="javascript:void(0);" onclick="javascript:openFileInput('gallery-photo-add')" class="button">Upload multiple</a>
+       <input name="files[]" type="file" multiple id="gallery-photo-add" style="display:none">
+        
+     <div class="gallery"></div>
+    
+       <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
          {% for image in form.portfolio %}
            <li>
               {{ form_widget(image.file) }}
               {{ form_row(image.description) }}
-           </li>
+              {{ form_row(image.link) }}
+              
+              {%if image.vars.value.link == '1' %}
+               <div><input type="text" value="{{ app.request.scheme ~ '://' ~ app.request.host }}{{asset(image.vars.value.getWebPath)}}"></div>
+                {% endif %}
+            </li>
          {% endfor %}
        </ul>
     <div>

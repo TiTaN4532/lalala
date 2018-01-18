@@ -12,16 +12,16 @@ use LaNet\AdminBundle\Form\Type as LaForm;
 class SchoolController extends BaseController
 {
   
-  /*public function mainAction(Request $request)
+  public function mainAction(Request $request)
   {
-     $resDay = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('day');
-     $resWeek = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('week');
-     $resMonth = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons('month');
-     $resAll = $this->manager->getRepository('LaNetLaNetBundle:Salon')->findListSalons();
+     $resDay = $this->manager->getRepository('LaNetLaNetBundle:School')->findListSchoolsByPeriod('day');
+     $resWeek = $this->manager->getRepository('LaNetLaNetBundle:School')->findListSchoolsByPeriod('week');
+     $resMonth = $this->manager->getRepository('LaNetLaNetBundle:School')->findListSchoolsByPeriod('month');
+     $resAll = $this->manager->getRepository('LaNetLaNetBundle:School')->findListSchoolsByPeriod();
      
-     return $this->render('LaNetAdminBundle:Salon:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth), 'all' => count($resAll)));
+     return $this->render('LaNetAdminBundle:School:main.html.twig', array('day' => count($resDay), 'week' => count($resWeek), 'month' => count($resMonth), 'all' => count($resAll)));
   } 
-      */
+      
     
   public function listAction(Request $request)
     {

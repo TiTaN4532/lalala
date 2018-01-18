@@ -60,7 +60,7 @@
             
             <div>
   <a href='#' style="padding-top:20px;" id='trigger'><h4>Расширеный поиск</h4></a>
-  <div id='box' style='{% if not app.request.query.get('category') %}display: none; {% endif %}padding-bottom:20px;'><div class="lable-for-search" style="margin:10px 0 ;"><h6>{{ "Поиск бренда по категории:" | upper }}</h6></div>
+  <div id='box' style='{% if not app.request.query.get('category') %}display: none; {% endif %}padding-bottom:20px;'><div class="lable-for-search" style="margin:10px 0 ;"><h6>{{ "Поиск бренда по категории:"}}</h6></div>
    
         <select name="category" class="half">
           <option  value="">Выберите категорию</option>
@@ -174,13 +174,7 @@
             $('#add-brand-btn').show();  
             });
             
-           
-            
-        
-        
-        
-        
-        });  
+          });  
         
    </script> 
    

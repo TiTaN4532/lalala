@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use LaNet\LaNetBundle\Entity as LaEntity;
 use LaNet\LaNetBundle\Form\Type as LaForm;
+use LaNet\AdminBundle\Form\Type as Adm;
 
 class UpcomingEventsController extends BaseController
 {
@@ -39,7 +40,7 @@ class UpcomingEventsController extends BaseController
         }
       }
       
-      $form = $this->createForm(new LaForm\UpcomingEventsType(), $eventsPost);
+      $form = $this->createForm(new Adm\UpcomingEventsAdmType(), $eventsPost);
          
            
         if ('POST' == $request->getMethod()) {

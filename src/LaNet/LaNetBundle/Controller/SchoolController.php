@@ -99,6 +99,7 @@ class SchoolController extends BaseController
     public function profilePortfolioAction(Request $request)
     {
         $School = $this->user->getSchoolInfo();
+        $premium = $this->user->getPremium();
         $form = $this->createForm(new LaForm\SchoolPortfolioType(), $School);
         
         if ('POST' == $request->getMethod()) {
@@ -117,7 +118,7 @@ class SchoolController extends BaseController
             return $this->redirect($this->generateUrl('la_net_la_net_school_profile_portfolio'));
         }
       }
-        return $this->render('LaNetLaNetBundle:School:profilePortfolio.html.twig', array('form' => $form->createView()));
+        return $this->render('LaNetLaNetBundle:School:profilePortfolio.html.twig', array('form' => $form->createView(), 'premium' => $premium));
     }
     
     public function profileServicePriceAction(Request $request)
@@ -219,4 +220,37 @@ class SchoolController extends BaseController
       
       return $this->render('LaNetLaNetBundle:School:schoolId.html.twig', array('school' => $school, 'voteDisable' => $voteDisable));
     }
+    
+    public function profileValidationAction(Request $request)
+    {
+        $uniqId = $this->user->getValidation(); 
+        
+        if (!$uniqId){
+           $uniqId = uniqid();
+           $user = $this->user->setValidation($uniqId); 
+           $this->manager->persist($user);
+           $this->manager->flush();
+        }
+        
+        $mail = $this->user->getEmail(); 
+        
+        /*$message = \Swift_Message::newInstance()
+                     ->setSubject('Повторная валидация')
+                     //->setSubject($data['subject'])
+                     ->setFrom('info@lalook.net')
+                     ->setTo($mail)
+                     ->setBody("Здравствуйте!
+                     Для валидации Вашего профиля перейдите по ссылке ниже:
+                     http://lalook.net/user/validation/$uniqId
+
+                     Вход в личный кабинет http://lalook.net/login
+                      ");
+             
+              $this->get('mailer')->send($message);*/
+        $respons['success'] = true;
+        $respons['mail'] = $mail;
+        
+        return new JsonResponse($respons);
+        
+      }
 }

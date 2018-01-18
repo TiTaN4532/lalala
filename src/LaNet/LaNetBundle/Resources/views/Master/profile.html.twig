@@ -12,15 +12,22 @@
     <div>{{ form_widget(mail.name) }}</div>
 {% endmacro %}
 
-
-
-        
+       
 {% block menu %}
   {% include "LaNetLaNetBundle:Master:menu.html.twig" %}
 {% endblock %}
         
       
 {% block profile_content %}
+
+  {% if valid is defined %} 
+    {% if valid == '1' %}
+        
+    {% else %}
+        <div><h4 style="color:#c2d9b1;">{{ "Email не валидирован"  }}</h4></div>
+        <div id="validation-repeat-success" ><a id="validation-repeat" href="{{ path('la_net_la_net_master_profile_validation_repeat') }}">Повторно отправить письмо с валидацией</a></div>
+    {% endif %}
+  {% endif %}
 
    <h1>Основная информация</h1>
 
@@ -41,11 +48,7 @@
                         {{ form_widget(form.userInfo.lastName) }}
                     </div>
                 </div>
-                 <div class="row">
-                    <div class="col col_1_of_1">
-                        {% if valid is defined %} Валидация: {% if valid == '1' %}Да{% else %}Нет{% endif %}{% endif %}
-                    </div>
-                </div>
+                
                <div class="row">
                     <div class="col col_1_of_3">{{ form_row(form.userInfo.gender) }}</div>
                     <div class="col col_2_of_3">{{ form_row(form.userInfo.birthday) }}</div>
@@ -89,7 +92,7 @@
                             title:"Hello World!" 
                         });
                         $.ajax({
-                            url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#lanet_master_profile_userInfo_location_lat').val() + "," +  $('#lanet_master_profile_userInfo_location_lang').val() + "&sensor=false&language=ru",
+                            url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#lanet_master_profile_userInfo_location_lat').val() + "," +  $('#lanet_master_profile_userInfo_location_lang').val() + "&sensor=false&language=ru",
                             success     : function(data) {
                                    input.value = (data.results[0].formatted_address);
                                  }});
@@ -99,7 +102,7 @@
                         google.maps.event.addListener(map, 'click', function(event) 
                             {
                                 $.ajax({
-                                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
+                                    url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
                                     success     : function(data) {
                                           fill_address(data);    
                                           $('#lanet_master_profile_userInfo_location_lang').val(event.latLng.lng());
@@ -118,7 +121,7 @@
                             var position = place.geometry.location;
                                         
                             $.ajax({
-                                url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.lat() + "," + position.lng() + "&sensor=false&language=ru",
+                                url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.lat() + "," + position.lng() + "&sensor=false&language=ru",
                                 success     : function(data) {
                                         
                                        fill_address(data);               
@@ -271,11 +274,26 @@
   <script>
       $(document).ready(function(){
           
+           $('#validation-repeat').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    var mail = data.mail;
+                    $('#validation-repeat').remove();   
+                    $('#validation-repeat-success').append('<div>Письмо для подтверждения валидации повторно отправлено на '+mail+'</div>')          
+                }
+            });
+          });        
+          
+          
+          
           $("#lanet_master_profile_phone_0_number").intlTelInput({
             //hiddenInput: "full_phone",
             nationalMode: false,
             preferredCountries: ['ua'],
-            utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+            //utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
           });
 
           
@@ -288,4 +306,6 @@
           
       })
       </script>
+      
+      
 {% endblock %}

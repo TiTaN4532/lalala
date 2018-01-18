@@ -27,8 +27,19 @@
                 <div class="row">
                     <div class="col col_1_of_1">
                         {{ form_row(form.description) }}
-                        {{ form_row(form.startDate) }}
-                        {{ form_row(form.endDate) }}
+                          <div>
+                            {{ form_label(form.startDate) }}
+                          </div>
+                          <div>
+                            {{ form_widget(form.startDate) }}
+                          </div>
+                          <div>
+                            {{ form_label(form.endDate) }}
+                          </div>
+                          <div>
+                            {{ form_widget(form.endDate) }}
+                          </div>
+                        
                     </div>
                 </div>
                
@@ -69,17 +80,17 @@
         $.datepicker.setDefaults($.datepicker.regional['ru']);
 });
 
-  $(function() {
+   $(function() {
     $( ".datepicker" ).datepicker({
       showOn: "button",
-      buttonImage: "{{asset('images/calendar.gif')}}",
+      buttonImage: "{{asset('images/Time-And-Date-Calendar-icon.png')}}",
       buttonImageOnly: true,
-      buttonText: "Select date",
-          
+      buttonText: "Select date",  
+        
       changeMonth: true,
       changeYear: true,
       dateFormat: 'dd.mm.yy',
-      yearRange: "-100:+1",
+      yearRange: "-100:+11",
     });
   });
   

@@ -19,7 +19,7 @@ class SchoolServiceType extends AbstractType
             ->add('services', 'collection', array(
                               'label' => 'Список услуг:',
                              'by_reference' => false,
-                             'type'         => new ServiceType(),
+                             'type'         => new ServiceTypeSchool(),
                              'allow_add'    => true,
                              'allow_delete'    => true,
                   ))

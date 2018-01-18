@@ -290,7 +290,7 @@
             {{ form_widget(form.userInfo.startWork) }#}
         </div>
     </div> 
-    {% elseif app.request.get('type') == 'consumer' %}   
+    {#{% elseif app.request.get('type') == 'consumer' %}   
       <div class="row">
         <div class="col col_1_of_2">
             {{ form_widget(form.userInfo.firstName) }}
@@ -310,7 +310,7 @@
       
       <div class="row">
         <div class="col col_1_of_6">
-           {#{ form_label(form.userInfo.gender, null, {'label_attr': {'class': 'blue-label'}}) }}
+           { form_label(form.userInfo.gender, null, {'label_attr': {'class': 'blue-label'}}) }}
            {{ form_widget(form.userInfo.gender) }}
         </div>
         <div class="col col_2_of_6 error">
@@ -337,10 +337,10 @@
             <ul class="mail" data-prototype="{{ _self.mail_prototype(form.mail.vars.prototype)|e }}">
                 {% for item in form.mail %}
                     <li>{{ form_widget(item.name) }}</li>
-                {% endfor %#}
+                {% endfor %
             </ul>  
           </div>
-        </div>
+        </div>#}
     {% elseif app.request.get('type') == 'salon' %} 
       <div class="row">
         <div class="col col_1_of_2">
@@ -668,7 +668,14 @@
     {% elseif app.request.get('type') == 'shop' %}   
         {{ form_row(form.userInfo.name) }}
     {% elseif app.request.get('type') == 'school_center' %}   
-        {{ form_row(form.userInfo.name) }}
+       <div class="row">
+        <div class="col col_1_of_2">
+            {{ form_widget(form.userInfo.name) }}
+        </div>
+        <div class="col col_1_of_2 error">
+            {{ form_errors(form.userInfo.name) }}
+        </div>
+      </div>
        {# {{ form_row(form.userInfo.category) }}#}
     {% endif %}
         <hr />

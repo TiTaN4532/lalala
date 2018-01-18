@@ -52,7 +52,7 @@ class MenuController extends BaseController {
         $em = $this->getDoctrine()->getEntityManager();
         $connection = $em->getConnection();
         $statement = $connection->prepare("SELECT b.name, b.id FROM brand b 
-                                                   LEFT JOIN brandsS_categories bc ON b.id = bc.brand_id
+                                                   LEFT JOIN brands_categories bc ON b.id = bc.brand_id
                                                    WHERE brandscategory_id = :id AND b.is_draft IS NULL AND b.validation = 1 ORDER BY b.inTop DESC, b.name ASC");
         $statement->bindValue('id', $brandCategory);
         $statement->execute();
@@ -62,7 +62,7 @@ class MenuController extends BaseController {
       
     }
     
-    public function getBrandByBrandCatAction(Request $request) {
+    /*public function getBrandByBrandCatAction(Request $request) {
 
        
         $request = $this->container->get('request');
@@ -77,7 +77,7 @@ class MenuController extends BaseController {
       
         return new JsonResponse( $response);
       
-    }
+    }*/
     
     public function getProductCategoryAction(Request $request) {
 
@@ -314,7 +314,7 @@ class MenuController extends BaseController {
       return new JsonResponse($response);
     }
     
-    public function getBrandOnBrandsCategory()
+    /*public function getBrandOnBrandsCategory()
             
      {  
         $request = Request::createFromGlobals();
@@ -328,6 +328,6 @@ class MenuController extends BaseController {
     
         return $result;
      }
-     
+     */
        
 }

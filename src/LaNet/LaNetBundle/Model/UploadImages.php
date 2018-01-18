@@ -15,6 +15,7 @@ abstract class UploadImages {
      */
     public function setFile($file)
     {
+       
         $this->file = $file;
         // check if we have an old image path
         if (isset($this->image)) {

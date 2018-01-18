@@ -26,6 +26,16 @@
         
       
 {% block profile_content %}
+    
+    {#{% if valid is defined %} 
+    {% if valid == '1' %}
+        
+    {% else %}
+        <div><h4 style="color:#c2d9b1;">{{ "Email не валидирован"  }}</h4></div>
+        <div id="validation-repeat-success" ><a id="validation-repeat" href="{{ path('la_net_la_net_brands_profile_validation_repeat') }}">Повторно отправить письмо с валидацией</a></div>
+    {% endif %}
+  {% endif %}#}
+  
 <h1>Основная информация</h1>
 
 <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
@@ -101,11 +111,24 @@
 <script>
    $(document).ready(function(){
 
+       /* $('#validation-repeat').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    var mail = data.mail;
+                    $('#validation-repeat').remove();   
+                    $('#validation-repeat-success').append('<div>Письмо для подтверждения валидации повторно отправлено на '+mail+'</div>')          
+                }
+            });
+          });  */
+        
         $("#lanet_brand_profile_userInfo_phone").intlTelInput({
           //hiddenInput: "full_phone",
           nationalMode: false,
           preferredCountries: ['ua'],
-          utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+          //utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
         });
 
     })

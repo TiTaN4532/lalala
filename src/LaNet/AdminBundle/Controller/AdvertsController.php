@@ -42,7 +42,7 @@ class AdvertsController extends BaseController
         $form->bind($request);
        
         if ($form->isValid()) {
-         
+            
          if ($form->get('public')->isClicked()) {
               $advertsPost->setIsDraft(NULL);
           }

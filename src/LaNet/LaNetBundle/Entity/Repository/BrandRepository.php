@@ -37,7 +37,7 @@ class BrandRepository extends EntityRepository
         return $query->getResult();
     }
     
-     public function getBrandOnBrandsCategory()
+     /*public function getBrandOnBrandsCategory()
             
      {  
         $request = Request::createFromGlobals();
@@ -52,7 +52,7 @@ class BrandRepository extends EntityRepository
         return $result;
         
       
-}
+}*/
 
      public function getBrandList ($id)
             

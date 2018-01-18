@@ -32,24 +32,38 @@
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
     {{ form_row(form.post) }}
-    <div style="padding-top: 10px;">{{ form_row(form.date) }}  </div>
-     
+     <div style="padding-top: 10px;">
+          {{ form_label(form.date) }}
+      </div>
+     <div style="padding-bottom: 7px;">
+         {{ form_widget(form.date) }}
+     </div>
     {{ form_row(form.video) }}
-      <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
+      <a href="javascript:void(0);" onclick="javascript:openFileInput('gallery-photo-add')" class="button">Upload multiple</a>
+       <input name="files[]" type="file" multiple id="gallery-photo-add" style="display:none">
+        
+     <div class="gallery"></div>
+    
+       <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
          {% for image in form.portfolio %}
            <li>
               {{ form_widget(image.file) }}
               {{ form_row(image.description) }}
-           </li>
+              {{ form_row(image.link) }}
+              
+              {%if image.vars.value.link == '1' %}
+               <div><input type="text" value="{{ app.request.scheme ~ '://' ~ app.request.host }}{{asset(image.vars.value.getWebPath)}}"></div>
+                {% endif %}
+            </li>
          {% endfor %}
        </ul>
     <div>
-      <button id="cancel-tests-btn">Назад</button>
-    {{ form_widget(form.save_draft) }}
-    {{ form_widget(form.add_post) }}
+        <button id="cancel-tests-btn">Назад</button>
+      {{ form_widget(form.save_draft) }}
+      {{ form_widget(form.add_post) }}
     </div>
-     {# {{ form_rest(form) }} #}
-     {{ form_row(form._token) }}
+         {# {{ form_rest(form) }} #}
+         {{ form_row(form._token) }}
   </form>
 <script>
      
@@ -109,7 +123,7 @@
   $(function() {
     $( ".datepicker" ).datepicker({
       showOn: "button",
-      buttonImage: "{{asset('images/calendar.gif')}}",
+      buttonImage: "{{asset('images/Time-And-Date-Calendar-icon.png')}}",
       buttonImageOnly: true,
       buttonText: "Select date",  
         

@@ -105,7 +105,9 @@ class BannersController extends BaseController {
         return $this->render('LaNetLaNetBundle::banners.html.twig', array('banners' => $result));
     }
 
-    public function CountAction($id) {
+    public function CountAction(Request $request) 
+    {
+        $id = $request->get('banner_id');
         $em = $this->getDoctrine()->getManager();
 
         $banner = $em->getRepository('LaNetLaNetBundle:Banners')->find($id);
@@ -121,8 +123,11 @@ class BannersController extends BaseController {
         $em->persist($clickStat);
 
         $em->flush();
-
-        return $this->redirect($banner->getLink());
+        
+        $respons['link'] = $banner->getLink();
+        //return $this->redirect($banner->getLink());
+        
+        return new JsonResponse($respons);
     }
 
     public function isDraftAction(Request $request, $id)

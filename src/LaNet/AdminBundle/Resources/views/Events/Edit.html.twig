@@ -27,14 +27,28 @@
 {% endblock %}
   
 {% block content %}
+       
+    
+    
   <h2>{% if events.getId %}Обновить "{{ events.title }}"{% else %}Создать событие{% endif %}</h2>
   <form action="" method="post" {{ form_enctype(form) }} class="frm-project">
         {{ form_widget(form.file) }}
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
     {{ form_row(form.post) }}
-    {{ form_row(form.date) }}    
+    <div style="padding-top: 10px;">
+          {{ form_label(form.date) }}
+    </div>
+    <div style="padding-bottom: 7px;">
+         {{ form_widget(form.date) }}
+    </div>
+    
     {{ form_row(form.video) }}
+    
+    <a href="javascript:void(0);" onclick="javascript:openFileInput('gallery-photo-add')" class="button">Upload multiple</a>
+       <input name="files[]" type="file" multiple id="gallery-photo-add" style="display:none">
+        
+     <div class="gallery"></div>
     
        <ul class="images" style="list-style-type: none;" data-prototype="{{ form_widget(form.portfolio.vars.prototype)|e }}">
          {% for image in form.portfolio %}
@@ -42,7 +56,12 @@
               {{ form_widget(image.file) }}
               {{ form_row(image.description) }}
               {{ form_row(image.gallery) }}
-           </li>
+              {{ form_row(image.link) }}
+              
+              {%if image.vars.value.link == '1' %}
+               <div><input type="text" value="{{ app.request.scheme ~ '://' ~ app.request.host }}{{asset(image.vars.value.getWebPath)}}"></div>
+                {% endif %}
+            </li>
          {% endfor %}
        </ul>
     <div>
@@ -54,32 +73,6 @@
          {{ form_row(form._token) }}
   </form>
   
-  
-  {#<div id="articles_portfolio___name__">
-        <div>
-            <label for="articles_portfolio___name___file">Фото:</label>
-            <div class="float-left">
-                <img id="articles_portfolio___name___file_image" style="width:400px;" src="/vhost/lalook/web/uploads/images/default.png" class="image-upload-preview" />
-            </div>
-            <a href="javascript:void(0);" onclick="javascript:openFileInput('articles_portfolio___name___file')" class="button">Upload</a>
-            <input type="file" id="articles_portfolio___name___file" name="articles[portfolio][__name__][file]" style="display:none"/>
-            
-            <script type="text/javascript">
-                $("#articles_portfolio___name___file").change(function(){ 
-                    readURL(this, 'articles_portfolio___name___file_image');
-                }); 
-            </script>
-        </div>
-        
-        <div>
-            <label for="articles_portfolio___name___description" class="required">Описание:</label>
-            <input type="text" id="articles_portfolio___name___description" name="articles[portfolio][__name__][description]" required="required" /></div>
-        
-        <div>
-            <label for="articles_portfolio___name___gallery">Отображать в галерее на главной</label>
-            <input type="checkbox" id="articles_portfolio___name___gallery" name="articles[portfolio][__name__][gallery]" value="1" />
-        </div>
-    </div>#}
   
   <script>
       $(document).ready(function(){
@@ -139,14 +132,20 @@
                 yearSuffix: ''};
         $.datepicker.setDefaults($.datepicker.regional['ru']);
 });
-  $(function() {
+   $(function() {
     $( ".datepicker" ).datepicker({
+      showOn: "button",
+      buttonImage: "{{asset('images/Time-And-Date-Calendar-icon.png')}}",
+      buttonImageOnly: true,
+      buttonText: "Select date",  
+        
       changeMonth: true,
       changeYear: true,
       dateFormat: 'dd-mm-yy',
       yearRange: "-100:+11",
     });
   });
+    
   </script>
 {% endblock %}
 

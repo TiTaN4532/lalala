@@ -42,7 +42,7 @@ ul.sub-categories li{
 }
 
 .lable-for-search {
-   font-family: 'inherit';
+   font-family: 'Comfortaa';
 }
 
 
@@ -383,6 +383,9 @@ ul.dropdown-menu li {
     margin-right: 0px;
 }
 
+#registration {
+    min-height: 400px;
+}
 
 .registration-brand {
     margin-bottom: 67px;
@@ -854,6 +857,12 @@ ul li ul li a.active {
     font-size: 14px;
     color: #181818;
 }
+
+.item-title-upcoming-events{
+    min-height: 50px;
+}
+
+
 
 .item-title a {
     color: #181818;
@@ -1580,6 +1589,14 @@ padding-top: 10px;
   text-align:justify;
  }
 
+ .ui-datepicker-trigger {
+    margin-left: -28px;
+    margin-top: -9px;
+}
+
+#rating-block {
+    padding-top: 10px;
+}
 
 
 

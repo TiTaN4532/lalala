@@ -21,6 +21,16 @@
         
       
 {% block profile_content %}
+    
+    {% if valid is defined %} 
+    {% if valid == '1' %}
+        
+    {% else %}
+        <div><h4 style="color:#c2d9b1;">{{ "Email не валидирован"  }}</h4></div>
+        <div id="validation-repeat-success" ><a id="validation-repeat" href="{{ path('la_net_la_net_school_profile_validation_repeat') }}">Повторно отправить письмо с валидацией</a></div>
+    {% endif %}
+  {% endif %}
+    
 <h1>Основная информация</h1>
 
 <form action="" {{ form_enctype(form) }} method="POST" name="{{ form.vars.name }}">
@@ -36,12 +46,7 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row">
-                    <div class="col col_1_of_1">
-                        {% if valid is defined %} Валидация: {% if valid == '1' %}Да{% else %}Нет{% endif %}{% endif %}
-                    </div>
-                </div>
-                <hr />
+                
             </div>
         </div>
         {{ form_row(form.userInfo.link) }}
@@ -73,7 +78,7 @@
                             title:"Hello World!" 
                         });
                         $.ajax({
-                            url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#lanet_shool_profile_userInfo_location_lat').val() + "," +  $('#lanet_school_profile_userInfo_location_lang').val() + "&sensor=false&language=ru",
+                            url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#lanet_school_profile_userInfo_location_lat').val() + "," +  $('#lanet_school_profile_userInfo_location_lang').val() + "&sensor=false&language=ru",
                             success     : function(data) {
                                    input.value = (data.results[0].formatted_address);
                                  }});
@@ -83,11 +88,11 @@
                         google.maps.event.addListener(map, 'click', function(event) 
                             {
                                 $.ajax({
-                                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
+                                    url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&sensor=false&language=ru",
                                     success     : function(data) {
                                           fill_address(data);    
-                                          $('#lanet_shool_profile_userInfo_location_lang').val(event.latLng.lng());
-                                          $('#lanet_shool_profile_userInfo_location_lat').val(event.latLng.lat());
+                                          $('#lanet_school_profile_userInfo_location_lang').val(event.latLng.lng());
+                                          $('#lanet_school_profile_userInfo_location_lat').val(event.latLng.lat());
                                           input.value = (data.results[0].formatted_address);
                                          }
                                 });
@@ -102,12 +107,12 @@
                             var position = place.geometry.location;
                                         
                             $.ajax({
-                                url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.lat() + "," + position.lng() + "&sensor=false&language=ru",
+                                url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.lat() + "," + position.lng() + "&sensor=false&language=ru",
                                 success     : function(data) {
                                         
-                                       fill_address(data);               
-                                       $('#lanet_shool_profile_userInfo_location_lang').val(position.lng());
-                                       $('#lanet_shool_profile_userInfo_location_lat').val(position.lat());
+                                       fill_address(data);  
+                                       $('#lanet_school_profile_userInfo_location_lang').val(position.lng());
+                                       $('#lanet_school_profile_userInfo_location_lat').val(position.lat());
                                        input.value = (data.results[0].formatted_address);
                                      }});
                             if (place.geometry.viewport) {
@@ -128,22 +133,22 @@
                         for (var i = 0; i < data.results[0].address_components.length; i++) {
                             switch(data.results[0].address_components[i].types[0]) {
                                 case "country":
-                                    $('#lanet_shool_profile_userInfo_location_country').val(data.results[0].address_components[i].long_name);
+                                    $('#lanet_school_profile_userInfo_location_country').val(data.results[0].address_components[i].long_name);
                                     break;
                                 case "administrative_area_level_1":
-                                    $('#lanet_shool_profile_userInfo_location_administrative_area').val(data.results[0].address_components[i].long_name);
+                                    $('#lanet_school_profile_userInfo_location_administrative_area').val(data.results[0].address_components[i].long_name);
                                     break;
                                 case "locality":
-                                    $('#lanet_shool_profile_userInfo_location_locality').val(data.results[0].address_components[i].long_name);
+                                    $('#lanet_school_profile_userInfo_location_locality').val(data.results[0].address_components[i].long_name);
                                     break;
                                 case "sublocality_level_1":
-                                    $('#lanet_shool_profile_userInfo_location_sublocality').val(data.results[0].address_components[i].long_name);
+                                    $('#lanet_school_profile_userInfo_location_sublocality').val(data.results[0].address_components[i].long_name);
                                     break;
                                 case "route":
-                                    $('#lanet_shool_profile_userInfo_location_route').val(data.results[0].address_components[i].long_name);
+                                    $('#lanet_school_profile_userInfo_location_route').val(data.results[0].address_components[i].long_name);
                                     break;
                                 case "street_number":
-                                    $('#lanet_shool_profile_userInfo_location_streetNumber').val(data.results[0].address_components[i].long_name);
+                                    $('#lanet_school_profile_userInfo_location_streetNumber').val(data.results[0].address_components[i].long_name);
                                     break;
                             }
                         }
@@ -192,11 +197,24 @@
 <script>
    $(document).ready(function(){
 
+         $('#validation-repeat').click(function(event) {
+            event.preventDefault();
+            var element = $(this);
+            $.ajax({
+                url         : element.attr('href'),
+                success     : function(data) {
+                    var mail = data.mail;
+                    $('#validation-repeat').remove();   
+                    $('#validation-repeat-success').append('<div>Письмо для подтверждения валидации повторно отправлено на '+mail+'</div>')          
+                }
+            });
+          });  
+
         $("#lanet_school_profile_phone_0_number").intlTelInput({
           //hiddenInput: "full_phone",
           nationalMode: false,
           preferredCountries: ['ua'],
-          utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
+          //utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
         });
 
     })

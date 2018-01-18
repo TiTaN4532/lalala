@@ -23,7 +23,7 @@
 <div class="school-id">
   <div class="row">
     <div class="col col_1_of_3">
-        <a href="{{ asset(school.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ school.name | upper }}"><img src="{{ school.getWebPath | imagine_filter('my_master_thumb_large') }}" /></a>
+        <a href="{{ asset(school.getWebPath) }}" rel="group-profile-image" class="fancybox" title="{{ school.name | upper }}"><img src="{{ school.getWebPath | imagine_filter('my_master_large') }}" /></a>
         
         {% if school.getUser.premium is defined %} 
             {% if school.getUser.premium == 1 %}
@@ -41,10 +41,10 @@
       <div class="col col_2_of_3">
         <h2 style="color:#578fac;">{{ school.name | upper }}</h2>
         <h5 style="float:left;margin-right: 10px; color:#c2d9b1;">{{ "Основная информация:" | upper }}</h5><hr align="right" style="width:auto;margin-top: 28px" size="2" color="#AAA" />
-        {% if school.category is not empty %} 
+        {% if school.brandsCategory is not empty %} 
             <div class="row">
-              <div class="col col_1_of_3 blue">специальность:</div>
-              <div class="col col_2_of_3">{% for item in school.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+              <div class="col col_1_of_3 blue">специализация:</div>
+              <div class="col col_2_of_3">{% for item in school.brandsCategory %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
             </div>
         {% endif %}
         {% if (school.location and school.location.locality) %}
@@ -167,8 +167,12 @@
     $(document).ready(function() {
 	$(".fancybox").fancybox({
 		openEffect	: 'none',
-		closeEffect	: 'none'
-	});
+              	closeEffect	: 'none',
+                helpers: { overlay: {
+                            locked: false
+                            }
+                }
+	 });
        
        $('.solid-stars').raty({
        path: "{{ asset('images/') }}",
