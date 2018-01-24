@@ -62,6 +62,11 @@ class Location
      */
     private $lat;
     
+     /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $address;
+    
  
     /**
      * @ORM\OneToOne(targetEntity="Consumer", inversedBy="location")
@@ -100,7 +105,28 @@ class Location
         return $this->id;
     }
 
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Location
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
     
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
     
 
     /**

@@ -463,11 +463,9 @@
 
          $('.event-with-video').on("click", "img", function(event) {
               
-                                           
                if ($(event.target).parent().hasClass("video-content")){
                  event.preventDefault();
                                 
-                //div куда выводим содержимое с видео
                 var main_div = $("#main-event-video"); 
               
                 if (main_div.find('h3').hasClass("without-video")){
@@ -481,8 +479,7 @@
                 var main_id = main_div.attr("event-id");
                 var main_img = main_div.attr("data-img");
                 var main_href = main_div.find('a').attr("href");
-                
-                //откуда берем данные
+               
                 var div = $(event.target).parents("div:first");
                 div.children(":first").remove();
                 var event_id = div.attr("event-id");
@@ -539,10 +536,6 @@
     });
   </script>   
   
-  
-  
-  
- 
   
     <script>
      

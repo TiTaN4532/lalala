@@ -56,12 +56,12 @@
               <div class="col col_2_of_3">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
             </div>
         {% endif %}
-        {% if (master.location and master.location.locality) %}
+        {#{% if (master.location and master.location.locality) %}
             <div class="row">
               <div class="col col_1_of_3 blue">город:</div>
               <div class="col col_2_of_3">{{ master.location.locality }} {{ master.location.administrativearea }}</div>
             </div>
-        {% endif %}
+        {% endif %}#}
         {% if master.user.hasPhones %}
           <div class="row">
             <div class="col col_1_of_3 blue">телефон:</div>
@@ -142,6 +142,13 @@
       <div class="col col_1_of_3 blue">место работы:</div>
       <div class="col col_2_of_3">{{ master.location.locality }}, {{ master.location.sublocality }}, {{ master.location.route }} {{ master.location.streetNumber }}</div>
     </div>
+    {% else %}
+        {% if (master.location and master.location.address) %}
+            <div class="row clear">
+              <div class="col col_1_of_3 blue">адрес:</div>
+              <div class="col col_2_of_3">{{ master.location.address }}</div>
+            </div>  
+    {% endif %}
   {% endif %}
   {% if master.schedule is not empty %}              
     <div class="row clear">

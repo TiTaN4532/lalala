@@ -10,4 +10,5 @@
   <a href="{{ path('la_net_la_net_brands_id', { 'slug' : app.user.userinfo.slug }) }}">{{ app.user.getUserInfo.name | upper }}</a>
 {% elseif is_granted('ROLE_SHOP') %}
 {% elseif is_granted('ROLE_SCHOOL_CENTER') %}
+     <a href="{{ path('la_net_la_net_school_id', { 'id' : app.user.userinfo.id }) }}">{{ app.user.getUserInfo.name | upper }}</a>
 {% endif %}

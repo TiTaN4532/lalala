@@ -50,7 +50,7 @@
                         </div>
                         <div class="span4">
                             <div id="login">
-                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                               {# {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                     {% if not is_granted('ROLE_ADMIN') %}
                                         <div style="float:left;margin: 5px;"> {% include "LaNetLaNetBundle::profileImage.html.twig" %}</div>
                                     {% endif %}
@@ -65,7 +65,7 @@
                                     <a href="{{ path('fos_user_security_login') }}" id="enter">Войти</a>
                                     <div id="line2"></div>
                                     <a href="{{ path('fos_user_registration_register') }}" id="reg">Регистрация</a>
-                                {% endif %}
+                                {% endif %}#}
                                  </div>
                                  <div>
                                  <ul class="social-links">
@@ -89,7 +89,7 @@
                                     <a href="#">
                                         <i class="icon icon-instagram"></i>
                                     </a>
-                                </li>#]
+                                </li>#}
                             </ul>
                             </div>
                             <div  id="form2">

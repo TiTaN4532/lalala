@@ -58,7 +58,8 @@
         <div class="row">
             <div class="col col_1_of_1">
                 <label>Адрес:</label>
-                <input type="text" id="Service_address" style="width:100%;"/>
+                {{ form_widget(form.userInfo.location.address) }}
+                {#<input type="text" id="Service_address" style="width:100%;"/>
                 <div id="map" style="width:100%;height:150px;"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&sensor=false&libraries=places"></script>
                 <script>
@@ -160,7 +161,7 @@
                 {{ form_widget(form.userInfo.location.locality) }}
                 {{ form_widget(form.userInfo.location.sublocality) }}
                 {{ form_widget(form.userInfo.location.route) }}
-                {{ form_widget(form.userInfo.location.streetNumber) }}
+                {{ form_widget(form.userInfo.location.streetNumber) }}#}
                 {{ form_widget(form.userInfo.location.lang) }}
                 {{ form_widget(form.userInfo.location.lat) }}
                 </div>
@@ -217,6 +218,31 @@
           //utilsScript: "../../build/js/utils.js" // just for formatting/placeholders etc
         });
 
+    })
+</script>
+
+<script>
+   $(document).ready(function(){
+
+        $('#lanet_school_profile_userInfo_location_address').change(function(event) {
+            var element = $(this);
+            var addressInput = element.val();
+            console.log (addressInput);
+            $.ajax({
+                url         : "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&address="+addressInput+"&sensor=false&language=ru",
+                success     : function(data) {
+                    console.log(data);
+                    console.log(data.results[0].geometry.location.lat);
+                    console.log(data.results[0].geometry.location.lng);
+                    
+                    $('#lanet_school_profile_userInfo_location_lat').val(data.results[0].geometry.location.lat);
+                    $('#lanet_school_profile_userInfo_location_lang').val(data.results[0].geometry.location.lng);
+                    
+                }
+            });
+          }); 
+          
+        
     })
 </script>
         

@@ -44,12 +44,12 @@
               <div class="col col_2_of_3">{% for item in salon.brandsCategory %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
             </div>
         {% endif %}
-        {% if (salon.location and salon.location.locality) %}
+        {#{% if (salon.location and salon.location.locality) %}
             <div class="row">
               <div class="col col_1_of_3 blue">город:</div>
               <div class="col col_2_of_3">{{ salon.location.locality }} {{ salon.location.administrativearea }}</div>
             </div>
-        {% endif %}
+        {% endif %}#}
         {% if salon.user.hasPhones %}
         <div class="row">
             <div class="col col_1_of_3 blue">телефон:</div>
@@ -112,6 +112,13 @@
       <div class="col col_1_of_3 blue">адрес:</div>
       <div class="col col_2_of_3">{{ salon.location.locality }}, {{ salon.location.sublocality }}, {{ salon.location.route }} {{ salon.location.streetNumber }}</div>
     </div> 
+    {% else %}
+        {% if (salon.location and salon.location.address) %}
+            <div class="row clear">
+              <div class="col col_1_of_3 blue">адрес:</div>
+              <div class="col col_2_of_3">{{ salon.location.address }}</div>
+            </div>  
+    {% endif %}
   {% endif %}
   {% if salon.schedule is not empty %}              
     <div class="row clear">

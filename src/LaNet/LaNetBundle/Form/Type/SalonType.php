@@ -31,7 +31,7 @@ class SalonType extends AbstractType
                                                     'by_reference' => false,
                                                     'label' => 'Адрес:'
                                                   ));
-
+            
     }
     
     /**

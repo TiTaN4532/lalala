@@ -58,8 +58,7 @@ class User extends BaseUser
      * @ORM\OneToOne(targetEntity="School", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
     private $schoolInfo;
-
-
+    
     /**
      * @ORM\OneToMany(targetEntity="Phone", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
      */
@@ -370,7 +369,7 @@ class User extends BaseUser
     {
         return $this->shopInfo;
     }
-
+    
     public function addPhone(\LaNet\LaNetBundle\Entity\Phone $phone)
     {
         $phone->setUser($this);

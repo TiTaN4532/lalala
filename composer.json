@@ -25,7 +25,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "genemu/form-bundle": "2.2.*",
         "friendsofsymfony/jsrouting-bundle": "~1.1",
-        "liip/imagine-bundle": "dev-master"
+        "liip/imagine-bundle": "dev-master",
+        "symfony/console": "^3.4"
       },
     
  

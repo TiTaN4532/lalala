@@ -4,13 +4,28 @@
                 mode : "specific_textareas",
                 editor_selector : "TextEditor",
 		language: "ru",
+                /*setup: function(ed) {
+                    ed.on('keydown', function(event) {
+                        if (event.keyCode == 9) { // tab pressed
+                          if (event.shiftKey) {
+                            ed.execCommand('Outdent');
+                          }
+                          else {
+                            ed.execCommand('Indent');
+                          }
+
+                          event.preventDefault();
+                          return false;
+                        }
+                    });
+                },*/
                 theme : "modern",
                 images_upload_base_path: "/vhost/lalook/web",
-		plugins : "autolink,lists,pagebreak,layer,table,save,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,template,wordcount,advlist,autosave,visualblocks,image",
+		plugins : "autolink, textcolor, nonbreaking, lists,pagebreak,layer,table,save,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,template,wordcount,advlist,autosave,visualblocks,image",
 		// Theme options
                 toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | formatselect fontselect fontsizeselect",
                 toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | insertdatetime preview | forecolor backcolor",
-                toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars",
+                toolbar3: "nonbreaking table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars",
                 theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_statusbar_location : "bottom",
@@ -25,6 +40,8 @@
 		external_image_list_url : "lists/image_list.js",
 		media_external_list_url : "lists/media_list.js",
                 relative_urls: false,
+                nonbreaking_force_tab: true,
+                mewnubar: "insert",
                 remove_script_host: false,
 		// Style formats
 		style_formats : [

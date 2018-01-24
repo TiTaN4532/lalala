@@ -26,7 +26,7 @@ class SalonController extends BaseController
             $this->manager->remove($prevLocation);
             $this->manager->flush();
         }
-
+        
         $form->bind($request);
 
         if ($form->isValid()) {

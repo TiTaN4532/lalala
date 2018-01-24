@@ -27,6 +27,7 @@ class SalonProfileType extends AbstractType
                                                     'allow_delete'    => true,
                                                     'by_reference' => false,
                     ));
+                
     }
     
     /**
