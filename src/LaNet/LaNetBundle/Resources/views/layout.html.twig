@@ -395,7 +395,7 @@
             {% for image in gallery %}
      {% if loop.index < 15 %}
               <div class="col col_1_of_5">
-                <a href="{{ asset(image.getWebPath | imagine_filter('my_thumb_portfolio_large'))}}" rel="group1" class="fancybox" title="<a href='{{ path('la_net_la_net_events_id', { 'slug' : image.slug } ) }}'>{{ image.slug }}</a>"><img src="{{ asset(image.getWebPath | imagine_filter('my_thumb_portfolio'))}}" /></a>
+                <a href="{{ asset(image.getWebPath | imagine_filter('my_thumb_portfolio_large'))}}" rel="group1" class="fancybox" title="<a href='{{ path('la_net_la_net_events_id', { 'slug' : image.slug } ) }}'>{{ image.slug }}</a>"><img src="{{ asset(image.getWebPath | imagine_filter('my_main_page_portfolio_new'))}}" /></a>
               </div>
               {% if loop.index % 5 == 0 %}
                  </div> <br> <div class="row clear">

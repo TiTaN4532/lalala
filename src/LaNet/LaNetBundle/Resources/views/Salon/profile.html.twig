@@ -229,14 +229,11 @@
         $('#lanet_salon_profile_userInfo_location_address').change(function(event) {
             var element = $(this);
             var addressInput = element.val();
-            console.log (addressInput);
+            
             $.ajax({
                 url         : "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&address="+addressInput+"&sensor=false&language=ru",
                 success     : function(data) {
-                    console.log(data);
-                    console.log(data.results[0].geometry.location.lat);
-                    console.log(data.results[0].geometry.location.lng);
-                    
+                                       
                     $('#lanet_salon_profile_userInfo_location_lat').val(data.results[0].geometry.location.lat);
                     $('#lanet_salon_profile_userInfo_location_lang').val(data.results[0].geometry.location.lng);
                     

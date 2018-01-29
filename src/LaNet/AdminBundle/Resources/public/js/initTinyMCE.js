@@ -4,21 +4,6 @@
                 mode : "specific_textareas",
                 editor_selector : "TextEditor",
 		language: "ru",
-                /*setup: function(ed) {
-                    ed.on('keydown', function(event) {
-                        if (event.keyCode == 9) { // tab pressed
-                          if (event.shiftKey) {
-                            ed.execCommand('Outdent');
-                          }
-                          else {
-                            ed.execCommand('Indent');
-                          }
-
-                          event.preventDefault();
-                          return false;
-                        }
-                    });
-                },*/
                 theme : "modern",
                 images_upload_base_path: "/vhost/lalook/web",
 		plugins : "autolink, textcolor, nonbreaking, lists,pagebreak,layer,table,save,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,template,wordcount,advlist,autosave,visualblocks,image",
@@ -30,9 +15,10 @@
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_statusbar_location : "bottom",
 		theme_advanced_resizing : true,
-
+                
+                font_formats: 'Comfortaa=comfortaa; Andale Mono=andale mono,times;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Trebuchet MS=trebuchet ms,geneva;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats',
 		// Example content CSS (should be your site CSS)
-		content_css : main_css,
+		content_css : ""+main_css+", https://fonts.googleapis.com/css?family=Comfortaa",
 		
 	 	// Drop lists for link/image/media/template dialogs
 		template_external_list_url : "lists/template_list.js",

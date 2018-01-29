@@ -11,14 +11,14 @@
                                 {% if newsSideBar %}
                                 <div class="top-news">
                                      {% for post in newsSideBar %}  
-                                    <article class="top-news-item is-horizontal clearfix">
+                                         <article class="top-news-item is-horizontal clearfix">
                                         <a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}"><img src="{{ asset(post.getWebPath | imagine_filter('my_main_page_advice'))}}" alt="placeholder"></a>
                                         <div class="top-news-item-text">
                                             <h3 class="item-title"><a href="{{ path('la_net_la_net_news_id', { 'slug' : post.slug } ) }}">{{ post.title | length > 57 ? post.title|slice(0, 57) ~ '...' : post.title}}</a></h3>
                                             <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>
                                         </div>
                                     </article>
-                                     {% endfor %}  
+                                                                         {% endfor %}  
                                 </div>
                                 <div class="see-all-row">
                                     <a href="{{ path('la_net_la_net_news_list') }}" class="read-more">Смотреть всё</a>
@@ -49,8 +49,8 @@
                                     
                                     {% for event in EventsSideBar %} 
                                     <article class="top-news-item is-horizontal clearfix">
-                                        <a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}"><img src="{{ asset(event.getWebPath)}}" alt="placeholder"></a>
-                                        <div class="item-title-upcoming-events"><h3 class="item-title"><a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}">{{ event.title | length > 53 ? event.title|slice(0, 53) ~ '...' : event.title}}</a></h3></div>
+                                        <a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}"><img src="{{ asset(event.getWebPath | imagine_filter('my_main_page_advice')) }}" alt="placeholder"></a>
+                                        <div class="item-title-upcoming-events"><h3 class="item-title"><a href="{{ path('la_net_la_net_upcoming_events_id', {'slug': event.slug})}}">{{ event.title | length > 51 ? event.title|slice(0, 51) ~ '...' : event.title}}</a></h3></div>
                                             <div class="top-news-date">{{ event.created | date ('d.m.Y')}}</div>
                                     </article>
                                      {% endfor %}
