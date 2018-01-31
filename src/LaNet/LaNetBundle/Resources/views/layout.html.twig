@@ -135,7 +135,7 @@
     </section>
         {% endif %}    
         
-        {% if brandCat %}             
+        {#{% if brandCat %}             
             <section class="holder">
             <h2 class="section-title"> <a href="{{ path('la_net_la_net_brands_list')}}">Каталог брендов</a></h2>
             <div class="row-fluid">
@@ -146,18 +146,14 @@
                             <article class="top-news-item">
                                 <a href="{{ path('la_net_la_net_brands_list', { 'category' : post.id })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"></a>
                                    <h3 class="item-title"><a href="{{ path('la_net_la_net_brands_list', { 'category' : post.id })}}">{{ post.name}}</a></h3>
-                               
-                                {#<a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}"><img src="{{ asset(post.getWebPath  | imagine_filter('my_main_page_event_small'))}}"></a>
-                                <h3 class="item-title"><a href="{{ path('la_net_la_net_tests_id', { 'slug' : post.slug })}}">{{ post.title}}</a></h3>
-                               {# <div class="top-news-date">{{ post.updated | date ('d.m.Y')}}</div>#}
-                            </article>
+                              </article>
                            {% endfor %}     
                         </div>
                     </div>
                 </section>  
             </div>
     </section>
-        {% endif %}   
+        {% endif %}#}   
         
         
             
