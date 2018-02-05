@@ -46,7 +46,7 @@
                                         <h3 class="media-slider-title"><a href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}">{{ event.title}}</a></h3>
                                         <p class="media-slider-text">{{ event.description}}</p>
                                         <div class="media-slider-bottom clearfix">
-                                            <div class="media-slider-date">{{ event.updated | date ('d.m.Y')}}</div>
+                                            <div class="media-slider-date">{{ event.date | date ('d.m.Y')}}</div>
                                             <div class="media-slider-share event-modal-btn" data-toggle="modal" data-target="#myModalEvent">
                                                 <i class="icon icon-share"></i><a href="{{ path('la_net_la_net_events_id', { 'slug' : event.slug } ) }}">Поделиться</a>
                                             </div>

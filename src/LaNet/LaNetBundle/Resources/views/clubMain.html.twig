@@ -77,10 +77,10 @@
                       {% if master.category is not empty %}
                            <div class="masters-item-profession">{% for item in master.category %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
                        {% endif %}
-                      {% if (master.location and master.location.locality) %}
+                      {#{% if (master.location and master.location.locality) %}
                           
                               <div class="masters-item-profession">{{ master.location.locality }} {{ master.location.administrativearea }}</div>
-                        {% endif %}
+                        {% endif %}#}
                   </div>
                 {% else %}
                   Мастеров нет

@@ -172,10 +172,10 @@
                 </script>
                 {{ form_widget(form.userInfo.location.country) }}
                 {{ form_widget(form.userInfo.location.administrative_area) }}
-                {{ form_widget(form.userInfo.location.locality) }}
                 {{ form_widget(form.userInfo.location.sublocality) }}
                 {{ form_widget(form.userInfo.location.route) }}
                 {{ form_widget(form.userInfo.location.streetNumber) }}#}
+                {{ form_widget(form.userInfo.location.locality) }}
                 {{ form_widget(form.userInfo.location.lang) }}
                 {{ form_widget(form.userInfo.location.lat) }}
                 </div>
@@ -318,10 +318,20 @@
             $.ajax({
                 url         : "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&address="+addressInput+"&sensor=false&language=ru",
                 success     : function(data) {
-                    
+                  
                     $('#lanet_master_profile_userInfo_location_lat').val(data.results[0].geometry.location.lat);
                     $('#lanet_master_profile_userInfo_location_lang').val(data.results[0].geometry.location.lng);
                     
+                    if (data.results[0].address_components[3].types[0] == "locality"){
+                        var city = data.results[0].address_components[3].long_name;
+                        $.ajax({
+                            url         : "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCNnUyeCiwNqfCJGhYm3-7q5YkyDklTZOM&address="+city+"&sensor=false&language=ru",
+                            success     : function(data) {
+                                $('#lanet_master_profile_userInfo_location_locality').val(data.results[0].address_components[0].long_name);
+                            }
+                        }); 
+                    }
+                     
                 }
             });
           }); 

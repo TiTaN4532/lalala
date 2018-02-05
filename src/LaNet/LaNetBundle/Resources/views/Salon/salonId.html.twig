@@ -107,19 +107,24 @@
               <div class="col col_2_of_3">{{ salon.description }}</div>
         </div>
    {% endif %}
-  {% if (salon.location and salon.location.locality) %}
-    <div class="row clear">
-      <div class="col col_1_of_3 blue">адрес:</div>
-      <div class="col col_2_of_3">{{ salon.location.locality }}, {{ salon.location.sublocality }}, {{ salon.location.route }} {{ salon.location.streetNumber }}</div>
-    </div> 
-    {% else %}
-        {% if (salon.location and salon.location.address) %}
+   
+   
+    {% if (salon.location and salon.location.address) %}
             <div class="row clear">
               <div class="col col_1_of_3 blue">адрес:</div>
               <div class="col col_2_of_3">{{ salon.location.address }}</div>
             </div>  
+    {% else %}
+   {% if (salon.location and salon.location.route) %}
+    <div class="row clear">
+      <div class="col col_1_of_3 blue">адрес:</div>
+      <div class="col col_2_of_3">{{ salon.location.locality }}, {% if (salon.location.sublocality) %}{{ salon.location.sublocality }},{% endif %} {{ salon.location.route }} {{ salon.location.streetNumber }}</div>
+    </div> 
     {% endif %}
+       
   {% endif %}
+   
+  
   {% if salon.schedule is not empty %}              
     <div class="row clear">
       <div class="col col_1_of_3 blue">график работы:</div>

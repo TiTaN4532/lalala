@@ -31,7 +31,7 @@
                     <tr>
                         <td>{{ post.title }}</td>
                         <td>{{ post.isdraft ? 'Скрыто' : 'Опубликовано'}}</td>
-                        <td>{{ post.created|date("l j-F-y g:ia") }}</td>
+                        <td>{{ post.date ? post.date|date("l j-F-y g:ia") : '-' }}</td>
                         <td><a href="{{ path('la_net_admin_events_delete', {'id': post.id}) }}" class="delete-post">Удалить</a></td>
                         <td><a href="{{ path('la_net_admin_events_edit', {'id': post.id}) }}">Редактировать</a></td>
                         <td><a href="{{ path('la_net_admin_ajax_inTop_event', {'id': post.id} ) }}" class="update-post button">{% if post.inTop == NULL %}Вывести в ТОП{% else %}Удалить из ТОП{% endif %}</a></td>
