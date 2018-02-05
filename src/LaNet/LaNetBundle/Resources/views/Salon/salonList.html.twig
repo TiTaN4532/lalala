@@ -28,14 +28,14 @@
             <option value="{{ item.id }}" {% if app.request.query.get('category') == item.id  %} selected="selected"{% endif %}>{{ item.name }}</option>
           {% endfor %}
         </select>
-        {% if cities | length %}
+       {#{% if cities | length %}
             <select name="city"  class="half">
               <option value="0">Выберите город</option>
               {% for item in cities %}
                   <option value="{{ item['locality'] }}" {% if app.request.query.get('city') ==  item['locality']  %} selected="selected"{% endif %}>{{ item['locality'] }}</option>
               {% endfor %}
             </select>
-        {% endif %}
+        {% endif %}#}
   </div> 
 
  </div>     

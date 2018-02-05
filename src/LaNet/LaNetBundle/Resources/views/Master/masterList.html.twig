@@ -34,14 +34,14 @@
             <option value="salon" {% if app.request.query.get('service-type') == 'salon' %} selected="selected"{% endif %}>В салоне</option>
             <option value="salon-home" {% if app.request.query.get('service-type') == 'salon-home' %} selected="selected"{% endif %}>Выезд на дом</option>
         </select>#}
-        {% if cities | length %}
+        {#{% if cities | length %}
             <select name="city"  class="half">
               <option value="0">Выберите город</option>
               {% for item in cities %}
                   <option value="{{ item['locality'] }}" {% if app.request.query.get('city') ==  item['locality']  %} selected="selected"{% endif %}>{{ item['locality'] }}</option>
               {% endfor %}
             </select>
-        {% endif %}
+        {% endif %}#}
   </div> 
 
  </div>     
